@@ -1,0 +1,29 @@
+import { connectRouter } from 'connected-react-router';
+import layout from 'modules/layout/layoutReducers';
+import auth from 'modules/auth/authReducers';
+import iam from 'modules/iam/iamReducers';
+import auditLog from 'modules/auditLog/auditLogReducers';
+import settings from 'modules/settings/settingsReducers';
+import patient from 'modules/patient/patientReducers';
+import cased from 'modules/cased/casedReducers';
+import module from 'modules/module/moduleReducers';
+import task from 'modules/task/taskReducers';
+import audio from 'modules/audio/audioReducers';
+import document from 'modules/document/documentReducers';
+import { combineReducers } from 'redux';
+
+export default (history) =>
+  combineReducers({
+    router: connectRouter(history),
+    layout,
+    auth,
+    iam,
+    auditLog,
+    settings,
+    patient,
+    cased,
+    module,
+    task,
+    audio,
+    document,
+  });
