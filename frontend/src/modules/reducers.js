@@ -9,6 +9,7 @@ import cased from 'modules/cased/casedReducers';
 import module from 'modules/module/moduleReducers';
 import task from 'modules/task/taskReducers';
 import audio from 'modules/audio/audioReducers';
+import record from 'modules/record/recordReducers';
 import document from 'modules/document/documentReducers';
 import { combineReducers } from 'redux';
 
@@ -25,5 +26,6 @@ export default (history) =>
     module,
     task,
     audio,
+    record,
     document,
   });

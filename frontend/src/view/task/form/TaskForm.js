@@ -15,6 +15,7 @@ import InputNumberFormItem from 'view/shared/form/items/InputNumberFormItem';
 import SwitchFormItem from 'view/shared/form/items/SwitchFormItem';
 import RadioFormItem from 'view/shared/form/items/RadioFormItem';
 import SelectFormItem from 'view/shared/form/items/SelectFormItem';
+import TaskAutocompleteFormItem from 'view/task/autocomplete/TaskAutocompleteFormItem';
 import ModuleAutocompleteFormItem from 'view/module/autocomplete/ModuleAutocompleteFormItem';
 import DocumentAutocompleteFormItem from 'view/document/autocomplete/DocumentAutocompleteFormItem';
 
@@ -31,6 +32,7 @@ class TaskForm extends Component {
     fields.complexityLevel,
     fields.type,
     fields.owner,
+    fields.next,
     fields.elements,
   ]);
 
@@ -118,6 +120,13 @@ class TaskForm extends Component {
                     }),
                   )}
                   required={fields.type.required}
+                />
+                <TaskAutocompleteFormItem
+                  name={fields.next.name}
+                  label={fields.next.label}
+                  required={fields.next.required}
+                  form={form}
+                  mode="multiple"
                 />
                 <ModuleAutocompleteFormItem
                   name={fields.owner.name}

@@ -19,6 +19,8 @@ class Roles {
       moduleViewer: 'moduleViewer',
       taskEditor: 'taskEditor',
       taskViewer: 'taskViewer',
+      recordEditor: 'recordEditor',
+      recordViewer: 'recordViewer',
       audioEditor: 'audioEditor',
       audioViewer: 'audioViewer',
       documentEditor: 'documentEditor',

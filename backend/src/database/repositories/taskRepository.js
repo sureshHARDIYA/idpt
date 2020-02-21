@@ -149,6 +149,21 @@ class TaskRepository {
   }
 
   /**
+   * Finds the Task and its relations.
+   *
+   * @param {string} ids
+   * @param {Object} [options]
+   */
+  async findByIds(ids, options) {
+    return MongooseRepository.wrapWithSessionIfExists(
+      Task.find({ _id: { $in: ids } })
+      .populate('owner')
+      .populate('elements'),
+      options,
+    );
+  }
+
+  /**
    * Finds the Tasks based on the query.
    * See https://mongoosejs.com/docs/queries.html to learn how
    * to customize the queries.

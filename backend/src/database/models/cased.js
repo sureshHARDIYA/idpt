@@ -62,6 +62,35 @@ CasedSchema.set('toObject', {
   getters: true,
 });
 
+CasedSchema.statics.getRoadmap =  async function(id) {
+  const cased =  await this.findOne({ _id: id }, 'modules')
+    .populate({
+      path: 'modules',
+      populate: {
+        path: 'tasks',
+        populate: {
+          path: 'tasks',
+        }
+      }
+    });
+
+  const children = (items, parentIndex) => (items || []).map((item, index) => ({
+    host: item.id,
+    state: !parentIndex && !index ? 'ACTIVATE' : 'LOCKED',
+    children: children(item.tasks, 1),
+    completionRequired: item.completionRequired,
+  }))
+
+  const modules = (cased || {}).modules || []
+
+  return modules.map((item, index) => ({
+    host: item.id,
+    state: index ? 'LOCKED' : 'ACTIVATE',
+    children: children(item.tasks, index),
+    completionRequired: item.completionRequired,
+  }))
+}
+
 const Cased = database.model('cased', CasedSchema);
 
 module.exports = Cased;

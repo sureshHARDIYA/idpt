@@ -3,6 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "build:production": "cd ./frontend && npm install && npm run build:production && rm -rf ./node_modules && cd ../backend && npm install",
-    "start:production": "cd ./backend && npm run start:production"
+    "start:production": "cd ./backend && npm run start:production",
+    "dev": "cd ./frontend && npm run start",
+    "server": "cd ./backend && npm run start"
   }
 }

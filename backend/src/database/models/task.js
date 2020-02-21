@@ -53,6 +53,10 @@ const TaskSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: 'module',
     }],
+    next: [{
+      type: Schema.Types.ObjectId,
+      ref: 'task',
+    }],
     elements: [{
       type: Schema.Types.ObjectId,
       ref: 'document',

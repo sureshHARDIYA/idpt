@@ -274,7 +274,6 @@ const privateRoutes = [
     permissionRequired: permissions.audioRead,
     exact: true,
   },
-
   {
     path: '/document',
     loader: () => import('view/document/list/DocumentListPage'),
@@ -311,6 +310,44 @@ const privateRoutes = [
     loader: () => import('view/document/view/DocumentViewPage'),
     menu: false,
     permissionRequired: permissions.documentRead,
+    exact: true,
+  },
+  {
+    path: '/record',
+    loader: () => import('view/record/list/RecordListPage'),
+    permissionRequired: permissions.recordRead,
+    exact: true,
+    icon: 'right',
+    label: i18n('entities.record.menu'),
+    menu: true,
+  },
+  {
+    path: '/record/new',
+    loader: () => import('view/record/form/RecordFormPage'),
+    menu: false,
+    permissionRequired: permissions.recordCreate,
+    exact: true,
+  },
+  {
+    path: '/record/importer',
+    loader: () =>
+      import('view/record/importer/RecordImporterPage'),
+    menu: false,
+    permissionRequired: permissions.recordImport,
+    exact: true,
+  },
+  {
+    path: '/record/:id/edit',
+    loader: () => import('view/record/form/RecordFormPage'),
+    menu: false,
+    permissionRequired: permissions.recordEdit,
+    exact: true,
+  },
+  {
+    path: '/record/:id',
+    loader: () => import('view/record/view/RecordViewPage'),
+    menu: false,
+    permissionRequired: permissions.recordRead,
     exact: true,
   },
 ];

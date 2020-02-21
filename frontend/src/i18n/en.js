@@ -167,13 +167,14 @@ const en = {
       },
       fields: {
         id: 'Id',
-        'owner': 'Owner',
-        'name': 'Name',
-        'description': 'Description',
-        'status': 'Status',
-        'tasks': 'Tasks',
-        'featuredImage': 'FeaturedImage',
-        'prerequisite': 'Prerequisite',
+        owner: 'Owner',
+        name: 'Name',
+        next: 'Next task',
+        description: 'Description',
+        status: 'Status',
+        tasks: 'Tasks',
+        featuredImage: 'FeaturedImage',
+        prerequisite: 'Prerequisite',
         createdAt: 'Created at',
         updatedAt: 'Updated at',
         createdAtRange: 'Created at',
@@ -237,6 +238,7 @@ const en = {
         'type': 'Type',
         'owner': 'Owner',
         'elements': 'Elements',
+        next: 'Next task',
         createdAt: 'Created at',
         updatedAt: 'Updated at',
         createdAtRange: 'Created at',
@@ -364,6 +366,68 @@ const en = {
       importer: {
         title: 'Import Documents',
         fileName: 'document_import_template',
+        hint:
+          'Files/Images columns must be the URLs of the files separated by space.',
+      },
+    },
+
+    record: {
+      name: 'record',
+      label: 'Records',
+      menu: 'Records',
+      exporterFileName: 'record_export',
+      list: {
+        menu: 'Records',
+        title: 'Records',
+      },
+      create: {
+        success: 'Record saved successfully',
+      },
+      update: {
+        success: 'Record saved successfully',
+      },
+      destroy: {
+        success: 'Record deleted successfully',
+      },
+      destroyAll: {
+        success: 'Record(s) deleted successfully',
+      },
+      edit: {
+        title: 'Edit record',
+      },
+      fields: {
+        id: 'Id',
+        description: 'Description',
+        host: 'Cased',
+        state: 'State',
+        owner: 'Patient',
+        status: 'Status',
+        createdAt: 'Created at',
+        updatedAt: 'Updated at',
+        createdAtRange: 'Created at',
+        roadmap: {
+          host: 'Module',
+          children: 'Task',
+          completionRequired: 'Completion Required',
+      }
+      },
+      enumerators: {
+        'status': {
+          'LOCKED': 'LOCKED',
+          'ACTIVE': 'ACTIVE',
+          'PROGRESS': 'PROGRESS',
+          'COMPLETE': 'COMPLETE',
+        },
+      },
+      new: {
+        title: 'New record',
+      },
+      view: {
+        title: 'View record',
+      },
+      importer: {
+        title: 'Import records',
+        fileName: 'record_import_template',
         hint:
           'Files/Images columns must be the URLs of the files separated by space.',
       },

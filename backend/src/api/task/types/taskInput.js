@@ -8,8 +8,9 @@ const schema = `
     completionRequired: Boolean
     complexityLevel: Int
     type: TaskTypeEnum
-    owner: [ String! ]
-    elements: [ String! ]
+    next: [String!]
+    owner: [String!]
+    elements: [String!]
   }
 `;
 

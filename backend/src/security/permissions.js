@@ -319,6 +319,70 @@ class Permissions {
         ],
       },
 
+      recordImport: {
+        id: 'recordImport',
+        allowedRoles: [
+          roles.owner,
+          roles.editor,
+          roles.entityEditor,
+          roles.recordEditor,
+        ],
+      },
+      recordCreate: {
+        id: 'recordCreate',
+        allowedRoles: [
+          roles.owner,
+          roles.editor,
+          roles.entityEditor,
+          roles.recordEditor,
+        ],
+        allowedStorageFolders: ['record'],
+      },
+      recordEdit: {
+        id: 'recordEdit',
+        allowedRoles: [
+          roles.owner,
+          roles.editor,
+          roles.entityEditor,
+          roles.recordEditor,
+        ],
+        allowedStorageFolders: ['record'],
+      },
+      recordDestroy: {
+        id: 'recordDestroy',
+        allowedRoles: [
+          roles.owner,
+          roles.editor,
+          roles.entityEditor,
+          roles.recordEditor,
+        ],
+        allowedStorageFolders: ['record'],
+      },
+      recordRead: {
+        id: 'recordRead',
+        allowedRoles: [
+          roles.owner,
+          roles.editor,
+          roles.viewer,
+          roles.entityEditor,
+          roles.recordEditor,
+          roles.recordViewer,
+        ],
+      },
+      recordAutocomplete: {
+        id: 'recordAutocomplete',
+        allowedRoles: [
+          roles.owner,
+          roles.editor,
+          roles.viewer,
+          roles.entityEditor,
+          roles.recordEditor,
+          roles.recordViewer,
+          roles.moduleEditor,
+          roles.moduleViewer,
+        ],
+      },
+
       audioImport: {
         id: 'audioImport',
         allowedRoles: [

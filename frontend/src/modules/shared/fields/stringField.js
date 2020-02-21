@@ -28,9 +28,11 @@ export default class StringField extends GenericField {
       sorter = true,
       dataIndex = this.name,
       render = defaultRender,
+      ...others
     } = overrides || {};
 
     return {
+      ...others,
       title,
       sorter,
       dataIndex,

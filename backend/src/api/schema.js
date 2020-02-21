@@ -41,6 +41,10 @@ const taskTypes = require('./task/types');
 const taskQueries = require('./task/queries');
 const taskMutations = require('./task/mutations');
 
+const recordTypes = require('./record/types');
+const recordQueries = require('./record/queries');
+const recordMutations = require('./record/mutations');
+
 const audioTypes = require('./audio/types');
 const audioQueries = require('./audio/queries');
 const audioMutations = require('./audio/mutations');
@@ -59,6 +63,7 @@ const types = [
   ...casedTypes,
   ...moduleTypes,
   ...taskTypes,
+  ...recordTypes,
   ...audioTypes,
   ...documentTypes,
 ].map((type) => type.schema);
@@ -72,6 +77,7 @@ const mutations = [
   ...casedMutations,
   ...moduleMutations,
   ...taskMutations,
+  ...recordMutations,
   ...audioMutations,
   ...documentMutations,
 ].map((mutation) => mutation.schema);
@@ -85,6 +91,7 @@ const queries = [
   ...casedQueries,
   ...moduleQueries,
   ...taskQueries,
+  ...recordQueries,
   ...audioQueries,
   ...documentQueries,
 ].map((query) => query.schema);

@@ -96,6 +96,10 @@ export default class TaskService {
               id
               name
             }
+            next {
+              id
+              name
+            }
             elements {
               id
               contentHTML

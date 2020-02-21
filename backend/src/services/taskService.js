@@ -96,6 +96,15 @@ module.exports = class TaskService {
   }
 
   /**
+   * Finds the Task by Ids.
+   *
+   * @param {*} Ids
+   */
+  async findByIds(ids) {
+    return await this.repository.findByIds(ids);
+  }
+
+  /**
    * Finds Tasks for Autocomplete.
    *
    * @param {*} search

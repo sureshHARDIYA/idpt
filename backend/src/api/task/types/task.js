@@ -1,3 +1,5 @@
+const TaskService = require('../../../services/taskService');
+
 const schema = `
   type Task {
     id: String!
@@ -11,12 +13,23 @@ const schema = `
     type: TaskTypeEnum
     owner: [ Module! ]
     elements: [ Document! ]
+    next: [Task]
     createdAt: DateTime
     updatedAt: DateTime
   }
 `;
 
-const resolver = {};
+const resolver = {
+  Task: {
+    next: (task, _, context) => {
+      if (task.next && task.next[0] && !task.next[0].name) {
+        return new TaskService(context).findByIds(task.next);
+      }
+
+      return task.next;
+    }
+  }
+};
 
 exports.schema = schema;
 exports.resolver = resolver;

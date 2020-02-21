@@ -44,6 +44,7 @@ const fields = {
     { id: 'FEEDBACK', label: enumeratorLabel('type', 'FEEDBACK') },
   ],{}),
   owner: new RelationToManyField('owner', label('owner'), {}),
+  next: new RelationToManyField('next', label('next'), {}),
   elements: new RelationToManyField('elements', label('elements'), {}),
   createdAt: new DateTimeField(
     'createdAt',
