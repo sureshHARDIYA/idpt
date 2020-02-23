@@ -3,53 +3,57 @@
  * More about resolvers: https://www.apollographql.com/docs/graphql-tools/resolvers/
  */
 
-const mergeResolvers = require('./shared/utils/mergeGraphqlResolvers');
+const mergeResolvers = require('./shared/utils/mergeGraphqlResolvers')
 
-const sharedTypes = require('./shared/types');
+const sharedTypes = require('./shared/types')
 
-const settingsTypes = require('./settings/types');
-const settingsQueries = require('./settings/queries');
-const settingsMutations = require('./settings/mutations');
+const settingsTypes = require('./settings/types')
+const settingsQueries = require('./settings/queries')
+const settingsMutations = require('./settings/mutations')
 
-const authTypes = require('./auth/types');
-const authQueries = require('./auth/queries');
-const authMutations = require('./auth/mutations');
+const authTypes = require('./auth/types')
+const authQueries = require('./auth/queries')
+const authMutations = require('./auth/mutations')
 
-const iamTypes = require('./iam/types');
-const iamQueries = require('./iam/queries');
-const iamMutations = require('./iam/mutations');
+const iamTypes = require('./iam/types')
+const iamQueries = require('./iam/queries')
+const iamMutations = require('./iam/mutations')
 
-const auditLogTypes = require('./auditLog/types');
-const auditLogQueries = require('./auditLog/queries');
-const auditLogMutations = require('./auditLog/mutations');
+const auditLogTypes = require('./auditLog/types')
+const auditLogQueries = require('./auditLog/queries')
+const auditLogMutations = require('./auditLog/mutations')
 
-const patientTypes = require('./patient/types');
-const patientQueries = require('./patient/queries');
-const patientMutations = require('./patient/mutations');
+const patientTypes = require('./patient/types')
+const patientQueries = require('./patient/queries')
+const patientMutations = require('./patient/mutations')
 
-const casedTypes = require('./cased/types');
-const casedQueries = require('./cased/queries');
-const casedMutations = require('./cased/mutations');
+const casedTypes = require('./cased/types')
+const casedQueries = require('./cased/queries')
+const casedMutations = require('./cased/mutations')
 
-const moduleTypes = require('./module/types');
-const moduleQueries = require('./module/queries');
-const moduleMutations = require('./module/mutations');
+const moduleTypes = require('./module/types')
+const moduleQueries = require('./module/queries')
+const moduleMutations = require('./module/mutations')
 
-const taskTypes = require('./task/types');
-const taskQueries = require('./task/queries');
-const taskMutations = require('./task/mutations');
+const taskTypes = require('./task/types')
+const taskQueries = require('./task/queries')
+const taskMutations = require('./task/mutations')
 
-const recordTypes = require('./record/types');
-const recordQueries = require('./record/queries');
-const recordMutations = require('./record/mutations');
+const recordTypes = require('./record/types')
+const recordQueries = require('./record/queries')
+const recordMutations = require('./record/mutations')
 
-const audioTypes = require('./audio/types');
-const audioQueries = require('./audio/queries');
-const audioMutations = require('./audio/mutations');
+const audioTypes = require('./audio/types')
+const audioQueries = require('./audio/queries')
+const audioMutations = require('./audio/mutations')
 
-const documentTypes = require('./document/types');
-const documentQueries = require('./document/queries');
-const documentMutations = require('./document/mutations');
+const videoTypes = require('./video/types')
+const videoQueries = require('./video/queries')
+const videoMutations = require('./video/mutations')
+
+const documentTypes = require('./document/types')
+const documentQueries = require('./document/queries')
+const documentMutations = require('./document/mutations')
 
 const types = [
   ...sharedTypes,
@@ -63,8 +67,9 @@ const types = [
   ...taskTypes,
   ...recordTypes,
   ...audioTypes,
-  ...documentTypes,
-].map((type) => type.resolver);
+  ...videoTypes,
+  ...documentTypes
+].map(type => type.resolver)
 
 const queries = [
   ...iamQueries,
@@ -77,8 +82,9 @@ const queries = [
   ...taskQueries,
   ...recordQueries,
   ...audioQueries,
-  ...documentQueries,
-].map((query) => query.resolver);
+  ...videoQueries,
+  ...documentQueries
+].map(query => query.resolver)
 
 const mutations = [
   ...iamMutations,
@@ -91,7 +97,8 @@ const mutations = [
   ...taskMutations,
   ...recordMutations,
   ...audioMutations,
-  ...documentMutations,
-].map((mutation) => mutation.resolver);
+  ...videoMutations,
+  ...documentMutations
+].map(mutation => mutation.resolver)
 
-module.exports = mergeResolvers(types, queries, mutations);
+module.exports = mergeResolvers(types, queries, mutations)

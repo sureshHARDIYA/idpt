@@ -323,6 +323,63 @@ const en = {
       },
     },
 
+    video: {
+      name: 'video',
+      label: 'Video',
+      menu: 'Video',
+      exporterFileName: 'video_export',
+      list: {
+        menu: 'Video',
+        title: 'Video',
+      },
+      create: {
+        success: 'Video saved successfully',
+      },
+      update: {
+        success: 'Video saved successfully',
+      },
+      destroy: {
+        success: 'Video deleted successfully',
+      },
+      destroyAll: {
+        success: 'Video(s) deleted successfully',
+      },
+      edit: {
+        title: 'Edit Video',
+      },
+      fields: {
+        id: 'Id',
+        'url': 'Url',
+        'videoLengthRange': 'videoLength',
+        'videoLength': 'videoLength',
+        'name': 'Evaluation Criteria Field',
+        'operator': 'Evaluation Operator',
+        'requiredWatchTime': 'Required Watch Time',
+        createdAt: 'Created at',
+        updatedAt: 'Updated at',
+        createdAtRange: 'Created at',
+      },
+      enumerators: {
+        evaluationCriteria: {
+          'GREATERTHAN': 'GREATER THAN (>)',
+          'LESSTHAN': 'LESS THAN (<)',
+          'EQUALS': 'EQUALS (==)',
+        },
+      },
+      new: {
+        title: 'New Video',
+      },
+      view: {
+        title: 'View Video',
+      },
+      importer: {
+        title: 'Import Video',
+        fileName: 'video_import_template',
+        hint:
+          'Files/Images columns must be the URLs of the files separated by space.',
+      },
+    },
+
     document: {
       name: 'document',
       label: 'Documents',
