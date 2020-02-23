@@ -9,7 +9,7 @@ const schema = `
   }
 
   type Criteria {
-    name: String!
+    name: String
     requiredWatchTime: Int
     operator: OperatoreEnum
   }

@@ -26,7 +26,16 @@ class VideoForm extends Component {
 
   handleSubmit = (values) => {
     const { id, ...data } = this.schema.cast(values);
-    this.props.onSubmit(id, data);
+    const newPayload = {
+      url: data.url,
+      videoLength: data.videoLength,
+      evaluationCriteria: {
+        name: data.evaluationCriteriaName,
+        operator: data.evaluationCriteriaOperator,
+        requiredWatchTime: data.evaluationCriteriaRequiredWatchTime
+      },
+    }
+    this.props.onSubmit(id, newPayload);
   };
 
   initialValues = () => {

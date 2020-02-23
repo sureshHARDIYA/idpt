@@ -6,7 +6,7 @@ const schema = `
   }
 
   input VideoCriteria {
-    name: String!
+    name: String
     requiredWatchTime: Int
     operator: OperatoreEnum
   }

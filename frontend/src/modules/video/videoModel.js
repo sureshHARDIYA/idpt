@@ -21,9 +21,9 @@ const fields = {
   videoLength: new IntegerField('videoLength', label('videoLength'), {
     min: 1
   }),
-  evaluationname: new StringField('evaluationCriteria.name', label('name'), {}),
+  evaluationname: new StringField('evaluationCriteriaName', label('name'), {}),
   evaluationoperator: new EnumeratorField(
-    'evaluationCriteria.operator',
+    'evaluationCriteriaOperator',
     label('operator'),
     [
       {
@@ -39,7 +39,7 @@ const fields = {
     {}
   ),
   requiredWatchTime: new IntegerField(
-    'evaluationCriteria.requiredWatchTime',
+    'evaluationCriteriaRequiredWatchTime',
     label('requiredWatchTime'),
     { min: 1 }
   ),
