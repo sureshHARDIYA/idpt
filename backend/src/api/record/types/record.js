@@ -11,6 +11,7 @@ const schema = `
   }
 
   type RecorcRoadmap {
+    id: String!
     host: Module!
     state: StateEnum!
     completionRequired: Boolean
@@ -18,6 +19,7 @@ const schema = `
   }
 
   type RecorcRoadmapContainer {
+    id: String!
     host: Task!
     state: StateEnum!
     completionRequired: Boolean
@@ -26,8 +28,13 @@ const schema = `
 `;
 
 const resolver = {
+  RecorcRoadmap: {
+    id: (instance) => instance._id,
+    children: (instance) => instance.children && instance.children.length > 0 ? instance.children: null
+  },
   RecorcRoadmapContainer: {
-    children: (parent) => parent.children && parent.children.length > 0 ? parent.children: null
+    id: (instance) => instance._id,
+    children: (instance) => instance.children && instance.children.length > 0 ? instance.children: null
   }
 };
 

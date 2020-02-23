@@ -133,6 +133,10 @@ export default class IamService {
               publicUrl
               privateUrl
             }
+            patient {
+              id
+              name
+            }
           }
         }
       `,

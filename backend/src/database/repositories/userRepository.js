@@ -28,6 +28,7 @@ module.exports = class UserRepository {
       [
         {
           email: data.email,
+          patient: data.patient,
           firstName: data.firstName || null,
           lastName: data.lastName || null,
           fullName: data.fullName || null,
@@ -73,6 +74,7 @@ module.exports = class UserRepository {
       [
         {
           email: data.email,
+          patient: data.patient,
           password: data.password,
           firstName: data.firstName,
           fullName: data.fullName,
@@ -165,6 +167,7 @@ module.exports = class UserRepository {
       User.updateOne(
         { _id: id },
         {
+          patient: data.patient,
           firstName: data.firstName || null,
           lastName: data.lastName || null,
           fullName: data.fullName || null,
@@ -390,6 +393,7 @@ module.exports = class UserRepository {
       User.updateOne(
         { _id: id },
         {
+          patient: data.patient,
           firstName: data.firstName || null,
           lastName: data.lastName || null,
           fullName: data.fullName || null,

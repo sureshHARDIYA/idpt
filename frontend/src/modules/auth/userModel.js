@@ -10,6 +10,7 @@ import GenericField from 'modules/shared/fields/genericField';
 import * as yup from 'yup';
 import Roles from 'security/roles';
 import EnumeratorField from 'modules/shared/fields/enumeratorField';
+import RelationToOneField from 'modules/shared/fields/relationToOneField';
 
 class RolesField extends StringArrayField {
   constructor(name, label, config) {
@@ -134,6 +135,7 @@ const fields = {
     required: true,
   }),
   roles: new RolesField('roles', label('roles')),
+  patient: new RelationToOneField('patient', label('patient'), {}),
   createdAt: new DateTimeField(
     'createdAt',
     label('createdAt'),

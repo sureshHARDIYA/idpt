@@ -92,7 +92,7 @@ module.exports = class RecordService {
    * @param {*} id
    */
   async findById(id) {
-    return this.repository.findById(id);
+    return this.repository.findById(id, this.currentUser);
   }
 
   /**

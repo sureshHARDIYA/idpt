@@ -99,14 +99,6 @@ class CasedForm extends Component {
                   form={form}
                   mode="multiple"
                 />
-                <PatientAutocompleteFormItem
-                  name={fields.patients.name}
-                  label={fields.patients.label}
-                  required={fields.patients.required}
-                  showCreate={!this.props.modal}
-                  form={form}
-                  mode="multiple"
-                />
                 <DatePickerFormItem
                   name={fields.availableFrom.name}
                   label={fields.availableFrom.label}

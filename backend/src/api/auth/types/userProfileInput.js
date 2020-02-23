@@ -3,6 +3,7 @@ const schema = `
     firstName: String
     lastName: String
     phoneNumber: String
+    patient: String
     avatars: [FileInput!]
   }
 `;

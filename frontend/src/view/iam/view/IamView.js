@@ -7,6 +7,7 @@ import ViewWrapper from 'view/shared/styles/ViewWrapper';
 import TextViewItem from 'view/shared/view/TextViewItem';
 import CustomViewItem from 'view/shared/view/CustomViewItem';
 import ImagesViewItem from 'view/shared/view/ImagesViewItem';
+import PatientViewItem from 'view/patient/view/PatientViewItem';
 
 const { fields } = model;
 
@@ -63,6 +64,11 @@ class IamView extends Component {
               </Tag>
             );
           }}
+        />
+
+        <PatientViewItem
+          label={fields.patient.label}
+          value={fields.patient.forView(user.patient)}
         />
 
         <CustomViewItem

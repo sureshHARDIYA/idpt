@@ -73,9 +73,7 @@ class RecordRepository {
       options,
     );
 
-    const record = await this.findById(id, options);
-
-    return record;
+    return await this.findById(id, options);
   }
 
   /**
@@ -118,7 +116,17 @@ class RecordRepository {
    * @param {Object} [options]
    */
   async findById(id, options) {
-    return MongooseRepository.wrapWithSessionIfExists(
+    const currentUser = MongooseRepository.getCurrentUser(
+      options,
+    );
+
+    const record = await MongooseRepository.wrapWithSessionIfExists(Record.findById(id), options)
+
+    if (['ACTIVATE'].includes(record.state) && record.owner === currentUser.patient) {
+      return this.update(record.id, { state: 'PROGRESS' }, options)
+    }
+
+    return await MongooseRepository.wrapWithSessionIfExists(
       Record.findById(id)
       .populate('owner')
       .populate('host')

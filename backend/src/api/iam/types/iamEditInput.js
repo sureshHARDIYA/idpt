@@ -6,6 +6,7 @@ const schema = `
     phoneNumber: String
     avatars: [FileInput!]
     roles: [ String! ]!
+    patient: String
   }
 `;
 

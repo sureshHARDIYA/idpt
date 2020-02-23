@@ -629,6 +629,7 @@ const en = {
       roles: 'Roles',
       createdAtRange: 'Created at',
       password: 'Password',
+      patient: 'Patient',
       rememberMe: 'Remember me',
     },
     enabled: 'Enabled',

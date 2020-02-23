@@ -97,6 +97,7 @@ export default class RecordService {
               name
             }
             roadmap {
+              id
               host {
                 id
                 name
@@ -104,6 +105,7 @@ export default class RecordService {
               state
               completionRequired
               children {
+                id
                 host {
                   id
                   name
@@ -113,9 +115,11 @@ export default class RecordService {
                     name
                   }
                 }
+                __typename
                 state
                 completionRequired
                 children {
+                  id
                   host {
                     id
                     name
@@ -127,8 +131,10 @@ export default class RecordService {
                   }
                   state
                   completionRequired
+                  __typename
                 }
               }
+              __typename
             }
           }
         }

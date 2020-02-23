@@ -98,10 +98,6 @@ export default class CasedService {
               id
               name
             }
-            patients {
-              id
-              name
-            }
             availableFrom
             createdAt
             updatedAt
@@ -146,10 +142,6 @@ export default class CasedService {
                 privateUrl
               }
               modules {
-                id
-                name
-              }
-              patients {
                 id
                 name
               }

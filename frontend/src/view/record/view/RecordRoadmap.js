@@ -3,6 +3,7 @@ import { i18n } from 'i18n';
 import model from 'modules/record/recordModel';
 import React, { Component } from 'react';
 import TableWrapper from 'view/shared/styles/TableWrapper';
+import { Link } from 'react-router-dom';
 
 const { fields } = model;
 
@@ -16,9 +17,21 @@ class RecordListTable extends Component {
       render: (_, record) => record.completionRequired ? 'True' : 'False'
     }),
     fields['roadmap.state'].forTable({
-      width: 150,
+      width: 100,
       render: (_, record) => record.state
     }),
+    {
+      title: '',
+      dataIndex: '',
+      width: '80px',
+      render: (_, record) => record.__typename === 'RecorcRoadmapContainer' && (
+        <div className="table-actions">
+          <Link to={`/record-task/${record.id}`}>
+            {i18n('common.view')}
+          </Link>
+        </div>
+      ),
+    }
   ];
 
   render() {

@@ -11,6 +11,7 @@ import FormSchema from 'view/shared/form/formSchema';
 import FormWrapper, {
   tailFormItemLayout,
 } from 'view/shared/styles/FormWrapper';
+import PatientAutocompleteFormItem from 'view/patient/autocomplete/PatientAutocompleteFormItem';
 
 const { fields } = model;
 
@@ -21,6 +22,7 @@ const singleSchema = new FormSchema(fields.id, [
   fields.phoneNumber,
   fields.avatarsIam,
   fields.rolesRequired,
+  fields.patient,
 ]);
 
 const multipleSchema = new FormSchema(fields.id, [
@@ -30,6 +32,7 @@ const multipleSchema = new FormSchema(fields.id, [
   fields.phoneNumber,
   fields.avatarsIam,
   fields.rolesRequired,
+  fields.patient,
 ]);
 
 class IamNewForm extends Component {
@@ -123,6 +126,12 @@ class IamNewForm extends Component {
                   </React.Fragment>
                 )}
 
+                <PatientAutocompleteFormItem
+                  name={fields.patient.name}
+                  label={fields.patient.label}
+                  required={fields.patient.required}
+                  form={form}
+                />
                 <SelectFormItem
                   name={fields.rolesRequired.name}
                   label={fields.rolesRequired.label}

@@ -15,6 +15,7 @@ import FormWrapper, {
   tailFormItemLayout,
 } from 'view/shared/styles/FormWrapper';
 import FormSchema from 'view/shared/form/formSchema';
+import PatientAutocompleteFormItem from 'view/patient/autocomplete/PatientAutocompleteFormItem';
 
 const { fields } = model;
 
@@ -26,6 +27,7 @@ class IamEditForm extends Component {
     fields.phoneNumber,
     fields.avatarsIam,
     fields.roles,
+    fields.patient,
   ]);
 
   componentDidMount() {
@@ -37,7 +39,7 @@ class IamEditForm extends Component {
     const { dispatch, user } = this.props;
     const data = {
       id: user.id,
-      ...values,
+      ...this.schema.cast(values),
     };
     delete data.email;
     dispatch(actions.doUpdate(data));
@@ -100,7 +102,12 @@ class IamEditForm extends Component {
                   }}
                   max={fields.avatarsIam.max}
                 />
-
+                <PatientAutocompleteFormItem
+                  name={fields.patient.name}
+                  label={fields.patient.label}
+                  required={fields.patient.required}
+                  form={form}
+                />
                 <SelectFormItem
                   name={fields.roles.name}
                   label={fields.roles.label}

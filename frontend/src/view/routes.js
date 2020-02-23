@@ -350,6 +350,13 @@ const privateRoutes = [
     permissionRequired: permissions.recordRead,
     exact: true,
   },
+  {
+    path: '/record-task/:id',
+    loader: () => import('view/record/task/RecordTaskViewPage'),
+    menu: false,
+    permissionRequired: permissions.recordRead,
+    exact: true,
+  },
 ];
 
 const publicRoutes = [

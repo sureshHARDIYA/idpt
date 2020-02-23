@@ -37,6 +37,10 @@ const UserSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: 'user',
     },
+    patient: {
+      type: Schema.Types.ObjectId,
+      ref: 'patient',
+    },
     importHash: { type: String, maxlength: 255 },
   },
   { timestamps: true },
