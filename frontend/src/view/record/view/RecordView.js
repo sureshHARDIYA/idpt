@@ -31,16 +31,22 @@ class RecordView extends Component {
               label={fields.owner.label}
               value={fields.owner.forView(record.owner)}
             />
-          </Col>
-          <Col span={24} md={{ span: 12 }}>
+
             <TextViewItem
               label={fields.description.label}
               value={fields.description.forView(record.description)}
             />
 
+          </Col>
+          <Col span={24} md={{ span: 12 }}>
             <TextViewItem
               label={fields.status.label}
               value={fields.status.forView(record.status)}
+            />
+
+            <TextViewItem
+              label={fields.state.label}
+              value={fields.state.forView(record.state)}
             />
 
             <TextViewItem

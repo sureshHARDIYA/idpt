@@ -4,6 +4,11 @@ const schema = `
     owner: String!
     description: String
   }
+
+  input RoadmapOption {
+    task: String
+    module: String
+  }
 `;
 
 const resolver = {};

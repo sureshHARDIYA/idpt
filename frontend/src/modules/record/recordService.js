@@ -78,14 +78,15 @@ export default class RecordService {
     return response.data.recordImport;
   }
 
-  static async find(id) {
+  static async find(id, options) {
     const response = await graphqlClient.query({
       query: gql`
-        query RECORD_FIND($id: String!) {
-          recordFind(id: $id) {
+        query RECORD_FIND($id: String!, $options: RoadmapOption) {
+          recordFind(id: $id, options: $options) {
             id
             description
             status
+            state
             createdAt
             updatedAt
             host {
@@ -142,6 +143,7 @@ export default class RecordService {
 
       variables: {
         id,
+        options
       },
     });
 
@@ -168,6 +170,7 @@ export default class RecordService {
               id
               description
               status
+              state
               createdAt
               updatedAt
               host {
@@ -215,5 +218,60 @@ export default class RecordService {
     });
 
     return response.data.recordAutocomplete;
+  }
+
+  static async findModule(id) {
+    const response = await graphqlClient.query({
+      query: gql`
+        query RECORD_MODULE_FIND($id: String!) {
+          recordModuleFind(id: $id) {
+            id
+            host {
+              id
+              name
+            }
+            state
+            completionRequired
+            children {
+              id
+              host {
+                id
+                name
+
+                next {
+                  id
+                  name
+                }
+              }
+              __typename
+              state
+              completionRequired
+              children {
+                id
+                host {
+                  id
+                  name
+
+                  next {
+                    id
+                    name
+                  }
+                }
+                state
+                completionRequired
+                __typename
+              }
+            }
+            __typename
+          }
+        }
+      `,
+
+      variables: {
+        id,
+      },
+    });
+
+    return response.data.recordModuleFind;
   }
 }

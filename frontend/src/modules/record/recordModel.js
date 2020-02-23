@@ -35,6 +35,12 @@ const fields = {
     { id: 'INACTIVE', label: enumeratorLabel('status', 'INACTIVE') },
     { id: 'DRAFT', label: enumeratorLabel('status', 'DRAFT') },
   ],{}),
+  state: new EnumeratorField('state', label('state'), [
+    { id: 'LOCKED', label: enumeratorLabel('state', 'LOCKED') },
+    { id: 'ACTIVE', label: enumeratorLabel('state', 'ACTIVE') },
+    { id: 'PROGRESS', label: enumeratorLabel('state', 'PROGRESS') },
+    { id: 'COMPLETE', label: enumeratorLabel('state', 'COMPLETE') },
+  ], {}),
   'roadmap.host': new StringField('roadmap.host', label('roadmap.host'), {}),
   'roadmap.state': new EnumeratorField('state', label('state'), [
     { id: 'LOCKED', label: enumeratorLabel('state', 'LOCKED') },
@@ -43,7 +49,9 @@ const fields = {
     { id: 'COMPLETE', label: enumeratorLabel('state', 'COMPLETE') },
   ], {}),
   'roadmap.tasks': new StringField('roadmap.tasks', label('roadmap.children'), {}),
+  'roadmap.elements': new StringField('roadmap.elements', label('roadmap.elements'), {}),
   'roadmap.children': new StringField('roadmap.children', label('roadmap.children'), {}),
+  'roadmap.completion?': new StringField('roadmap.completion?', label('roadmap.completion?'), {}),
   'roadmap.completionRequired': new StringField('roadmap.completionRequired', label('roadmap.completionRequired'), {}),
 };
 

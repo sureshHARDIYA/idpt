@@ -4,7 +4,7 @@ const permissions = require('../../../security/permissions')
   .values;
 
 const schema = `
-  recordFind(id: String!): Record!
+  recordFind(id: String!, options: RoadmapOption): Record!
 `;
 
 const resolver = {
@@ -12,7 +12,7 @@ const resolver = {
     new PermissionChecker(context)
       .validateHas(permissions.recordRead);
 
-    return new RecordService(context).findById(args.id);
+    return new RecordService(context).findById(args.id, args.options);
   },
 };
 

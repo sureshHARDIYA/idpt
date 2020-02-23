@@ -70,6 +70,7 @@ const RecordSchema = new Schema(
       ],
       default: 'ACTIVE',
     },
+    state: stateEntry,
     roadmap: [RoadmapModuleSchema],
     createdBy: {
       type: Schema.Types.ObjectId,
@@ -97,7 +98,7 @@ RecordSchema.set('toObject', {
 });
 
 RecordSchema.methods.reloadStates = function () {
-  const states = this.roadmap.map((item) => item.stat);
+  const states = this.roadmap.map((item) => item.state);
 
   if (this.state === 'LOCKED' && states.includes('ACTIVATE')) {
     this.state = 'ACTIVATE';
@@ -107,7 +108,7 @@ RecordSchema.methods.reloadStates = function () {
     this.state = 'PROGRESS';
   }
 
-  if (!states.find(item => item !== 'COMPLETE')) {
+  if (this.state === 'PROGRESS' && states.length > 0 && !states.some(item => item !== 'COMPLETE')) {
     this.state = 'COMPLETE';
   }
 }

@@ -145,6 +145,7 @@ const en = {
       name: 'module',
       label: 'Modules',
       menu: 'Modules',
+      single: 'Module',
       exporterFileName: 'module_export',
       list: {
         menu: 'Modules',
@@ -204,6 +205,7 @@ const en = {
       name: 'task',
       label: 'Tasks',
       menu: 'Tasks',
+      single: 'Task',
       exporterFileName: 'task_export',
       list: {
         menu: 'Tasks',
@@ -408,15 +410,22 @@ const en = {
         roadmap: {
           host: 'Module',
           children: 'Task',
+          elements: 'Elements',
+          'completion?': 'Completion?',
           completionRequired: 'Completion Required',
       }
       },
       enumerators: {
-        'status': {
+        state: {
           'LOCKED': 'LOCKED',
           'ACTIVE': 'ACTIVE',
           'PROGRESS': 'PROGRESS',
           'COMPLETE': 'COMPLETE',
+        },
+        status: {
+          'ACTIVE': 'ACTIVE',
+          'INACTIVE': 'INACTIVE',
+          'DRAFT': 'DRAFT',
         },
       },
       new: {
@@ -430,6 +439,12 @@ const en = {
         fileName: 'record_import_template',
         hint:
           'Files/Images columns must be the URLs of the files separated by space.',
+      },
+      module: {
+        title: 'View Module',
+      },
+      task: {
+        title: 'View Task',
       },
     },
   },

@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const database = require('../database');
 const config = require('../../../config')();
 
@@ -280,5 +281,10 @@ module.exports = class MongooseRepository {
       ),
       options,
     );
+  }
+
+
+  static idFromString (id) {
+    return mongoose.Types.ObjectId(id)
   }
 };

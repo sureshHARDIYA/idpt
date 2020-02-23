@@ -3,54 +3,44 @@ import React, { Component } from 'react';
 import Spinner from 'view/shared/Spinner';
 import BoxWrapper from 'view/shared/styles/BoxWrapper';
 import TextViewItem from 'view/shared/view/TextViewItem';
-import CasedViewItem from 'view/cased/view/CasedViewItem';
-import PatientViewItem from 'view/patient/view/PatientViewItem';
+import TaskViewItem from 'view/task/view/TaskViewItem';
+import ModuleViewItem from 'view/module/view/ModuleViewItem';
 import { Row, Col } from 'antd';
 
 const { fields } = model;
 
-class RecordView extends Component {
+class RecordTaskView extends Component {
   renderView() {
-    const { record } = this.props;
+    const { task } = this.props;
 
     return (
       <BoxWrapper>
         <Row>
           <Col span={24} md={{ span: 12 }}>
-            <TextViewItem
-              label={fields.id.label}
-              value={fields.id.forView(record.id)}
+            <TaskViewItem
+              label={fields['roadmap.tasks'].label}
+              value={fields['roadmap.tasks'].forView(task.host)}
             />
 
-            <CasedViewItem
-              label={fields.host.label}
-              value={fields.host.forView(record.host)}
-            />
-
-            <PatientViewItem
-              label={fields.owner.label}
-              value={fields.owner.forView(record.owner)}
+            <ModuleViewItem
+              label={fields['roadmap.host'].label}
+              value={fields['roadmap.host'].forView(task.parent.host)}
             />
           </Col>
           <Col span={24} md={{ span: 12 }}>
             <TextViewItem
-              label={fields.description.label}
-              value={fields.description.forView(record.description)}
+              label={fields['roadmap.completion?'].label}
+              value={fields['roadmap.completion?'].forView(task.completionRequired ? 'True' : 'False')}
             />
 
             <TextViewItem
-              label={fields.status.label}
-              value={fields.status.forView(record.status)}
+              label={fields['roadmap.state'].label}
+              value={fields['roadmap.state'].forView(task.state)}
             />
 
             <TextViewItem
-              label={fields.createdAt.label}
-              value={fields.createdAt.forView(record.createdAt)}
-            />
-
-            <TextViewItem
-              label={fields.updatedAt.label}
-              value={fields.updatedAt.forView(record.updatedAt)}
+              label={fields['roadmap.elements'].label}
+              value={fields['roadmap.elements'].forView(task.elements)}
             />
           </Col>
         </Row>
@@ -59,9 +49,9 @@ class RecordView extends Component {
   }
 
   render() {
-    const { record, loading } = this.props;
+    const { task, loading } = this.props;
 
-    if (loading || !record) {
+    if (loading || !task) {
       return <Spinner />;
     }
 
@@ -69,4 +59,4 @@ class RecordView extends Component {
   }
 }
 
-export default RecordView;
+export default RecordTaskView;

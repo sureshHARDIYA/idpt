@@ -4,6 +4,7 @@ const schema = `
     host: Cased!
     owner: Patient!
     description: String
+    state: StateEnum!
     status: StatusEnum
     createdAt: DateTime
     updatedAt: DateTime

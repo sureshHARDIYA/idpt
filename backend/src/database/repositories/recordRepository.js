@@ -3,6 +3,7 @@ const MongooseQueryUtils = require('../utils/mongooseQueryUtils');
 const AuditLogRepository = require('./auditLogRepository');
 const Record = require('../models/record');
 const Cased = require('../models/cased');
+const _find = require('lodash/find');
 
 /**
  * Handles database operations for the Record.
@@ -122,8 +123,14 @@ class RecordRepository {
 
     const record = await MongooseRepository.wrapWithSessionIfExists(Record.findById(id), options)
 
-    if (['ACTIVATE'].includes(record.state) && record.owner === currentUser.patient) {
-      return this.update(record.id, { state: 'PROGRESS' }, options)
+    if (`${record.owner}` === `${currentUser.patient}`) {
+      if (['ACTIVATE'].includes(record.state)) {
+        await this.update(record.id, { state: 'PROGRESS' }, options);
+      }
+
+      // if (options && options.module && _find(record.roadmap, { id: options.module, state: 'ACTIVATE' })) {
+      //   await this.update({ _id: record._id, 'roadmap._id': MongooseRepository.idFromString(options.module) }, { $set: { 'roadmap.$.state': 'PROGRESS' }}, options);
+      // }
     }
 
     return await MongooseRepository.wrapWithSessionIfExists(

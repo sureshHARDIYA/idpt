@@ -337,6 +337,20 @@ const privateRoutes = [
     exact: true,
   },
   {
+    path: '/record/:id/module/:moduleId',
+    loader: () => import('view/record/module/RecordModuleViewPage'),
+    menu: false,
+    permissionRequired: permissions.recordRead,
+    exact: true,
+  },
+  {
+    path: '/record/:id/task/:taskId',
+    loader: () => import('view/record/task/RecordTaskViewPage'),
+    menu: false,
+    permissionRequired: permissions.recordRead,
+    exact: true,
+  },
+  {
     path: '/record/:id/edit',
     loader: () => import('view/record/form/RecordFormPage'),
     menu: false,
@@ -346,13 +360,6 @@ const privateRoutes = [
   {
     path: '/record/:id',
     loader: () => import('view/record/view/RecordViewPage'),
-    menu: false,
-    permissionRequired: permissions.recordRead,
-    exact: true,
-  },
-  {
-    path: '/record-task/:id',
-    loader: () => import('view/record/task/RecordTaskViewPage'),
     menu: false,
     permissionRequired: permissions.recordRead,
     exact: true,

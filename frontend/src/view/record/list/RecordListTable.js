@@ -39,6 +39,7 @@ class RecordListTable extends Component {
     }),
     fields.description.forTable(),
     fields.status.forTable(),
+    fields.state.forTable(),
     {
       title: '',
       dataIndex: '',
