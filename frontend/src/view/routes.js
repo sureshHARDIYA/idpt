@@ -274,6 +274,47 @@ const privateRoutes = [
     permissionRequired: permissions.audioRead,
     exact: true,
   },
+
+  {
+    path: '/video',
+    loader: () => import('view/video/list/VideoListPage'),
+    permissionRequired: permissions.audioRead,
+    exact: true,
+    icon: 'right',
+    label: i18n('entities.video.menu'),
+    menu: true,
+  },
+
+  {
+    path: '/video/new',
+    loader: () => import('view/video/form/VideoFormPage'),
+    menu: false,
+    permissionRequired: permissions.audioCreate,
+    exact: true,
+  },
+  {
+    path: '/video/importer',
+    loader: () =>
+      import('view/video/importer/VideoImporterPage'),
+    menu: false,
+    permissionRequired: permissions.videoImport,
+    exact: true,
+  },
+  {
+    path: '/video/:id/edit',
+    loader: () => import('view/video/form/VideoFormPage'),
+    menu: false,
+    permissionRequired: permissions.videoEdit,
+    exact: true,
+  },
+  {
+    path: '/video/:id',
+    loader: () => import('view/video/view/VideoViewPage'),
+    menu: false,
+    permissionRequired: permissions.videoRead,
+    exact: true,
+  },
+
   {
     path: '/document',
     loader: () => import('view/document/list/DocumentListPage'),

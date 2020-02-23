@@ -10,7 +10,7 @@ const VideoSchema = new Schema(
     url: { type: String, maxlength: 400 },
     videoLength: { type: Number, min: 1 },
     evaluationCriteria: {
-      name: { type: String, required: true },
+      name: { type: String, required: true, default: 'videoLength' },
       operator: { type: String, enum: [ 'GREATERTHAN', 'LESSTHAN', 'EQUALS' ] },
       requiredWatchTime: Number
     },

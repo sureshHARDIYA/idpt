@@ -1,36 +1,24 @@
-const Roles = require('./roles');
-const roles = Roles.values;
+const Roles = require('./roles')
+const roles = Roles.values
 
 /**
  * List of Permissions and the Roles allowed of using them.
  */
 class Permissions {
-  static get values() {
+  static get values () {
     return {
       iamEdit: {
         id: 'iamEdit',
-        allowedRoles: [
-          roles.owner,
-          roles.iamSecurityReviewer,
-          roles.editor,
-        ],
-        allowedStorageFolders: ['user'],
+        allowedRoles: [ roles.owner, roles.iamSecurityReviewer, roles.editor ],
+        allowedStorageFolders: [ 'user' ]
       },
       iamCreate: {
         id: 'iamCreate',
-        allowedRoles: [
-          roles.owner,
-          roles.iamSecurityReviewer,
-          roles.editor,
-        ],
+        allowedRoles: [ roles.owner, roles.iamSecurityReviewer, roles.editor ]
       },
       iamImport: {
         id: 'iamImport',
-        allowedRoles: [
-          roles.owner,
-          roles.iamSecurityReviewer,
-          roles.editor,
-        ],
+        allowedRoles: [ roles.owner, roles.iamSecurityReviewer, roles.editor ]
       },
       iamRead: {
         id: 'iamRead',
@@ -38,35 +26,26 @@ class Permissions {
           roles.owner,
           roles.iamSecurityReviewer,
           roles.editor,
-          roles.viewer,
-        ],
+          roles.viewer
+        ]
       },
       iamUserAutocomplete: {
         id: 'iamUserAutocomplete',
-        allowedRoles: [
-          roles.owner,
-          roles.editor,
-          roles.viewer,
-
-
-        ],
+        allowedRoles: [ roles.owner, roles.editor, roles.viewer ]
       },
       auditLogRead: {
         id: 'auditLogRead',
-        allowedRoles: [roles.owner, roles.auditLogViewer, roles.viewer],
+        allowedRoles: [ roles.owner, roles.auditLogViewer, roles.viewer ]
       },
-      settingsEdit: {
-        id: 'settingsEdit',
-        allowedRoles: [roles.owner],
-      },
+      settingsEdit: { id: 'settingsEdit', allowedRoles: [ roles.owner ] },
       patientImport: {
         id: 'patientImport',
         allowedRoles: [
           roles.owner,
           roles.editor,
           roles.entityEditor,
-          roles.patientEditor,
-        ],
+          roles.patientEditor
+        ]
       },
       patientCreate: {
         id: 'patientCreate',
@@ -74,9 +53,9 @@ class Permissions {
           roles.owner,
           roles.editor,
           roles.entityEditor,
-          roles.patientEditor,
+          roles.patientEditor
         ],
-        allowedStorageFolders: ['patient'],
+        allowedStorageFolders: [ 'patient' ]
       },
       patientEdit: {
         id: 'patientEdit',
@@ -84,9 +63,9 @@ class Permissions {
           roles.owner,
           roles.editor,
           roles.entityEditor,
-          roles.patientEditor,
+          roles.patientEditor
         ],
-        allowedStorageFolders: ['patient'],
+        allowedStorageFolders: [ 'patient' ]
       },
       patientDestroy: {
         id: 'patientDestroy',
@@ -94,9 +73,9 @@ class Permissions {
           roles.owner,
           roles.editor,
           roles.entityEditor,
-          roles.patientEditor,
+          roles.patientEditor
         ],
-        allowedStorageFolders: ['patient'],
+        allowedStorageFolders: [ 'patient' ]
       },
       patientRead: {
         id: 'patientRead',
@@ -106,8 +85,8 @@ class Permissions {
           roles.viewer,
           roles.entityEditor,
           roles.patientEditor,
-          roles.patientViewer,
-        ],
+          roles.patientViewer
+        ]
       },
       patientAutocomplete: {
         id: 'patientAutocomplete',
@@ -119,18 +98,17 @@ class Permissions {
           roles.patientEditor,
           roles.patientViewer,
           roles.casedEditor,
-          roles.casedViewer,
-        ],
+          roles.casedViewer
+        ]
       },
-
       casedImport: {
         id: 'casedImport',
         allowedRoles: [
           roles.owner,
           roles.editor,
           roles.entityEditor,
-          roles.casedEditor,
-        ],
+          roles.casedEditor
+        ]
       },
       casedCreate: {
         id: 'casedCreate',
@@ -138,9 +116,9 @@ class Permissions {
           roles.owner,
           roles.editor,
           roles.entityEditor,
-          roles.casedEditor,
+          roles.casedEditor
         ],
-        allowedStorageFolders: ['cased'],
+        allowedStorageFolders: [ 'cased' ]
       },
       casedEdit: {
         id: 'casedEdit',
@@ -148,9 +126,9 @@ class Permissions {
           roles.owner,
           roles.editor,
           roles.entityEditor,
-          roles.casedEditor,
+          roles.casedEditor
         ],
-        allowedStorageFolders: ['cased'],
+        allowedStorageFolders: [ 'cased' ]
       },
       casedDestroy: {
         id: 'casedDestroy',
@@ -158,9 +136,9 @@ class Permissions {
           roles.owner,
           roles.editor,
           roles.entityEditor,
-          roles.casedEditor,
+          roles.casedEditor
         ],
-        allowedStorageFolders: ['cased'],
+        allowedStorageFolders: [ 'cased' ]
       },
       casedRead: {
         id: 'casedRead',
@@ -170,8 +148,8 @@ class Permissions {
           roles.viewer,
           roles.entityEditor,
           roles.casedEditor,
-          roles.casedViewer,
-        ],
+          roles.casedViewer
+        ]
       },
       casedAutocomplete: {
         id: 'casedAutocomplete',
@@ -185,18 +163,17 @@ class Permissions {
           roles.patientEditor,
           roles.patientViewer,
           roles.moduleEditor,
-          roles.moduleViewer,
-        ],
+          roles.moduleViewer
+        ]
       },
-
       moduleImport: {
         id: 'moduleImport',
         allowedRoles: [
           roles.owner,
           roles.editor,
           roles.entityEditor,
-          roles.moduleEditor,
-        ],
+          roles.moduleEditor
+        ]
       },
       moduleCreate: {
         id: 'moduleCreate',
@@ -204,9 +181,9 @@ class Permissions {
           roles.owner,
           roles.editor,
           roles.entityEditor,
-          roles.moduleEditor,
+          roles.moduleEditor
         ],
-        allowedStorageFolders: ['module'],
+        allowedStorageFolders: [ 'module' ]
       },
       moduleEdit: {
         id: 'moduleEdit',
@@ -214,9 +191,9 @@ class Permissions {
           roles.owner,
           roles.editor,
           roles.entityEditor,
-          roles.moduleEditor,
+          roles.moduleEditor
         ],
-        allowedStorageFolders: ['module'],
+        allowedStorageFolders: [ 'module' ]
       },
       moduleDestroy: {
         id: 'moduleDestroy',
@@ -224,9 +201,9 @@ class Permissions {
           roles.owner,
           roles.editor,
           roles.entityEditor,
-          roles.moduleEditor,
+          roles.moduleEditor
         ],
-        allowedStorageFolders: ['module'],
+        allowedStorageFolders: [ 'module' ]
       },
       moduleRead: {
         id: 'moduleRead',
@@ -236,8 +213,8 @@ class Permissions {
           roles.viewer,
           roles.entityEditor,
           roles.moduleEditor,
-          roles.moduleViewer,
-        ],
+          roles.moduleViewer
+        ]
       },
       moduleAutocomplete: {
         id: 'moduleAutocomplete',
@@ -251,18 +228,17 @@ class Permissions {
           roles.casedEditor,
           roles.casedViewer,
           roles.taskEditor,
-          roles.taskViewer,
-        ],
+          roles.taskViewer
+        ]
       },
-
       taskImport: {
         id: 'taskImport',
         allowedRoles: [
           roles.owner,
           roles.editor,
           roles.entityEditor,
-          roles.taskEditor,
-        ],
+          roles.taskEditor
+        ]
       },
       taskCreate: {
         id: 'taskCreate',
@@ -270,9 +246,9 @@ class Permissions {
           roles.owner,
           roles.editor,
           roles.entityEditor,
-          roles.taskEditor,
+          roles.taskEditor
         ],
-        allowedStorageFolders: ['task'],
+        allowedStorageFolders: [ 'task' ]
       },
       taskEdit: {
         id: 'taskEdit',
@@ -280,9 +256,9 @@ class Permissions {
           roles.owner,
           roles.editor,
           roles.entityEditor,
-          roles.taskEditor,
+          roles.taskEditor
         ],
-        allowedStorageFolders: ['task'],
+        allowedStorageFolders: [ 'task' ]
       },
       taskDestroy: {
         id: 'taskDestroy',
@@ -290,9 +266,9 @@ class Permissions {
           roles.owner,
           roles.editor,
           roles.entityEditor,
-          roles.taskEditor,
+          roles.taskEditor
         ],
-        allowedStorageFolders: ['task'],
+        allowedStorageFolders: [ 'task' ]
       },
       taskRead: {
         id: 'taskRead',
@@ -302,8 +278,8 @@ class Permissions {
           roles.viewer,
           roles.entityEditor,
           roles.taskEditor,
-          roles.taskViewer,
-        ],
+          roles.taskViewer
+        ]
       },
       taskAutocomplete: {
         id: 'taskAutocomplete',
@@ -315,18 +291,17 @@ class Permissions {
           roles.taskEditor,
           roles.taskViewer,
           roles.moduleEditor,
-          roles.moduleViewer,
-        ],
+          roles.moduleViewer
+        ]
       },
-
       recordImport: {
         id: 'recordImport',
         allowedRoles: [
           roles.owner,
           roles.editor,
           roles.entityEditor,
-          roles.recordEditor,
-        ],
+          roles.recordEditor
+        ]
       },
       recordCreate: {
         id: 'recordCreate',
@@ -334,9 +309,9 @@ class Permissions {
           roles.owner,
           roles.editor,
           roles.entityEditor,
-          roles.recordEditor,
+          roles.recordEditor
         ],
-        allowedStorageFolders: ['record'],
+        allowedStorageFolders: [ 'record' ]
       },
       recordEdit: {
         id: 'recordEdit',
@@ -344,9 +319,9 @@ class Permissions {
           roles.owner,
           roles.editor,
           roles.entityEditor,
-          roles.recordEditor,
+          roles.recordEditor
         ],
-        allowedStorageFolders: ['record'],
+        allowedStorageFolders: [ 'record' ]
       },
       recordDestroy: {
         id: 'recordDestroy',
@@ -354,9 +329,9 @@ class Permissions {
           roles.owner,
           roles.editor,
           roles.entityEditor,
-          roles.recordEditor,
+          roles.recordEditor
         ],
-        allowedStorageFolders: ['record'],
+        allowedStorageFolders: [ 'record' ]
       },
       recordRead: {
         id: 'recordRead',
@@ -366,8 +341,8 @@ class Permissions {
           roles.viewer,
           roles.entityEditor,
           roles.recordEditor,
-          roles.recordViewer,
-        ],
+          roles.recordViewer
+        ]
       },
       recordAutocomplete: {
         id: 'recordAutocomplete',
@@ -379,18 +354,17 @@ class Permissions {
           roles.recordEditor,
           roles.recordViewer,
           roles.moduleEditor,
-          roles.moduleViewer,
-        ],
+          roles.moduleViewer
+        ]
       },
-
       audioImport: {
         id: 'audioImport',
         allowedRoles: [
           roles.owner,
           roles.editor,
           roles.entityEditor,
-          roles.audioEditor,
-        ],
+          roles.audioEditor
+        ]
       },
       audioCreate: {
         id: 'audioCreate',
@@ -398,9 +372,9 @@ class Permissions {
           roles.owner,
           roles.editor,
           roles.entityEditor,
-          roles.audioEditor,
+          roles.audioEditor
         ],
-        allowedStorageFolders: ['audio'],
+        allowedStorageFolders: [ 'audio' ]
       },
       audioEdit: {
         id: 'audioEdit',
@@ -408,9 +382,9 @@ class Permissions {
           roles.owner,
           roles.editor,
           roles.entityEditor,
-          roles.audioEditor,
+          roles.audioEditor
         ],
-        allowedStorageFolders: ['audio'],
+        allowedStorageFolders: [ 'audio' ]
       },
       audioDestroy: {
         id: 'audioDestroy',
@@ -418,9 +392,9 @@ class Permissions {
           roles.owner,
           roles.editor,
           roles.entityEditor,
-          roles.audioEditor,
+          roles.audioEditor
         ],
-        allowedStorageFolders: ['audio'],
+        allowedStorageFolders: [ 'audio' ]
       },
       audioRead: {
         id: 'audioRead',
@@ -430,8 +404,8 @@ class Permissions {
           roles.viewer,
           roles.entityEditor,
           roles.audioEditor,
-          roles.audioViewer,
-        ],
+          roles.audioViewer
+        ]
       },
       audioAutocomplete: {
         id: 'audioAutocomplete',
@@ -441,19 +415,78 @@ class Permissions {
           roles.viewer,
           roles.entityEditor,
           roles.audioEditor,
-          roles.audioViewer,
-
-        ],
+          roles.audioViewer
+        ]
       },
-
+      videoImport: {
+        id: 'videoImport',
+        allowedRoles: [
+          roles.owner,
+          roles.editor,
+          roles.entityEditor,
+          roles.videoEditor
+        ]
+      },
+      videoCreate: {
+        id: 'videoCreate',
+        allowedRoles: [
+          roles.owner,
+          roles.editor,
+          roles.entityEditor,
+          roles.videoEditor
+        ],
+        allowedStorageFolders: [ 'video' ]
+      },
+      videoEdit: {
+        id: 'videoEdit',
+        allowedRoles: [
+          roles.owner,
+          roles.editor,
+          roles.entityEditor,
+          roles.videoEditor
+        ],
+        allowedStorageFolders: [ 'video' ]
+      },
+      videoDestroy: {
+        id: 'videoDestroy',
+        allowedRoles: [
+          roles.owner,
+          roles.editor,
+          roles.entityEditor,
+          roles.videoEditor
+        ],
+        allowedStorageFolders: [ 'video' ]
+      },
+      videoRead: {
+        id: 'videoRead',
+        allowedRoles: [
+          roles.owner,
+          roles.editor,
+          roles.viewer,
+          roles.entityEditor,
+          roles.videoEditor,
+          roles.videoViewer
+        ]
+      },
+      videoAutocomplete: {
+        id: 'videoAutocomplete',
+        allowedRoles: [
+          roles.owner,
+          roles.editor,
+          roles.viewer,
+          roles.entityEditor,
+          roles.audioEditor,
+          roles.audioViewer
+        ]
+      },
       documentImport: {
         id: 'documentImport',
         allowedRoles: [
           roles.owner,
           roles.editor,
           roles.entityEditor,
-          roles.documentEditor,
-        ],
+          roles.documentEditor
+        ]
       },
       documentCreate: {
         id: 'documentCreate',
@@ -461,9 +494,9 @@ class Permissions {
           roles.owner,
           roles.editor,
           roles.entityEditor,
-          roles.documentEditor,
+          roles.documentEditor
         ],
-        allowedStorageFolders: ['document'],
+        allowedStorageFolders: [ 'document' ]
       },
       documentEdit: {
         id: 'documentEdit',
@@ -471,9 +504,9 @@ class Permissions {
           roles.owner,
           roles.editor,
           roles.entityEditor,
-          roles.documentEditor,
+          roles.documentEditor
         ],
-        allowedStorageFolders: ['document'],
+        allowedStorageFolders: [ 'document' ]
       },
       documentDestroy: {
         id: 'documentDestroy',
@@ -481,9 +514,9 @@ class Permissions {
           roles.owner,
           roles.editor,
           roles.entityEditor,
-          roles.documentEditor,
+          roles.documentEditor
         ],
-        allowedStorageFolders: ['document'],
+        allowedStorageFolders: [ 'document' ]
       },
       documentRead: {
         id: 'documentRead',
@@ -493,8 +526,8 @@ class Permissions {
           roles.viewer,
           roles.entityEditor,
           roles.documentEditor,
-          roles.documentViewer,
-        ],
+          roles.documentViewer
+        ]
       },
       documentAutocomplete: {
         id: 'documentAutocomplete',
@@ -506,17 +539,17 @@ class Permissions {
           roles.documentEditor,
           roles.documentViewer,
           roles.taskEditor,
-          roles.taskViewer,
-        ],
-      },
-    };
+          roles.taskViewer
+        ]
+      }
+    }
   }
 
-  static get asArray() {
-    return Object.keys(this.values).map((value) => {
-      return this.values[value];
-    });
+  static get asArray () {
+    return Object.keys(this.values).map(value => {
+      return this.values[value]
+    })
   }
 }
 
-module.exports = Permissions;
+module.exports = Permissions
