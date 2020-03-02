@@ -1,4 +1,4 @@
-import { Table, Popconfirm } from 'antd';
+import { Table } from 'antd';
 import { i18n } from 'i18n';
 import model from 'modules/record/recordModel';
 import React, { Component } from 'react';

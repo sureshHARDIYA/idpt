@@ -12,7 +12,6 @@ import FilterWrapper, {
 } from 'view/shared/styles/FilterWrapper';
 import FormFilterSchema from 'view/shared/form/formFilterSchema';
 import InputFormItem from 'view/shared/form/items/InputFormItem';
-import DatePickerRangeFormItem from 'view/shared/form/items/DatePickerRangeFormItem';
 import InputNumberRangeFormItem from 'view/shared/form/items/InputNumberRangeFormItem';
 import SelectFormItem from 'view/shared/form/items/SelectFormItem';
 

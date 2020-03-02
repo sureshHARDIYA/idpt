@@ -15,7 +15,6 @@ import SelectFormItem from 'view/shared/form/items/SelectFormItem';
 import DatePickerFormItem from 'view/shared/form/items/DatePickerFormItem';
 import ImagesFormItem from 'view/shared/form/items/ImagesFormItem';
 import ModuleAutocompleteFormItem from 'view/module/autocomplete/ModuleAutocompleteFormItem';
-import PatientAutocompleteFormItem from 'view/patient/autocomplete/PatientAutocompleteFormItem';
 
 const { fields } = model;
 

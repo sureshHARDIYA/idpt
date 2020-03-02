@@ -23,7 +23,6 @@ const schema = new FormFilterSchema([
 
 class VideoListFilter extends Component {
   componentDidMount() {
-    console.log(this.initialFilter());
     const { dispatch } = this.props;
     dispatch(actions.doFetch(this.initialFilter()));
   }
