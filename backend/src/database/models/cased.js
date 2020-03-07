@@ -74,19 +74,19 @@ CasedSchema.statics.getRoadmap =  async function(id) {
       }
     });
 
-  const children = (items, parentIndex) => (items || []).map((item, index) => ({
+  const children = (items) => (items || []).map((item) => ({
     host: item.id,
-    state: !parentIndex && !index ? 'ACTIVATE' : 'LOCKED',
+    state: 'LOCKED',
     children: children(item.tasks, 1),
     completionRequired: item.completionRequired,
   }))
 
   const modules = (cased || {}).modules || []
 
-  return modules.map((item, index) => ({
+  return modules.map((item) => ({
     host: item.id,
-    state: index ? 'LOCKED' : 'ACTIVATE',
-    children: children(item.tasks, index),
+    state: 'LOCKED',
+    children: children(item.tasks),
     completionRequired: item.completionRequired,
   }))
 }

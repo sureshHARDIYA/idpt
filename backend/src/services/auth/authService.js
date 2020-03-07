@@ -211,6 +211,23 @@ class AuthService {
   }
 
   /**
+   * Finds the user by patient id.
+   *
+   * @param {*} patient id
+   */
+  static async findByPatientId(id) {
+    const user = await UserRepository.findByPatientIdWithoutAvatar(
+      id,
+    );
+
+    if (user && !EmailSender.isConfigured) {
+      user.emailVerified = true;
+    }
+
+    return user;
+  }
+
+  /**
    * Sends an email address verification email.
    *
    * @param {*} language

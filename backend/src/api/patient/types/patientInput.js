@@ -3,7 +3,7 @@ const schema = `
     name: String!
     birthdate: String
     gender: PatientGenderEnum
-    assignCase: [ String! ]
+    user: String
     phone: String!
   }
 `;

@@ -637,6 +637,21 @@ module.exports = class UserRepository {
   }
 
   /**
+   * Finds the user, without fetching the avatar.
+   *
+   * @param {string} id
+   * @param {Object} [options]
+   */
+  static async findByPatientIdWithoutAvatar(patient, options) {
+    return MongooseRepository.wrapWithSessionIfExists(
+      User.findOne({
+        patient
+      }),
+      options,
+    );
+  }
+
+  /**
    * Finds the users with the ids and filters based on the disabled flag.
    *
    * @param {*} ids

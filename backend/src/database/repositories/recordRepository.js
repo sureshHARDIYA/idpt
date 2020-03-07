@@ -44,7 +44,10 @@ class RecordRepository {
       options,
     );
 
-    return this.findById(record.id, options);
+    return this.findById(record.id, {
+      ...options,
+      isNew: true
+    });
   }
 
   /**
@@ -121,16 +124,32 @@ class RecordRepository {
       options,
     );
 
-    const record = await MongooseRepository.wrapWithSessionIfExists(Record.findById(id), options)
+    if (options && !options.isNew) {
+      const record = await MongooseRepository.wrapWithSessionIfExists(Record.findById(id), options)
 
-    if (`${record.owner}` === `${currentUser.patient}`) {
-      if (['ACTIVATE'].includes(record.state)) {
-        await this.update(record.id, { state: 'PROGRESS' }, options);
+      if (`${record.owner}` === `${currentUser.patient}`) {
+        if (options.module && record.roadmap) {
+          const _module = record.roadmap.find(item => `${item._id}` === `${options.module}`);
+
+          if (_module && ['LOCKED'].includes(_module.state)) {
+            _module.state = 'ACTIVATE';
+            await record.save();
+          }
+
+          if (options.task && _module && _module.children) {
+            const _task = _module.children.find(item => `${item._id}` === `${options.task}`);
+
+            if (_task && ['LOCKED'].includes(_task.state)) {
+              _task.state = 'ACTIVATE';
+              await record.save();
+            }
+          }
+        }
+
+        if (['LOCKED'].includes(record.state)) {
+          await this.update(record.id, { state: 'ACTIVATE' }, options);
+        }
       }
-
-      // if (options && options.module && _find(record.roadmap, { id: options.module, state: 'ACTIVATE' })) {
-      //   await this.update({ _id: record._id, 'roadmap._id': MongooseRepository.idFromString(options.module) }, { $set: { 'roadmap.$.state': 'PROGRESS' }}, options);
-      // }
     }
 
     return await MongooseRepository.wrapWithSessionIfExists(
