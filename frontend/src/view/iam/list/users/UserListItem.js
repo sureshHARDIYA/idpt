@@ -28,7 +28,7 @@ class UserListItem extends Component {
       return record.email;
     }
 
-    return `${record.fullName} <${record.email}>`;
+    return `${record.fullName} ${record.email ? `<${record.email}>` : ''}`;
   };
 
   displayableRecord = (record) => {

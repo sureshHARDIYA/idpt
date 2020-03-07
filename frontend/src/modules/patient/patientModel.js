@@ -28,7 +28,7 @@ const fields = {
     { id: 'male', label: enumeratorLabel('gender', 'male') },
     { id: 'female', label: enumeratorLabel('gender', 'female') },
   ],{}),
-  assignCase: new RelationToManyField('assignCase', label('assignCase'), {}),
+  user: new RelationToManyField('user', label('user'), {}),
   phone: new StringField('phone', label('phone'), {
     "required": true
   }),

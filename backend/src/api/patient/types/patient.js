@@ -4,7 +4,7 @@ const schema = `
     name: String
     birthdate: String
     gender: PatientGenderEnum
-    assignCase: [ Cased! ]
+    user: User
     phone: String
     createdAt: DateTime
     updatedAt: DateTime

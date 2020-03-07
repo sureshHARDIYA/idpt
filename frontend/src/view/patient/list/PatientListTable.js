@@ -11,7 +11,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import TableWrapper from 'view/shared/styles/TableWrapper';
 import ButtonLink from 'view/shared/styles/ButtonLink';
-import CasedListItem from 'view/cased/list/CasedListItem';
+import UserListItem from 'view/iam/list/users/UserListItem';
 
 const { fields } = model;
 
@@ -33,8 +33,8 @@ class PatientListTable extends Component {
     fields.name.forTable(),
     fields.birthdate.forTable(),
     fields.gender.forTable(),
-    fields.assignCase.forTable({
-      render: (value) => <CasedListItem value={value} />,
+    fields.user.forTable({
+      render: (value) => <UserListItem value={value} />,
     }),
     fields.phone.forTable(),
     {

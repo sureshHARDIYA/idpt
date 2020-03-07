@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const UserService = require('../../../services/auth/authService');
 const PatientService = require('../../../services/patientService');
 
 const schema = `
@@ -27,6 +28,11 @@ const resolver = {
       }
 
       return instance;
+    }
+  },
+  Patient: {
+    user: async (instance, _, context) => {
+      return await UserService.findByPatientId(instance.id, context)
     }
   }
 };

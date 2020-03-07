@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import Spinner from 'view/shared/Spinner';
 import ViewWrapper from 'view/shared/styles/ViewWrapper';
 import TextViewItem from 'view/shared/view/TextViewItem';
-import CasedViewItem from 'view/cased/view/CasedViewItem';
 
 const { fields } = model;
 
@@ -31,11 +30,6 @@ class PatientView extends Component {
         <TextViewItem
           label={fields.gender.label}
           value={fields.gender.forView(record.gender)}
-        />
-
-        <CasedViewItem
-          label={fields.assignCase.label}
-          value={fields.assignCase.forView(record.assignCase)}
         />
 
         <TextViewItem

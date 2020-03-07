@@ -56,7 +56,7 @@ const en = {
         'birthdateRange': 'Birthdate',
         'birthdate': 'Birthdate',
         'gender': 'Gender',
-        'assignCase': 'AssignCase',
+        'user': 'User',
         'phone': 'Phone',
         createdAt: 'Created at',
         updatedAt: 'Updated at',

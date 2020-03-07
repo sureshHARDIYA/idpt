@@ -87,9 +87,9 @@ export default class PatientService {
             name
             birthdate
             gender
-            assignCase {
+            user {
               id
-              name
+              fullName
             }
             phone
             createdAt
@@ -127,9 +127,9 @@ export default class PatientService {
               name
               birthdate
               gender
-              assignCase {
+              user {
                 id
-                name
+                fullName
               }
               phone
               updatedAt
