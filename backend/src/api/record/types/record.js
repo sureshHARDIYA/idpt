@@ -8,7 +8,7 @@ const schema = `
     status: StatusEnum
     createdAt: DateTime
     updatedAt: DateTime
-    roadmap: [RecorcRoadmap!]
+    roadmaps: [RecorcRoadmap!]
   }
 
   type RecorcRoadmap {
@@ -31,10 +31,12 @@ const schema = `
 const resolver = {
   RecorcRoadmap: {
     id: (instance) => instance._id,
+    host: (instance) => instance.module,
     children: (instance) => instance.children && instance.children.length > 0 ? instance.children: null
   },
   RecorcRoadmapContainer: {
     id: (instance) => instance._id,
+    host: (instance) => instance.task,
     children: (instance) => instance.children && instance.children.length > 0 ? instance.children: null
   }
 };

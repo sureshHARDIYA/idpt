@@ -97,7 +97,7 @@ export default class RecordService {
               id
               name
             }
-            roadmap {
+            roadmaps {
               id
               host {
                 id

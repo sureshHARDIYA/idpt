@@ -2,7 +2,7 @@
   "name": "app-backend",
   "description": "Backend",
   "scripts": {
-    "start": "cross-env NODE_ENV=localhost nodemon ./server.js",
+    "start": "cross-env NODE_ENV=localhost nodemon --inspect=0.0.0.0:8000 ./server.js",
     "start:development": "cross-env NODE_ENV=development nodemon ./server.js",
     "start:production": "cross-env NODE_ENV=production nodemon ./server.js",
     "test": "nodemon --exec 'cross-env NODE_ENV=test mocha ./src/**/*.test.js --exit || exit 1'",
