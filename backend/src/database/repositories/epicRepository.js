@@ -1,32 +1,29 @@
 const MongooseRepository = require('./mongooseRepository');
 const MongooseQueryUtils = require('../utils/mongooseQueryUtils');
 const AuditLogRepository = require('./auditLogRepository');
-const RoadmapRepository = require('./roadmapRepository');
-const Record = require('../models/record');
-const Module = require('../models/module');
-const _find = require('lodash/find');
+const Epic = require('../models/epic');
 
 /**
- * Handles database operations for the Record.
+ * Handles database operations for the Epic.
  * See https://mongoosejs.com/docs/index.html to learn how to customize it.
  */
-class RecordRepository {
+module.exports = class EpicRepository {
   /**
-   * Creates the Record.
+   * Creates the Epic.
    *
    * @param {Object} data
    * @param {Object} [options]
    */
-  async create(data, options) {
+  static async create(data, options) {
     if (MongooseRepository.getSession(options)) {
-      await Record.createCollection();
+      await Epic.createCollection();
     }
 
     const currentUser = MongooseRepository.getCurrentUser(
       options,
     );
 
-    const [record] = await Record.create(
+    const [record] = await Epic.create(
       [
         {
           ...data,
@@ -37,75 +34,19 @@ class RecordRepository {
       MongooseRepository.getSessionOptionsIfExists(options),
     );
 
-    const modules = await Module.getRoadmap(data.host);
-
-    const roadmaps = await Promise.all(modules.map((module) => RoadmapRepository.create(
-      {
-        record: record.id,
-        module: module.id,
-      },
-      options,
-    )))
-
-    await Record.updateOne(
-      { _id: record._id },
-      { roadmaps: roadmaps.map((i) => i.id) }
-    );
-
-    await this._createAuditLog(
-      AuditLogRepository.CREATE,
-      record.id,
-      data,
-      options,
-    );
-
     return this.findById(record.id, options);
   }
 
-  /**
-   * Updates the Record.
-   *
-   * @param {Object} data
-   * @param {Object} [options]
-   */
-
-  async update(id, data, options) {
-    await MongooseRepository.wrapWithSessionIfExists(
-      Record.updateOne(
-        { _id: id },
-        {
-          ...data,
-          updatedBy: MongooseRepository.getCurrentUser(
-            options,
-          ).id,
-        },
-      ),
-      options,
-    );
-
-    await this._createAuditLog(
-      AuditLogRepository.UPDATE,
-      id,
-      data,
-      options,
-    );
-
-    return await this.findById(id, options);
-  }
-
-  /**
-   * Deletes the Record.
+    /**
+   * Deletes the Epic.
    *
    * @param {string} id
    * @param {Object} [options]
    */
-  async destroy(id, options) {
-    const record = await Record.findById(id);
 
-    await Promise.all(record.roadmaps.map((roadmap) => RoadmapRepository.destroy(roadmap, options)))
-
+  static async destroy(id, options) {
     await MongooseRepository.wrapWithSessionIfExists(
-      Record.deleteOne({ _id: record._id }),
+      Epic.deleteOne({ _id: id }),
       options,
     );
 
@@ -117,47 +58,36 @@ class RecordRepository {
     );
   }
 
+
   /**
-   * Counts the number of Records based on the filter.
+   * Counts the number of Patients based on the filter.
    *
    * @param {Object} filter
    * @param {Object} [options]
    */
-  async count(filter, options) {
+  static async count(filter, options) {
     return MongooseRepository.wrapWithSessionIfExists(
-      Record.countDocuments(filter),
+      Epic.countDocuments(filter),
       options,
     );
   }
 
   /**
-   * Finds the Record and its relations.
+   * Finds the Patient and its relations.
    *
    * @param {string} id
    * @param {Object} [options]
    */
-  async findById(id, options) {
-    const a = await MongooseRepository.wrapWithSessionIfExists(
-      Record.findById(id)
-      .populate('owner')
-      .populate('host')
-      .populate({
-        path: 'roadmaps',
-        populate: [{
-          path: 'children',
-          populate: 'task'
-        }, {
-          path: 'module',
-        }]
-      }),
+  static async findById(id, options) {
+    return MongooseRepository.wrapWithSessionIfExists(
+      Epic.findById(id)
+      .populate('assignCase'),
       options,
     );
-
-    return a;
   }
 
   /**
-   * Finds the Records based on the query.
+   * Finds the Patients based on the query.
    * See https://mongoosejs.com/docs/queries.html to learn how
    * to customize the queries.
    *
@@ -169,7 +99,7 @@ class RecordRepository {
    *
    * @returns {Promise<Object>} response - Object containing the rows and the count.
    */
-  async findAndCountAll(
+  static async findAndCountAll(
     { filter, limit, offset, orderBy } = {
       filter: null,
       limit: 0,
@@ -188,22 +118,58 @@ class RecordRepository {
         };
       }
 
-      if (filter.description) {
+      if (filter.name) {
         criteria = {
           ...criteria,
-          description: {
+          name: {
             $regex: MongooseQueryUtils.escapeRegExp(
-              filter.description,
+              filter.name,
             ),
             $options: 'i',
           },
         };
       }
 
-      if (filter.state) {
+      if (filter.birthdateRange) {
+        const [start, end] = filter.birthdateRange;
+
+        if (start !== undefined && start !== null && start !== '') {
+          criteria = {
+            ...criteria,
+            birthdate: {
+              ...criteria.birthdate,
+              $gte: start,
+            },
+          };
+        }
+
+        if (end !== undefined && end !== null && end !== '') {
+          criteria = {
+            ...criteria,
+            birthdate: {
+              ...criteria.birthdate,
+              $lte: end,
+            },
+          };
+        }
+      }
+
+      if (filter.gender) {
         criteria = {
           ...criteria,
-          state: filter.state
+          gender: filter.gender
+        };
+      }
+
+      if (filter.phone) {
+        criteria = {
+          ...criteria,
+          phone: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.phone,
+            ),
+            $options: 'i',
+          },
         };
       }
 
@@ -239,27 +205,26 @@ class RecordRepository {
     const skip = Number(offset || 0) || undefined;
     const limitEscaped = Number(limit || 0) || undefined;
 
-    const rows = await Record.find(criteria)
+    const rows = await Epic.find(criteria)
       .skip(skip)
       .limit(limitEscaped)
       .sort(sort)
-      .populate('owner')
-      .populate('host');
+      .populate('assignCase');
 
-    const count = await Record.countDocuments(criteria);
+    const count = await Epic.countDocuments(criteria);
 
     return { rows, count };
   }
 
   /**
-   * Lists the Records to populate the autocomplete.
+   * Lists the Patients to populate the autocomplete.
    * See https://mongoosejs.com/docs/queries.html to learn how to
    * customize the query.
    *
    * @param {Object} search
    * @param {number} limit
    */
-  async findAllAutocomplete(search, limit) {
+  static async findAllAutocomplete(search, limit) {
     let criteria = {};
 
     if (search) {
@@ -279,7 +244,7 @@ class RecordRepository {
     const sort = MongooseQueryUtils.sort('name_ASC');
     const limitEscaped = Number(limit || 0) || undefined;
 
-    const records = await Record.find(criteria)
+    const records = await Epic.find(criteria)
       .limit(limitEscaped)
       .sort(sort);
 
@@ -297,10 +262,10 @@ class RecordRepository {
    * @param {object} data - The new data passed on the request
    * @param {object} options
    */
-  async _createAuditLog(action, id, data, options) {
+  static async _createAuditLog(action, id, data, options) {
     await AuditLogRepository.log(
       {
-        entityName: Record.modelName,
+        entityName: Epic.modelName,
         entityId: id,
         action,
         values: data,
@@ -309,5 +274,3 @@ class RecordRepository {
     );
   }
 }
-
-module.exports = RecordRepository;

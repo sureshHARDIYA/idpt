@@ -50,6 +50,10 @@ const ModuleSchema = new Schema(
   { timestamps: true },
 );
 
+ModuleSchema.statics.getRoadmap =  async function(id) {
+  return await this.find({ owner: { $in: [id] } }, 'id');
+}
+
 ModuleSchema.virtual('id').get(function() {
   return this._id.toHexString();
 });

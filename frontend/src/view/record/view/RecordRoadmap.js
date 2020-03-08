@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 const { fields } = model;
 
 class RecordListTable extends Component {
-  columns = id => [
+  columns = [
     fields['roadmap.host'].forTable({
       render: (_, record) => record.host.name
     }),
@@ -24,17 +24,17 @@ class RecordListTable extends Component {
       title: '',
       dataIndex: 'id',
       width: '80px',
-      render: (item, record, ...aaa ) => ({
+      render: (_, record) => ({
         RecorcRoadmap: (
           <div className="table-actions">
-            <Link to={`/record/${id}/module/${item}`}>
+            <Link to={`/roadmaps/${record.id}`}>
               {i18n('entities.module.single')}
             </Link>
           </div>
         ),
         RecorcRoadmapContainer: (
           <div className="table-actions">
-            <Link to={`/record/${id}/task/${record.id}`}>
+            <Link to={`/epics/${record.id}`}>
               {i18n('entities.task.single')}
             </Link>
           </div>
@@ -50,8 +50,8 @@ class RecordListTable extends Component {
       <TableWrapper>
         <Table
           rowKey="id"
-          columns={this.columns(record.id)}
-          dataSource={record.roadmap || []}
+          columns={this.columns}
+          dataSource={record.roadmaps || []}
           scroll={{ x: true }}
         />
       </TableWrapper>
