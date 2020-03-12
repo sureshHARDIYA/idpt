@@ -1,31 +1,22 @@
 const schema = `
-  type Record {
+  type Roadmap {
     id: String!
-    host: Cased!
-    owner: Patient!
-    description: String
-    state: StateEnum!
-    status: StatusEnum
-    createdAt: DateTime
-    updatedAt: DateTime
-    roadmaps: [Roadmap!]
-  }
-
-  type Epic {
-    id: String!
-    host: Task!
+    host: Module!
+    record: Record!
     state: StateEnum!
     completionRequired: Boolean
-    children: [Epic]
+    children: [Epic!]
+    createdAt: DateTime
+    updatedAt: DateTime
   }
 `;
 
 const resolver = {
-  Epic: {
+  Roadmap: {
     id: (instance) => instance._id,
-    host: (instance) => instance.task,
+    host: (instance) => instance.module,
     children: (instance) => instance.children && instance.children.length > 0 ? instance.children: null
-  }
+  },
 };
 
 exports.schema = schema;

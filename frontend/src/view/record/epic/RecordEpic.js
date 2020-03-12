@@ -7,7 +7,7 @@ import { Link, withRouter } from 'react-router-dom';
 
 const { fields } = model;
 
-class RecordModuleTable extends Component {
+class RecordRoadmapTable extends Component {
   columns = (parentId) => [
     fields['roadmap.host'].forTable({
       render: (_, record) => record.host.name
@@ -17,22 +17,20 @@ class RecordModuleTable extends Component {
       render: (_, record) => record.completionRequired ? 'True' : 'False'
     }),
     fields['roadmap.state'].forTable({
-      width: 100,
+      width: 150,
       render: (_, record) => record.state
     }),
     {
       title: '',
       dataIndex: 'id',
       width: '80px',
-      render: (id, record) => ({
-        RecorcRoadmapContainer: (
-          <div className="table-actions">
-            <Link to={`/record/${parentId}/task/${id}`}>
-              {i18n('entities.task.single')}
-            </Link>
-          </div>
-        ),
-      })[record.__typename],
+      render: (id) => (
+        <div className="table-actions">
+          <Link to={`/epics/${id}`}>
+            {i18n('entities.task.single')}
+          </Link>
+        </div>
+      ),
     }
   ];
 
@@ -52,4 +50,4 @@ class RecordModuleTable extends Component {
   }
 }
 
-export default withRouter(RecordModuleTable)
+export default withRouter(RecordRoadmapTable)

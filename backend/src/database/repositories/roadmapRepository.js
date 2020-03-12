@@ -102,7 +102,15 @@ module.exports = class RoadmapRepository {
   static async findById(id, options) {
     return MongooseRepository.wrapWithSessionIfExists(
       Roadmap.findById(id)
-      .populate('assignCase'),
+      .populate({
+        path: "record",
+        populate: "host"
+      })
+      .populate({
+        path: "children",
+        populate: "task"
+      })
+      .populate('module'),
       options,
     );
   }
