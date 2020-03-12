@@ -55,6 +55,10 @@ const documentTypes = require('./document/types')
 const documentQueries = require('./document/queries')
 const documentMutations = require('./document/mutations')
 
+const roadmapTypes = require('./roadmap/types')
+const roadmapQueries = require('./roadmap/queries')
+const roadmapMutations = require('./roadmap/mutations')
+
 const types = [
   ...sharedTypes,
   ...iamTypes,
@@ -68,7 +72,8 @@ const types = [
   ...recordTypes,
   ...audioTypes,
   ...videoTypes,
-  ...documentTypes
+  ...documentTypes,
+  ...roadmapTypes
 ].map(type => type.resolver)
 
 const queries = [
@@ -83,7 +88,8 @@ const queries = [
   ...recordQueries,
   ...audioQueries,
   ...videoQueries,
-  ...documentQueries
+  ...documentQueries,
+  ...roadmapQueries
 ].map(query => query.resolver)
 
 const mutations = [
@@ -98,7 +104,8 @@ const mutations = [
   ...recordMutations,
   ...audioMutations,
   ...videoMutations,
-  ...documentMutations
+  ...documentMutations,
+  ...roadmapMutations
 ].map(mutation => mutation.resolver)
 
 module.exports = mergeResolvers(types, queries, mutations)

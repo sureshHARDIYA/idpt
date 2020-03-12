@@ -43,6 +43,7 @@ export default class EnumeratorField extends GenericField {
     const defaultRender = (value) => this.forView(value);
 
     const {
+      width,
       title = this.label,
       sorter = true,
       dataIndex = this.name,
@@ -51,6 +52,7 @@ export default class EnumeratorField extends GenericField {
 
     return {
       title,
+      width,
       sorter,
       dataIndex,
       render,

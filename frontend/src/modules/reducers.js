@@ -12,6 +12,7 @@ import audio from 'modules/audio/audioReducers'
 import video from 'modules/video/videoReducers'
 import record from 'modules/record/recordReducers'
 import document from 'modules/document/documentReducers'
+import roadmap from 'modules/roadmap/roadmapReducers'
 import { combineReducers } from 'redux'
 
 export default history =>
@@ -29,5 +30,6 @@ export default history =>
     audio,
     video,
     record,
-    document
+    document,
+    roadmap
   })

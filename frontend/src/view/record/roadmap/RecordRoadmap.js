@@ -3,12 +3,12 @@ import { i18n } from 'i18n';
 import model from 'modules/record/recordModel';
 import React, { Component } from 'react';
 import TableWrapper from 'view/shared/styles/TableWrapper';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 const { fields } = model;
 
-class RecordListTable extends Component {
-  columns = [
+class RecordRoadmapTable extends Component {
+  columns = (parentId) => [
     fields['roadmap.host'].forTable({
       render: (_, record) => record.host.name
     }),
@@ -24,34 +24,25 @@ class RecordListTable extends Component {
       title: '',
       dataIndex: 'id',
       width: '80px',
-      render: (_, record) => ({
-        Roadmap: (
-          <div className="table-actions">
-            <Link to={`/roadmaps/${record.id}`}>
-              {i18n('entities.module.single')}
-            </Link>
-          </div>
-        ),
-        Epic: (
-          <div className="table-actions">
-            <Link to={`/epics/${record.id}`}>
-              {i18n('entities.task.single')}
-            </Link>
-          </div>
-        ),
-      }[record.__typename]),
+      render: (id) => (
+        <div className="table-actions">
+          <Link to={`/epics/${id}`}>
+            {i18n('entities.task.single')}
+          </Link>
+        </div>
+      ),
     }
   ];
 
   render() {
-    const record = this.props.record || {};
+    const module = this.props.module || {};
 
     return (
       <TableWrapper>
         <Table
           rowKey="id"
-          columns={this.columns}
-          dataSource={record.roadmaps || []}
+          columns={this.columns(this.props.match.params.id)}
+          dataSource={module.children || []}
           scroll={{ x: true }}
         />
       </TableWrapper>
@@ -59,4 +50,4 @@ class RecordListTable extends Component {
   }
 }
 
-export default RecordListTable
+export default withRouter(RecordRoadmapTable)

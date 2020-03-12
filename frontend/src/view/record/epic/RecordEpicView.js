@@ -8,7 +8,7 @@ import { Row, Col } from 'antd';
 
 const { fields } = model;
 
-class RecordModuleView extends Component {
+class RecordRoadmapView extends Component {
   renderView() {
     const { module } = this.props;
 
@@ -25,8 +25,7 @@ class RecordModuleView extends Component {
               label={fields['roadmap.host'].label}
               value={fields['roadmap.host'].forView(module.host)}
             />
-          </Col>
-          <Col span={24} md={{ span: 12 }}>
+
             <TextViewItem
               label={fields.state.label}
               value={fields.state.forView(module.state)}
@@ -53,4 +52,4 @@ class RecordModuleView extends Component {
   }
 }
 
-export default RecordModuleView;
+export default RecordRoadmapView;

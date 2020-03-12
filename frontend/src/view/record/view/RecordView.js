@@ -17,11 +17,6 @@ class RecordView extends Component {
       <BoxWrapper>
         <Row>
           <Col span={24} md={{ span: 12 }}>
-            <TextViewItem
-              label={fields.id.label}
-              value={fields.id.forView(record.id)}
-            />
-
             <CasedViewItem
               label={fields.host.label}
               value={fields.host.forView(record.host)}
@@ -33,16 +28,16 @@ class RecordView extends Component {
             />
 
             <TextViewItem
-              label={fields.description.label}
-              value={fields.description.forView(record.description)}
-            />
-
-          </Col>
-          <Col span={24} md={{ span: 12 }}>
-            <TextViewItem
               label={fields.status.label}
               value={fields.status.forView(record.status)}
             />
+
+            <TextViewItem
+              label={fields.description.label}
+              value={fields.description.forView(record.description)}
+            />
+          </Col>
+          <Col span={24} md={{ span: 12 }}>
 
             <TextViewItem
               label={fields.state.label}
