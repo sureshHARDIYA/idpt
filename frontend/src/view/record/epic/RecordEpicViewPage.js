@@ -6,9 +6,8 @@ import { connect } from 'react-redux';
 import actions from 'modules/epic/view/epicViewActions';
 import selectors from 'modules/epic/view/epicViewSelectors';
 import _get from 'lodash/get';
-// import _find from 'lodash/find';
 import RecordEpicView from 'view/record/epic/RecordEpicView';
-import RecordEpicRoadmap from 'view/record/epic/RecordEpic';
+import BoxWrapper from 'view/shared/styles/BoxWrapper';
 
 class RecordEpicPage extends Component {
   componentDidMount() {
@@ -17,8 +16,9 @@ class RecordEpicPage extends Component {
   }
 
   render() {
-    const { roadmap, loading } = this.props;
-    const casedName = _get(roadmap, 'record.host.name');
+    const { epic, loading } = this.props;
+    const moduleName = _get(epic, 'roadmap.host.name');
+    const casedName = _get(epic, 'roadmap.record.host.name');
 
     return (
       <React.Fragment>
@@ -26,19 +26,34 @@ class RecordEpicPage extends Component {
           items={[
             [i18n('home.menu'), '/'],
             [i18n('entities.record.menu'), '/record'],
-            !!casedName && [casedName, `/record/${_get(roadmap, 'record.id')}`],
-            [i18n('entities.record.module.title')],
+            !!casedName && [casedName, `/record/${_get(epic, 'roadmap.record.id')}`],
+            !!moduleName && [moduleName, `/roadmaps/${_get(epic, 'roadmap.id')}`],
+            [i18n('entities.record.task.title')],
           ].filter(i => i)}
         />
         <ContentWrapper>
           <RecordEpicView
+            epic={epic}
             loading={loading}
-            module={roadmap}
           />
-
-          <RecordEpicRoadmap
-            module={roadmap}
-          />
+          <p>
+            Show all element and content of task in below
+          </p>
+          <BoxWrapper>
+            Text: put content
+          </BoxWrapper>
+          <BoxWrapper>
+            Audio: put content
+          </BoxWrapper>
+          <BoxWrapper>
+            Video: put content
+          </BoxWrapper>
+          <BoxWrapper>
+            Activity: put content
+          </BoxWrapper>
+          <BoxWrapper>
+            Assignment: put content
+          </BoxWrapper>
         </ContentWrapper>
       </React.Fragment>
     )
@@ -46,7 +61,7 @@ class RecordEpicPage extends Component {
 }
 
 const select = (state) => ({
-  roadmap: selectors.selectRecord(state),
+  epic: selectors.selectRecord(state),
   loading: selectors.selectLoading(state),
 })
 

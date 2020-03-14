@@ -5,7 +5,7 @@ export default class EpicService {
   static async update(id, data) {
     const response = await graphqlClient.mutate({
       mutation: gql`
-        mutation ROADMAP_UPDATE(
+        mutation EPIC_UPDATE(
           $id: String!
           $data: EpicInput!
         ) {
@@ -27,7 +27,7 @@ export default class EpicService {
   static async destroyAll(ids) {
     const response = await graphqlClient.mutate({
       mutation: gql`
-        mutation ROADMAP_DESTROY($ids: [String!]!) {
+        mutation EPIC_DESTROY($ids: [String!]!) {
           epicDestroy(ids: $ids)
         }
       `,
@@ -43,18 +43,30 @@ export default class EpicService {
   static async find(id) {
     const response = await graphqlClient.query({
       query: gql`
-        query ROADMAP_FIND($id: String!) {
+        query EPIC_FIND($id: String!) {
           epicFind(id: $id) {
             id
             state
             completionRequired
-            createdAt
-            updatedAt
+            roadmap {
+              id
+              host {
+                id
+                name
+              }
+
+              record {
+                id
+                host {
+                  id
+                  name
+                }
+              }
+            }
             host {
               id
               name
             }
-
             children {
               id
               state
@@ -63,6 +75,8 @@ export default class EpicService {
                 name
               }
             }
+            createdAt
+            updatedAt
           }
         }
       `,
@@ -78,7 +92,7 @@ export default class EpicService {
   static async list(filter, orderBy, limit, offset) {
     const response = await graphqlClient.query({
       query: gql`
-        query ROADMAP_LIST(
+        query EPIC_LIST(
           $filter: AudioFilterInput
           $orderBy: AudioOrderByEnum
           $limit: Int
@@ -116,7 +130,7 @@ export default class EpicService {
   static async listAutocomplete(query, limit) {
     const response = await graphqlClient.query({
       query: gql`
-        query ROADMAP_AUTOCOMPLETE(
+        query EPIC_AUTOCOMPLETE(
           $query: String
           $limit: Int
         ) {

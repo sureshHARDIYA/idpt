@@ -465,12 +465,24 @@ const en = {
         updatedAt: 'Updated at',
         createdAtRange: 'Created at',
         roadmap: {
+          tasks: 'Tasks',
           host: 'Module',
           children: 'Task',
           elements: 'Elements',
           'completion?': 'Completion?',
           completionRequired: 'Completion Required',
-      }
+        },
+        epic: {
+          host: 'Task',
+          epic: 'Epic',
+          tasks: 'Tasks',
+          module: 'Module',
+          children: 'Task',
+          roadmap: 'Roadmap',
+          elements: 'Elements',
+          'completion?': 'Completion?',
+          completionRequired: 'Completion Required',
+        }
       },
       enumerators: {
         state: {

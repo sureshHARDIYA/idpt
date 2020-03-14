@@ -1,14 +1,14 @@
-const Service = require('../../../services/roadmapService');
+const Service = require('../../../services/epicService');
 const PermissionChecker = require('../../../services/iam/permissionChecker');
 const permissions = require('../../../security/permissions')
   .values;
 
 const schema = `
-  roadmapFind(id: String!): Roadmap!
+  epicFind(id: String!): Epic!
 `;
 
 const resolver = {
-  roadmapFind: async (root, args, context) => {
+  epicFind: async (root, args, context) => {
     new PermissionChecker(context)
       .validateHas(permissions.recordRead);
 

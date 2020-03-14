@@ -1,39 +1,46 @@
-import model from 'modules/record/recordModel';
 import React, { Component } from 'react';
+import { Row, Col } from 'antd';
 import Spinner from 'view/shared/Spinner';
+import model from 'modules/record/recordModel';
 import BoxWrapper from 'view/shared/styles/BoxWrapper';
 import TextViewItem from 'view/shared/view/TextViewItem';
-import CasedViewItem from 'view/cased/view/CasedViewItem';
-import { Row, Col } from 'antd';
+import TaskViewItem from 'view/task/view/TaskViewItem';
+import ModuleViewItem from 'view/module/view/ModuleViewItem';
 
 const { fields } = model;
 
 class RecordRoadmapView extends Component {
   renderView() {
-    const { module } = this.props;
+    const { epic } = this.props;
 
     return (
       <BoxWrapper>
         <Row>
           <Col span={24} md={{ span: 12 }}>
-            <TextViewItem
-              label={fields.id.label}
-              value={fields.id.forView(module.id)}
-            />
-
-            <CasedViewItem
-              label={fields['roadmap.host'].label}
-              value={fields['roadmap.host'].forView(module.host)}
-            />
-
-            <TextViewItem
-              label={fields.state.label}
-              value={fields.state.forView(module.state)}
-            />
-
-            <TextViewItem
+            <TaskViewItem
               label={fields['roadmap.tasks'].label}
-              value={fields['roadmap.tasks'].forView(module.children.length)}
+              value={fields['roadmap.tasks'].forView(epic.host)}
+            />
+
+            <ModuleViewItem
+              label={fields['roadmap.host'].label}
+              value={fields['roadmap.host'].forView(epic.roadmap.host)}
+            />
+          </Col>
+          <Col span={24} md={{ span: 12 }}>
+            <TextViewItem
+              label={fields['roadmap.completion?'].label}
+              value={fields['roadmap.completion?'].forView(epic.completionRequired ? 'True' : 'False')}
+            />
+
+            <TextViewItem
+              label={fields['roadmap.state'].label}
+              value={fields['roadmap.state'].forView(epic.state)}
+            />
+
+            <TextViewItem
+              label={fields['roadmap.elements'].label}
+              value={fields['roadmap.elements'].forView(epic.elements)}
             />
           </Col>
         </Row>
@@ -42,9 +49,9 @@ class RecordRoadmapView extends Component {
   }
 
   render() {
-    const { module, loading } = this.props;
+    const { epic, loading } = this.props;
 
-    if (loading || !module) {
+    if (loading || !epic) {
       return <Spinner />;
     }
 
