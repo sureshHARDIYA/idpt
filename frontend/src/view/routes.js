@@ -388,8 +388,8 @@ const privateRoutes = [
     path: '/epics/:id',
     loader: () => import('view/record/epic/RecordEpicViewPage'),
     menu: false,
-    permissionRequired: permissions.recordRead,
     exact: true,
+    permissionRequired: permissions.recordRead,
   },
   {
     path: '/record/:id/edit',

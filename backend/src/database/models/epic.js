@@ -16,6 +16,10 @@ const EpicSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: 'roadmap',
     },
+    children: [{
+      type: Schema.Types.ObjectId,
+      ref: 'epic',
+    }],
     state: database.stateEntry,
     completionRequired: {
       type: Boolean,

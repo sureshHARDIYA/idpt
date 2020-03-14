@@ -13,6 +13,7 @@ import video from 'modules/video/videoReducers'
 import record from 'modules/record/recordReducers'
 import document from 'modules/document/documentReducers'
 import roadmap from 'modules/roadmap/roadmapReducers'
+import epic from 'modules/epic/epicReducers'
 import { combineReducers } from 'redux'
 
 export default history =>
@@ -21,6 +22,7 @@ export default history =>
     layout,
     auth,
     iam,
+    epic,
     auditLog,
     settings,
     patient,

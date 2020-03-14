@@ -81,7 +81,35 @@ module.exports = class EpicRepository {
   static async findById(id, options) {
     return MongooseRepository.wrapWithSessionIfExists(
       Epic.findById(id)
-      .populate('assignCase'),
+      .populate('task')
+      .populate('children')
+      .populate({
+        path: 'roadmap',
+        select: {
+          id: 1,
+          name: 1
+        },
+        populate: [{
+          path: "record",
+          select: {
+            id: 1,
+            name: 1
+          },
+          populate: {
+            path: 'host',
+            select: {
+              id: 1,
+              name: 1
+            },
+          }
+        }, {
+          path: "module",
+          select: {
+            id: 1,
+            name: 1
+          },
+        }]
+      }),
       options,
     );
   }

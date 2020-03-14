@@ -60,6 +60,10 @@ const roadmapTypes = require('./roadmap/types')
 const roadmapQueries = require('./roadmap/queries')
 const roadmapMutations = require('./roadmap/mutations')
 
+const epicTypes = require('./epic/types')
+const epicQueries = require('./epic/queries')
+const epicMutations = require('./epic/mutations')
+
 const types = [
   ...sharedTypes,
   ...iamTypes,
@@ -74,7 +78,8 @@ const types = [
   ...audioTypes,
   ...videoTypes,
   ...documentTypes,
-  ...roadmapTypes
+  ...roadmapTypes,
+  ...epicTypes
 ].map(type => type.schema)
 
 const mutations = [
@@ -90,7 +95,8 @@ const mutations = [
   ...audioMutations,
   ...videoMutations,
   ...documentMutations,
-  ...roadmapMutations
+  ...roadmapMutations,
+  ...epicMutations
 ].map(mutation => mutation.schema)
 
 const queries = [
@@ -106,7 +112,8 @@ const queries = [
   ...audioQueries,
   ...videoQueries,
   ...documentQueries,
-  ...roadmapQueries
+  ...roadmapQueries,
+  ...epicQueries
 ].map(query => query.schema)
 
 const query = `

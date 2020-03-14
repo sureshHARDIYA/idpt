@@ -6,27 +6,13 @@ const schema = `
     description: String
     state: StateEnum!
     status: StatusEnum
+    roadmaps: [Roadmap!]
     createdAt: DateTime
     updatedAt: DateTime
-    roadmaps: [Roadmap!]
-  }
-
-  type Epic {
-    id: String!
-    host: Task!
-    state: StateEnum!
-    completionRequired: Boolean
-    children: [Epic]
   }
 `;
 
-const resolver = {
-  Epic: {
-    id: (instance) => instance._id,
-    host: (instance) => instance.task,
-    children: (instance) => instance.children && instance.children.length > 0 ? instance.children: null
-  }
-};
+const resolver = {};
 
 exports.schema = schema;
 exports.resolver = resolver;
