@@ -1,7 +1,8 @@
 const schema = `
   input DocumentInput {
-    contentHTML: String
-    totalreadtime: Int
+    contentHTML: String!
+    totalreadtime: Int!
+    evaluationCriteria: EvaluationCriteriaInput!
   }
 `;
 

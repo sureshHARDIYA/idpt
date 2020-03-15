@@ -1,4 +1,7 @@
+
 import * as yup from 'yup';
+import _get from 'lodash/get'
+import _set from 'lodash/set'
 
 export default class FormSchema {
   constructor(idField, fields) {
@@ -16,9 +19,7 @@ export default class FormSchema {
     }
 
     this.fields.forEach((field) => {
-      intialValues[field.name] = field.forFormInitialValue(
-        record[field.name],
-      );
+      _set(intialValues, field.name, field.forFormInitialValue(_get(record, field.name)));
     });
 
     return intialValues;

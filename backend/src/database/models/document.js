@@ -22,6 +22,11 @@ const DocumentSchema = new Schema(
       ref: 'user',
     },
     importHash: { type: String },
+    evaluationCriteria: {
+      field: String,
+      operator: String,
+      valueRequired: String,
+    }
   },
   { timestamps: true },
 );

@@ -1,3 +1,5 @@
+import _get from 'lodash/get'
+
 export default class FormErrors {
   static displayableError(
     form,
@@ -8,11 +10,11 @@ export default class FormErrors {
       return externalErrorMessage;
     }
 
-    if (!form.touched[fieldName]) {
+    if (!_get(form.touched, fieldName)) {
       return null;
     }
 
-    const errors = form.errors[fieldName];
+    const errors = _get(form.errors, fieldName);
 
     if (!errors) {
       return null;
