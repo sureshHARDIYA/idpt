@@ -516,6 +516,38 @@ const en = {
         title: 'View Task',
       },
     },
+    evaluationCriteria: {
+      name: 'evaluationCriteria',
+      label: 'Evaluation Criteria',
+      create: {
+        success: 'Evaluation criteria saved successfully',
+      },
+      update: {
+        success: 'Evaluation criteria saved successfully',
+      },
+      destroy: {
+        success: 'Evaluation criteria deleted successfully',
+      },
+      destroyAll: {
+        success: 'Evaluation criteria(s) deleted successfully',
+      },
+      edit: {
+        title: 'Edit Evaluation criteria',
+      },
+      fields: {
+        id: 'Id',
+        field: 'Field',
+        operator: 'Operator',
+        valueRequired: 'Value Required',
+      },
+      enumerators: {
+        operators: {
+          'GREATERTHAN': 'GREATER THAN (>)',
+          'LESSTHAN': 'LESS THAN (<)',
+          'EQUALS': 'EQUALS (==)',
+        },
+      },
+    },
   },
 
   auth: {

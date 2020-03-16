@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import _get from 'lodash/get'
 import { Form, Input } from 'antd';
 import { formItemLayout } from 'view/shared/styles/FormWrapper';
 import PropTypes from 'prop-types';
@@ -49,7 +50,7 @@ export class InputFormItemNotFast extends Component {
           type={type}
           onChange={form.handleChange}
           onBlur={form.handleBlur}
-          value={form.values[name]}
+          value={_get(form.values, name)}
           size={size || undefined}
           placeholder={placeholder || undefined}
           autoFocus={autoFocus || false}

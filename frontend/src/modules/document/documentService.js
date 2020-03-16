@@ -86,6 +86,11 @@ export default class DocumentService {
             id
             contentHTML
             totalreadtime
+            evaluationCriteria {
+              field
+              operator
+              valueRequired
+            }
             createdAt
             updatedAt
           }
@@ -120,8 +125,13 @@ export default class DocumentService {
               id
               contentHTML
               totalreadtime
-              updatedAt
+              evaluationCriteria {
+                field
+                operator
+                valueRequired
+              }
               createdAt
+              updatedAt
             }
           }
         }

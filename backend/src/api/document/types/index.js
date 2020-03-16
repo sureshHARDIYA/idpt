@@ -5,4 +5,5 @@ module.exports = [
   require('./documentOrderByEnum'),
   require('./documentPage'),
   require('./documentEnums'),
+  require('./evaluationCriteriaInput'),
 ];

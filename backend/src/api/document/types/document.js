@@ -3,6 +3,7 @@ const schema = `
     id: String!
     contentHTML: String
     totalreadtime: Int
+    evaluationCriteria: EvaluationCriteria
     createdAt: DateTime
     updatedAt: DateTime
   }

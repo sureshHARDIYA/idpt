@@ -4,6 +4,7 @@ import { formItemLayout } from 'view/shared/styles/FormWrapper';
 import PropTypes from 'prop-types';
 import FormErrors from 'view/shared/form/formErrors';
 import { FastField } from 'formik';
+import _get from 'lodash/get'
 
 class TextAreaFormItemNotFast extends Component {
   render() {
@@ -50,7 +51,7 @@ class TextAreaFormItemNotFast extends Component {
           type={type}
           onChange={form.handleChange}
           onBlur={form.handleBlur}
-          value={form.values[name]}
+          value={_get(form.values, name)}
           size={size || undefined}
           placeholder={placeholder || undefined}
           autoFocus={autoFocus || false}

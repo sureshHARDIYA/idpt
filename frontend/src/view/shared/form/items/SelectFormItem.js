@@ -4,6 +4,7 @@ import { formItemLayout } from 'view/shared/styles/FormWrapper';
 import PropTypes from 'prop-types';
 import FormErrors from 'view/shared/form/formErrors';
 import { FastField } from 'formik';
+import _get from 'lodash/get'
 
 class SelectFormItemNotFast extends Component {
   render() {
@@ -47,11 +48,9 @@ class SelectFormItemNotFast extends Component {
       >
         <Select
           id={name}
-          onChange={(value) =>
-            form.setFieldValue(name, value)
-          }
+          onChange={(value) => form.setFieldValue(name, value)}
           onBlur={() => form.setFieldTouched(name)}
-          value={form.values[name]}
+          value={_get(form.values, name)}
           size={size || undefined}
           placeholder={placeholder || undefined}
           autoFocus={autoFocus || false}
