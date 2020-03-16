@@ -9,7 +9,7 @@ const AudioSchema = new Schema(
   {
     url: {
       type: String,
-      minlength: 200,
+      maxlength: 200,
     },
     audiolength: {
       type: Number,
@@ -24,6 +24,11 @@ const AudioSchema = new Schema(
       ref: 'user',
     },
     importHash: { type: String },
+    evaluationCriteria: {
+      field: String,
+      operator: String,
+      valueRequired: String,
+    }
   },
   { timestamps: true },
 );

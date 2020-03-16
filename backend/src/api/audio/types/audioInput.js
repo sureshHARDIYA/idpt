@@ -2,6 +2,7 @@ const schema = `
   input AudioInput {
     url: String
     audiolength: Int
+    evaluationCriteria: EvaluationCriteriaInput!
   }
 `;
 

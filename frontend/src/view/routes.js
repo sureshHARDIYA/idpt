@@ -14,7 +14,33 @@ const privateRoutes = [
     permissionRequired: null,
     exact: true,
   },
-
+  {
+    path: '/cased',
+    loader: () => import('view/cased/list/CasedListPage'),
+    permissionRequired: permissions.casedRead,
+    exact: true,
+    icon: 'right',
+    label: i18n('entities.cased.menu'),
+    menu: true,
+  },
+  {
+    path: '/module',
+    loader: () => import('view/module/list/ModuleListPage'),
+    permissionRequired: permissions.moduleRead,
+    exact: true,
+    icon: 'right',
+    label: i18n('entities.module.menu'),
+    menu: true,
+  },
+  {
+    path: '/task',
+    loader: () => import('view/task/list/TaskListPage'),
+    permissionRequired: permissions.taskRead,
+    exact: true,
+    icon: 'right',
+    label: i18n('entities.task.menu'),
+    menu: true,
+  },
   {
     path: '/profile',
     loader: () => import('view/auth/ProfileFormPage'),
@@ -23,15 +49,7 @@ const privateRoutes = [
     menu: false,
   },
 
-  {
-    path: '/iam',
-    loader: () => import('view/iam/list/IamPage'),
-    permissionRequired: permissions.iamRead,
-    exact: true,
-    icon: 'user-add',
-    label: i18n('iam.menu'),
-    menu: true,
-  },
+
   {
     path: '/iam/new',
     loader: () => import('view/iam/new/IamNewPage'),
@@ -61,79 +79,13 @@ const privateRoutes = [
     permissionRequired: permissions.iamRead,
     exact: true,
   },
-
-  {
-    path: '/audit-logs',
-    icon: 'file-search',
-    label: i18n('auditLog.menu'),
-    loader: () => import('view/auditLog/AuditLogPage'),
-    menu: true,
-    permissionRequired: permissions.auditLogRead,
-  },
-
-  {
-    path: '/settings',
-    icon: 'setting',
-    label: i18n('settings.menu'),
-    loader: () => import('view/settings/SettingsFormPage'),
-    permissionRequired: permissions.settingsEdit,
-    menu: true,
-  },
-
-  {
-    path: '/patient',
-    loader: () => import('view/patient/list/PatientListPage'),
-    permissionRequired: permissions.patientRead,
-    exact: true,
-    icon: 'right',
-    label: i18n('entities.patient.menu'),
-    menu: true,
-  },
-  {
-    path: '/patient/new',
-    loader: () => import('view/patient/form/PatientFormPage'),
-    menu: false,
-    permissionRequired: permissions.patientCreate,
-    exact: true,
-  },
-  {
-    path: '/patient/importer',
-    loader: () =>
-      import('view/patient/importer/PatientImporterPage'),
-    menu: false,
-    permissionRequired: permissions.patientImport,
-    exact: true,
-  },
-  {
-    path: '/patient/:id/edit',
-    loader: () => import('view/patient/form/PatientFormPage'),
-    menu: false,
-    permissionRequired: permissions.patientEdit,
-    exact: true,
-  },
-  {
-    path: '/patient/:id',
-    loader: () => import('view/patient/view/PatientViewPage'),
-    menu: false,
-    permissionRequired: permissions.patientRead,
-    exact: true,
-  },
-
-  {
-    path: '/cased',
-    loader: () => import('view/cased/list/CasedListPage'),
-    permissionRequired: permissions.casedRead,
-    exact: true,
-    icon: 'right',
-    label: i18n('entities.cased.menu'),
-    menu: true,
-  },
   {
     path: '/cased/new',
     loader: () => import('view/cased/form/CasedFormPage'),
     menu: false,
     permissionRequired: permissions.casedCreate,
     exact: true,
+    submenu: true,
   },
   {
     path: '/cased/importer',
@@ -158,15 +110,7 @@ const privateRoutes = [
     exact: true,
   },
 
-  {
-    path: '/module',
-    loader: () => import('view/module/list/ModuleListPage'),
-    permissionRequired: permissions.moduleRead,
-    exact: true,
-    icon: 'right',
-    label: i18n('entities.module.menu'),
-    menu: true,
-  },
+
   {
     path: '/module/new',
     loader: () => import('view/module/form/ModuleFormPage'),
@@ -197,15 +141,7 @@ const privateRoutes = [
     exact: true,
   },
 
-  {
-    path: '/task',
-    loader: () => import('view/task/list/TaskListPage'),
-    permissionRequired: permissions.taskRead,
-    exact: true,
-    icon: 'right',
-    label: i18n('entities.task.menu'),
-    menu: true,
-  },
+
   {
     path: '/task/new',
     loader: () => import('view/task/form/TaskFormPage'),
@@ -405,6 +341,33 @@ const privateRoutes = [
     permissionRequired: permissions.recordRead,
     exact: true,
   },
+  {
+    path: '/iam',
+    loader: () => import('view/iam/list/IamPage'),
+    permissionRequired: permissions.iamRead,
+    exact: true,
+    icon: 'user-add',
+    label: i18n('iam.menu'),
+    menu: true,
+  },
+  {
+    path: '/audit-logs',
+    icon: 'file-search',
+    label: i18n('auditLog.menu'),
+    loader: () => import('view/auditLog/AuditLogPage'),
+    menu: true,
+    permissionRequired: permissions.auditLogRead,
+  },
+
+  {
+    path: '/settings',
+    icon: 'setting',
+    label: i18n('settings.menu'),
+    loader: () => import('view/settings/SettingsFormPage'),
+    permissionRequired: permissions.settingsEdit,
+    menu: true,
+  },
+
 ];
 
 const publicRoutes = [

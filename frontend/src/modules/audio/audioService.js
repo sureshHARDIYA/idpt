@@ -88,6 +88,11 @@ export default class AudioService {
             audiolength
             createdAt
             updatedAt
+            evaluationCriteria {
+              field
+              operator
+              valueRequired
+            }
           }
         }
       `,

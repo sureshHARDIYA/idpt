@@ -3,6 +3,7 @@ const schema = `
     id: String!
     url: String
     audiolength: Int
+    evaluationCriteria: EvaluationCriteria
     createdAt: DateTime
     updatedAt: DateTime
   }

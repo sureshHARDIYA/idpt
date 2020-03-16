@@ -37,6 +37,18 @@ class AudioView extends Component {
           label={fields.updatedAt.label}
           value={fields.updatedAt.forView(record.updatedAt)}
         />
+        <TextViewItem
+          label={fields.evaluationCriteria.fields.field.label}
+          value={fields.evaluationCriteria.fields.field.forView(record.evaluationCriteria.field)}
+        />
+        <TextViewItem
+          label={fields.evaluationCriteria.fields.operator.label}
+          value={fields.evaluationCriteria.fields.operator.forView(record.evaluationCriteria.operator)}
+        />
+        <TextViewItem
+          label={fields.evaluationCriteria.fields.valueRequired.label}
+          value={fields.evaluationCriteria.fields.valueRequired.forView(record.evaluationCriteria.valueRequired)}
+        />
       </ViewWrapper>
     );
   }

@@ -1,4 +1,4 @@
-import { Button, Form } from 'antd';
+import { Button, Form, Card } from 'antd';
 import { Formik } from 'formik';
 import { i18n } from 'i18n';
 import model from 'modules/audio/audioModel';
@@ -11,6 +11,7 @@ import FormWrapper, {
 import FormSchema from 'view/shared/form/formSchema';
 import InputFormItem from 'view/shared/form/items/InputFormItem';
 import InputNumberFormItem from 'view/shared/form/items/InputNumberFormItem';
+import SelectFormItem from 'view/shared/form/items/SelectFormItem';
 
 const { fields } = model;
 
@@ -18,6 +19,7 @@ class AudioForm extends Component {
   schema = new FormSchema(fields.id, [
     fields.url,
     fields.audiolength,
+    fields.evaluationCriteria
   ]);
 
   handleSubmit = (values) => {
@@ -62,7 +64,38 @@ class AudioForm extends Component {
                     fields.audiolength.required
                   }
                 />
+                <Card title={fields.evaluationCriteria.label}>
+                  <SelectFormItem
+                    name={fields.evaluationCriteria.fields.field.name}
+                    label={fields.evaluationCriteria.fields.field.label}
+                    required={fields.evaluationCriteria.fields.field.required}
+                    options={fields.evaluationCriteria.fields.field.options.map(
+                      (item) => ({
+                        value: item.id,
+                        label: item.label,
+                      }),
+                    )}
+                  />
 
+                  <SelectFormItem
+                    name={fields.evaluationCriteria.fields.operator.name}
+                    label={fields.evaluationCriteria.fields.operator.label}
+                    required={fields.evaluationCriteria.fields.operator.required}
+                    options={fields.evaluationCriteria.fields.operator.options.map(
+                      (item) => ({
+                        value: item.id,
+                        label: item.label,
+                      }),
+                    )}
+                  />
+
+                  <InputFormItem
+                    name={fields.evaluationCriteria.fields.valueRequired.name}
+                    label={fields.evaluationCriteria.fields.valueRequired.label}
+                    required={fields.evaluationCriteria.fields.valueRequired.required}
+                    autoFocus
+                  />
+                </Card>
                 <Form.Item
                   className="form-buttons"
                   {...tailFormItemLayout}
