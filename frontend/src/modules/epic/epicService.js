@@ -66,14 +66,39 @@ export default class EpicService {
             host {
               id
               name
+              elements {
+                id
+                contentHTML
+                totalreadtime
+                __typename
+                evaluationCriteria {
+                  id
+                  field
+                  done
+                  total
+                  operator
+                  valueRequired
+                }
+              }
             }
             children {
               id
               state
+              __typename
               host {
                 id
                 name
+                __typename
               }
+            }
+            evaluationCriterias: elements {
+              id
+              done
+              total
+              field
+              operator
+              valueRequired
+              __typename
             }
             createdAt
             updatedAt
@@ -148,5 +173,39 @@ export default class EpicService {
     });
 
     return response.data.epicAutocomplete;
+  }
+
+  static async documentCount(id, items) {
+    if (items.length) {
+      const response = await graphqlClient.mutate({
+        mutation: gql`
+          mutation EPIC_CRITERIA_UPDATE(
+            $id: String!
+            $data: [EpicCriteriaInput]!
+          ) {
+            epicCriteriaUpdate(id: $id, data: $data) {
+              id
+              evaluationCriterias: elements {
+                id
+                done
+                total
+                field
+                operator
+                valueRequired
+              }
+            }
+          }
+        `,
+
+        variables: {
+          id,
+          data: items,
+        },
+      });
+
+      return response.data.epicCriteriaUpdate;
+    }
+
+    return {};
   }
 }

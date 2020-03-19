@@ -68,7 +68,9 @@ module.exports = class EpicService {
    * @param {*} id
    */
   async findById(id) {
-    return this.repository.findById(id);
+    return this.repository.findById(id, {
+      currentUser: this.currentUser,
+    });
   }
 
   /**
@@ -91,5 +93,33 @@ module.exports = class EpicService {
    */
   async findAndCountAll(args) {
     return this.repository.findAndCountAll(args);
+  }
+
+  /**
+   * Updates a Audio.
+   *
+   * @param {*} id
+   * @param {*} data
+   */
+  async epicCriteriaUpdate(id, data) {
+    const session = await MongooseRepository.createSession();
+
+    try {
+      const record = await this.repository.updateCriteria(
+        id,
+        data,
+        {
+          session,
+          currentUser: this.currentUser,
+        },
+      );
+
+      await MongooseRepository.commitTransaction(session);
+
+      return record;
+    } catch (error) {
+      await MongooseRepository.abortTransaction(session);
+      throw error;
+    }
   }
 };

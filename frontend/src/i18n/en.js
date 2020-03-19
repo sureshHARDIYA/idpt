@@ -542,9 +542,9 @@ const en = {
       },
       enumerators: {
         operators: {
-          'GREATERTHAN': 'GREATER THAN (>)',
-          'LESSTHAN': 'LESS THAN (<)',
-          'EQUALS': 'EQUALS (==)',
+          'GREATERTHAN': '(>)',
+          'LESSTHAN': '(<)',
+          'EQUALS': '(==)',
         },
       },
     },

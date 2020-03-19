@@ -38,14 +38,32 @@ class RecordRepository {
     );
 
     const modules = await Module.getRoadmap(data.host);
+    const roadmaps = [];
 
-    const roadmaps = await Promise.all(modules.map((module) => RoadmapRepository.create(
-      {
+    for (const [key, module] of modules.entries()) {
+      const prerequisite = roadmaps[key - 1];
+
+      const params = {
         record: record.id,
         module: module.id,
-      },
-      options,
-    )))
+        state: key ? 'LOCKED' : 'ACTIVATE'
+      };
+
+      if (prerequisite) {
+        params.prerequisite = {
+          [prerequisite.id]: prerequisite.state,
+        }
+      }
+
+      const epic = await RoadmapRepository.create(params, options);
+
+      if (key > 0) {
+        prerequisite.next.push(epic.id);
+        await prerequisite.save();
+      }
+
+      roadmaps.push(epic);
+    }
 
     await Record.updateOne(
       { _id: record._id },

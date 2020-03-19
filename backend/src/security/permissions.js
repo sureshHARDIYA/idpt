@@ -357,6 +357,14 @@ class Permissions {
           roles.moduleViewer
         ]
       },
+      epicCriteriaUpdate: {
+        id: 'epicCriteriaUpdate',
+        allowedRoles: [
+          roles.owner,
+          roles.epicEditor,
+          roles.entityEditor,
+        ]
+      },
       audioImport: {
         id: 'audioImport',
         allowedRoles: [

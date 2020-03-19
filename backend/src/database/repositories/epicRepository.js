@@ -1,7 +1,10 @@
+const moment = require('moment');
+
 const MongooseRepository = require('./mongooseRepository');
 const MongooseQueryUtils = require('../utils/mongooseQueryUtils');
 const AuditLogRepository = require('./auditLogRepository');
 const Epic = require('../models/epic');
+const Task = require('../models/task');
 
 /**
  * Handles database operations for the Epic.
@@ -19,6 +22,8 @@ module.exports = class EpicRepository {
       await Epic.createCollection();
     }
 
+    const task = await Task.findById(data.task).populate('elements');
+
     const currentUser = MongooseRepository.getCurrentUser(
       options,
     );
@@ -27,6 +32,14 @@ module.exports = class EpicRepository {
       [
         {
           ...data,
+          elements: task.elements.map((item) => ({
+            id: item.evaluationCriteria._id,
+            field: item.evaluationCriteria.field,
+            operator: item.evaluationCriteria.operator,
+            valueRequired: item.evaluationCriteria.valueRequired,
+            done: false,
+            total: 0,
+          })),
           createdBy: currentUser.id,
           updatedBy: currentUser.id,
         },
@@ -79,10 +92,13 @@ module.exports = class EpicRepository {
    * @param {Object} [options]
    */
   static async findById(id, options) {
-    return MongooseRepository.wrapWithSessionIfExists(
+    const record = await MongooseRepository.wrapWithSessionIfExists(
       Epic.findById(id)
-      .populate('task')
       .populate('children')
+      .populate({
+        path: 'task',
+        populate: 'elements'
+      })
       .populate({
         path: 'roadmap',
         select: {
@@ -112,6 +128,52 @@ module.exports = class EpicRepository {
       }),
       options,
     );
+
+    if (record.state === 'ACTIVATE') {
+      record.state = 'PROGRESS';
+
+      await this._createAuditLog(
+        AuditLogRepository.UPDATE,
+        record._id,
+        { state: 'PROGRESS' },
+        options,
+      );
+
+      return await record.save()
+    }
+
+    return record;
+  }
+
+  /**
+   * Updates the Epic.
+   *
+   * @param {Object} data
+   * @param {Object} [options]
+   */
+
+  static async update(id, data, options) {
+    await MongooseRepository.wrapWithSessionIfExists(
+      Epic.updateOne(
+        { _id: id },
+        {
+          ...data,
+          updatedBy: MongooseRepository.getCurrentUser(
+            options,
+          ).id,
+        },
+      ),
+      options,
+    );
+
+    await this._createAuditLog(
+      AuditLogRepository.UPDATE,
+      id,
+      data,
+      options,
+    );
+
+    return await this.findById(id, options);
   }
 
   /**
@@ -280,6 +342,49 @@ module.exports = class EpicRepository {
       id: record.id,
       label: record['name'],
     }));
+  }
+
+  /**
+   * Update criteria in the Epic.
+   *
+   * @param {String} id
+   * @param {Object} data
+   * @param {Object} [options]
+   */
+  static async updateCriteria(id, data, options) {
+    if (MongooseRepository.getSession(options)) {
+      await Epic.createCollection();
+    }
+
+    const criteriaData = data.reduce((obj, item) => ({
+      ...obj,
+      [item.id]: item,
+    }), {});
+
+    const epic = await Epic.findById(id);
+
+
+    epic.elements.forEach(element => {
+      if (criteriaData[element.id]) {
+        element.history.push({
+          duration: criteriaData[element.id].duration,
+          start: moment.utc(criteriaData[element.id].start, 'x').toString(),
+        })
+      }
+    });
+
+    await epic.save();
+
+    await this._createAuditLog(
+      AuditLogRepository.UPDATE,
+      id,
+      {
+        elements: data,
+      },
+      options,
+    );
+
+    return this.findById(epic.id, options);
   }
 
   /**

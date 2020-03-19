@@ -6,7 +6,10 @@ const schema = `
   }
 
   type EvaluationCriteria {
+    id: String
     field: String
+    done: Boolean
+    total: Int
     valueRequired: String
     operator: EvaluationCriteriaoperator
   }

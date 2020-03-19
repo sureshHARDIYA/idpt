@@ -53,6 +53,9 @@ const RecordSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: 'user',
     },
+    states: {
+      type: Schema.Types.Mixed,
+    },
     importHash: { type: String },
   },
   { timestamps: true },
@@ -69,5 +72,22 @@ RecordSchema.set('toJSON', {
 RecordSchema.set('toObject', {
   getters: true,
 });
+
+RecordSchema.pre('save', function(next) {
+  const states = Object.values(this.states || {});
+
+  if (states.length > 0 && states.length === this.roadmaps.length) {
+    if (states.includes('PROGRESS')) {
+      this.state = 'PROGRESS';
+    } else if (states.includes('ACTIVATE')) {
+      this.state = 'ACTIVATE';
+    } else if (!states.find((item) => item !== 'COMPLETE')) {
+      this.state = 'COMPLETE';
+    }
+  }
+
+  this.stateModified = this.isModified('state');
+  next();
+})
 
 module.exports = database.model('record', RecordSchema);;

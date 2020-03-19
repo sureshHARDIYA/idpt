@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Card, Col, Row, Collapse } from 'antd';
 import ContentWrapper from 'view/layout/styles/ContentWrapper';
 import Breadcrumb from 'view/shared/Breadcrumb';
 import { i18n } from 'i18n';
@@ -7,7 +8,11 @@ import actions from 'modules/epic/view/epicViewActions';
 import selectors from 'modules/epic/view/epicViewSelectors';
 import _get from 'lodash/get';
 import RecordEpicView from 'view/record/epic/RecordEpicView';
-import BoxWrapper from 'view/shared/styles/BoxWrapper';
+import { CaretRightOutlined } from '@ant-design/icons';
+
+const { Panel } = Collapse;
+
+const enumeratorLabel = (name) => i18n(`entities.evaluationCriteria.enumerators.operators.${name}`);
 
 class RecordEpicPage extends Component {
   componentDidMount() {
@@ -15,8 +20,70 @@ class RecordEpicPage extends Component {
     dispatch(actions.doFind(match.params.id));
   }
 
+  get fieldsParser() {
+    return ({
+      totalreadtime: 'Read time',
+    })
+  }
+
+  componentWillUnmount() {
+    this.props.dispatch(actions.doStartDocumentCount(this.props.match.params.id, []));
+  }
+
+  renderElement = (item) => {
+    const evaluationCriteria = _get(item, 'evaluationCriteria', {});
+
+    return (
+      <Panel
+        key={JSON.stringify({
+          id: evaluationCriteria.id,
+          type: item.__typename
+        })}
+        header={item.__typename}
+      >
+        <Row>
+          <Col xs={24}>
+            <strong>
+              Criteria:
+            </strong>
+            &nbsp;
+            {this.fieldsParser[evaluationCriteria.field]} {enumeratorLabel(evaluationCriteria.operator)} {evaluationCriteria.valueRequired}
+          </Col>
+          <Col xs={24}>
+            <strong>Status:</strong>&nbsp;{evaluationCriteria.done ? 'Completed' : 'Uncompleted'}
+          </Col>
+          <Col xs={24}>
+            <strong>
+              Read time:
+            </strong>
+            &nbsp;
+            {evaluationCriteria.total || '0'}
+          </Col>
+          <Col xs={24}>
+            <strong>
+              Content:
+            </strong>
+            <div
+              dangerouslySetInnerHTML={{ __html: item.contentHTML }}
+            />
+          </Col>
+        </Row>
+      </Panel>
+    )
+  }
+
+  onChange = (elements) => {
+    const items = elements.map(item => JSON.parse(item));
+    const documents = items.filter(item => item.type === 'Document').map(({ id }) => id)
+
+    this.props.dispatch(
+      actions.doStartDocumentCount(this.props.match.params.id, documents)
+    );
+  };
+
   render() {
     const { epic, loading } = this.props;
+    const elements = _get(epic, 'host.elements', []);
     const moduleName = _get(epic, 'roadmap.host.name');
     const casedName = _get(epic, 'roadmap.record.host.name');
 
@@ -36,24 +103,16 @@ class RecordEpicPage extends Component {
             epic={epic}
             loading={loading}
           />
-          <p>
-            Show all element and content of task in below
-          </p>
-          <BoxWrapper>
-            Text: put content
-          </BoxWrapper>
-          <BoxWrapper>
-            Audio: put content
-          </BoxWrapper>
-          <BoxWrapper>
-            Video: put content
-          </BoxWrapper>
-          <BoxWrapper>
-            Activity: put content
-          </BoxWrapper>
-          <BoxWrapper>
-            Assignment: put content
-          </BoxWrapper>
+          <Card
+            title="Task Types"
+          >
+            <Collapse
+              onChange={this.onChange}
+              expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}
+            >
+              {elements.map(this.renderElement)}
+            </Collapse>
+          </Card>
         </ContentWrapper>
       </React.Fragment>
     )

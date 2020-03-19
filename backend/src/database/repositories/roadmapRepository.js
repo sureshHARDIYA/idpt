@@ -38,14 +38,32 @@ module.exports = class RoadmapRepository {
     );
 
     const tasks = await Task.find({ owner: record.module })
+    const epics = [];
 
-    const epics = await Promise.all(tasks.map((task) => EpicRepository.create(
-      {
+    for (const [key, task] of tasks.entries()) {
+      const prerequisite = epics[key - 1];
+
+      const params = {
         task: task.id,
         roadmap: record.id,
-      },
-      options,
-    )))
+        state: key ? 'LOCKED' : 'ACTIVATE'
+      };
+
+      if (prerequisite) {
+        params.prerequisite = {
+          [prerequisite.id]: prerequisite.state,
+        }
+      }
+
+      const epic = await EpicRepository.create(params, options);
+
+      if (key > 0) {
+        prerequisite.next.push(epic.id);
+        await prerequisite.save();
+      }
+
+      epics.push(epic);
+    }
 
     await Roadmap.updateOne(
       { _id: record._id },
