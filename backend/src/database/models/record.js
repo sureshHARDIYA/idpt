@@ -1,8 +1,6 @@
 const database = require('../database');
 const Schema = database.Schema;
 
-// const Task = database.model('task')
-
 const stateEntry = {
   type: String,
   enum: [
@@ -76,7 +74,7 @@ RecordSchema.set('toObject', {
 RecordSchema.pre('save', function(next) {
   const states = Object.values(this.states || {});
 
-  if (states.length > 0 && states.length === this.roadmaps.length) {
+  if (states.length > 0) {
     if (states.includes('PROGRESS')) {
       this.state = 'PROGRESS';
     } else if (states.includes('ACTIVATE')) {
@@ -86,7 +84,6 @@ RecordSchema.pre('save', function(next) {
     }
   }
 
-  this.stateModified = this.isModified('state');
   next();
 })
 

@@ -1,5 +1,6 @@
 const database = require('../database');
 const Schema = database.Schema;
+const Record = require('./record');
 
 /**
  * Roadmap database schema.
@@ -64,19 +65,33 @@ RoadmapSchema.pre('save', function(next) {
   const states = Object.values(this.states || {});
   const prerequisite = Object.values(this.prerequisite || {});
 
-  if (this.state === 'LOCKED' && prerequisite.length > 0 && !prerequisite.find((item) => item !== 'COMPLETE')) {
+  if (
+    this.state === 'LOCKED' &&
+    prerequisite.length > 0 &&
+    !prerequisite.find((item) => item !== 'COMPLETE')
+  ) {
     this.state = 'ACTIVATE';
-  } else if (states.length > 0 && states.length === this.children.length && !states.find((item) => item !== 'COMPLETE')) {
+  } else if (
+    states.length > 0 &&
+    states.length === this.children.length &&
+    !states.find((item) => item !== 'COMPLETE')
+  ) {
     this.state = 'COMPLETE';
   }
 
   if (states.length > 0 && states.length === this.children.length) {
-    if (this.state !== 'PROGRESS' && states.includes('PROGRESS')) {
+    if (
+      this.state === 'ACTIVATE' &&
+      this.state !== 'PROGRESS' &&
+      states.includes('PROGRESS')
+    ) {
       this.state = 'PROGRESS';
-    } else if (this.state !== 'ACTIVATE' && states.includes('ACTIVATE')) {
+    } else if (
+      this.state === 'LOCKED' &&
+      this.state !== 'ACTIVATE' &&
+      states.includes('ACTIVATE')
+    ) {
       this.state = 'ACTIVATE';
-    } else if (this.state !== 'COMPLETE' && !states.find((item) => item !== 'COMPLETE')) {
-      this.state = 'COMPLETE';
     }
   }
 
@@ -85,18 +100,20 @@ RoadmapSchema.pre('save', function(next) {
 })
 
 RoadmapSchema.post('save', async function() {
-  if (this.stateModified) {
+  if (this.stateModified || !this.__v) {
     const { next, record } = await this.populate('next').populate('record').execPopulate();
 
-    if (record) {
-      record.states = record.states || {};
-      record.states[this._id] = this.state;
-      await record.save();
-    }
+    await Record.updateOne(
+      { _id: record._id },
+      { $set: { [`states.${this._id}`]: this.state } }
+    )
+    await record.save();
 
     for (const item of next) {
-      item.prerequisite = item.prerequisite || {};
-      item.prerequisite[this._id] = this.state;
+      await this.model('roadmap').updateOne(
+        { _id: item._id },
+        { $set: { [`prerequisite.${this._id}`]: this.state } }
+      )
       await item.save();
     }
   }

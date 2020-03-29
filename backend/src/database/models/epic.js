@@ -1,5 +1,6 @@
 const database = require('../database');
 const Schema = database.Schema;
+const Roadmap = require('./roadmap');
 
 /**
  * Epic database schema.
@@ -97,9 +98,18 @@ EpicSchema.set('toObject', {
 EpicSchema.pre('save', function(next) {
   const prerequisite = Object.values(this.prerequisite || {});
 
-  if (this.state === 'LOCKED' && prerequisite.length > 0 && !prerequisite.find((item) => item !== 'COMPLETE')) {
+  if (
+    this.state === 'LOCKED' &&
+    prerequisite.length > 0 &&
+    !prerequisite.find((item) => item !== 'COMPLETE')
+  ) {
     this.state = 'ACTIVATE';
-  } else if (this.state === 'PROGRESS' && this.state !== 'COMPLETE' && this.elements.length > 0 && !this.elements.find((item) => !item.done)) {
+  } else if (
+    this.state === 'PROGRESS' &&
+    this.state !== 'COMPLETE' &&
+    this.elements.length > 0 &&
+    !this.elements.find((item) => !item.done)
+  ) {
     this.state = 'COMPLETE';
   }
 
@@ -108,19 +118,20 @@ EpicSchema.pre('save', function(next) {
 })
 
 EpicSchema.post('save', async function() {
-  if (this.stateModified) {
+  if (this.stateModified || !this.__v) {
     const { next, roadmap } = await this.populate('next').populate('roadmap').execPopulate();
 
-    if (roadmap) {
-      roadmap.states = roadmap.states || {};
-      roadmap.states[this._id] = this.state;
-      await roadmap.save();
-    }
+    await Roadmap.updateOne(
+      { _id: roadmap._id },
+      { $set: { [`states.${this._id}`]: this.state } }
+    )
+    await roadmap.save();
 
     for (const item of next) {
-      console.log('this._id:', this._id);
-      item.prerequisite = item.prerequisite || {};
-      item.prerequisite[this._id] = this.state;
+      await this.model('epic').updateOne(
+        { _id: item._id },
+        { $set: { [`prerequisite.${this._id}`]: this.state } }
+      )
       await item.save();
     }
   }
