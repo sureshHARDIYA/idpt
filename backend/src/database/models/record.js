@@ -1,8 +1,6 @@
 const database = require('../database');
 const Schema = database.Schema;
 
-// const Task = database.model('task')
-
 const stateEntry = {
   type: String,
   enum: [
@@ -53,6 +51,10 @@ const RecordSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: 'user',
     },
+    states: {
+      type: Schema.Types.Mixed,
+      default: {},
+    },
     importHash: { type: String },
   },
   { timestamps: true },
@@ -69,5 +71,28 @@ RecordSchema.set('toJSON', {
 RecordSchema.set('toObject', {
   getters: true,
 });
+
+RecordSchema.post('updateOne', async function() {
+  await this.model.findOne(this.getQuery()).then((instance) => instance.save());
+})
+
+RecordSchema.pre('save', function(next) {
+  const states = Object.values(this.states || {});
+
+  if (states.length > 0) {
+    if (
+      states.length === this.roadmaps.length &&
+      !states.find((item) => item !== 'COMPLETE')
+    ) {
+      this.state = 'COMPLETE';
+    } else if (this.state === 'ACTIVATE' && states.includes('PROGRESS')) {
+      this.state = 'PROGRESS';
+    } else if (this.state === 'LOCKED' && states.includes('ACTIVATE')) {
+      this.state = 'ACTIVATE';
+    }
+  }
+
+  next();
+})
 
 module.exports = database.model('record', RecordSchema);;

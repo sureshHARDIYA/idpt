@@ -25,6 +25,7 @@ class Roles {
       audioViewer: 'audioViewer',
       documentEditor: 'documentEditor',
       documentViewer: 'documentViewer',
+      epicEditor: 'epicEditor',
     };
   }
 }

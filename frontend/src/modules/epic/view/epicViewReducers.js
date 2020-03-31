@@ -3,6 +3,7 @@ import actions from 'modules/epic/view/epicViewActions';
 const initialData = {
   loading: false,
   record: null,
+  document: null,
 };
 
 export default (state = initialData, { type, payload }) => {
@@ -27,6 +28,13 @@ export default (state = initialData, { type, payload }) => {
       ...state,
       record: null,
       loading: false,
+    };
+  }
+
+  if (type === actions.COUNT_DOCUMENT_STARTED) {
+    return {
+      ...state,
+      document: payload,
     };
   }
 
