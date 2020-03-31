@@ -53,6 +53,7 @@ const RecordSchema = new Schema(
     },
     states: {
       type: Schema.Types.Mixed,
+      default: {},
     },
     importHash: { type: String },
   },
@@ -71,16 +72,23 @@ RecordSchema.set('toObject', {
   getters: true,
 });
 
+RecordSchema.post('updateOne', async function() {
+  await this.model.findOne(this.getQuery()).then((instance) => instance.save());
+})
+
 RecordSchema.pre('save', function(next) {
   const states = Object.values(this.states || {});
 
   if (states.length > 0) {
-    if (states.includes('PROGRESS')) {
-      this.state = 'PROGRESS';
-    } else if (states.includes('ACTIVATE')) {
-      this.state = 'ACTIVATE';
-    } else if (!states.find((item) => item !== 'COMPLETE')) {
+    if (
+      states.length === this.roadmaps.length &&
+      !states.find((item) => item !== 'COMPLETE')
+    ) {
       this.state = 'COMPLETE';
+    } else if (this.state === 'ACTIVATE' && states.includes('PROGRESS')) {
+      this.state = 'PROGRESS';
+    } else if (this.state === 'LOCKED' && states.includes('ACTIVATE')) {
+      this.state = 'ACTIVATE';
     }
   }
 

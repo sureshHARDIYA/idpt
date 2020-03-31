@@ -185,6 +185,7 @@ export default class EpicService {
           ) {
             epicCriteriaUpdate(id: $id, data: $data) {
               id
+              state
               evaluationCriterias: elements {
                 id
                 done

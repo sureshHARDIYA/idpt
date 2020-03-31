@@ -36,9 +36,11 @@ const RoadmapSchema = new Schema(
     },
     prerequisite: {
       type: Schema.Types.Mixed,
+      default: {},
     },
     states: {
       type: Schema.Types.Mixed,
+      default: {},
     },
     next: [{
       type: Schema.Types.ObjectId,
@@ -64,20 +66,7 @@ RoadmapSchema.set('toObject', {
 RoadmapSchema.pre('save', function(next) {
   const states = Object.values(this.states || {});
   const prerequisite = Object.values(this.prerequisite || {});
-
-  if (
-    this.state === 'LOCKED' &&
-    prerequisite.length > 0 &&
-    !prerequisite.find((item) => item !== 'COMPLETE')
-  ) {
-    this.state = 'ACTIVATE';
-  } else if (
-    states.length > 0 &&
-    states.length === this.children.length &&
-    !states.find((item) => item !== 'COMPLETE')
-  ) {
-    this.state = 'COMPLETE';
-  }
+  const state = `${this.state}`;
 
   if (states.length > 0 && states.length === this.children.length) {
     if (
@@ -95,26 +84,40 @@ RoadmapSchema.pre('save', function(next) {
     }
   }
 
-  this.stateModified = this.isModified('state');
+  if (
+    this.state === 'LOCKED' &&
+    prerequisite.length > 0 &&
+    !prerequisite.find((item) => item !== 'COMPLETE')
+  ) {
+    this.state = 'ACTIVATE';
+  } else if (this.state === 'PROGRESS' && states.length === this.children.length && !states.find((item) => item !== 'COMPLETE')) {
+    this.state = 'COMPLETE';
+  }
+
+  this.stateModified = state !== this.state;
   next();
+})
+
+RoadmapSchema.post('updateOne', async function() {
+  await this.model.findOne(this.getQuery()).then((instance) => instance.save());
 })
 
 RoadmapSchema.post('save', async function() {
   if (this.stateModified || !this.__v) {
-    const { next, record } = await this.populate('next').populate('record').execPopulate();
+    const { next, record } = await this.populate('next').execPopulate();
 
     await Record.updateOne(
-      { _id: record._id },
+      { _id: record },
       { $set: { [`states.${this._id}`]: this.state } }
     )
-    await record.save();
 
     for (const item of next) {
-      await this.model('roadmap').updateOne(
-        { _id: item._id },
-        { $set: { [`prerequisite.${this._id}`]: this.state } }
-      )
-      await item.save();
+      try {
+        item.prerequisite[this._id] = this.state;
+        await item.save();
+      } catch (e) {
+        console.log('RoadmapSchema Save:', item.id, e.toString());
+      }
     }
   }
 })

@@ -63,6 +63,7 @@ const EpicSchema = new Schema(
     }],
     prerequisite: {
       type: Schema.Types.Mixed,
+      default: {},
     },
     state: database.stateEntry,
     completionRequired: {
@@ -96,6 +97,7 @@ EpicSchema.set('toObject', {
 });
 
 EpicSchema.pre('save', function(next) {
+  const state = `${this.state}`;
   const prerequisite = Object.values(this.prerequisite || {});
 
   if (
@@ -113,26 +115,33 @@ EpicSchema.pre('save', function(next) {
     this.state = 'COMPLETE';
   }
 
-  this.stateModified = this.isModified('state');
+  this.stateModified = state !== this.state;
+
   next();
+})
+
+EpicSchema.post('updateOne', async function() {
+  await this.model.findOne(this.getQuery()).then((instance) => instance.save());
 })
 
 EpicSchema.post('save', async function() {
   if (this.stateModified || !this.__v) {
-    const { next, roadmap } = await this.populate('next').populate('roadmap').execPopulate();
+    const { next, roadmap } = this;
 
     await Roadmap.updateOne(
-      { _id: roadmap._id },
+      { _id: roadmap },
       { $set: { [`states.${this._id}`]: this.state } }
     )
-    await roadmap.save();
 
     for (const item of next) {
-      await this.model('epic').updateOne(
-        { _id: item._id },
-        { $set: { [`prerequisite.${this._id}`]: this.state } }
-      )
-      await item.save();
+      try {
+        await this.model('epic').updateOne(
+          { _id: item },
+          { $set: { [`prerequisite.${this._id}`]: this.state } }
+        )
+      } catch (e) {
+        console.log('EpicSchema Save:', item, e.toString());
+      }
     }
   }
 })

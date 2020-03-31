@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import get from 'lodash/get';
 import { Row, Col } from 'antd';
 import Spinner from 'view/shared/Spinner';
 import model from 'modules/record/recordModel';
@@ -24,7 +25,7 @@ class RecordRoadmapView extends Component {
 
             <ModuleViewItem
               label={fields['roadmap.host'].label}
-              value={fields['roadmap.host'].forView(epic.roadmap.host)}
+              value={fields['roadmap.host'].forView(get(epic, 'roadmap.host'))}
             />
           </Col>
           <Col span={24} md={{ span: 12 }}>

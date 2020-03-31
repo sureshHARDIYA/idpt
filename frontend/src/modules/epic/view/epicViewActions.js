@@ -14,9 +14,9 @@ const actions = {
   COUNT_DOCUMENT_STARTED: `${prefix}_COUNT_DOCUMENT_STARTED`,
   COUNT_DOCUMENT_STOPPED: `${prefix}_COUNT_DOCUMENT_STOPPED`,
 
-  doFind: (id) => async (dispatch) => {
+  doFind: (id, reload = false) => async (dispatch) => {
     try {
-      dispatch({
+      !reload && dispatch({
         type: actions.FIND_STARTED,
       });
 
@@ -52,7 +52,12 @@ const actions = {
         }
 
         return obj;
-      }, []));
+      }, []))
+      .then((rs) => {
+        if (_get(getState(), 'epic.view.record.state') !== _get(rs, 'state')) {
+          dispatch(actions.doFind(epicId, true));
+        }
+      });
     }
 
     dispatch({
