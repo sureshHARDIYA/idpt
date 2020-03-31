@@ -46,7 +46,7 @@ module.exports = class RoadmapRepository {
       const params = {
         task: task.id,
         roadmap: record.id,
-        state: key ? 'LOCKED' : 'ACTIVATE'
+        state: (!key && record.state === 'ACTIVATE') ? 'ACTIVATE' : 'LOCKED'
       };
 
       if (prerequisite) {

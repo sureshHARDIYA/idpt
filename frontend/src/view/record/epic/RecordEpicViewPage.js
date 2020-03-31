@@ -32,6 +32,7 @@ class RecordEpicPage extends Component {
 
   renderElement = (item) => {
     const evaluationCriteria = _get(item, 'evaluationCriteria', {});
+    const status = evaluationCriteria.done ? 'Completed' : 'Uncompleted'
 
     return (
       <Panel
@@ -39,7 +40,7 @@ class RecordEpicPage extends Component {
           id: evaluationCriteria.id,
           type: item.__typename
         })}
-        header={item.__typename}
+        header={[item.__typename, `(${status})`].join(': ')}
       >
         <Row>
           <Col xs={24}>
@@ -50,7 +51,7 @@ class RecordEpicPage extends Component {
             {this.fieldsParser[evaluationCriteria.field]} {enumeratorLabel(evaluationCriteria.operator)} {evaluationCriteria.valueRequired}
           </Col>
           <Col xs={24}>
-            <strong>Status:</strong>&nbsp;{evaluationCriteria.done ? 'Completed' : 'Uncompleted'}
+            <strong>Status:</strong>&nbsp;{status}
           </Col>
           <Col xs={24}>
             <strong>

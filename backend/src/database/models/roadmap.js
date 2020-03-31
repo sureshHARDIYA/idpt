@@ -104,7 +104,12 @@ RoadmapSchema.post('updateOne', async function() {
 
 RoadmapSchema.post('save', async function() {
   if (this.stateModified || !this.__v) {
-    const { next, record } = await this.populate('next').execPopulate();
+    const { next, record, children } = await this.populate('next').populate('children').execPopulate();
+
+    if (this.state === 'ACTIVATE' && children.length > 0 && !children.find((item) => item.state !== 'LOCKED')) {
+      children[0].state = 'ACTIVATE';
+      await children[0].save();
+    }
 
     await Record.updateOne(
       { _id: record },
