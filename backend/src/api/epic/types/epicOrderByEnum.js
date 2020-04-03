@@ -1,11 +1,6 @@
 const schema = `
-  enum DocumentOrderByEnum {
+  enum EpicOrderByEnum {
     id_ASC
-    id_DESC
-    contentHTML_ASC
-    contentHTML_DESC
-    totalreadtime_ASC
-    totalreadtime_DESC
     createdAt_ASC
     createdAt_DESC
   }

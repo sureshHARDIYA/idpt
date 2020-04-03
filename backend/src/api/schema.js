@@ -44,18 +44,6 @@ const recordTypes = require('./record/types')
 const recordQueries = require('./record/queries')
 const recordMutations = require('./record/mutations')
 
-const audioTypes = require('./audio/types')
-const audioQueries = require('./audio/queries')
-const audioMutations = require('./audio/mutations')
-
-const videoTypes = require('./video/types')
-const videoQueries = require('./video/queries')
-const videoMutations = require('./video/mutations')
-
-const documentTypes = require('./document/types')
-const documentQueries = require('./document/queries')
-const documentMutations = require('./document/mutations')
-
 const roadmapTypes = require('./roadmap/types')
 const roadmapQueries = require('./roadmap/queries')
 const roadmapMutations = require('./roadmap/mutations')
@@ -75,9 +63,6 @@ const types = [
   ...moduleTypes,
   ...taskTypes,
   ...recordTypes,
-  ...audioTypes,
-  ...videoTypes,
-  ...documentTypes,
   ...roadmapTypes,
   ...epicTypes
 ].map(type => type.schema)
@@ -92,9 +77,6 @@ const mutations = [
   ...moduleMutations,
   ...taskMutations,
   ...recordMutations,
-  ...audioMutations,
-  ...videoMutations,
-  ...documentMutations,
   ...roadmapMutations,
   ...epicMutations
 ].map(mutation => mutation.schema)
@@ -109,9 +91,6 @@ const queries = [
   ...moduleQueries,
   ...taskQueries,
   ...recordQueries,
-  ...audioQueries,
-  ...videoQueries,
-  ...documentQueries,
   ...roadmapQueries,
   ...epicQueries
 ].map(query => query.schema)

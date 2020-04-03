@@ -1,4 +1,4 @@
-import { Button, Form, Card, Row } from 'antd';
+import { Button, Form, Card } from 'antd';
 import { Formik } from 'formik';
 import { i18n } from 'i18n';
 import model from 'modules/document/documentModel';

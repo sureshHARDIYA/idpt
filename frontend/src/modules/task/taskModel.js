@@ -8,6 +8,7 @@ import StringField from 'modules/shared/fields/stringField';
 import EnumeratorField from 'modules/shared/fields/enumeratorField';
 import BooleanField from 'modules/shared/fields/booleanField';
 import RelationToManyField from 'modules/shared/fields/relationToManyField';
+import ShapeArrayField from 'modules/shared/fields/shapeArrayField';
 
 function label(name) {
   return i18n(`entities.task.fields.${name}`);
@@ -36,16 +37,8 @@ const fields = {
   complexityLevel: new IntegerField('complexityLevel', label('complexityLevel'), {
     "min": 0
   }),
-  type: new EnumeratorField('type', label('type'), [
-    { id: 'AUDIO', label: enumeratorLabel('type', 'AUDIO') },
-    { id: 'VIDEO', label: enumeratorLabel('type', 'VIDEO') },
-    { id: 'TEXT', label: enumeratorLabel('type', 'TEXT') },
-    { id: 'ASSESSMENT', label: enumeratorLabel('type', 'ASSESSMENT') },
-    { id: 'FEEDBACK', label: enumeratorLabel('type', 'FEEDBACK') },
-  ],{}),
   owner: new RelationToManyField('owner', label('owner'), {}),
   next: new RelationToManyField('next', label('next'), {}),
-  elements: new RelationToManyField('elements', label('elements'), {}),
   createdAt: new DateTimeField(
     'createdAt',
     label('createdAt'),
@@ -66,6 +59,33 @@ const fields = {
     'complexityLevelRange',
     label('complexityLevelRange'),
   ),
+  documents: new ShapeArrayField('documents', label('documents'), {
+    id: new IdField('id', label('id')),
+    contentHTML: new StringField('documents.contentHTML', 'ContentHTML', {
+      required: true
+    }),
+    evaluation: new IntegerField('documents.evaluation', 'Read time', {
+      required: true
+    }),
+  }),
+  audios: new ShapeArrayField('audios', label('audios'), {
+    id: new IdField('id', label('id')),
+    url: new StringField('audios.url', 'URL', {
+      required: true
+    }),
+    evaluation: new IntegerField('audios.evaluation', 'Listen time', {
+      required: true
+    }),
+  }),
+  videos: new ShapeArrayField('videos', label('videos'), {
+    id: new IdField('id', label('id')),
+    url: new StringField('videos.url', 'URL', {
+      required: true
+    }),
+    evaluation: new IntegerField('videos.evaluation', 'Watch time', {
+      required: true
+    }),
+  })
 };
 
 export default {

@@ -25,7 +25,6 @@ const schema = new FormFilterSchema([
   fields.pointsRange,
   fields.completionRequired,
   fields.complexityLevelRange,
-  fields.type,
 ]);
 
 class TaskListFilter extends Component {
@@ -136,19 +135,6 @@ class TaskListFilter extends Component {
                       label={
                         fields.complexityLevelRange.label
                       }
-                      layout={formItemLayout}
-                    />
-                  </Col>
-                  <Col md={24} lg={12}>
-                    <SelectFormItem
-                      name={fields.type.name}
-                      label={fields.type.label}
-                      options={fields.type.options.map(
-                        (item) => ({
-                          value: item.id,
-                          label: item.label,
-                        }),
-                      )}
                       layout={formItemLayout}
                     />
                   </Col>

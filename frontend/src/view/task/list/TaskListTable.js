@@ -12,7 +12,6 @@ import { Link } from 'react-router-dom';
 import TableWrapper from 'view/shared/styles/TableWrapper';
 import ButtonLink from 'view/shared/styles/ButtonLink';
 import ModuleListItem from 'view/module/list/ModuleListItem';
-import DocumentListItem from 'view/document/list/DocumentListItem';
 
 const { fields } = model;
 
@@ -32,18 +31,13 @@ class TaskListTable extends Component {
 
   columns = [
     fields.name.forTable(),
-    fields.description.forTable(),
     fields.status.forTable(),
     fields.tags.forTable(),
     fields.points.forTable(),
     fields.completionRequired.forTable(),
     fields.complexityLevel.forTable(),
-    fields.type.forTable(),
     fields.owner.forTable({
       render: (value) => <ModuleListItem value={value} />,
-    }),
-    fields.elements.forTable({
-      render: (value) => <DocumentListItem value={value} />,
     }),
     {
       title: '',

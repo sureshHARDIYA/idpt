@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ContentWrapper from 'view/layout/styles/ContentWrapper';
-import PageTitle from 'view/shared/styles/PageTitle';
 import Breadcrumb from 'view/shared/Breadcrumb';
 import TaskForm from 'view/task/form/TaskForm';
 import { i18n } from 'i18n';
@@ -58,8 +57,6 @@ class TaskFormPage extends Component {
         />
 
         <ContentWrapper>
-          <PageTitle>{this.title()}</PageTitle>
-
           {this.state.dispatched && (
             <TaskForm
               saveLoading={this.props.saveLoading}

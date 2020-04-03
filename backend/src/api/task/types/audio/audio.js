@@ -1,9 +1,8 @@
 const schema = `
-  type Document {
+  type Audio {
     id: String!
-    contentHTML: String
-    totalreadtime: Int
-    evaluationCriteria: EvaluationCriteria
+    url: String
+    evaluation: Int
     createdAt: DateTime
     updatedAt: DateTime
   }

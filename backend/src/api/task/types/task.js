@@ -10,9 +10,11 @@ const schema = `
     points: Int
     completionRequired: Boolean
     complexityLevel: Int
-    type: TaskTypeEnum
     owner: [ Module! ]
-    elements: [ Document! ]
+    elements: [Element]
+    documents: [Document]
+    audios: [Audio]
+    videos: [Video]
     next: [Task]
     createdAt: DateTime
     updatedAt: DateTime

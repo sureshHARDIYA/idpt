@@ -26,6 +26,7 @@ class TextAreaFormItemNotFast extends Component {
       required,
       rows,
     } = this.props;
+    // delete inputProps.touched;
 
     return (
       <Form.Item

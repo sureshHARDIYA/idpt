@@ -1,8 +1,9 @@
 const schema = `
   input DocumentInput {
+    id: String!
+    evaluation: Int!
     contentHTML: String!
-    totalreadtime: Int!
-    evaluationCriteria: EvaluationCriteriaInput!
+    resourceType: DocumentEnumType = Document
   }
 `;
 

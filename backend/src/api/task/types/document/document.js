@@ -1,9 +1,10 @@
 const schema = `
-  input DocumentFilterInput {
-    id: String
+  type Document {
+    id: String!
+    evaluation: Int
     contentHTML: String
-    totalreadtimeRange: [ Int ]
-    createdAtRange: [ DateTime ]
+    createdAt: DateTime
+    updatedAt: DateTime
   }
 `;
 

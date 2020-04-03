@@ -10,7 +10,9 @@ const schema = `
     type: TaskTypeEnum
     next: [String!]
     owner: [String!]
-    elements: [String!]
+    audios: [AudioInput]
+    videos: [VideoInput]
+    documents: [DocumentInput]
   }
 `;
 

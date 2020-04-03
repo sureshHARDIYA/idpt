@@ -1,6 +1,24 @@
 import gql from 'graphql-tag';
 import graphqlClient from 'modules/shared/graphql/graphqlClient';
 
+const ELEMENT_FRAGAMENT = `
+  audios {
+    id
+    url
+    evaluation
+  }
+  videos {
+    id
+    url
+    evaluation
+  }
+  documents {
+    id
+    contentHTML
+    evaluation
+  }
+`;
+
 export default class TaskService {
   static async update(id, data) {
     const response = await graphqlClient.mutate({
@@ -91,7 +109,6 @@ export default class TaskService {
             points
             completionRequired
             complexityLevel
-            type
             owner {
               id
               name
@@ -100,10 +117,7 @@ export default class TaskService {
               id
               name
             }
-            elements {
-              id
-              contentHTML
-            }
+            ${ELEMENT_FRAGAMENT}
             createdAt
             updatedAt
           }
@@ -143,15 +157,11 @@ export default class TaskService {
               points
               completionRequired
               complexityLevel
-              type
               owner {
                 id
                 name
               }
-              elements {
-                id
-                contentHTML
-              }
+              ${ELEMENT_FRAGAMENT}
               updatedAt
               createdAt
             }

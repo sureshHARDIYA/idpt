@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import FormErrors from 'view/shared/form/formErrors';
 import RadioGroup from 'antd/lib/radio/group';
 import { FastField } from 'formik';
+import _get from 'lodash/get';
 
 class RadioFormItemNotFast extends Component {
   render() {
@@ -47,7 +48,7 @@ class RadioFormItemNotFast extends Component {
           }
           options={options}
           onBlur={() => form.setFieldTouched(name)}
-          value={form.values[name] || null}
+          value={_get(form.values, name, null)}
           {...inputProps}
         />
       </Form.Item>

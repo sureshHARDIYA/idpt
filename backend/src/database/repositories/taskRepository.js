@@ -142,8 +142,7 @@ class TaskRepository {
   async findById(id, options) {
     return MongooseRepository.wrapWithSessionIfExists(
       Task.findById(id)
-      .populate('owner')
-      .populate('elements'),
+      .populate('owner'),
       options,
     );
   }
@@ -157,8 +156,7 @@ class TaskRepository {
   async findByIds(ids, options) {
     return MongooseRepository.wrapWithSessionIfExists(
       Task.find({ _id: { $in: ids } })
-      .populate('owner')
-      .populate('elements'),
+      .populate('owner'),
       options,
     );
   }
@@ -343,8 +341,7 @@ class TaskRepository {
       .skip(skip)
       .limit(limitEscaped)
       .sort(sort)
-      .populate('owner')
-      .populate('elements');
+      .populate('owner');
 
     const count = await Task.countDocuments(criteria);
 
