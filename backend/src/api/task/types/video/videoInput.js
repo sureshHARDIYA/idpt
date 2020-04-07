@@ -1,5 +1,6 @@
 const schema = `
   input VideoInput {
+    id: String!
     url: String!
     evaluation: Int!
     resourceType: VideoEnumType = Video

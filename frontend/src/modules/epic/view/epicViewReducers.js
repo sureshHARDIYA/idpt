@@ -31,6 +31,27 @@ export default (state = initialData, { type, payload }) => {
     };
   }
 
+  if (type === actions.COUNT_MEDIA_STARTED) {
+    return {
+      ...state,
+      media: payload,
+    };
+  }
+
+  if (type === actions.COUNT_AUDIO_STARTED) {
+    return {
+      ...state,
+      audio: payload,
+    };
+  }
+
+  if (type === actions.COUNT_VIDEO_STARTED) {
+    return {
+      ...state,
+      video: payload,
+    };
+  }
+
   if (type === actions.COUNT_DOCUMENT_STARTED) {
     return {
       ...state,

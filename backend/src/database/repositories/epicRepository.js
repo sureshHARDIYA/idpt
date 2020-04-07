@@ -1,4 +1,5 @@
 const moment = require('moment');
+const _get = require('lodash/get');
 
 const MongooseRepository = require('./mongooseRepository');
 const MongooseQueryUtils = require('../utils/mongooseQueryUtils');
@@ -47,7 +48,10 @@ module.exports = class EpicRepository {
       MongooseRepository.getSessionOptionsIfExists(options),
     );
 
-    return this.findById(record.id, options);
+    return this.findById(record.id, {
+      ...options,
+      isNew: true
+    });
   }
 
     /**
@@ -106,7 +110,8 @@ module.exports = class EpicRepository {
           path: "record",
           select: {
             id: 1,
-            name: 1
+            name: 1,
+            owner: 1,
           },
           populate: {
             path: 'host',
@@ -126,7 +131,11 @@ module.exports = class EpicRepository {
       options,
     );
 
-    if (record.state === 'ACTIVATE') {
+    if (
+      !options.isNew &&
+      record.state === 'ACTIVATE' &&
+      _get(record, 'roadmap.record.owner', '').toString() === _get(options, 'currentUser.patient', '').toString()
+    ) {
       record.state = 'PROGRESS';
 
       await this._createAuditLog(

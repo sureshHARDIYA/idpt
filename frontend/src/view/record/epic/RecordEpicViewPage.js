@@ -10,9 +10,19 @@ import _get from 'lodash/get';
 import RecordEpicView from 'view/record/epic/RecordEpicView';
 import { CaretRightOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
+import ReactPlayer from 'react-player'
+import AudioPlayer from "react-h5-audio-player";
+
+import 'react-h5-audio-player/lib/styles.css';
+
 const { Panel } = Collapse;
 
 const CollapseWrapper = styled.div `
+  .ant-collapse {
+    border: 0;
+    background-color: #FFF;
+  }
+
   .ant-collapse-header {
     display: flex;
     background-color: #FFF;
@@ -22,6 +32,10 @@ const CollapseWrapper = styled.div `
       margin-right: 10px;
       align-self: center;
     }
+  }
+
+  .ant-collapse-item {
+    margin-bottom: 20px;
   }
 `;
 
@@ -40,12 +54,15 @@ class RecordEpicPage extends Component {
 
   get fieldsParser() {
     return ({
-      totalreadtime: 'Read time',
+      Audio: 'Listen time',
+      Video: 'Watch time',
+      Document: 'Read time',
     })
   }
 
   componentWillUnmount() {
-    this.props.dispatch(actions.doStartDocumentCount(this.props.match.params.id, []));
+    this.onChange([]);
+    this.onMedia(null);
   }
 
   renderElement = (item) => {
@@ -53,23 +70,24 @@ class RecordEpicPage extends Component {
       return null;
     }
 
+    const type = item.__typename;
     const criteria = _get(item, 'criteria', {});
     const status = criteria.done ? 'Completed' : 'Uncompleted'
 
     return (
       <Panel
         key={JSON.stringify({
+          type,
           id: criteria.id,
-          type: item.__typename
         })}
         header={(
           <PanelHeader>
             <Row>
               <Col xs={12}>
-                {item.__typename}:
+                {type}:
                 &nbsp;
                 <strong>
-                  Read time
+                  {this.fieldsParser[type]}
                 </strong>
                 &nbsp;
                 {enumeratorLabel(criteria.operator)} {criteria.evaluation}
@@ -85,14 +103,31 @@ class RecordEpicPage extends Component {
           <Col xs={24}>
             <Divider>
               <strong>
-                Total Read:
+                Total Times:
               </strong>
               &nbsp;
               {criteria.total || '0'}
             </Divider>
-            <div
-              dangerouslySetInnerHTML={{ __html: item.contentHTML }}
-            />
+            {type === 'Document' &&
+              <div
+                dangerouslySetInnerHTML={{ __html: item.contentHTML }}
+              />
+            }
+            {type === 'Audio' &&
+              <AudioPlayer
+                src={item.url}
+                onPlay={() => this.onMedia(criteria.id)}
+                onPause={() => this.onMedia(criteria.id)}
+              />
+            }
+            {type === 'Video' &&
+              <ReactPlayer
+                url={item.url}
+                style={{ margin: 'auto' }}
+                onPlay={() => this.onMedia(criteria.id)}
+                onPause={() => this.onMedia(criteria.id)}
+              />
+            }
           </Col>
         </Row>
       </Panel>
@@ -107,6 +142,12 @@ class RecordEpicPage extends Component {
       actions.doStartDocumentCount(this.props.match.params.id, documents)
     );
   };
+
+  onMedia = (id) => {
+    this.props.dispatch(
+      actions.doStartMediaCount(this.props.match.params.id, id)
+    );
+  }
 
   render() {
     const { epic, loading } = this.props;

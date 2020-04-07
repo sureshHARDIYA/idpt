@@ -61,6 +61,7 @@ export default class EpicService {
                   id
                   name
                 }
+                ownerId
               }
             }
             host {
@@ -140,8 +141,6 @@ export default class EpicService {
             count
             rows {
               id
-              url
-              audiolength
               updatedAt
               createdAt
             }

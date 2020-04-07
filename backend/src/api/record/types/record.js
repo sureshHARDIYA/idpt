@@ -1,3 +1,5 @@
+const mongoose = require('mongoose');
+
 const schema = `
   type Record {
     id: String!
@@ -6,13 +8,23 @@ const schema = `
     description: String
     state: StateEnum!
     status: StatusEnum
+    ownerId: String
     roadmaps: [Roadmap!]
     createdAt: DateTime
     updatedAt: DateTime
   }
 `;
 
-const resolver = {};
+const resolver = {
+  Record: {
+    ownerId: (instance) => {
+      if (mongoose.Types.ObjectId.isValid(instance.owner)) {
+        return instance.owner
+      }
+      return instance.owner ? instance.owner._id : null;
+    }
+  }
+};
 
 exports.schema = schema;
 exports.resolver = resolver;
