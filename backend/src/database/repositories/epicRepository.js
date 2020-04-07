@@ -1,4 +1,5 @@
 const moment = require('moment');
+const _get = require('lodash/get');
 
 const MongooseRepository = require('./mongooseRepository');
 const MongooseQueryUtils = require('../utils/mongooseQueryUtils');
@@ -22,7 +23,7 @@ module.exports = class EpicRepository {
       await Epic.createCollection();
     }
 
-    const task = await Task.findById(data.task).populate('elements');
+    const task = await Task.findById(data.task);
 
     const currentUser = MongooseRepository.getCurrentUser(
       options,
@@ -33,12 +34,12 @@ module.exports = class EpicRepository {
         {
           ...data,
           elements: task.elements.map((item) => ({
-            id: item.evaluationCriteria._id,
-            field: item.evaluationCriteria.field,
-            operator: item.evaluationCriteria.operator,
-            valueRequired: item.evaluationCriteria.valueRequired,
             done: false,
-            total: 0,
+            resourceId: item._id,
+            content: item.content,
+            operator: 'GREATERTHAN',
+            evaluation: item.evaluation,
+            resourceType: item.resourceType
           })),
           createdBy: currentUser.id,
           updatedBy: currentUser.id,
@@ -47,7 +48,10 @@ module.exports = class EpicRepository {
       MongooseRepository.getSessionOptionsIfExists(options),
     );
 
-    return this.findById(record.id, options);
+    return this.findById(record.id, {
+      ...options,
+      isNew: true
+    });
   }
 
     /**
@@ -95,10 +99,7 @@ module.exports = class EpicRepository {
     const record = await MongooseRepository.wrapWithSessionIfExists(
       Epic.findById(id)
       .populate('children')
-      .populate({
-        path: 'task',
-        populate: 'elements'
-      })
+      .populate('task')
       .populate({
         path: 'roadmap',
         select: {
@@ -109,7 +110,8 @@ module.exports = class EpicRepository {
           path: "record",
           select: {
             id: 1,
-            name: 1
+            name: 1,
+            owner: 1,
           },
           populate: {
             path: 'host',
@@ -129,7 +131,11 @@ module.exports = class EpicRepository {
       options,
     );
 
-    if (record.state === 'ACTIVATE') {
+    if (
+      !options.isNew &&
+      record.state === 'ACTIVATE' &&
+      _get(record, 'roadmap.record.owner', '').toString() === _get(options, 'currentUser.patient', '').toString()
+    ) {
       record.state = 'PROGRESS';
 
       await this._createAuditLog(
@@ -365,10 +371,10 @@ module.exports = class EpicRepository {
 
 
     epic.elements.forEach(element => {
-      if (criteriaData[element.id]) {
+      if (criteriaData[element.resourceId]) {
         element.history.push({
-          duration: criteriaData[element.id].duration,
-          start: moment.utc(criteriaData[element.id].start, 'x').toString(),
+          duration: criteriaData[element.resourceId].duration,
+          start: moment.utc(criteriaData[element.resourceId].start, 'x').toString(),
         })
       }
     });

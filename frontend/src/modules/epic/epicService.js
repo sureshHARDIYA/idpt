@@ -61,23 +61,32 @@ export default class EpicService {
                   id
                   name
                 }
+                ownerId
               }
             }
             host {
               id
               name
               elements {
-                id
-                contentHTML
-                totalreadtime
-                __typename
-                evaluationCriteria {
+                ... on Audio {
                   id
-                  field
-                  done
-                  total
-                  operator
-                  valueRequired
+                  url
+                  evaluation
+                  __typename
+                }
+
+                ... on Video {
+                  id
+                  url
+                  evaluation
+                  __typename
+                }
+
+                ... on Document {
+                  id
+                  contentHTML
+                  evaluation
+                  __typename
                 }
               }
             }
@@ -91,14 +100,14 @@ export default class EpicService {
                 __typename
               }
             }
-            evaluationCriterias: elements {
+            evaluations: elements {
               id
-              done
               total
-              field
+              done
+              content
               operator
-              valueRequired
-              __typename
+              evaluation
+              resourceType
             }
             createdAt
             updatedAt
@@ -132,8 +141,6 @@ export default class EpicService {
             count
             rows {
               id
-              url
-              audiolength
               updatedAt
               createdAt
             }
@@ -186,13 +193,14 @@ export default class EpicService {
             epicCriteriaUpdate(id: $id, data: $data) {
               id
               state
-              evaluationCriterias: elements {
+              evaluations: elements {
                 id
-                done
                 total
-                field
+                done
+                content
                 operator
-                valueRequired
+                evaluation
+                resourceType
               }
             }
           }

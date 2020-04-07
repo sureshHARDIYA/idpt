@@ -31,10 +31,12 @@ class RecordRoadmapView extends Component {
               value={fields.state.forView(module.state)}
             />
 
-            <TextViewItem
-              label={fields['roadmap.tasks'].label}
-              value={fields['roadmap.tasks'].forView(module.children.length)}
-            />
+            {module.children &&
+              <TextViewItem
+                label={fields['roadmap.tasks'].label}
+                value={fields['roadmap.tasks'].forView(module.children.length)}
+              />
+            }
           </Col>
         </Row>
       </BoxWrapper>

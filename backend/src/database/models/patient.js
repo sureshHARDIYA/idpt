@@ -24,10 +24,6 @@ const PatientSchema = new Schema(
         null
       ],
     },
-    assignCase: [{
-      type: Schema.Types.ObjectId,
-      ref: 'cased',
-    }],
     phone: {
       type: String,
       required: true,

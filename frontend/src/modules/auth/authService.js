@@ -88,6 +88,7 @@ export default class AuthService {
             phoneNumber
             email
             roles
+            patientId
             avatars {
               id
               name

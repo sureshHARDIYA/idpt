@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, Col, Row, Collapse } from 'antd';
+import { Card, Col, Row, Collapse, Divider } from 'antd';
 import ContentWrapper from 'view/layout/styles/ContentWrapper';
 import Breadcrumb from 'view/shared/Breadcrumb';
 import { i18n } from 'i18n';
@@ -9,8 +9,40 @@ import selectors from 'modules/epic/view/epicViewSelectors';
 import _get from 'lodash/get';
 import RecordEpicView from 'view/record/epic/RecordEpicView';
 import { CaretRightOutlined } from '@ant-design/icons';
+import styled from 'styled-components';
+import ReactPlayer from 'react-player'
+import AudioPlayer from "react-h5-audio-player";
+
+import 'react-h5-audio-player/lib/styles.css';
 
 const { Panel } = Collapse;
+
+const CollapseWrapper = styled.div `
+  .ant-collapse {
+    border: 0;
+    background-color: #FFF;
+  }
+
+  .ant-collapse-header {
+    display: flex;
+    background-color: #FFF;
+    padding: 12px !important;
+
+    .ant-collapse-arrow {
+      margin-right: 10px;
+      align-self: center;
+    }
+  }
+
+  .ant-collapse-item {
+    margin-bottom: 20px;
+  }
+`;
+
+
+const PanelHeader = styled.div`
+  flex: 1;
+`;
 
 const enumeratorLabel = (name) => i18n(`entities.evaluationCriteria.enumerators.operators.${name}`);
 
@@ -22,51 +54,80 @@ class RecordEpicPage extends Component {
 
   get fieldsParser() {
     return ({
-      totalreadtime: 'Read time',
+      Audio: 'Listen time',
+      Video: 'Watch time',
+      Document: 'Read time',
     })
   }
 
   componentWillUnmount() {
-    this.props.dispatch(actions.doStartDocumentCount(this.props.match.params.id, []));
+    this.onChange([]);
+    this.onMedia(null);
   }
 
   renderElement = (item) => {
-    const evaluationCriteria = _get(item, 'evaluationCriteria', {});
-    const status = evaluationCriteria.done ? 'Completed' : 'Uncompleted'
+    if (!item) {
+      return null;
+    }
+
+    const type = item.__typename;
+    const criteria = _get(item, 'criteria', {});
+    const status = criteria.done ? 'Completed' : 'Uncompleted'
 
     return (
       <Panel
         key={JSON.stringify({
-          id: evaluationCriteria.id,
-          type: item.__typename
+          type,
+          id: criteria.id,
         })}
-        header={[item.__typename, `(${status})`].join(': ')}
+        header={(
+          <PanelHeader>
+            <Row>
+              <Col xs={12}>
+                {type}:
+                &nbsp;
+                <strong>
+                  {this.fieldsParser[type]}
+                </strong>
+                &nbsp;
+                {enumeratorLabel(criteria.operator)} {criteria.evaluation}
+              </Col>
+              <Col xs={12} style={{ textAlign: 'right' }}>
+                {status}
+              </Col>
+            </Row>
+          </PanelHeader>
+        )}
       >
         <Row>
           <Col xs={24}>
-            <strong>
-              Criteria:
-            </strong>
-            &nbsp;
-            {this.fieldsParser[evaluationCriteria.field]} {enumeratorLabel(evaluationCriteria.operator)} {evaluationCriteria.valueRequired}
-          </Col>
-          <Col xs={24}>
-            <strong>Status:</strong>&nbsp;{status}
-          </Col>
-          <Col xs={24}>
-            <strong>
-              Read time:
-            </strong>
-            &nbsp;
-            {evaluationCriteria.total || '0'}
-          </Col>
-          <Col xs={24}>
-            <strong>
-              Content:
-            </strong>
-            <div
-              dangerouslySetInnerHTML={{ __html: item.contentHTML }}
-            />
+            <Divider>
+              <strong>
+                Total Times:
+              </strong>
+              &nbsp;
+              {criteria.total || '0'}
+            </Divider>
+            {type === 'Document' &&
+              <div
+                dangerouslySetInnerHTML={{ __html: item.contentHTML }}
+              />
+            }
+            {type === 'Audio' &&
+              <AudioPlayer
+                src={item.url}
+                onPlay={() => this.onMedia(criteria.id)}
+                onPause={() => this.onMedia(criteria.id)}
+              />
+            }
+            {type === 'Video' &&
+              <ReactPlayer
+                url={item.url}
+                style={{ margin: 'auto' }}
+                onPlay={() => this.onMedia(criteria.id)}
+                onPause={() => this.onMedia(criteria.id)}
+              />
+            }
           </Col>
         </Row>
       </Panel>
@@ -82,9 +143,22 @@ class RecordEpicPage extends Component {
     );
   };
 
+  onMedia = (id) => {
+    this.props.dispatch(
+      actions.doStartMediaCount(this.props.match.params.id, id)
+    );
+  }
+
   render() {
     const { epic, loading } = this.props;
-    const elements = _get(epic, 'host.elements', []);
+    const evaluations =  _get(epic, 'evaluations', []).reduce((obj, item) => ({
+      ...obj,
+      [item.id]: item
+    }), {});
+    const elements = _get(epic, 'host.elements', []).map((element) => ({
+      ...element,
+      criteria: evaluations[element.id]
+    }));
     const moduleName = _get(epic, 'roadmap.host.name');
     const casedName = _get(epic, 'roadmap.record.host.name');
 
@@ -107,12 +181,14 @@ class RecordEpicPage extends Component {
           <Card
             title="Task Types"
           >
-            <Collapse
-              onChange={this.onChange}
-              expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}
-            >
-              {elements.map(this.renderElement)}
-            </Collapse>
+            <CollapseWrapper>
+              <Collapse
+                onChange={this.onChange}
+                expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}
+              >
+                {elements.map(this.renderElement)}
+              </Collapse>
+            </CollapseWrapper>
           </Card>
         </ContentWrapper>
       </React.Fragment>

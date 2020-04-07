@@ -32,7 +32,6 @@ class CasedListTable extends Component {
   };
 
   columns = [
-    fields.id.forTable(),
     fields.name.forTable(),
     fields.description.forTable(),
     fields.status.forTable(),
@@ -41,9 +40,6 @@ class CasedListTable extends Component {
     }),
     fields.modules.forTable({
       render: (value) => <ModuleListItem value={value} />,
-    }),
-    fields.patients.forTable({
-      render: (value) => <PatientListItem value={value} />,
     }),
     fields.availableFrom.forTable(),
     fields.createdAt.forTable(),

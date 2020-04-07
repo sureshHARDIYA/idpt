@@ -10,14 +10,16 @@ const Roadmap = require('./roadmap');
 const EpicCriteriaSchema = new Schema({
   done: Boolean,
   field: String,
-  total: String,
+  total: Number,
+  evaluation: Number,
   operator: String,
-  valueRequired: String,
+  content: String,
+  resourceType: String,
   history: [{
     start: String,
     duration: Number
   }],
-  id: Schema.Types.ObjectId,
+  resourceId: Schema.Types.ObjectId,
 })
 
 EpicCriteriaSchema.pre('save', function(next) {
@@ -26,15 +28,15 @@ EpicCriteriaSchema.pre('save', function(next) {
   if (!this.done) {
     switch(this.operator) {
       case 'LESSTHAN': {
-        this.done = this.total <= parseInt(this.valueRequired, 10);
+        this.done = this.total <= this.evaluation;
         break;
       }
       case 'GREATERTHAN': {
-        this.done = this.total >= parseInt(this.valueRequired, 10);
+        this.done = this.total >= this.evaluation;
         break;
       }
       case 'EQUALS': {
-        this.done = this.total === parseInt(this.valueRequired, 10);
+        this.done = this.total === this.evaluation;
         break;
       }
     }
@@ -105,7 +107,7 @@ EpicSchema.pre('save', function(next) {
     prerequisite.length > 0 &&
     !prerequisite.find((item) => item !== 'COMPLETE')
   ) {
-    this.state = 'ACTIVATE';
+    this.state = this.elements.length > 0 ? 'ACTIVATE' : 'COMPLETE';
   } else if (
     this.state === 'PROGRESS' &&
     this.state !== 'COMPLETE' &&

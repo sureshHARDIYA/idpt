@@ -17,11 +17,19 @@ const schema = `
     createdAt: DateTime
     updatedAt: DateTime
     patient: Patient
+    patientId: String
   }
 `;
 
 const resolver = {
   UserWithRoles: {
+    patientId: (instance) => {
+      if (instance.patient instanceof mongoose.Types.ObjectId) {
+        return instance.patient;
+      }
+
+      return instance.patient ? instance.patient._id : null
+    },
     patient: async (instance, _, context) => {
       if (instance.patient instanceof mongoose.Types.ObjectId) {
         return await new PatientService(context).findById(instance.patient)
