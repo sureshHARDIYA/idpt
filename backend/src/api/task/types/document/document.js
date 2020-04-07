@@ -8,7 +8,11 @@ const schema = `
   }
 `;
 
-const resolver = {};
+const resolver = {
+  Document: {
+    id: (instance) => instance._id
+  }
+};
 
 exports.schema = schema;
 exports.resolver = resolver;

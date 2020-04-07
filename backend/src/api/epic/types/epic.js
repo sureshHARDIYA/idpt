@@ -16,15 +16,19 @@ const schema = `
 
   type EpicEvaluationCriteria {
     id: ID
-    field: String
-    operator: EvaluationCriteriaoperator
-    valueRequired: String
+    total: Int
     done: Boolean
-    total: String
+    evaluation: Int
+    content: String
+    resourceType: String
+    operator: EvaluationCriteriaoperator
   }
 `;
 
 const resolver = {
+  EpicEvaluationCriteria: {
+    id: (instance) => instance.resourceId
+  },
   Epic: {
     id: (instance) => instance.id || instance._id,
     host: (instance) => {

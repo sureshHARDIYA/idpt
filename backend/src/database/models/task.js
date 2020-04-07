@@ -55,6 +55,10 @@ const TaskSchema = new Schema(
         type: Number,
         required: true
       },
+      resourceType: {
+        type: String,
+        default: 'Audio'
+      }
     })],
     videos: [new Schema({
       url: {
@@ -65,6 +69,10 @@ const TaskSchema = new Schema(
         type: Number,
         required: true
       },
+      resourceType: {
+        type: String,
+        default: 'Video'
+      }
     })],
     documents: [new Schema({
       contentHTML: {
@@ -75,6 +83,10 @@ const TaskSchema = new Schema(
         type: Number,
         required: true
       },
+      resourceType: {
+        type: String,
+        default: 'Document'
+      }
     })],
     createdBy: {
       type: Schema.Types.ObjectId,
@@ -99,9 +111,9 @@ TaskSchema.virtual('id').get(function() {
 
 TaskSchema.virtual('elements').get(function() {
   return [
-    ...this.audios,
-    ...this.videos,
-    ...this.documents,
+    ...this.audios.toObject(),
+    ...this.videos.toObject(),
+    ...this.documents.toObject(),
   ]
 });
 

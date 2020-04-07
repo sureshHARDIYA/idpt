@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, Col, Row, Collapse } from 'antd';
+import { Card, Col, Row, Collapse, Divider } from 'antd';
 import ContentWrapper from 'view/layout/styles/ContentWrapper';
 import Breadcrumb from 'view/shared/Breadcrumb';
 import { i18n } from 'i18n';
@@ -9,8 +9,26 @@ import selectors from 'modules/epic/view/epicViewSelectors';
 import _get from 'lodash/get';
 import RecordEpicView from 'view/record/epic/RecordEpicView';
 import { CaretRightOutlined } from '@ant-design/icons';
-
+import styled from 'styled-components';
 const { Panel } = Collapse;
+
+const CollapseWrapper = styled.div `
+  .ant-collapse-header {
+    display: flex;
+    background-color: #FFF;
+    padding: 12px !important;
+
+    .ant-collapse-arrow {
+      margin-right: 10px;
+      align-self: center;
+    }
+  }
+`;
+
+
+const PanelHeader = styled.div`
+  flex: 1;
+`;
 
 const enumeratorLabel = (name) => i18n(`entities.evaluationCriteria.enumerators.operators.${name}`);
 
@@ -31,39 +49,47 @@ class RecordEpicPage extends Component {
   }
 
   renderElement = (item) => {
-    const evaluationCriteria = _get(item, 'evaluationCriteria', {});
-    const status = evaluationCriteria.done ? 'Completed' : 'Uncompleted'
+    if (!item) {
+      return null;
+    }
+
+    const criteria = _get(item, 'criteria', {});
+    const status = criteria.done ? 'Completed' : 'Uncompleted'
 
     return (
       <Panel
         key={JSON.stringify({
-          id: evaluationCriteria.id,
+          id: criteria.id,
           type: item.__typename
         })}
-        header={[item.__typename, `(${status})`].join(': ')}
+        header={(
+          <PanelHeader>
+            <Row>
+              <Col xs={12}>
+                {item.__typename}:
+                &nbsp;
+                <strong>
+                  Read time
+                </strong>
+                &nbsp;
+                {enumeratorLabel(criteria.operator)} {criteria.evaluation}
+              </Col>
+              <Col xs={12} style={{ textAlign: 'right' }}>
+                {status}
+              </Col>
+            </Row>
+          </PanelHeader>
+        )}
       >
         <Row>
           <Col xs={24}>
-            <strong>
-              Criteria:
-            </strong>
-            &nbsp;
-            {this.fieldsParser[evaluationCriteria.field]} {enumeratorLabel(evaluationCriteria.operator)} {evaluationCriteria.valueRequired}
-          </Col>
-          <Col xs={24}>
-            <strong>Status:</strong>&nbsp;{status}
-          </Col>
-          <Col xs={24}>
-            <strong>
-              Read time:
-            </strong>
-            &nbsp;
-            {evaluationCriteria.total || '0'}
-          </Col>
-          <Col xs={24}>
-            <strong>
-              Content:
-            </strong>
+            <Divider>
+              <strong>
+                Total Read:
+              </strong>
+              &nbsp;
+              {criteria.total || '0'}
+            </Divider>
             <div
               dangerouslySetInnerHTML={{ __html: item.contentHTML }}
             />
@@ -84,7 +110,14 @@ class RecordEpicPage extends Component {
 
   render() {
     const { epic, loading } = this.props;
-    const elements = _get(epic, 'host.elements', []);
+    const evaluations =  _get(epic, 'evaluations', []).reduce((obj, item) => ({
+      ...obj,
+      [item.id]: item
+    }), {});
+    const elements = _get(epic, 'host.elements', []).map((element) => ({
+      ...element,
+      criteria: evaluations[element.id]
+    }));
     const moduleName = _get(epic, 'roadmap.host.name');
     const casedName = _get(epic, 'roadmap.record.host.name');
 
@@ -107,12 +140,14 @@ class RecordEpicPage extends Component {
           <Card
             title="Task Types"
           >
-            <Collapse
-              onChange={this.onChange}
-              expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}
-            >
-              {elements.map(this.renderElement)}
-            </Collapse>
+            <CollapseWrapper>
+              <Collapse
+                onChange={this.onChange}
+                expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}
+              >
+                {elements.map(this.renderElement)}
+              </Collapse>
+            </CollapseWrapper>
           </Card>
         </ContentWrapper>
       </React.Fragment>
