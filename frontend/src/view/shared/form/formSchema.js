@@ -14,8 +14,7 @@ export default class FormSchema {
     const intialValues = {};
 
     if (this.idField) {
-      intialValues[this.idField.name] =
-        record[this.idField.name];
+      intialValues[this.idField.name] = record[this.idField.name];
     }
 
     this.fields.forEach((field) => {
@@ -37,5 +36,17 @@ export default class FormSchema {
 
   cast(values) {
     return this.schema.cast(values);
+  }
+
+  addField(field) {
+    if (!this.schema._nodes.includes(field.name)) {
+      this.fields.push(field);
+      this.schema = this.buildSchema();
+    }
+  }
+
+  removeField(field) {
+    this.fields = this.fields.filter((item) => item.name !== field);
+    this.schema = this.buildSchema();
   }
 }

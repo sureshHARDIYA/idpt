@@ -5,7 +5,7 @@ const permissions = require('../../../security/permissions')
 const graphqlSelectRequestedAttributes = require('../../shared/utils/graphqlSelectRequestedAttributes');
 
 const schema = `
-  epicList(filter: AudioFilterInput, limit: Int, offset: Int, orderBy: AudioOrderByEnum): EpicPage!
+  epicList(filter: EpicFilterInput, limit: Int, offset: Int, orderBy: EpicOrderByEnum): EpicPage!
 `;
 
 const resolver = {

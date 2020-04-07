@@ -12,7 +12,6 @@ import FormSchema from 'view/shared/form/formSchema';
 import InputFormItem from 'view/shared/form/items/InputFormItem';
 import RadioFormItem from 'view/shared/form/items/RadioFormItem';
 import DatePickerFormItem from 'view/shared/form/items/DatePickerFormItem';
-import CasedAutocompleteFormItem from 'view/cased/autocomplete/CasedAutocompleteFormItem';
 
 const { fields } = model;
 
@@ -21,7 +20,6 @@ class PatientForm extends Component {
     fields.name,
     fields.birthdate,
     fields.gender,
-    fields.assignCase,
     fields.phone,
   ]);
 
@@ -75,14 +73,6 @@ class PatientForm extends Component {
                     }),
                   )}
                   required={fields.gender.required}
-                />
-                <CasedAutocompleteFormItem
-                  name={fields.assignCase.name}
-                  label={fields.assignCase.label}
-                  required={fields.assignCase.required}
-                  showCreate={!this.props.modal}
-                  form={form}
-                  mode="multiple"
                 />
                 <InputFormItem
                   name={fields.phone.name}

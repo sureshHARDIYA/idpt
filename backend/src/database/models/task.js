@@ -38,17 +38,6 @@ const TaskSchema = new Schema(
       type: Number,
       min: 0,
     },
-    type: {
-      type: String,
-      enum: [
-        "AUDIO",
-        "VIDEO",
-        "TEXT",
-        "ASSESSMENT",
-        "FEEDBACK",
-        null
-      ],
-    },
     owner: [{
       type: Schema.Types.ObjectId,
       ref: 'module',
@@ -57,10 +46,36 @@ const TaskSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: 'task',
     }],
-    elements: [{
-      type: Schema.Types.ObjectId,
-      ref: 'document',
-    }],
+    audios: [new Schema({
+      url: {
+        type: String,
+        required: true
+      },
+      evaluation: {
+        type: Number,
+        required: true
+      },
+    })],
+    videos: [new Schema({
+      url: {
+        type: String,
+        required: true
+      },
+      evaluation: {
+        type: Number,
+        required: true
+      },
+    })],
+    documents: [new Schema({
+      contentHTML: {
+        type: String,
+        required: true
+      },
+      evaluation: {
+        type: Number,
+        required: true
+      },
+    })],
     createdBy: {
       type: Schema.Types.ObjectId,
       ref: 'user',
@@ -71,21 +86,23 @@ const TaskSchema = new Schema(
     },
     importHash: { type: String },
   },
-  { timestamps: true },
+  {
+    timestamps: true,
+    toJSON: { getters: true, virtuals: true },
+    toObject: { getters: true, virtuals: true },
+  },
 );
 
 TaskSchema.virtual('id').get(function() {
   return this._id.toHexString();
 });
 
-TaskSchema.set('toJSON', {
-  getters: true,
+TaskSchema.virtual('elements').get(function() {
+  return [
+    ...this.audios,
+    ...this.videos,
+    ...this.documents,
+  ]
 });
 
-TaskSchema.set('toObject', {
-  getters: true,
-});
-
-const Task = database.model('task', TaskSchema);
-
-module.exports = Task;
+module.exports = database.model('task', TaskSchema);;

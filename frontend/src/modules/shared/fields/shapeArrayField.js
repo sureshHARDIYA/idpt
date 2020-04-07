@@ -1,7 +1,7 @@
 import GenericField from 'modules/shared/fields/genericField';
 import * as yup from 'yup';
 
-export default class ShapeField extends GenericField {
+export default class ShapeArrayField extends GenericField {
   constructor(
     name,
     label,
@@ -43,13 +43,14 @@ export default class ShapeField extends GenericField {
   }
 
   forFormInitialValue(value) {
-    return value || {};
+    return value || [];
   }
 
   forForm() {
     let yupChain = yup
-      .object()
-      .nullable(true)
+      .array()
+      .compact()
+      .ensure()
       .label(this.label);
 
     if (this.required) {
@@ -62,9 +63,7 @@ export default class ShapeField extends GenericField {
       shape[key] = field.forForm();
     })
 
-    yupChain = yup.object().shape(shape);
-
-    return yupChain;
+    return yupChain.of(yup.object().shape(shape));
   }
 
   forFilter() {

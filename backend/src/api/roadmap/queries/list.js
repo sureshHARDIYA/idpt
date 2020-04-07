@@ -5,7 +5,7 @@ const permissions = require('../../../security/permissions')
 const graphqlSelectRequestedAttributes = require('../../shared/utils/graphqlSelectRequestedAttributes');
 
 const schema = `
-  roadmapList(filter: AudioFilterInput, limit: Int, offset: Int, orderBy: AudioOrderByEnum): RoadmapPage!
+  roadmapList(filter: RoadmapFilterInput, limit: Int, offset: Int, orderBy: RoadmapOrderByEnum): RoadmapPage!
 `;
 
 const resolver = {

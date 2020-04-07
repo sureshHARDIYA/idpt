@@ -255,6 +255,7 @@ const en = {
           'AUDIO': 'AUDIO',
           'VIDEO': 'VIDEO',
           'TEXT': 'TEXT',
+          'DOCUMENT': 'DOCUMENT',
           'ASSESSMENT': 'ASSESSMENT',
           'FEEDBACK': 'FEEDBACK',
         },

@@ -1,7 +1,8 @@
 const schema = `
-  type DocumentPage {
-    rows: [Document!]!
-    count: Int!
+  input AudioInput {
+    url: String!
+    evaluation: Int!
+    resourceType: AudioEnumType = Audio
   }
 `;
 
