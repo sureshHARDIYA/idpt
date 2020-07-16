@@ -8,6 +8,7 @@ import Spinner from 'view/shared/Spinner';
 import FormWrapper, {
   tailFormItemLayout,
 } from 'view/shared/styles/FormWrapper';
+import Editor from 'view/shared/form/items/Editor';
 import FormSchema from 'view/shared/form/formSchema';
 import InputFormItem from 'view/shared/form/items/InputFormItem';
 import TextAreaFormItem from 'view/shared/form/items/TextAreaFormItem';
@@ -72,7 +73,7 @@ class ModuleForm extends Component {
                   label={fields.name.label}
                   required={fields.name.required}
                 />
-                <TextAreaFormItem
+                <Editor
                   name={fields.description.name}
                   label={fields.description.label}
                   required={fields.description.required}

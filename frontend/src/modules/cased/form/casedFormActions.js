@@ -62,7 +62,9 @@ const actions = {
         type: actions.CREATE_SUCCESS,
       });
 
-      Message.success(i18n('entities.cased.create.success'));
+      Message.success(
+        i18n('entities.cased.create.success'),
+      );
 
       getHistory().push('/cased');
     } catch (error) {
@@ -74,10 +76,7 @@ const actions = {
     }
   },
 
-  doUpdate: (id, values) => async (
-    dispatch,
-    getState,
-  ) => {
+  doUpdate: (id, values) => async (dispatch, getState) => {
     try {
       dispatch({
         type: actions.UPDATE_STARTED,
@@ -89,9 +88,11 @@ const actions = {
         type: actions.UPDATE_SUCCESS,
       });
 
-      Message.success(i18n('entities.cased.update.success'));
+      Message.success(
+        i18n('entities.cased.update.success'),
+      );
 
-      getHistory().push('/cased');
+      getHistory().push(`/cased/${id}/edit`);
     } catch (error) {
       Errors.handle(error);
 

@@ -13,7 +13,6 @@ import TableWrapper from 'view/shared/styles/TableWrapper';
 import ButtonLink from 'view/shared/styles/ButtonLink';
 import ImagesListView from 'view/shared/list/ImagesListView';
 import ModuleListItem from 'view/module/list/ModuleListItem';
-import PatientListItem from 'view/patient/list/PatientListItem';
 
 const { fields } = model;
 
@@ -33,7 +32,6 @@ class CasedListTable extends Component {
 
   columns = [
     fields.name.forTable(),
-    fields.description.forTable(),
     fields.status.forTable(),
     fields.featuredImage.forTable({
       render: (value) => <ImagesListView value={value} />,
