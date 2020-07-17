@@ -49,7 +49,7 @@ EditorFormItem.modules = {
       { indent: '-1' },
       { indent: '+1' },
     ],
-    ['link'],
+    ['link', 'video'],
     ['clean'],
   ],
   clipboard: {
