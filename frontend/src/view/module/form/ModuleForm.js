@@ -11,7 +11,6 @@ import FormWrapper, {
 import Editor from 'view/shared/form/items/Editor';
 import FormSchema from 'view/shared/form/formSchema';
 import InputFormItem from 'view/shared/form/items/InputFormItem';
-import TextAreaFormItem from 'view/shared/form/items/TextAreaFormItem';
 import SelectFormItem from 'view/shared/form/items/SelectFormItem';
 import ImagesFormItem from 'view/shared/form/items/ImagesFormItem';
 import CasedAutocompleteFormItem from 'view/cased/autocomplete/CasedAutocompleteFormItem';
