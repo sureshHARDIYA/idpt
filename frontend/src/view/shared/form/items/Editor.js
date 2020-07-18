@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Form } from 'antd';
 import { FastField } from 'formik';
 import ReactQuill from 'react-quill';
+import { formItemLayout } from 'view/shared/styles/FormWrapper';
 
 import 'react-quill/dist/quill.snow.css';
 
@@ -25,9 +26,9 @@ class EditorFormItem extends Component {
         <FastField name={name} id={name}>
           {({ field }) => (
             <ReactQuill
+              theme="snow"
               value={field.value}
               onChange={field.onChange(field.name)}
-              theme="snow"
               modules={EditorFormItem.modules}
               formats={EditorFormItem.formats}
             />
@@ -37,6 +38,11 @@ class EditorFormItem extends Component {
     );
   }
 }
+
+EditorFormItem.defaultProps = {
+  layout: formItemLayout,
+  required: false,
+};
 
 EditorFormItem.modules = {
   toolbar: [
