@@ -1,50 +1,66 @@
 import React, { Component } from 'react';
 import { Form } from 'antd';
+import _get from 'lodash/get';
 import { FastField } from 'formik';
 import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import FormErrors from 'view/shared/form/formErrors';
 import { formItemLayout } from 'view/shared/styles/FormWrapper';
 
-import 'react-quill/dist/quill.snow.css';
+const EditorFormItemNotFast = ({
+  label,
+  layout,
+  formItemProps,
+  required,
+  form,
+  name,
+  hint,
+  field,
+  errorMessage,
+  inputProps,
+  ...props
+}) => {
+  const value = _get(form.values, name, props.defaultValue || '');
 
-class EditorFormItem extends Component {
-  render() {
-    const {
-      label,
-      name,
-      layout,
-      formItemProps,
-      required,
-    } = this.props;
-    // delete inputProps.touched;
-    return (
-      <Form.Item
-        {...layout}
-        label={label}
-        required={required}
-        {...formItemProps}
-      >
-        <FastField name={name} id={name}>
-          {({ field }) => (
-            <ReactQuill
-              theme="snow"
-              value={field.value}
-              onChange={field.onChange(field.name)}
-              modules={EditorFormItem.modules}
-              formats={EditorFormItem.formats}
-            />
-          )}
-        </FastField>
-      </Form.Item>
-    );
-  }
+  return (
+    <Form.Item
+      {...layout}
+      label={label}
+      required={required}
+      {...formItemProps}
+      validateStatus={FormErrors.validateStatus(
+        form,
+        name,
+        errorMessage,
+      )}
+      help={
+        FormErrors.displayableError(
+          form,
+          name,
+          errorMessage,
+        ) || hint
+      }
+    >
+      <ReactQuill
+        theme="snow"
+        id={name}
+        {...inputProps}
+        onBlur={() => form.setFieldTouched(field.name, true, true)}
+        onChange={(content) => form.setFieldValue(field.name, content === '<p><br></p>' ? undefined : content, true)}
+        modules={EditorFormItemNotFast.modules}
+        formats={EditorFormItemNotFast.formats}
+        value={value}
+      />
+    </Form.Item>
+  );
 }
 
-EditorFormItem.defaultProps = {
+EditorFormItemNotFast.defaultProps = {
   layout: formItemLayout,
   required: false,
 };
 
-EditorFormItem.modules = {
+EditorFormItemNotFast.modules = {
   toolbar: [
     [{ header: '1' }, { header: '2' }, { font: [] }],
     [{ size: [] }],
@@ -68,7 +84,7 @@ EditorFormItem.modules = {
  * Quill editor formats
  * See https://quilljs.com/docs/formats/
  */
-EditorFormItem.formats = [
+EditorFormItemNotFast.formats = [
   'header',
   'font',
   'size',
@@ -84,5 +100,22 @@ EditorFormItem.formats = [
   'image',
   'video',
 ];
+
+class EditorFormItem extends Component {
+  render() {
+    return (
+      <FastField
+        name={this.props.name}
+        render={({ form, field }) => (
+          <EditorFormItemNotFast
+            {...this.props}
+            form={form}
+            field={field}
+          />
+        )}
+      />
+    );
+  }
+}
 
 export default EditorFormItem;
