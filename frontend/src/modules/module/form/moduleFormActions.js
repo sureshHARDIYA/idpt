@@ -62,7 +62,9 @@ const actions = {
         type: actions.CREATE_SUCCESS,
       });
 
-      Message.success(i18n('entities.module.create.success'));
+      Message.success(
+        i18n('entities.module.create.success'),
+      );
 
       getHistory().push('/module');
     } catch (error) {
@@ -74,10 +76,7 @@ const actions = {
     }
   },
 
-  doUpdate: (id, values) => async (
-    dispatch,
-    getState,
-  ) => {
+  doUpdate: (id, values) => async (dispatch, getState) => {
     try {
       dispatch({
         type: actions.UPDATE_STARTED,
@@ -89,9 +88,11 @@ const actions = {
         type: actions.UPDATE_SUCCESS,
       });
 
-      Message.success(i18n('entities.module.update.success'));
+      Message.success(
+        i18n('entities.module.update.success'),
+      );
 
-      getHistory().push('/module');
+      getHistory().push(`/module/${id}/edit`);
     } catch (error) {
       Errors.handle(error);
 

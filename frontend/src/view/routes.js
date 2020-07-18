@@ -72,17 +72,9 @@ const privateRoutes = [
   },
 
   {
-    path: '/settings',
-    icon: 'setting',
-    label: i18n('settings.menu'),
-    loader: () => import('view/settings/SettingsFormPage'),
-    permissionRequired: permissions.settingsEdit,
-    menu: true,
-  },
-
-  {
     path: '/patient',
-    loader: () => import('view/patient/list/PatientListPage'),
+    loader: () =>
+      import('view/patient/list/PatientListPage'),
     permissionRequired: permissions.patientRead,
     exact: true,
     icon: 'right',
@@ -91,7 +83,8 @@ const privateRoutes = [
   },
   {
     path: '/patient/new',
-    loader: () => import('view/patient/form/PatientFormPage'),
+    loader: () =>
+      import('view/patient/form/PatientFormPage'),
     menu: false,
     permissionRequired: permissions.patientCreate,
     exact: true,
@@ -106,14 +99,16 @@ const privateRoutes = [
   },
   {
     path: '/patient/:id/edit',
-    loader: () => import('view/patient/form/PatientFormPage'),
+    loader: () =>
+      import('view/patient/form/PatientFormPage'),
     menu: false,
     permissionRequired: permissions.patientEdit,
     exact: true,
   },
   {
     path: '/patient/:id',
-    loader: () => import('view/patient/view/PatientViewPage'),
+    loader: () =>
+      import('view/patient/view/PatientViewPage'),
     menu: false,
     permissionRequired: permissions.patientRead,
     exact: true,
@@ -261,17 +256,27 @@ const privateRoutes = [
   },
   {
     path: '/roadmaps/:id',
-    loader: () => import('view/record/roadmap/RecordRoadmapViewPage'),
+    loader: () =>
+      import('view/record/roadmap/RecordRoadmapViewPage'),
     menu: false,
     permissionRequired: permissions.recordRead,
     exact: true,
   },
   {
     path: '/epics/:id',
-    loader: () => import('view/record/epic/RecordEpicViewPage'),
+    loader: () =>
+      import('view/record/epic/RecordEpicViewPage'),
     menu: false,
     exact: true,
     permissionRequired: permissions.recordRead,
+  },
+  {
+    path: '/settings',
+    icon: 'setting',
+    label: i18n('settings.menu'),
+    loader: () => import('view/settings/SettingsFormPage'),
+    permissionRequired: permissions.settingsEdit,
+    menu: true,
   },
   {
     path: '/record/:id/edit',

@@ -1,19 +1,19 @@
-import { Button, Form } from 'antd';
-import { Formik } from 'formik';
 import { i18n } from 'i18n';
-import model from 'modules/cased/casedModel';
-import React, { Component } from 'react';
-import ViewFormItem from 'view/shared/form/items/ViewFormItem';
-import Spinner from 'view/shared/Spinner';
+import { Formik } from 'formik';
+import { Button, Form } from 'antd';
 import FormWrapper, {
   tailFormItemLayout,
 } from 'view/shared/styles/FormWrapper';
+import React, { Component } from 'react';
+import Spinner from 'view/shared/Spinner';
+import model from 'modules/cased/casedModel';
+import Editor from 'view/shared/form/items/Editor';
 import FormSchema from 'view/shared/form/formSchema';
+import ViewFormItem from 'view/shared/form/items/ViewFormItem';
 import InputFormItem from 'view/shared/form/items/InputFormItem';
-import TextAreaFormItem from 'view/shared/form/items/TextAreaFormItem';
+import ImagesFormItem from 'view/shared/form/items/ImagesFormItem';
 import SelectFormItem from 'view/shared/form/items/SelectFormItem';
 import DatePickerFormItem from 'view/shared/form/items/DatePickerFormItem';
-import ImagesFormItem from 'view/shared/form/items/ImagesFormItem';
 import ModuleAutocompleteFormItem from 'view/module/autocomplete/ModuleAutocompleteFormItem';
 
 const { fields } = model;
@@ -64,7 +64,7 @@ class CasedForm extends Component {
                   required={fields.name.required}
                   autoFocus
                 />
-                <TextAreaFormItem
+                <Editor
                   name={fields.description.name}
                   label={fields.description.label}
                   required={fields.description.required}

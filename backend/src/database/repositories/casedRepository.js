@@ -91,13 +91,13 @@ class CasedRepository {
       options,
     );
 
-    await MongooseRepository.refreshTwoWayRelationManyToMany(
-      record,
-      'patients',
-      Patient,
-      'assignCase',
-      options,
-    );
+    // await MongooseRepository.refreshTwoWayRelationManyToMany(
+    //   record,
+    //   'patients',
+    //   Patient,
+    //   'assignCase',
+    //   options,
+    // );
 
     return record;
   }
@@ -158,8 +158,8 @@ class CasedRepository {
   async findById(id, options) {
     return MongooseRepository.wrapWithSessionIfExists(
       Cased.findById(id)
-      .populate('modules')
-      .populate('patients'),
+        .populate('modules')
+        .populate('patients'),
       options,
     );
   }
@@ -223,14 +223,18 @@ class CasedRepository {
       if (filter.status) {
         criteria = {
           ...criteria,
-          status: filter.status
+          status: filter.status,
         };
       }
 
       if (filter.availableFromRange) {
         const [start, end] = filter.availableFromRange;
 
-        if (start !== undefined && start !== null && start !== '') {
+        if (
+          start !== undefined &&
+          start !== null &&
+          start !== ''
+        ) {
           criteria = {
             ...criteria,
             availableFrom: {
@@ -240,7 +244,11 @@ class CasedRepository {
           };
         }
 
-        if (end !== undefined && end !== null && end !== '') {
+        if (
+          end !== undefined &&
+          end !== null &&
+          end !== ''
+        ) {
           criteria = {
             ...criteria,
             availableFrom: {
@@ -254,7 +262,11 @@ class CasedRepository {
       if (filter.createdAtRange) {
         const [start, end] = filter.createdAtRange;
 
-        if (start !== undefined && start !== null && start !== '') {
+        if (
+          start !== undefined &&
+          start !== null &&
+          start !== ''
+        ) {
           criteria = {
             ...criteria,
             ['createdAt']: {
@@ -264,7 +276,11 @@ class CasedRepository {
           };
         }
 
-        if (end !== undefined && end !== null && end !== '') {
+        if (
+          end !== undefined &&
+          end !== null &&
+          end !== ''
+        ) {
           criteria = {
             ...criteria,
             ['createdAt']: {
@@ -312,9 +328,11 @@ class CasedRepository {
           { _id: MongooseQueryUtils.uuid(search) },
           {
             name: {
-              $regex: MongooseQueryUtils.escapeRegExp(search),
+              $regex: MongooseQueryUtils.escapeRegExp(
+                search,
+              ),
               $options: 'i',
-            }
+            },
           },
         ],
       };

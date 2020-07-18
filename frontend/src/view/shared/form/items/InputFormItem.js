@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import _get from 'lodash/get'
+import _get from 'lodash/get';
 import { Form, Input } from 'antd';
-import { formItemLayout } from 'view/shared/styles/FormWrapper';
 import PropTypes from 'prop-types';
-import FormErrors from 'view/shared/form/formErrors';
 import { FastField } from 'formik';
+import FormErrors from 'view/shared/form/formErrors';
+import { formItemLayout } from 'view/shared/styles/FormWrapper';
 
 export class InputFormItemNotFast extends Component {
   render() {
