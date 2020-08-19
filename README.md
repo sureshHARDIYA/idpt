@@ -1,13 +1,14 @@
 # Introduction
 
-**A framework for creating adaptive Internet-Delivered Psychological Treatments (IDPT) Systems**
+**A framework for creating adaptive Internet-Delivered Psychological Treatment (IDPT) Systems**
 
 # Features
 
 - Create Cases
 - Create Modules
 - Create Tasks
-- Create Users
+- Create Users with roles
+- Create Task builders 
 
 # Roadmaps
 
