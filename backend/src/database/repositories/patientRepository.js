@@ -141,8 +141,7 @@ class PatientRepository {
    */
   async findById(id, options) {
     return MongooseRepository.wrapWithSessionIfExists(
-      Patient.findById(id)
-      .populate('assignCase'),
+      Patient.findById(id),
       options,
     );
   }

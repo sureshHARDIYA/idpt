@@ -78,10 +78,16 @@ export default class PatientService {
     return response.data.patientImport;
   }
 
-  static async find(id) {
+  static async find(id, filter, orderBy, limit, offset) {
     const response = await graphqlClient.query({
       query: gql`
-        query PATIENT_FIND($id: String!) {
+        query PATIENT_FIND(
+          $id: String!
+          $filter: CasedFilterInput
+          $orderBy: CasedOrderByEnum
+          $limit: Int
+          $offset: Int
+        ) {
           patientFind(id: $id) {
             id
             name
@@ -94,12 +100,37 @@ export default class PatientService {
             phone
             createdAt
             updatedAt
+
+            casedList(
+              filter: $filter
+              orderBy: $orderBy
+              limit: $limit
+              offset: $offset
+            ) {
+              count
+              rows {
+                id
+                name
+                status
+                featuredImage {
+                  id
+                  name
+                  sizeInBytes
+                  publicUrl
+                  privateUrl
+                }
+              }
+            }
           }
         }
       `,
 
       variables: {
         id,
+        filter,
+        orderBy,
+        limit,
+        offset
       },
     });
 

@@ -4,6 +4,7 @@ const AuditLogRepository = require('./auditLogRepository');
 const Cased = require('../models/cased');
 const Module = require('../models/module');
 const Patient = require('../models/patient');
+const Record = require('../models/record');
 
 /**
  * Handles database operations for the Cased.
@@ -178,7 +179,7 @@ class CasedRepository {
    * @returns {Promise<Object>} response - Object containing the rows and the count.
    */
   async findAndCountAll(
-    { filter, limit, offset, orderBy } = {
+    { filter, limit, offset, orderBy, root } = {
       filter: null,
       limit: 0,
       offset: 0,
@@ -186,10 +187,15 @@ class CasedRepository {
     },
     options,
   ) {
+
     let criteria = {};
 
+
     if (filter) {
-      if (filter.id) {
+      if (filter.patient) {
+        const records = await Record.find({ owner: filter.patient }, { host: true });
+        criteria._id = { $in: records.map((i) => i.host) };
+      } else if (filter.id) {
         criteria = {
           ...criteria,
           ['_id']: MongooseQueryUtils.uuid(filter.id),
@@ -303,8 +309,7 @@ class CasedRepository {
       .skip(skip)
       .limit(limitEscaped)
       .sort(sort)
-      .populate('modules')
-      .populate('patients');
+      .populate('modules');
 
     const count = await Cased.countDocuments(criteria);
 

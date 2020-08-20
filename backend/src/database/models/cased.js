@@ -29,10 +29,6 @@ const CasedSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: 'module',
     }],
-    patients: [{
-      type: Schema.Types.ObjectId,
-      ref: 'patient',
-    }],
     availableFrom: {
       type: String,
       required: true,

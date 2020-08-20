@@ -53,6 +53,13 @@ PatientSchema.set('toObject', {
   getters: true,
 });
 
+PatientSchema.virtual('records', {
+  ref: 'record',
+  localField: '_id',
+  foreignField: 'owner',
+});
+
+
 const Patient = database.model('patient', PatientSchema);
 
 module.exports = Patient;

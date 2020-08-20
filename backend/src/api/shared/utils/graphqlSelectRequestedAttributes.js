@@ -6,6 +6,7 @@ module.exports = function graphqlSelectRequestedAttributes(
   depth,
 ) {
   const root = graphqlFields(info);
+  console.log('root:', root)
   let obj = depth ? lodash.get(root, depth) : root;
   return Object.keys(obj);
 };
