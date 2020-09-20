@@ -10,7 +10,7 @@ import FormWrapper, {
 } from 'view/shared/styles/FormWrapper';
 import FormSchema from 'view/shared/form/formSchema';
 import InputFormItem from 'view/shared/form/items/InputFormItem';
-import TextAreaFormItem from 'view/shared/form/items/TextAreaFormItem';
+import Editor from 'view/shared/form/items/Editor';
 import InputNumberFormItem from 'view/shared/form/items/InputNumberFormItem';
 import SelectFormItem from 'view/shared/form/items/SelectFormItem';
 
@@ -20,7 +20,7 @@ class DocumentForm extends Component {
   schema = new FormSchema(fields.id, [
     fields.contentHTML,
     fields.totalreadtime,
-    fields.evaluationCriteria
+    fields.evaluationCriteria,
   ]);
 
   handleSubmit = (values) => {
@@ -53,26 +53,34 @@ class DocumentForm extends Component {
                     />
                   )}
 
-                  <TextAreaFormItem
+                  <Editor
                     name={fields.contentHTML.name}
                     label={fields.contentHTML.label}
                     required={fields.contentHTML.required}
-                    autoFocus
                   />
 
                   <InputNumberFormItem
                     name={fields.totalreadtime.name}
                     label={fields.totalreadtime.label}
-                    required={
-                      fields.totalreadtime.required
-                    }
+                    required={fields.totalreadtime.required}
                   />
                 </Card>
-                <Card title={fields.evaluationCriteria.label}>
+                <Card
+                  title={fields.evaluationCriteria.label}
+                >
                   <SelectFormItem
-                    name={fields.evaluationCriteria.fields.field.name}
-                    label={fields.evaluationCriteria.fields.field.label}
-                    required={fields.evaluationCriteria.fields.field.required}
+                    name={
+                      fields.evaluationCriteria.fields.field
+                        .name
+                    }
+                    label={
+                      fields.evaluationCriteria.fields.field
+                        .label
+                    }
+                    required={
+                      fields.evaluationCriteria.fields.field
+                        .required
+                    }
                     options={fields.evaluationCriteria.fields.field.options.map(
                       (item) => ({
                         value: item.id,
@@ -82,9 +90,18 @@ class DocumentForm extends Component {
                   />
 
                   <SelectFormItem
-                    name={fields.evaluationCriteria.fields.operator.name}
-                    label={fields.evaluationCriteria.fields.operator.label}
-                    required={fields.evaluationCriteria.fields.operator.required}
+                    name={
+                      fields.evaluationCriteria.fields
+                        .operator.name
+                    }
+                    label={
+                      fields.evaluationCriteria.fields
+                        .operator.label
+                    }
+                    required={
+                      fields.evaluationCriteria.fields
+                        .operator.required
+                    }
                     options={fields.evaluationCriteria.fields.operator.options.map(
                       (item) => ({
                         value: item.id,
@@ -94,9 +111,18 @@ class DocumentForm extends Component {
                   />
 
                   <InputFormItem
-                    name={fields.evaluationCriteria.fields.valueRequired.name}
-                    label={fields.evaluationCriteria.fields.valueRequired.label}
-                    required={fields.evaluationCriteria.fields.valueRequired.required}
+                    name={
+                      fields.evaluationCriteria.fields
+                        .valueRequired.name
+                    }
+                    label={
+                      fields.evaluationCriteria.fields
+                        .valueRequired.label
+                    }
+                    required={
+                      fields.evaluationCriteria.fields
+                        .valueRequired.required
+                    }
                     autoFocus
                   />
                 </Card>
