@@ -7,7 +7,7 @@ import { i18n } from 'i18n';
 import actions from 'modules/patient/view/patientViewActions';
 import { connect } from 'react-redux';
 import selectors from 'modules/patient/view/patientViewSelectors';
-import PatientViewToolbar from 'view/patient/view/PatientViewToolbar';
+import authSelectors from 'modules/auth/authSelectors';
 
 class PatientPage extends Component {
   componentDidMount() {
@@ -28,11 +28,14 @@ class PatientPage extends Component {
 
         <ContentWrapper>
           <PageTitle>
-            {i18n('entities.patient.view.title')}
+            {i18n('entities.patient.view.welcome')}
+            <span className="ant-typography">
+              <code>
+                {this.props.currentUser &&
+                  this.props.currentUser.fullName}
+              </code>
+            </span>
           </PageTitle>
-
-          <PatientViewToolbar match={this.props.match} />
-
           <PatientView
             loading={this.props.loading}
             record={this.props.record}
@@ -45,6 +48,7 @@ class PatientPage extends Component {
 
 function select(state) {
   return {
+    currentUser: authSelectors.selectCurrentUser(state),
     loading: selectors.selectLoading(state),
     record: selectors.selectRecord(state),
   };

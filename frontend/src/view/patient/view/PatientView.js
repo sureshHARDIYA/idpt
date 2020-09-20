@@ -1,68 +1,74 @@
-import model from 'modules/patient/patientModel';
 import React, { Component } from 'react';
-import { Tabs } from 'antd';
+import { Card, Button, Icon } from 'antd';
 import Spinner from 'view/shared/Spinner';
 import ViewWrapper from 'view/shared/styles/ViewWrapper';
-import TextViewItem from 'view/shared/view/TextViewItem';
-import CasedListTable from 'view/patient/view/CasedListTable';
+import { Grid, Row, Col } from 'react-flexbox-grid';
 
-const { fields } = model;
-
-const { TabPane } = Tabs;
+const { Meta } = Card;
 
 class PatientView extends Component {
+  createMarkup(description) {
+    return { __html: description };
+  }
+
+  getDescription(description) {
+    return (
+      <div
+        dangerouslySetInnerHTML={this.createMarkup(
+          description,
+        )}
+      />
+    );
+  }
+
   renderView() {
     const { record } = this.props;
 
     return (
       <ViewWrapper>
-        <Tabs tabPosition="right">
-          <TabPane tab=":Information" key="1">
-            <TextViewItem
-              label={fields.id.label}
-              value={fields.id.forView(record.id)}
-            />
-
-            <TextViewItem
-              label={fields.name.label}
-              value={fields.name.forView(record.name)}
-            />
-
-            <TextViewItem
-              label={fields.birthdate.label}
-              value={fields.birthdate.forView(record.birthdate)}
-            />
-
-            <TextViewItem
-              label={fields.gender.label}
-              value={fields.gender.forView(record.gender)}
-            />
-
-            <TextViewItem
-              label={fields.phone.label}
-              value={fields.phone.forView(record.phone)}
-            />
-
-            <TextViewItem
-              label={fields.createdAt.label}
-              value={fields.createdAt.forView(record.createdAt)}
-            />
-
-            <TextViewItem
-              label={fields.updatedAt.label}
-              value={fields.updatedAt.forView(record.updatedAt)}
-            />
-          </TabPane>
-          <TabPane tab=":List of cases" key="2">
-            <CasedListTable />
-          </TabPane>
-          <TabPane tab=":List of modules" key="3">
-            Content of Tab 3
-          </TabPane>
-          <TabPane tab=":List of tasks" key="4">
-            Content of Tab 4
-          </TabPane>
-        </Tabs>
+        <div
+          dangerouslySetInnerHTML={this.createMarkup(
+            record.description,
+          )}
+        />
+        <Grid fluid>
+          <Row gutter={[24, 24]}>
+            {record.modules &&
+              record.modules.map((item, index) => (
+                <Col
+                  xs={12}
+                  sm={6}
+                  md={4}
+                  lg={3}
+                  key={item.id}
+                >
+                  <Card
+                    style={{ width: 240 }}
+                    cover={
+                      <img
+                        alt="example"
+                        src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
+                      />
+                    }
+                  >
+                    <Meta
+                      title={item.name}
+                      description={this.getDescription(
+                        item.description,
+                      )}
+                    />
+                    <Button
+                      type="primary"
+                      href={`/patient/${record.id}/module/${item.id}`}
+                    >
+                      {'Start Module.'}
+                      <Icon type="right" />
+                    </Button>
+                  </Card>
+                </Col>
+              ))}
+          </Row>
+        </Grid>
       </ViewWrapper>
     );
   }

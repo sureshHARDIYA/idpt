@@ -65,7 +65,10 @@ export default class PatientService {
           $data: PatientInput!
           $importHash: String!
         ) {
-          patientImport(data: $data, importHash: $importHash)
+          patientImport(
+            data: $data
+            importHash: $importHash
+          )
         }
       `,
 
@@ -78,63 +81,44 @@ export default class PatientService {
     return response.data.patientImport;
   }
 
-  static async find(id, filter, orderBy, limit, offset) {
+  static async find(id) {
     const response = await graphqlClient.query({
       query: gql`
-        query PATIENT_FIND(
-          $id: String!
-          $filter: CasedFilterInput
-          $orderBy: CasedOrderByEnum
-          $limit: Int
-          $offset: Int
-        ) {
-          patientFind(id: $id) {
+        query CASED_FIND($id: String!) {
+          casedFind(id: $id) {
             id
             name
-            birthdate
-            gender
-            user {
+            description
+            status
+            featuredImage {
               id
-              fullName
+              name
+              sizeInBytes
+              publicUrl
+              privateUrl
             }
-            phone
-            createdAt
-            updatedAt
-
-            casedList(
-              filter: $filter
-              orderBy: $orderBy
-              limit: $limit
-              offset: $offset
-            ) {
-              count
-              rows {
+            modules {
+              id
+              name
+              description
+              featuredImage {
                 id
-                name
-                status
-                featuredImage {
-                  id
-                  name
-                  sizeInBytes
-                  publicUrl
-                  privateUrl
-                }
+                publicUrl
               }
             }
+            availableFrom
+            createdAt
+            updatedAt
           }
         }
       `,
 
       variables: {
         id,
-        filter,
-        orderBy,
-        limit,
-        offset
       },
     });
 
-    return response.data.patientFind;
+    return response.data.casedFind;
   }
 
   static async list(filter, orderBy, limit, offset) {
@@ -188,7 +172,10 @@ export default class PatientService {
           $query: String
           $limit: Int
         ) {
-          patientAutocomplete(query: $query, limit: $limit) {
+          patientAutocomplete(
+            query: $query
+            limit: $limit
+          ) {
             id
             label
           }

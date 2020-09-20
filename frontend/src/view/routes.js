@@ -113,7 +113,14 @@ const privateRoutes = [
     permissionRequired: permissions.patientRead,
     exact: true,
   },
-
+  {
+    path: '/patient/:id/module/:id',
+    loader: () =>
+      import('view/patient/view/ModuleListView'),
+    menu: false,
+    permissionRequired: permissions.patientRead,
+    exact: true,
+  },
   {
     path: '/cased',
     loader: () => import('view/cased/list/CasedListPage'),
