@@ -6,7 +6,9 @@ module.exports = {
      * Connection URL for Mongoose
      * See https://mongoosejs.com/docs/index.html
      */
-    connection: 'mongodb://mongo:27017/production',
+    connection:
+      process.env.MONGODB_URI ||
+      'mongodb://mongo:27017/production',
     /**
      * In case you want to use ACID transactions, change this flag to true.
      * See: https://mongoosejs.com/docs/transactions.html
@@ -46,11 +48,9 @@ module.exports = {
    */
   clientUrl: '<insert client url here>',
 
-  
   /**
    * Enables GraphiQL
    * See: https://github.com/graphql/graphiql
    */
   graphiql: false,
-
 };

@@ -9,7 +9,7 @@
     "mongod": "run-rs -v 4.0.0 --shell"
   },
   "dependencies": {
-    "bcrypt": "3.0.6",
+    "bcrypt": "5.0.0",
     "cors": "2.8.5",
     "express": "4.17.1",
     "express-graphql": "0.9.0",
