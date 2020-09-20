@@ -8,7 +8,9 @@ module.exports = {
      * Connection URL for Mongoose
      * See https://mongoosejs.com/docs/index.html
      */
-    connection: 'mongodb://localhost:27017/development',
+    connection:
+      process.env.MONGODB_URI ||
+      'mongodb://localhost:27017/development',
     transactions: false,
 
     /**
@@ -55,14 +57,11 @@ module.exports = {
    * When this email is set, all requests will automatically authenticate using this email.
    * Useful for testing purposes.
    */
-  userAutoAuthenticatedEmailForTests:
-    null,
-
+  userAutoAuthenticatedEmailForTests: null,
 
   /**
    * Enables GraphiQL
    * See: https://github.com/graphql/graphiql
    */
   graphiql: true,
-
 };
