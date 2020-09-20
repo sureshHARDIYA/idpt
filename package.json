@@ -2,9 +2,12 @@
   "name": "app",
   "version": "0.0.0",
   "scripts": {
-    "build:production": "cd ./frontend && npm install && npm run build:production && rm -rf ./node_modules && cd ../backend && npm install",
-    "start:production": "cd ./backend && npm run start:production",
-    "dev": "cd ./frontend && npm run start",
-    "server": "cd ./backend && npm run start"
+    "build": "cd ./frontend && yarn install && yarn build:production && rm -rf ./node_modules && cd ../backend && yarn install",
+    "start:production": "cd ./backend && yarn start:production",
+    "dev": "cd ./frontend && yarn start",
+    "server": "cd ./backend && yarn start"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.2"
   }
 }
