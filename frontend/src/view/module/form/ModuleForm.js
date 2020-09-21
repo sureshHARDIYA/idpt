@@ -1,15 +1,15 @@
-import { Button, Form } from 'antd';
-import { Formik } from 'formik';
 import { i18n } from 'i18n';
-import model from 'modules/module/moduleModel';
-import React, { Component } from 'react';
-import ViewFormItem from 'view/shared/form/items/ViewFormItem';
-import Spinner from 'view/shared/Spinner';
+import { Formik } from 'formik';
+import { Button, Form } from 'antd';
 import FormWrapper, {
   tailFormItemLayout,
 } from 'view/shared/styles/FormWrapper';
+import React, { Component } from 'react';
+import Spinner from 'view/shared/Spinner';
+import model from 'modules/module/moduleModel';
 import Editor from 'view/shared/form/items/Editor';
 import FormSchema from 'view/shared/form/formSchema';
+import ViewFormItem from 'view/shared/form/items/ViewFormItem';
 import InputFormItem from 'view/shared/form/items/InputFormItem';
 import SelectFormItem from 'view/shared/form/items/SelectFormItem';
 import ImagesFormItem from 'view/shared/form/items/ImagesFormItem';
@@ -105,6 +105,9 @@ class ModuleForm extends Component {
                     size: fields.featuredImage.size,
                   }}
                   max={fields.featuredImage.max}
+                  cloudinary={
+                    fields.featuredImage.cloudinary
+                  }
                 />
                 <ModuleAutocompleteFormItem
                   name={fields.prerequisite.name}

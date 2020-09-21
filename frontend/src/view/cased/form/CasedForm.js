@@ -39,7 +39,7 @@ class CasedForm extends Component {
   };
 
   initialValues = () => {
-    const record = this.props.record;
+    const record = this.props.record || {};
     if (!record.audience) {
       record.audience = 'ALL';
     }
@@ -103,6 +103,9 @@ class CasedForm extends Component {
                     size: fields.featuredImage.size,
                   }}
                   max={fields.featuredImage.max}
+                  cloudinary={
+                    fields.featuredImage.cloudinary
+                  }
                 />
                 <ModuleAutocompleteFormItem
                   name={fields.modules.name}

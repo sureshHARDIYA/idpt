@@ -1,20 +1,20 @@
-import { Table, Popconfirm } from 'antd';
 import { i18n } from 'i18n';
-import actions from 'modules/module/list/moduleListActions';
-import destroyActions from 'modules/module/destroy/moduleDestroyActions';
-import selectors from 'modules/module/list/moduleListSelectors';
-import destroySelectors from 'modules/module/destroy/moduleDestroySelectors';
-import model from 'modules/module/moduleModel';
-import moduleSelectors from 'modules/module/moduleSelectors';
-import React, { Component } from 'react';
+import _get from 'lodash/get';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import TableWrapper from 'view/shared/styles/TableWrapper';
-import ButtonLink from 'view/shared/styles/ButtonLink';
-import ImagesListView from 'view/shared/list/ImagesListView';
-import CasedListItem from 'view/cased/list/CasedListItem';
+import React, { Component } from 'react';
+import model from 'modules/module/moduleModel';
+import { Table, Popconfirm, Avatar } from 'antd';
 import TaskListItem from 'view/task/list/TaskListItem';
+import ButtonLink from 'view/shared/styles/ButtonLink';
+import CasedListItem from 'view/cased/list/CasedListItem';
+import TableWrapper from 'view/shared/styles/TableWrapper';
 import ModuleListItem from 'view/module/list/ModuleListItem';
+import actions from 'modules/module/list/moduleListActions';
+import moduleSelectors from 'modules/module/moduleSelectors';
+import selectors from 'modules/module/list/moduleListSelectors';
+import destroySelectors from 'modules/module/destroy/moduleDestroySelectors';
+import destroyActions from 'modules/module/destroy/moduleDestroyActions';
 
 const { fields } = model;
 
@@ -41,9 +41,22 @@ class ModuleListTable extends Component {
     fields.tasks.forTable({
       render: (value) => <TaskListItem value={value} />,
     }),
-    fields.featuredImage.forTable({
-      render: (value) => <ImagesListView value={value} />,
-    }),
+    {
+      title: 'Avatar',
+      dataIndex: 'featuredImage',
+      render: (_, record) => {
+        const url = _get(
+          record,
+          'featuredImage[0].publicUrl',
+        );
+
+        return url ? (
+          <Avatar shape="square" size="large" src={url} />
+        ) : (
+          <Avatar icon="user" shape="square" size="large" />
+        );
+      },
+    },
     fields.prerequisite.forTable({
       render: (value) => <ModuleListItem value={value} />,
     }),

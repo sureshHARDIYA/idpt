@@ -31,7 +31,6 @@ export default class FileUploader {
         i18n('fileUploader.size', filesize(schema.size)),
       );
     }
-
     const extension = extractExtensionFrom(file.name);
 
     if (
@@ -67,17 +66,17 @@ export default class FileUploader {
     );
     const id = uuid();
     const filename = `${id}.${extension}`;
-    const privateUrl = `${path}/${filename}`;
+    // const privateUrl = `${path}/${filename}`;
 
     this.uploadToServer(request.file, path, filename)
       .then((publicUrl) => {
-        request.onSuccess();
+        // request.onSuccess();
         onSuccess({
-          id: id,
-          name: request.file.name,
+          id: publicUrl.data.id,
+          name: publicUrl.data.name,
           sizeInBytes: request.file.size,
-          privateUrl,
-          publicUrl,
+          privateUrl: publicUrl.data.privateUrl,
+          publicUrl: publicUrl.data.publicUrl,
           new: true,
         });
       })
@@ -93,7 +92,7 @@ export default class FileUploader {
     const formData = new FormData();
     formData.append('file', file);
     formData.append('filename', filename);
-    await Axios.post(
+    return await Axios.post(
       `${config.backendUrl}/upload/${path}`,
       formData,
       {
@@ -104,10 +103,6 @@ export default class FileUploader {
       },
     );
 
-    const privateUrl = `${path}/${filename}`;
-
-    return `${
-      config.backendUrl
-    }/download?privateUrl=${privateUrl}`;
+    // return `${config.backendUrl}/download?privateUrl=${privateUrl}`;
   }
 }

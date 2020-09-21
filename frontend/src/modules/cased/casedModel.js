@@ -54,7 +54,7 @@ const fields = {
     'featuredImage',
     label('featuredImage'),
     'cased/featuredImage',
-    {},
+    { max: 1 },
   ),
   modules: new RelationToManyField(
     'modules',
