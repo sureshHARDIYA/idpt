@@ -1,4 +1,5 @@
 const { resolver: { casedList } } = require('../../cased/queries/casedList');
+const { resolver: { recordList } } = require('../../record/queries/recordList');
 
 const schema = `
   type Patient {
@@ -12,12 +13,14 @@ const schema = `
     updatedAt: DateTime
 
     casedList(filter: CasedFilterInput, limit: Int, offset: Int, orderBy: CasedOrderByEnum): CasedPage
+    recordList(filter: RecordFilterInput, limit: Int, offset: Int, orderBy: RecordOrderByEnum): RecordPage!
   }
 `;
 
 const resolver = {
   Patient: {
-    casedList
+    casedList,
+    recordList,
   }
 };
 

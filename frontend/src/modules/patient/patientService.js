@@ -81,44 +81,70 @@ export default class PatientService {
     return response.data.patientImport;
   }
 
-  static async find(id) {
+  static async find(id, filter, orderBy, limit, offset) {
     const response = await graphqlClient.query({
       query: gql`
-        query CASED_FIND($id: String!) {
-          casedFind(id: $id) {
+        query PATIENT_FIND(
+          $id: String!
+          $filter: RecordFilterInput
+          $orderBy: RecordOrderByEnum
+          $limit: Int
+          $offset: Int
+        ) {
+          patientFind(id: $id) {
             id
             name
-            description
-            status
-            featuredImage {
+            birthdate
+            gender
+            user {
               id
-              name
-              sizeInBytes
-              publicUrl
-              privateUrl
+              fullName
             }
-            modules {
-              id
-              name
-              description
-              featuredImage {
-                id
-                publicUrl
-              }
-            }
-            availableFrom
+            phone
             createdAt
             updatedAt
+
+            recordList(
+              filter: $filter
+              limit: $limit
+              offset: $offset
+              orderBy: $orderBy
+            ) {
+              count
+              rows {
+                id
+                description
+                status
+                state
+                createdAt
+                updatedAt
+                host {
+                  id
+                  name
+                  featuredImage {
+                    publicUrl
+                  }
+                }
+                owner {
+                  id
+                  name
+                }
+              }
+            }
           }
         }
       `,
 
       variables: {
         id,
+        filter,
+        orderBy,
+        limit,
+        offset
       },
     });
 
-    return response.data.casedFind;
+    return response.data.patientFind;
   }
 
   static async list(filter, orderBy, limit, offset) {

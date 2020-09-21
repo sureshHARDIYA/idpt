@@ -299,6 +299,23 @@ const privateRoutes = [
     permissionRequired: permissions.recordRead,
     exact: true,
   },
+  // For patient view
+  {
+    path: '/program/:id',
+    loader: () =>
+      import('view/patient/view/ModuleListView'),
+    menu: false,
+    permissionRequired: permissions.patientRead,
+    exact: true,
+  },
+  {
+    path: '/program/:id/module/:id',
+    loader: () =>
+      import('view/patient/view/TaskListView'),
+    menu: false,
+    permissionRequired: permissions.patientRead,
+    exact: true,
+  },
 ];
 
 const publicRoutes = [

@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import { Card, Button, Icon } from 'antd';
 import Spinner from 'view/shared/Spinner';
 import ViewWrapper from 'view/shared/styles/ViewWrapper';
-import { Grid, Row, Col } from 'react-flexbox-grid';
-
-const { Meta } = Card;
+import CaseListView from 'view/patient/view/CaseListView';
 
 class PatientView extends Component {
   createMarkup(description) {
@@ -31,44 +29,7 @@ class PatientView extends Component {
             record.description,
           )}
         />
-        <Grid fluid>
-          <Row gutter={[24, 24]}>
-            {record.modules &&
-              record.modules.map((item, index) => (
-                <Col
-                  xs={12}
-                  sm={6}
-                  md={4}
-                  lg={3}
-                  key={item.id}
-                >
-                  <Card
-                    style={{ width: 240 }}
-                    cover={
-                      <img
-                        alt="example"
-                        src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-                      />
-                    }
-                  >
-                    <Meta
-                      title={item.name}
-                      description={this.getDescription(
-                        item.description,
-                      )}
-                    />
-                    <Button
-                      type="primary"
-                      href={`/patient/${record.id}/module/${item.id}`}
-                    >
-                      {'Start Module.'}
-                      <Icon type="right" />
-                    </Button>
-                  </Card>
-                </Col>
-              ))}
-          </Row>
-        </Grid>
+        <CaseListView />
       </ViewWrapper>
     );
   }

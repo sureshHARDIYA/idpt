@@ -1,25 +1,21 @@
-import { Table } from 'antd';
+import { Table, Popconfirm } from 'antd';
 import { i18n } from 'i18n';
-import actions from 'modules/cased/list/casedListActions';
-import destroyActions from 'modules/cased/destroy/casedDestroyActions';
-import selectors from 'modules/cased/list/casedListSelectors';
-import destroySelectors from 'modules/cased/destroy/casedDestroySelectors';
-import model from 'modules/cased/casedModel';
-import casedSelectors from 'modules/cased/casedSelectors';
+import actions from 'modules/patient/list/patientListActions';
+import destroyActions from 'modules/patient/destroy/patientDestroyActions';
+import selectors from 'modules/patient/list/patientListSelectors';
+import destroySelectors from 'modules/patient/destroy/patientDestroySelectors';
+import model from 'modules/patient/patientModel';
+import patientSelectors from 'modules/patient/patientSelectors';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import TableWrapper from 'view/shared/styles/TableWrapper';
-import ImagesListView from 'view/shared/list/ImagesListView';
+import ButtonLink from 'view/shared/styles/ButtonLink';
+import UserListItem from 'view/iam/list/users/UserListItem';
 
 const { fields } = model;
 
-class CasedListTable extends Component {
-  componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch(actions.doFetch());
-  }
-
+class PatientListTable extends Component {
   handleTableChange = (pagination, filters, sorter) => {
     const { dispatch } = this.props;
 
@@ -35,12 +31,12 @@ class CasedListTable extends Component {
 
   columns = [
     fields.name.forTable(),
-    fields.status.forTable(),
-    fields.featuredImage.forTable({
-      render: (value) => <ImagesListView value={value} />,
+    fields.birthdate.forTable(),
+    fields.gender.forTable(),
+    fields.user.forTable({
+      render: (value) => <UserListItem value={value} />,
     }),
-    fields.availableFrom.forTable(),
-    fields.createdAt.forTable(),
+    fields.phone.forTable(),
     {
       title: '',
       dataIndex: '',
@@ -50,6 +46,23 @@ class CasedListTable extends Component {
           <Link to={`/patient/${record.id}`}>
             {i18n('common.view')}
           </Link>
+          {this.props.hasPermissionToEdit && (
+            <Link to={`/patient/${record.id}/edit`}>
+              {i18n('common.edit')}
+            </Link>
+          )}
+          {this.props.hasPermissionToDestroy && (
+            <Popconfirm
+              title={i18n('common.areYouSure')}
+              onConfirm={() => this.doDestroy(record.id)}
+              okText={i18n('common.yes')}
+              cancelText={i18n('common.no')}
+            >
+              <ButtonLink>
+                {i18n('common.destroy')}
+              </ButtonLink>
+            </Popconfirm>
+          )}
         </div>
       ),
     },
@@ -94,13 +107,13 @@ function select(state) {
     pagination: selectors.selectPagination(state),
     filter: selectors.selectFilter(state),
     selectedKeys: selectors.selectSelectedKeys(state),
-    hasPermissionToEdit: casedSelectors.selectPermissionToEdit(
+    hasPermissionToEdit: patientSelectors.selectPermissionToEdit(
       state,
     ),
-    hasPermissionToDestroy: casedSelectors.selectPermissionToDestroy(
+    hasPermissionToDestroy: patientSelectors.selectPermissionToDestroy(
       state,
     ),
   };
 }
 
-export default connect(select)(CasedListTable);
+export default connect(select)(PatientListTable);

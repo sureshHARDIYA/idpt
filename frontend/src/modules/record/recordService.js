@@ -102,6 +102,9 @@ export default class RecordService {
               host {
                 id
                 name
+                featuredImage {
+                  publicUrl
+                }
               }
               state
               completionRequired

@@ -42,14 +42,6 @@ class PatientRepository {
       options,
     );
 
-    await MongooseRepository.refreshTwoWayRelationManyToMany(
-      record,
-      'assignCase',
-      Cased,
-      'patients',
-      options,
-    );
-
     return this.findById(record.id, options);
   }
 
