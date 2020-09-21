@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Card, Button, Icon } from 'antd';
 import Spinner from 'view/shared/Spinner';
 import ViewWrapper from 'view/shared/styles/ViewWrapper';
 import CaseListView from 'view/patient/view/CaseListView';

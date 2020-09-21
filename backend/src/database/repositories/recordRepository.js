@@ -199,10 +199,18 @@ class RecordRepository {
     let criteria = {};
 
     if (filter) {
+
       if (filter.id) {
         criteria = {
           ...criteria,
           ['_id']: MongooseQueryUtils.uuid(filter.id),
+        };
+      }
+
+      if (filter.patient) {
+        criteria = {
+          ...criteria,
+          ['owner']: MongooseQueryUtils.uuid(filter.patient),
         };
       }
 

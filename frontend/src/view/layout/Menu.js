@@ -82,6 +82,10 @@ class Menu extends Component {
   };
 
   render() {
+    if (this.props.currentUser && this.props.currentUser.roles[0] === 'patientViewer') {
+      return null;
+    }
+
     return (
       <SiderWrapper
         style={{

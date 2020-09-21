@@ -12,7 +12,12 @@ import authSelectors from 'modules/auth/authSelectors';
 class PatientPage extends Component {
   componentDidMount() {
     const { dispatch, match } = this.props;
-    dispatch(actions.doFind(match.params.id));
+
+    if (this.props.currentUser && this.props.currentUser.roles[0] === 'patientViewer') {
+      dispatch(actions.doFind(this.props.currentUser.patientId));
+    } else {
+      dispatch(actions.doFind(match.params.id));
+    }
   }
 
   render() {

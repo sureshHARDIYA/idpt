@@ -1,24 +1,19 @@
 import React, { Component } from 'react';
 import ContentWrapper from 'view/layout/styles/ContentWrapper';
-import PageTitle from 'view/shared/styles/PageTitle';
 import Breadcrumb from 'view/shared/Breadcrumb';
-import RecordView from 'view/record/view/RecordView';
 import { i18n } from 'i18n';
 import actions from 'modules/record/view/recordViewActions';
 import { connect } from 'react-redux';
 import selectors from 'modules/record/view/recordViewSelectors';
-import RecordViewToolbar from 'view/record/view/RecordViewToolbar';
-import RecordRoadmap from 'view/record/view/RecordRoadmap';
 import Spinner from 'view/shared/Spinner';
 import BoxWrapper from 'view/shared/styles/BoxWrapper';
 import TextViewItem from 'view/shared/view/TextViewItem';
 import CasedViewItem from 'view/cased/view/CasedViewItem';
-import PatientViewItem from 'view/patient/view/PatientViewItem';
 import { Card, Icon } from 'antd';
 import model from 'modules/record/recordModel';
 import _get from 'lodash/get';
 import { Link } from 'react-router-dom';
-import { Grid, Row, Col } from 'react-flexbox-grid';
+import { Row, Col } from 'react-flexbox-grid';
 
 const { Meta } = Card;
 const { fields } = model;

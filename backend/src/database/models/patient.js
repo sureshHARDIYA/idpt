@@ -26,7 +26,6 @@ const PatientSchema = new Schema(
     },
     phone: {
       type: String,
-      required: true,
     },
     createdBy: {
       type: Schema.Types.ObjectId,

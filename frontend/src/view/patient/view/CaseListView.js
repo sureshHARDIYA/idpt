@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import actions from 'modules/patient/view/patientViewActions';
 import { connect } from 'react-redux';
 import selectors from 'modules/patient/view/patientViewSelectors';
 import authSelectors from 'modules/auth/authSelectors';
-import { Button, Icon, Card } from 'antd';
+import { Icon, Card } from 'antd';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import { Link } from 'react-router-dom';
 import _get from 'lodash/get';

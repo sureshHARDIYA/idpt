@@ -6,9 +6,6 @@ import { connect } from 'react-redux';
 import actions from 'modules/roadmap/view/roadmapViewActions';
 import selectors from 'modules/roadmap/view/roadmapViewSelectors';
 import _get from 'lodash/get';
-import RecordRoadmapView from 'view/record/roadmap/RecordRoadmapView';
-import RecordRoadmapRoadmap from 'view/record/roadmap/RecordRoadmap';
-import Slider from "react-slick";
 import { Button, Divider, Icon, Tabs } from 'antd';
 
 class RecordRoadmapPage extends Component {
