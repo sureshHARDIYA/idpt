@@ -18,17 +18,21 @@ const CasedSchema = new Schema(
     status: {
       type: String,
       required: true,
-      enum: [
-        "ACTIVE",
-        "INACTIVE",
-        "DRAFT"
-      ],
+      enum: ['ACTIVE', 'INACTIVE', 'DRAFT'],
     },
     featuredImage: [FileSchema],
-    modules: [{
-      type: Schema.Types.ObjectId,
-      ref: 'module',
-    }],
+    modules: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'module',
+      },
+    ],
+    audience: {
+      type: String,
+      default: 'ALL',
+      enum: ['ALL', 'USER'],
+    },
+    audienceList: [String],
     availableFrom: {
       type: String,
       required: true,

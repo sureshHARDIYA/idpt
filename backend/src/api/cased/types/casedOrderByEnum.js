@@ -13,6 +13,11 @@ const schema = `
     createdAt_ASC
     createdAt_DESC
   }
+
+  enum Audience {
+    ALL
+    USER
+  }
 `;
 
 const resolver = {};

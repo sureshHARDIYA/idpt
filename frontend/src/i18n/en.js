@@ -121,12 +121,18 @@ const en = {
         createdAt: 'Created at',
         updatedAt: 'Updated at',
         createdAtRange: 'Created at',
+        audience: 'Assign Patients to the case',
+        audienceList: 'Patient List',
       },
       enumerators: {
         status: {
           ACTIVE: 'ACTIVE',
           INACTIVE: 'INACTIVE',
           DRAFT: 'DRAFT',
+        },
+        audience: {
+          ALL: 'All patients',
+          USER: 'Selected patients from the list',
         },
       },
       new: {

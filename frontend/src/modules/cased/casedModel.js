@@ -14,28 +14,85 @@ function label(name) {
 }
 
 function enumeratorLabel(name, value) {
-  return i18n(`entities.cased.enumerators.${name}.${value}`);
+  return i18n(
+    `entities.cased.enumerators.${name}.${value}`,
+  );
 }
 
 const fields = {
   id: new IdField('id', label('id')),
   name: new StringField('name', label('name'), {
-    "required": true
+    required: true,
   }),
-  description: new StringField('description', label('description'), {}),
-  status: new EnumeratorField('status', label('status'), [
-    { id: 'ACTIVE', label: enumeratorLabel('status', 'ACTIVE') },
-    { id: 'INACTIVE', label: enumeratorLabel('status', 'INACTIVE') },
-    { id: 'DRAFT', label: enumeratorLabel('status', 'DRAFT') },
-  ],{
-    "required": true
-  }),
-  featuredImage: new ImagesField('featuredImage', label('featuredImage'), 'cased/featuredImage',{}),
-  modules: new RelationToManyField('modules', label('modules'), {}),
-  patients: new RelationToManyField('patients', label('patients'), {}),
-  availableFrom: new DateField('availableFrom', label('availableFrom'), {
-    "required": true
-  }),
+  description: new StringField(
+    'description',
+    label('description'),
+    {},
+  ),
+  status: new EnumeratorField(
+    'status',
+    label('status'),
+    [
+      {
+        id: 'ACTIVE',
+        label: enumeratorLabel('status', 'ACTIVE'),
+      },
+      {
+        id: 'INACTIVE',
+        label: enumeratorLabel('status', 'INACTIVE'),
+      },
+      {
+        id: 'DRAFT',
+        label: enumeratorLabel('status', 'DRAFT'),
+      },
+    ],
+    {
+      required: true,
+    },
+  ),
+  featuredImage: new ImagesField(
+    'featuredImage',
+    label('featuredImage'),
+    'cased/featuredImage',
+    {},
+  ),
+  modules: new RelationToManyField(
+    'modules',
+    label('modules'),
+    {},
+  ),
+  patients: new RelationToManyField(
+    'patients',
+    label('patients'),
+    {},
+  ),
+  availableFrom: new DateField(
+    'availableFrom',
+    label('availableFrom'),
+    {
+      required: true,
+    },
+  ),
+  audience: new EnumeratorField(
+    'audience',
+    label('audience'),
+    [
+      {
+        id: 'ALL',
+        label: enumeratorLabel('audience', 'ALL'),
+      },
+      {
+        id: 'USER',
+        label: enumeratorLabel('audience', 'USER'),
+      },
+    ],
+    {},
+  ),
+  audienceList: new RelationToManyField(
+    'audienceList',
+    label('audienceList'),
+    {},
+  ),
   createdAt: new DateTimeField(
     'createdAt',
     label('createdAt'),
