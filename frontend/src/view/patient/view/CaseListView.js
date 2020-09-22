@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import selectors from 'modules/patient/view/patientViewSelectors';
 import authSelectors from 'modules/auth/authSelectors';
-import { Icon, Card } from 'antd';
+import { Icon, Card, Button } from 'antd';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import { Link } from 'react-router-dom';
 import _get from 'lodash/get';
@@ -47,12 +47,21 @@ class CaseListView extends Component {
                   cover={
                     <img
                       alt={_get(item, 'host.name')}
-                      style={{ width: 240, height: 200, margin: "20px auto" }}
-                      src={_get(item, 'host.featuredImage.0.publicUrl', 'https://order1688.vn/upload/no-image.jpg')}
+                      src={_get(
+                        item,
+                        'host.featuredImage.0.publicUrl',
+                        'https://order1688.vn/upload/no-image.jpg',
+                      )}
                     />
                   }
                 >
-                  <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      flexDirection: 'column',
+                    }}
+                  >
                     <Meta
                       title={_get(item, 'host.name')}
                       description={this.getDescription(
@@ -60,8 +69,14 @@ class CaseListView extends Component {
                       )}
                     />
                     <Link to={`/program/${item.id}`}>
-                      {'Start Case.'}
-                      <Icon type="right" />
+                      <Button
+                        type="primary"
+                        shape="round"
+                        size="large"
+                      >
+                        {'Start Case.'}
+                        <Icon type="right" />
+                      </Button>
                     </Link>
                   </div>
                 </Card>
