@@ -22,8 +22,10 @@ var allowedOrigins = [
   '127.0.0.1',
   'http://localhost:3000',
   'http://localhost:3001',
+  'https://idpt.herokuapp.com',
   'https://idpt.herokuapp.com/',
-  '^(https?://(?:.+.)?herokuapp.com(?::d{1,5})?)$',
+  'https://idpt.herokuapp.com/*',
+  '//*.herokuapp.com:*/*',
 ];
 
 // Enables CORS
