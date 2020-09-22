@@ -24,17 +24,13 @@ class PatientListItem extends Component {
       return (
         <div key={record.id}>
           <Link to={`/patient/${record.id}`}>
-            {record['name']}
+            {record['fullName']}
           </Link>
         </div>
       );
     }
 
-    return (
-      <div key={record.id}>
-        {record['name']}
-      </div>
-    );
+    return <div key={record.id}>{record['name']}</div>;
   };
 
   render() {

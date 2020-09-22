@@ -37,7 +37,6 @@ class RecordListTable extends Component {
     fields.owner.forTable({
       render: (value) => <PatientListItem value={value} />,
     }),
-    fields.description.forTable(),
     fields.status.forTable(),
     fields.state.forTable(),
     {

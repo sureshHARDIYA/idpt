@@ -85,7 +85,7 @@ class Permissions {
           roles.viewer,
           roles.entityEditor,
           roles.patientEditor,
-          roles.patientViewer
+          roles.patient
         ]
       },
       patientAutocomplete: {
@@ -96,7 +96,7 @@ class Permissions {
           roles.viewer,
           roles.entityEditor,
           roles.patientEditor,
-          roles.patientViewer,
+          roles.patient,
           roles.casedEditor,
           roles.casedViewer
         ]
@@ -161,7 +161,7 @@ class Permissions {
           roles.casedEditor,
           roles.casedViewer,
           roles.patientEditor,
-          roles.patientViewer,
+          roles.patient,
           roles.moduleEditor,
           roles.moduleViewer
         ]

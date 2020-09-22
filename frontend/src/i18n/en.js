@@ -631,8 +631,8 @@ const en = {
       label: 'Patient Editor',
       description: 'Edit access to Patients',
     },
-    patientViewer: {
-      label: 'Patient Viewer',
+    patient: {
+      label: 'Patient',
       description: 'View access to Patients',
     },
     casedEditor: {

@@ -80,7 +80,7 @@ module.exports = class UserRepository {
           firstName: data.firstName,
           fullName: data.fullName,
           authenticationUid: data.authenticationUid,
-          roles: [...data.roles, 'patientViewer'],
+          roles: [...data.roles, 'patient'],
         },
       ],
       MongooseRepository.getSessionOptionsIfExists(options),

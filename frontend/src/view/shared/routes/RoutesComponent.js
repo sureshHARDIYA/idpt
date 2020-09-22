@@ -41,7 +41,7 @@ class RoutesComponent extends Component {
       return <div />;
     }
 
-    if (this.props.currentUser && this.props.currentUser.roles[0] === 'patientViewer') {
+    if (this.props.currentUser && this.props.currentUser.roles[0] === 'patient') {
       return (
         <Switch>
           {routes.patientsRoutes.map((route) => (

@@ -446,7 +446,7 @@ const ptBR = {
       label: 'Editor de Patients',
       description: 'Acesso de edição aos Patients',
     },
-    patientViewer: {
+    patient: {
       label: 'Visualizador de Patients',
       description: 'Acesso de visualização aos Patients',
     },

@@ -127,7 +127,7 @@ export default class PatientService {
                 }
                 owner {
                   id
-                  name
+                  fullName
                 }
               }
             }
@@ -140,7 +140,7 @@ export default class PatientService {
         filter,
         orderBy,
         limit,
-        offset
+        offset,
       },
     });
 

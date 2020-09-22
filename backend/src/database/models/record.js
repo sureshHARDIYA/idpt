@@ -3,14 +3,9 @@ const Schema = database.Schema;
 
 const stateEntry = {
   type: String,
-  enum: [
-    "LOCKED",
-    "ACTIVATE",
-    "PROGRESS",
-    "COMPLETE"
-  ],
+  enum: ['LOCKED', 'ACTIVATE', 'PROGRESS', 'COMPLETE'],
   default: 'LOCKED',
-}
+};
 
 /**
  * Record database schema.
@@ -24,25 +19,23 @@ const RecordSchema = new Schema(
     },
     owner: {
       type: Schema.Types.ObjectId,
-      ref: 'patient',
+      ref: 'user',
     },
     description: {
       type: String,
     },
     status: {
       type: String,
-      enum: [
-        "ACTIVE",
-        "INACTIVE",
-        "DRAFT",
-      ],
+      enum: ['ACTIVE', 'INACTIVE', 'DRAFT'],
       default: 'ACTIVE',
     },
     state: stateEntry,
-    roadmaps: [{
-      type: Schema.Types.ObjectId,
-      ref: 'roadmap',
-    }],
+    roadmaps: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'roadmap',
+      },
+    ],
     createdBy: {
       type: Schema.Types.ObjectId,
       ref: 'user',
@@ -73,8 +66,10 @@ RecordSchema.set('toObject', {
 });
 
 RecordSchema.post('updateOne', async function() {
-  await this.model.findOne(this.getQuery()).then((instance) => instance.save());
-})
+  await this.model
+    .findOne(this.getQuery())
+    .then((instance) => instance.save());
+});
 
 RecordSchema.pre('save', function(next) {
   const states = Object.values(this.states || {});
@@ -85,14 +80,20 @@ RecordSchema.pre('save', function(next) {
       !states.find((item) => item !== 'COMPLETE')
     ) {
       this.state = 'COMPLETE';
-    } else if (this.state === 'ACTIVATE' && states.includes('PROGRESS')) {
+    } else if (
+      this.state === 'ACTIVATE' &&
+      states.includes('PROGRESS')
+    ) {
       this.state = 'PROGRESS';
-    } else if (this.state === 'LOCKED' && states.includes('ACTIVATE')) {
+    } else if (
+      this.state === 'LOCKED' &&
+      states.includes('ACTIVATE')
+    ) {
       this.state = 'ACTIVATE';
     }
   }
 
   next();
-})
+});
 
-module.exports = database.model('record', RecordSchema);;
+module.exports = database.model('record', RecordSchema);
