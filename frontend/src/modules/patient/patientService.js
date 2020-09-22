@@ -65,7 +65,10 @@ export default class PatientService {
           $data: PatientInput!
           $importHash: String!
         ) {
-          patientImport(data: $data, importHash: $importHash)
+          patientImport(
+            data: $data
+            importHash: $importHash
+          )
         }
       `,
 
@@ -78,10 +81,16 @@ export default class PatientService {
     return response.data.patientImport;
   }
 
-  static async find(id) {
+  static async find(id, filter, orderBy, limit, offset) {
     const response = await graphqlClient.query({
       query: gql`
-        query PATIENT_FIND($id: String!) {
+        query PATIENT_FIND(
+          $id: String!
+          $filter: RecordFilterInput
+          $orderBy: RecordOrderByEnum
+          $limit: Int
+          $offset: Int
+        ) {
           patientFind(id: $id) {
             id
             name
@@ -94,12 +103,44 @@ export default class PatientService {
             phone
             createdAt
             updatedAt
+
+            recordList(
+              filter: $filter
+              limit: $limit
+              offset: $offset
+              orderBy: $orderBy
+            ) {
+              count
+              rows {
+                id
+                description
+                status
+                state
+                createdAt
+                updatedAt
+                host {
+                  id
+                  name
+                  featuredImage {
+                    publicUrl
+                  }
+                }
+                owner {
+                  id
+                  fullName
+                }
+              }
+            }
           }
         }
       `,
 
       variables: {
         id,
+        filter,
+        orderBy,
+        limit,
+        offset,
       },
     });
 
@@ -157,7 +198,10 @@ export default class PatientService {
           $query: String
           $limit: Int
         ) {
-          patientAutocomplete(query: $query, limit: $limit) {
+          patientAutocomplete(
+            query: $query
+            limit: $limit
+          ) {
             id
             label
           }

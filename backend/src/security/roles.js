@@ -12,7 +12,7 @@ class Roles {
       entityEditor: 'entityEditor',
       entityViewer: 'entityViewer',
       patientEditor: 'patientEditor',
-      patientViewer: 'patientViewer',
+      patient: 'patient',
       casedEditor: 'casedEditor',
       casedViewer: 'casedViewer',
       moduleEditor: 'moduleEditor',

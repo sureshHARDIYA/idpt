@@ -46,16 +46,19 @@ class RecordRepository {
       const params = {
         record: record.id,
         module: module.id,
-        state: key ? 'LOCKED' : 'ACTIVATE'
+        state: key ? 'LOCKED' : 'ACTIVATE',
       };
 
       if (prerequisite) {
         params.prerequisite = {
           [prerequisite.id]: prerequisite.state,
-        }
+        };
       }
 
-      const epic = await RoadmapRepository.create(params, options);
+      const epic = await RoadmapRepository.create(
+        params,
+        options,
+      );
 
       if (key > 0) {
         prerequisite.next.push(epic.id);
@@ -67,7 +70,7 @@ class RecordRepository {
 
     await Record.updateOne(
       { _id: record._id },
-      { roadmaps: roadmaps.map((i) => i.id) }
+      { roadmaps: roadmaps.map((i) => i.id) },
     );
 
     await this._createAuditLog(
@@ -120,7 +123,11 @@ class RecordRepository {
   async destroy(id, options) {
     const record = await Record.findById(id);
 
-    await Promise.all(record.roadmaps.map((roadmap) => RoadmapRepository.destroy(roadmap, options)))
+    await Promise.all(
+      record.roadmaps.map((roadmap) =>
+        RoadmapRepository.destroy(roadmap, options),
+      ),
+    );
 
     await MongooseRepository.wrapWithSessionIfExists(
       Record.deleteOne({ _id: record._id }),
@@ -157,17 +164,20 @@ class RecordRepository {
   async findById(id, options) {
     const a = await MongooseRepository.wrapWithSessionIfExists(
       Record.findById(id)
-      .populate('owner')
-      .populate('host')
-      .populate({
-        path: 'roadmaps',
-        populate: [{
-          path: 'children',
-          populate: 'task'
-        }, {
-          path: 'module',
-        }]
-      }),
+        .populate('owner')
+        .populate('host')
+        .populate({
+          path: 'roadmaps',
+          populate: [
+            {
+              path: 'children',
+              populate: 'task',
+            },
+            {
+              path: 'module',
+            },
+          ],
+        }),
       options,
     );
 
@@ -206,6 +216,15 @@ class RecordRepository {
         };
       }
 
+      if (filter.patient) {
+        criteria = {
+          ...criteria,
+          ['owner']: MongooseQueryUtils.uuid(
+            filter.patient,
+          ),
+        };
+      }
+
       if (filter.description) {
         criteria = {
           ...criteria,
@@ -221,14 +240,18 @@ class RecordRepository {
       if (filter.state) {
         criteria = {
           ...criteria,
-          state: filter.state
+          state: filter.state,
         };
       }
 
       if (filter.createdAtRange) {
         const [start, end] = filter.createdAtRange;
 
-        if (start !== undefined && start !== null && start !== '') {
+        if (
+          start !== undefined &&
+          start !== null &&
+          start !== ''
+        ) {
           criteria = {
             ...criteria,
             ['createdAt']: {
@@ -238,7 +261,11 @@ class RecordRepository {
           };
         }
 
-        if (end !== undefined && end !== null && end !== '') {
+        if (
+          end !== undefined &&
+          end !== null &&
+          end !== ''
+        ) {
           criteria = {
             ...criteria,
             ['createdAt']: {
@@ -286,9 +313,11 @@ class RecordRepository {
           { _id: MongooseQueryUtils.uuid(search) },
           {
             name: {
-              $regex: MongooseQueryUtils.escapeRegExp(search),
+              $regex: MongooseQueryUtils.escapeRegExp(
+                search,
+              ),
               $options: 'i',
-            }
+            },
           },
         ],
       };

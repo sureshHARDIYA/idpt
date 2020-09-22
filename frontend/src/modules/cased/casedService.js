@@ -98,6 +98,8 @@ export default class CasedService {
               id
               name
             }
+            audience
+            audienceList
             availableFrom
             createdAt
             updatedAt
@@ -141,6 +143,8 @@ export default class CasedService {
                 publicUrl
                 privateUrl
               }
+              audience
+              audienceList
               modules {
                 id
                 name

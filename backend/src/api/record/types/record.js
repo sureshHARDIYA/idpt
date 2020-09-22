@@ -4,7 +4,7 @@ const schema = `
   type Record {
     id: String!
     host: Cased!
-    owner: Patient!
+    owner: User!
     description: String
     state: StateEnum!
     status: StatusEnum
@@ -19,11 +19,11 @@ const resolver = {
   Record: {
     ownerId: (instance) => {
       if (mongoose.Types.ObjectId.isValid(instance.owner)) {
-        return instance.owner
+        return instance.owner;
       }
       return instance.owner ? instance.owner._id : null;
-    }
-  }
+    },
+  },
 };
 
 exports.schema = schema;

@@ -10,11 +10,26 @@ const schema = `
 
 const resolver = {
   recordList: async (root, args, context, info) => {
-    new PermissionChecker(context)
-      .validateHas(permissions.recordRead);
+    const defaultArgs = {
+      filter: { availableFromRange: [], createdAtRange: [] },
+      limit: 10,
+      offset: 0,
+      orderBy: null,
+      ...args
+    };
+
+    if (!(root && root.id)) {
+      new PermissionChecker(context)
+        .validateHas(permissions.recordRead);
+    } else {
+      defaultArgs.filter = {
+        ...(defaultArgs.filter || {}),
+        patient: root.id,
+      }
+    }
 
     return new RecordService(context).findAndCountAll({
-      ...args,
+      ...defaultArgs,
       requestedAttributes: graphqlSelectRequestedAttributes(
         info,
         'rows',

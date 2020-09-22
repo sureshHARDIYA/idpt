@@ -55,6 +55,10 @@ export default class RoadmapService {
             host {
               id
               name
+              featuredImage {
+                publicUrl
+              }
+              description
             }
             children {
               id
@@ -62,6 +66,7 @@ export default class RoadmapService {
               host {
                 id
                 name
+                description
               }
 
               children {

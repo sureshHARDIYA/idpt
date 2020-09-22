@@ -26,7 +26,6 @@ const PatientSchema = new Schema(
     },
     phone: {
       type: String,
-      required: true,
     },
     createdBy: {
       type: Schema.Types.ObjectId,
@@ -52,6 +51,13 @@ PatientSchema.set('toJSON', {
 PatientSchema.set('toObject', {
   getters: true,
 });
+
+PatientSchema.virtual('records', {
+  ref: 'record',
+  localField: '_id',
+  foreignField: 'owner',
+});
+
 
 const Patient = database.model('patient', PatientSchema);
 

@@ -7,6 +7,8 @@ const schema = `
     featuredImage: [ File! ]
     modules: [ Module! ]
     patients: [ Patient! ]
+    audience: Audience
+    audienceList: [String]
     availableFrom: String
     createdAt: DateTime
     updatedAt: DateTime

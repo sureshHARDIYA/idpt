@@ -9,10 +9,14 @@ const schema = `
 
 const resolver = {
   roadmapFind: async (root, args, context) => {
-    new PermissionChecker(context)
-      .validateHas(permissions.recordRead);
+    const record = await new Service(context).findById(args.id);
 
-    return await new Service(context).findById(args.id);
+    if (!context.currentUser.patient || record.record.owner._id.toString() !== context.currentUser.patient.toString()) {
+      new PermissionChecker(context)
+        .validateHas(permissions.recordRead);
+    }
+
+    return record;
   },
 };
 

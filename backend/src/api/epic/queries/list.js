@@ -10,8 +10,8 @@ const schema = `
 
 const resolver = {
   epicList: async (root, args, context, info) => {
-    new PermissionChecker(context)
-      .validateHas(permissions.recordRead);
+    // new PermissionChecker(context)
+    //   .validateHas(permissions.recordRead);
 
     return new Service(context).findAndCountAll({
       ...args,

@@ -1,5 +1,5 @@
-import { Table, Popconfirm } from 'antd';
 import { i18n } from 'i18n';
+import { Table, Popconfirm, Avatar } from 'antd';
 import actions from 'modules/cased/list/casedListActions';
 import destroyActions from 'modules/cased/destroy/casedDestroyActions';
 import selectors from 'modules/cased/list/casedListSelectors';
@@ -11,8 +11,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import TableWrapper from 'view/shared/styles/TableWrapper';
 import ButtonLink from 'view/shared/styles/ButtonLink';
-import ImagesListView from 'view/shared/list/ImagesListView';
 import ModuleListItem from 'view/module/list/ModuleListItem';
+import _get from 'lodash/get';
 
 const { fields } = model;
 
@@ -33,9 +33,22 @@ class CasedListTable extends Component {
   columns = [
     fields.name.forTable(),
     fields.status.forTable(),
-    fields.featuredImage.forTable({
-      render: (value) => <ImagesListView value={value} />,
-    }),
+    {
+      title: 'Avatar',
+      dataIndex: 'featuredImage',
+      render: (_, record) => {
+        const url = _get(
+          record,
+          'featuredImage[0].publicUrl',
+        );
+
+        return url ? (
+          <Avatar shape="square" size="large" src={url} />
+        ) : (
+          <Avatar icon="user" shape="square" size="large" />
+        );
+      },
+    },
     fields.modules.forTable({
       render: (value) => <ModuleListItem value={value} />,
     }),

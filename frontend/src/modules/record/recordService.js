@@ -81,7 +81,10 @@ export default class RecordService {
   static async find(id, options) {
     const response = await graphqlClient.query({
       query: gql`
-        query RECORD_FIND($id: String!, $options: RoadmapOption) {
+        query RECORD_FIND(
+          $id: String!
+          $options: RoadmapOption
+        ) {
           recordFind(id: $id, options: $options) {
             id
             description
@@ -95,13 +98,16 @@ export default class RecordService {
             }
             owner {
               id
-              name
+              fullName
             }
             roadmaps {
               id
               host {
                 id
                 name
+                featuredImage {
+                  publicUrl
+                }
               }
               state
               completionRequired
@@ -143,7 +149,7 @@ export default class RecordService {
 
       variables: {
         id,
-        options
+        options,
       },
     });
 
@@ -179,7 +185,7 @@ export default class RecordService {
               }
               owner {
                 id
-                name
+                fullName
               }
             }
           }

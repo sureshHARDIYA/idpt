@@ -15,18 +15,23 @@ const EpicCriteriaSchema = new Schema({
   operator: String,
   content: String,
   resourceType: String,
-  history: [{
-    start: String,
-    duration: Number
-  }],
+  history: [
+    {
+      start: String,
+      duration: Number,
+    },
+  ],
   resourceId: Schema.Types.ObjectId,
-})
+});
 
 EpicCriteriaSchema.pre('save', function(next) {
-  this.total = (this.history || []).reduce((total, item) => total + item.duration, 0);
+  this.total = (this.history || []).reduce(
+    (total, item) => total + item.duration,
+    0,
+  );
 
   if (!this.done) {
-    switch(this.operator) {
+    switch (this.operator) {
       case 'LESSTHAN': {
         this.done = this.total <= this.evaluation;
         break;
@@ -43,7 +48,7 @@ EpicCriteriaSchema.pre('save', function(next) {
   }
 
   next();
-})
+});
 
 const EpicSchema = new Schema(
   {
@@ -55,14 +60,18 @@ const EpicSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: 'roadmap',
     },
-    children: [{
-      type: Schema.Types.ObjectId,
-      ref: 'epic',
-    }],
-    next: [{
-      type: Schema.Types.ObjectId,
-      ref: 'epic',
-    }],
+    children: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'epic',
+      },
+    ],
+    next: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'epic',
+      },
+    ],
     prerequisite: {
       type: Schema.Types.Mixed,
       default: {},
@@ -100,14 +109,17 @@ EpicSchema.set('toObject', {
 
 EpicSchema.pre('save', function(next) {
   const state = `${this.state}`;
-  const prerequisite = Object.values(this.prerequisite || {});
+  const prerequisite = Object.values(
+    this.prerequisite || {},
+  );
 
   if (
     this.state === 'LOCKED' &&
     prerequisite.length > 0 &&
     !prerequisite.find((item) => item !== 'COMPLETE')
   ) {
-    this.state = this.elements.length > 0 ? 'ACTIVATE' : 'COMPLETE';
+    this.state =
+      this.elements.length > 0 ? 'ACTIVATE' : 'COMPLETE';
   } else if (
     this.state === 'PROGRESS' &&
     this.state !== 'COMPLETE' &&
@@ -120,11 +132,13 @@ EpicSchema.pre('save', function(next) {
   this.stateModified = state !== this.state;
 
   next();
-})
+});
 
 EpicSchema.post('updateOne', async function() {
-  await this.model.findOne(this.getQuery()).then((instance) => instance.save());
-})
+  await this.model
+    .findOne(this.getQuery())
+    .then((instance) => instance.save());
+});
 
 EpicSchema.post('save', async function() {
   if (this.stateModified || !this.__v) {
@@ -132,20 +146,24 @@ EpicSchema.post('save', async function() {
 
     await Roadmap.updateOne(
       { _id: roadmap },
-      { $set: { [`states.${this._id}`]: this.state } }
-    )
+      { $set: { [`states.${this._id}`]: this.state } },
+    );
 
     for (const item of next) {
       try {
         await this.model('epic').updateOne(
           { _id: item },
-          { $set: { [`prerequisite.${this._id}`]: this.state } }
-        )
+          {
+            $set: {
+              [`prerequisite.${this._id}`]: this.state,
+            },
+          },
+        );
       } catch (e) {
         console.log('EpicSchema Save:', item, e.toString());
       }
     }
   }
-})
+});
 
 module.exports = database.model('epic', EpicSchema);

@@ -25,7 +25,7 @@ class CasedViewItem extends Component {
     if (this.props.hasPermissionToRead) {
       return (
         <div key={record.id}>
-          <Link to={`/cased/${record.id}`}>
+          <Link to={`/${this.props.route || 'cased'}/${record.id}`}>
             {record['name']}
           </Link>
         </div>
@@ -60,6 +60,7 @@ class CasedViewItem extends Component {
 CasedViewItem.propTypes = {
   label: PropTypes.string,
   value: PropTypes.any,
+  route: PropTypes.string,
 };
 
 const select = (state) => ({

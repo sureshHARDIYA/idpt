@@ -1,19 +1,45 @@
+require('dotenv').config()
 const express = require('express')
-const cors = require('cors')
 const app = express()
 const graphqlHTTP = require('express-graphql')
 const schema = require('./schema')
+
+const fs = require('fs')
+const cors = require('cors')
+const path = require('path')
+const helmet = require('helmet')
+
 const config = require('../../config')()
 const authMiddleware = require('../auth/authMiddleware')
 const { init: databaseInit, middleware: databaseMiddleware } = require(
   '../database/databaseInit'
 )
-const path = require('path')
-const fs = require('fs')
-const helmet = require('helmet')
+
+app.options("*", cors());
+
+var allowedOrigins = [
+  "127.0.0.1",
+  "http://localhost:3000",
+  "http://localhost:3001",
+];
 
 // Enables CORS
-app.use(cors({ origin: true }))
+app.use(
+  cors({
+    origin: function(origin, callback) {
+      // allow requests with no origin
+      // (like mobile apps or curl requests)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.indexOf(origin) === -1) {
+        var msg =
+          "The CORSD policy for this site does not " +
+          "allow access from the specified Origin.";
+        return callback(new Error(msg), false);
+      }
+      return callback(null, true);
+    }
+  })
+);
 
 // Enables Helmet, a set of tools to
 // increase security.

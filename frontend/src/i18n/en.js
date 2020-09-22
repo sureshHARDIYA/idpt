@@ -52,20 +52,20 @@ const en = {
       },
       fields: {
         id: 'Id',
-        'name': 'Name',
-        'birthdateRange': 'Birthdate',
-        'birthdate': 'Birthdate',
-        'gender': 'Gender',
-        'user': 'User',
-        'phone': 'Phone',
+        name: 'Name',
+        birthdateRange: 'Birthdate',
+        birthdate: 'Birthdate',
+        gender: 'Gender',
+        user: 'User',
+        phone: 'Phone',
         createdAt: 'Created at',
         updatedAt: 'Updated at',
         createdAtRange: 'Created at',
       },
       enumerators: {
-        'gender': {
-          'male': 'Male',
-          'female': 'Female',
+        gender: {
+          male: 'Male',
+          female: 'Female',
         },
       },
       new: {
@@ -73,6 +73,8 @@ const en = {
       },
       view: {
         title: 'View Patient',
+        welcome: 'Welcome back:  ',
+        module: 'List of Tasks in the module: ',
       },
       importer: {
         title: 'Import Patients',
@@ -108,23 +110,29 @@ const en = {
       },
       fields: {
         id: 'Id',
-        'name': 'Name',
-        'description': 'Description',
-        'status': 'Status',
-        'featuredImage': 'FeaturedImage',
-        'modules': 'Modules',
-        'patients': 'Patients',
-        'availableFromRange': 'AvailableFrom',
-        'availableFrom': 'AvailableFrom',
+        name: 'Name',
+        description: 'Description',
+        status: 'Status',
+        featuredImage: 'FeaturedImage',
+        modules: 'Modules',
+        patients: 'Patients',
+        availableFromRange: 'AvailableFrom',
+        availableFrom: 'AvailableFrom',
         createdAt: 'Created at',
         updatedAt: 'Updated at',
         createdAtRange: 'Created at',
+        audience: 'Assign Patients to the case',
+        audienceList: 'Patient List',
       },
       enumerators: {
-        'status': {
-          'ACTIVE': 'ACTIVE',
-          'INACTIVE': 'INACTIVE',
-          'DRAFT': 'DRAFT',
+        status: {
+          ACTIVE: 'ACTIVE',
+          INACTIVE: 'INACTIVE',
+          DRAFT: 'DRAFT',
+        },
+        audience: {
+          ALL: 'All patients',
+          USER: 'Selected patients from the list',
         },
       },
       new: {
@@ -181,10 +189,10 @@ const en = {
         createdAtRange: 'Created at',
       },
       enumerators: {
-        'status': {
-          'ACTIVE': 'ACTIVE',
-          'INACTIVE': 'INACTIVE',
-          'DRAFT': 'DRAFT',
+        status: {
+          ACTIVE: 'ACTIVE',
+          INACTIVE: 'INACTIVE',
+          DRAFT: 'DRAFT',
         },
       },
       new: {
@@ -228,36 +236,36 @@ const en = {
       },
       fields: {
         id: 'Id',
-        'name': 'Name',
-        'description': 'Description',
-        'status': 'Status',
-        'tags': 'Tags',
-        'pointsRange': 'Points',
-        'points': 'Points',
-        'completionRequired': 'CompletionRequired',
-        'complexityLevelRange': 'ComplexityLevel',
-        'complexityLevel': 'ComplexityLevel',
-        'type': 'Type',
-        'owner': 'Owner',
-        'elements': 'Elements',
+        name: 'Name',
+        description: 'Description',
+        status: 'Status',
+        tags: 'Tags',
+        pointsRange: 'Points',
+        points: 'Points',
+        completionRequired: 'CompletionRequired',
+        complexityLevelRange: 'ComplexityLevel',
+        complexityLevel: 'ComplexityLevel',
+        type: 'Type',
+        owner: 'Owner',
+        elements: 'Elements',
         next: 'Next task',
         createdAt: 'Created at',
         updatedAt: 'Updated at',
         createdAtRange: 'Created at',
       },
       enumerators: {
-        'status': {
-          'ACTIVE': 'ACTIVE',
-          'INACTIVE': 'INACTIVE',
-          'DRAFT': 'DRAFT',
+        status: {
+          ACTIVE: 'ACTIVE',
+          INACTIVE: 'INACTIVE',
+          DRAFT: 'DRAFT',
         },
-        'type': {
-          'AUDIO': 'AUDIO',
-          'VIDEO': 'VIDEO',
-          'TEXT': 'TEXT',
-          'DOCUMENT': 'DOCUMENT',
-          'ASSESSMENT': 'ASSESSMENT',
-          'FEEDBACK': 'FEEDBACK',
+        type: {
+          AUDIO: 'AUDIO',
+          VIDEO: 'VIDEO',
+          TEXT: 'TEXT',
+          DOCUMENT: 'DOCUMENT',
+          ASSESSMENT: 'ASSESSMENT',
+          FEEDBACK: 'FEEDBACK',
         },
       },
       new: {
@@ -300,16 +308,14 @@ const en = {
       },
       fields: {
         id: 'Id',
-        'url': 'Url',
-        'audiolengthRange': 'Audiolength',
-        'audiolength': 'Audiolength',
+        url: 'Url',
+        audiolengthRange: 'Audiolength',
+        audiolength: 'Audiolength',
         createdAt: 'Created at',
         updatedAt: 'Updated at',
         createdAtRange: 'Created at',
       },
-      enumerators: {
-
-      },
+      enumerators: {},
       new: {
         title: 'New Audio',
       },
@@ -350,21 +356,21 @@ const en = {
       },
       fields: {
         id: 'Id',
-        'url': 'Url',
-        'videoLengthRange': 'videoLength',
-        'videoLength': 'videoLength',
-        'name': 'Evaluation Criteria Field',
-        'operator': 'Evaluation Operator',
-        'requiredWatchTime': 'Required Watch Time',
+        url: 'Url',
+        videoLengthRange: 'videoLength',
+        videoLength: 'videoLength',
+        name: 'Evaluation Criteria Field',
+        operator: 'Evaluation Operator',
+        requiredWatchTime: 'Required Watch Time',
         createdAt: 'Created at',
         updatedAt: 'Updated at',
         createdAtRange: 'Created at',
       },
       enumerators: {
         evaluationCriteria: {
-          'GREATERTHAN': 'GREATER THAN (>)',
-          'LESSTHAN': 'LESS THAN (<)',
-          'EQUALS': 'EQUALS (==)',
+          GREATERTHAN: 'GREATER THAN (>)',
+          LESSTHAN: 'LESS THAN (<)',
+          EQUALS: 'EQUALS (==)',
         },
       },
       new: {
@@ -407,16 +413,14 @@ const en = {
       },
       fields: {
         id: 'Id',
-        'contentHTML': 'ContentHTML',
-        'totalreadtimeRange': 'Totalreadtime',
-        'totalreadtime': 'Totalreadtime',
+        contentHTML: 'ContentHTML',
+        totalreadtimeRange: 'Totalreadtime',
+        totalreadtime: 'Totalreadtime',
         createdAt: 'Created at',
         updatedAt: 'Updated at',
         createdAtRange: 'Created at',
       },
-      enumerators: {
-
-      },
+      enumerators: {},
       new: {
         title: 'New Text',
       },
@@ -483,19 +487,19 @@ const en = {
           elements: 'Elements',
           'completion?': 'Completion?',
           completionRequired: 'Completion Required',
-        }
+        },
       },
       enumerators: {
         state: {
-          'LOCKED': 'LOCKED',
-          'ACTIVE': 'ACTIVE',
-          'PROGRESS': 'PROGRESS',
-          'COMPLETE': 'COMPLETE',
+          LOCKED: 'LOCKED',
+          ACTIVE: 'ACTIVE',
+          PROGRESS: 'PROGRESS',
+          COMPLETE: 'COMPLETE',
         },
         status: {
-          'ACTIVE': 'ACTIVE',
-          'INACTIVE': 'INACTIVE',
-          'DRAFT': 'DRAFT',
+          ACTIVE: 'ACTIVE',
+          INACTIVE: 'INACTIVE',
+          DRAFT: 'DRAFT',
         },
       },
       new: {
@@ -530,7 +534,8 @@ const en = {
         success: 'Evaluation criteria deleted successfully',
       },
       destroyAll: {
-        success: 'Evaluation criteria(s) deleted successfully',
+        success:
+          'Evaluation criteria(s) deleted successfully',
       },
       edit: {
         title: 'Edit Evaluation criteria',
@@ -543,9 +548,9 @@ const en = {
       },
       enumerators: {
         operators: {
-          'GREATERTHAN': '(>)',
-          'LESSTHAN': '(<)',
-          'EQUALS': '(==)',
+          GREATERTHAN: '(>)',
+          LESSTHAN: '(<)',
+          EQUALS: '(==)',
         },
       },
     },
@@ -626,8 +631,8 @@ const en = {
       label: 'Patient Editor',
       description: 'Edit access to Patients',
     },
-    patientViewer: {
-      label: 'Patient Viewer',
+    patient: {
+      label: 'Patient',
       description: 'View access to Patients',
     },
     casedEditor: {

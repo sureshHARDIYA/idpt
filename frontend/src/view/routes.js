@@ -2,6 +2,67 @@ import Permissions from 'security/permissions';
 import { i18n } from 'i18n';
 const permissions = Permissions.values;
 
+const patientsRoutes = [
+  {
+    path: '/',
+    icon: 'home',
+    label: i18n('home.menu'),
+    menu: {
+      exact: true,
+    },
+    loader: () => import('view/patient/view/PatientViewPage'),
+    permissionRequired: null,
+    exact: true,
+  },
+  {
+    path: '/patient',
+    icon: 'home',
+    label: i18n('home.menu'),
+    menu: {
+      exact: true,
+    },
+    loader: () => import('view/patient/view/PatientViewPage'),
+    permissionRequired: null,
+    exact: true,
+  },
+  {
+    path: '/program',
+    icon: 'home',
+    label: i18n('home.menu'),
+    menu: {
+      exact: true,
+    },
+    loader: () => import('view/patient/view/PatientViewPage'),
+    permissionRequired: null,
+    exact: true,
+  },
+  {
+    path: '/record',
+    icon: 'home',
+    label: i18n('home.menu'),
+    menu: {
+      exact: true,
+    },
+    loader: () => import('view/patient/view/PatientViewPage'),
+    permissionRequired: null,
+    exact: true,
+  },
+  {
+    path: '/program/:id',
+    loader: () =>
+      import('view/patient/view/ModuleListView'),
+    menu: false,
+    exact: true,
+  },
+  {
+    path: '/program/:id/module/:id',
+    loader: () =>
+      import('view/patient/view/TaskListView'),
+    menu: false,
+    exact: true,
+  },
+];
+
 const privateRoutes = [
   {
     path: '/',
@@ -113,7 +174,14 @@ const privateRoutes = [
     permissionRequired: permissions.patientRead,
     exact: true,
   },
-
+  {
+    path: '/patient/:id/module/:id',
+    loader: () =>
+      import('view/patient/view/ModuleListView'),
+    menu: false,
+    permissionRequired: permissions.patientRead,
+    exact: true,
+  },
   {
     path: '/cased',
     loader: () => import('view/cased/list/CasedListPage'),
@@ -292,6 +360,23 @@ const privateRoutes = [
     permissionRequired: permissions.recordRead,
     exact: true,
   },
+  // For patient view
+  {
+    path: '/program/:id',
+    loader: () =>
+      import('view/patient/view/ModuleListView'),
+    menu: false,
+    permissionRequired: permissions.patientRead,
+    exact: true,
+  },
+  {
+    path: '/program/:id/module/:id',
+    loader: () =>
+      import('view/patient/view/TaskListView'),
+    menu: false,
+    permissionRequired: permissions.patientRead,
+    exact: true,
+  },
 ];
 
 const publicRoutes = [
@@ -352,4 +437,5 @@ export default {
   emptyPermissionsRoutes,
   emailUnverifiedRoutes,
   simpleRoutes,
+  patientsRoutes,
 };

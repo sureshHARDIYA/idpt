@@ -15,6 +15,8 @@ import ImagesFormItem from 'view/shared/form/items/ImagesFormItem';
 import SelectFormItem from 'view/shared/form/items/SelectFormItem';
 import DatePickerFormItem from 'view/shared/form/items/DatePickerFormItem';
 import ModuleAutocompleteFormItem from 'view/module/autocomplete/ModuleAutocompleteFormItem';
+import UserAutocompleteFormItem from 'view/iam/autocomplete/UserAutocompleteFormItem';
+import RadioFormItem from 'view/shared/form/items/RadioFormItem';
 
 const { fields } = model;
 
@@ -27,6 +29,8 @@ class CasedForm extends Component {
     fields.modules,
     fields.patients,
     fields.availableFrom,
+    fields.audience,
+    fields.audienceList,
   ]);
 
   handleSubmit = (values) => {
@@ -35,7 +39,17 @@ class CasedForm extends Component {
   };
 
   initialValues = () => {
-    const record = this.props.record;
+    const record = this.props.record || {};
+    if (!record.audience) {
+      record.audience = 'ALL';
+    }
+
+    if (record.audienceList) {
+      record.audienceList = record.audienceList.filter(
+        Boolean,
+      );
+    }
+
     return this.schema.initialValues(record || {});
   };
 
@@ -89,6 +103,9 @@ class CasedForm extends Component {
                     size: fields.featuredImage.size,
                   }}
                   max={fields.featuredImage.max}
+                  cloudinary={
+                    fields.featuredImage.cloudinary
+                  }
                 />
                 <ModuleAutocompleteFormItem
                   name={fields.modules.name}
@@ -103,7 +120,26 @@ class CasedForm extends Component {
                   label={fields.availableFrom.label}
                   required={fields.availableFrom.required}
                 />
-
+                <RadioFormItem
+                  name={fields.audience.name}
+                  label={fields.audience.label}
+                  options={fields.audience.options.map(
+                    (item) => ({
+                      value: item.id,
+                      label: item.label,
+                    }),
+                  )}
+                  required={fields.audience.required}
+                />
+                {form.values.audience === 'USER' && (
+                  <UserAutocompleteFormItem
+                    form={form}
+                    mode="multiple"
+                    name={fields.audienceList.name}
+                    label={fields.audienceList.label}
+                    required={fields.audienceList.required}
+                  />
+                )}
                 <Form.Item
                   className="form-buttons"
                   {...tailFormItemLayout}

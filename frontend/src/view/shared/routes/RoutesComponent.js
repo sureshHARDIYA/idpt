@@ -41,6 +41,72 @@ class RoutesComponent extends Component {
       return <div />;
     }
 
+    if (this.props.currentUser && this.props.currentUser.roles[0] === 'patient') {
+      return (
+        <Switch>
+          {routes.patientsRoutes.map((route) => (
+            <PrivateRoute
+              key={route.path}
+              currentUser={this.currentUser}
+              permissionRequired={route.permissionRequired}
+              path={route.path}
+              component={CustomLoadable({
+                loader: route.loader,
+              })}
+              exact={!!route.exact}
+            />
+          ))}
+
+          {routes.publicRoutes.map((route) => (
+          <PublicRoute
+            key={route.path}
+            exact
+            path={route.path}
+            currentUser={this.currentUser}
+            component={CustomLoadable({
+              loader: route.loader,
+            })}
+          />
+        ))}
+
+          {routes.emptyPermissionsRoutes.map((route) => (
+            <EmptyPermissionsRoute
+              key={route.path}
+              exact
+              path={route.path}
+              currentUser={this.currentUser}
+              component={CustomLoadable({
+                loader: route.loader,
+              })}
+            />
+          ))}
+
+          {routes.emailUnverifiedRoutes.map((route) => (
+            <EmailUnverifiedRoute
+              key={route.path}
+              exact
+              path={route.path}
+              currentUser={this.currentUser}
+              component={CustomLoadable({
+                loader: route.loader,
+              })}
+            />
+          ))}
+
+          {routes.simpleRoutes.map((route) => (
+            <Route
+              key={route.path}
+              exact
+              path={route.path}
+              component={CustomLoadable({
+                loader: route.loader,
+              })}
+            />
+          ))}
+        </Switch>
+      );
+    }
+
     return (
       <Switch>
         {routes.publicRoutes.map((route) => (

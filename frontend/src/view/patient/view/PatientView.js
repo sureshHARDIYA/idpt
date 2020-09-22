@@ -1,51 +1,34 @@
-import model from 'modules/patient/patientModel';
 import React, { Component } from 'react';
 import Spinner from 'view/shared/Spinner';
 import ViewWrapper from 'view/shared/styles/ViewWrapper';
-import TextViewItem from 'view/shared/view/TextViewItem';
-
-const { fields } = model;
+import CaseListView from 'view/patient/view/CaseListView';
 
 class PatientView extends Component {
+  createMarkup(description) {
+    return { __html: description };
+  }
+
+  getDescription(description) {
+    return (
+      <div
+        dangerouslySetInnerHTML={this.createMarkup(
+          description,
+        )}
+      />
+    );
+  }
+
   renderView() {
     const { record } = this.props;
 
     return (
       <ViewWrapper>
-        <TextViewItem
-          label={fields.id.label}
-          value={fields.id.forView(record.id)}
+        <div
+          dangerouslySetInnerHTML={this.createMarkup(
+            record.description,
+          )}
         />
-
-        <TextViewItem
-          label={fields.name.label}
-          value={fields.name.forView(record.name)}
-        />
-
-        <TextViewItem
-          label={fields.birthdate.label}
-          value={fields.birthdate.forView(record.birthdate)}
-        />
-
-        <TextViewItem
-          label={fields.gender.label}
-          value={fields.gender.forView(record.gender)}
-        />
-
-        <TextViewItem
-          label={fields.phone.label}
-          value={fields.phone.forView(record.phone)}
-        />
-
-        <TextViewItem
-          label={fields.createdAt.label}
-          value={fields.createdAt.forView(record.createdAt)}
-        />
-
-        <TextViewItem
-          label={fields.updatedAt.label}
-          value={fields.updatedAt.forView(record.updatedAt)}
-        />
+        <CaseListView />
       </ViewWrapper>
     );
   }

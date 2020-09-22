@@ -6,6 +6,8 @@ const schema = `
     featuredImage: [ FileInput! ]
     modules: [ String! ]
     patients: [ String! ]
+    audience: Audience
+    audienceList: [String]
     availableFrom: String!
   }
 `;

@@ -1,11 +1,11 @@
 const MongooseRepository = require('./mongooseRepository');
 const MongooseQueryUtils = require('../utils/mongooseQueryUtils');
 const AuditLogRepository = require('./auditLogRepository');
-const Patient = require('../models/patient');
+const User = require('../models/user');
 const Cased = require('../models/cased');
 
 /**
- * Handles database operations for the Patient.
+ * Handles database operations for the User.
  * See https://mongoosejs.com/docs/index.html to learn how to customize it.
  */
 class PatientRepository {
@@ -17,14 +17,14 @@ class PatientRepository {
    */
   async create(data, options) {
     if (MongooseRepository.getSession(options)) {
-      await Patient.createCollection();
+      await User.createCollection();
     }
 
     const currentUser = MongooseRepository.getCurrentUser(
       options,
     );
 
-    const [record] = await Patient.create(
+    const [record] = await User.create(
       [
         {
           ...data,
@@ -42,26 +42,18 @@ class PatientRepository {
       options,
     );
 
-    await MongooseRepository.refreshTwoWayRelationManyToMany(
-      record,
-      'assignCase',
-      Cased,
-      'patients',
-      options,
-    );
-
     return this.findById(record.id, options);
   }
 
   /**
-   * Updates the Patient.
+   * Updates the User.
    *
    * @param {Object} data
    * @param {Object} [options]
    */
   async update(id, data, options) {
     await MongooseRepository.wrapWithSessionIfExists(
-      Patient.updateOne(
+      User.updateOne(
         { _id: id },
         {
           ...data,
@@ -94,14 +86,14 @@ class PatientRepository {
   }
 
   /**
-   * Deletes the Patient.
+   * Deletes the User.
    *
    * @param {string} id
    * @param {Object} [options]
    */
   async destroy(id, options) {
     await MongooseRepository.wrapWithSessionIfExists(
-      Patient.deleteOne({ _id: id }),
+      User.deleteOne({ _id: id }),
       options,
     );
 
@@ -121,34 +113,33 @@ class PatientRepository {
   }
 
   /**
-   * Counts the number of Patients based on the filter.
+   * Counts the number of Users based on the filter.
    *
    * @param {Object} filter
    * @param {Object} [options]
    */
   async count(filter, options) {
     return MongooseRepository.wrapWithSessionIfExists(
-      Patient.countDocuments(filter),
+      User.countDocuments(filter),
       options,
     );
   }
 
   /**
-   * Finds the Patient and its relations.
+   * Finds the User and its relations.
    *
    * @param {string} id
    * @param {Object} [options]
    */
   async findById(id, options) {
     return MongooseRepository.wrapWithSessionIfExists(
-      Patient.findById(id)
-      .populate('assignCase'),
+      User.findById(id),
       options,
     );
   }
 
   /**
-   * Finds the Patients based on the query.
+   * Finds the Users based on the query.
    * See https://mongoosejs.com/docs/queries.html to learn how
    * to customize the queries.
    *
@@ -194,7 +185,11 @@ class PatientRepository {
       if (filter.birthdateRange) {
         const [start, end] = filter.birthdateRange;
 
-        if (start !== undefined && start !== null && start !== '') {
+        if (
+          start !== undefined &&
+          start !== null &&
+          start !== ''
+        ) {
           criteria = {
             ...criteria,
             birthdate: {
@@ -204,7 +199,11 @@ class PatientRepository {
           };
         }
 
-        if (end !== undefined && end !== null && end !== '') {
+        if (
+          end !== undefined &&
+          end !== null &&
+          end !== ''
+        ) {
           criteria = {
             ...criteria,
             birthdate: {
@@ -218,7 +217,7 @@ class PatientRepository {
       if (filter.gender) {
         criteria = {
           ...criteria,
-          gender: filter.gender
+          gender: filter.gender,
         };
       }
 
@@ -237,7 +236,11 @@ class PatientRepository {
       if (filter.createdAtRange) {
         const [start, end] = filter.createdAtRange;
 
-        if (start !== undefined && start !== null && start !== '') {
+        if (
+          start !== undefined &&
+          start !== null &&
+          start !== ''
+        ) {
           criteria = {
             ...criteria,
             ['createdAt']: {
@@ -247,7 +250,11 @@ class PatientRepository {
           };
         }
 
-        if (end !== undefined && end !== null && end !== '') {
+        if (
+          end !== undefined &&
+          end !== null &&
+          end !== ''
+        ) {
           criteria = {
             ...criteria,
             ['createdAt']: {
@@ -266,19 +273,19 @@ class PatientRepository {
     const skip = Number(offset || 0) || undefined;
     const limitEscaped = Number(limit || 0) || undefined;
 
-    const rows = await Patient.find(criteria)
+    const rows = await User.find(criteria)
       .skip(skip)
       .limit(limitEscaped)
       .sort(sort)
       .populate('assignCase');
 
-    const count = await Patient.countDocuments(criteria);
+    const count = await User.countDocuments(criteria);
 
     return { rows, count };
   }
 
   /**
-   * Lists the Patients to populate the autocomplete.
+   * Lists the Users to populate the autocomplete.
    * See https://mongoosejs.com/docs/queries.html to learn how to
    * customize the query.
    *
@@ -294,24 +301,30 @@ class PatientRepository {
           { _id: MongooseQueryUtils.uuid(search) },
           {
             name: {
-              $regex: MongooseQueryUtils.escapeRegExp(search),
+              $regex: MongooseQueryUtils.escapeRegExp(
+                search,
+              ),
               $options: 'i',
-            }
+            },
           },
         ],
       };
     }
 
+    criteria.roles = 'patient';
+
     const sort = MongooseQueryUtils.sort('name_ASC');
     const limitEscaped = Number(limit || 0) || undefined;
 
-    const records = await Patient.find(criteria)
+    const records = await User.find({
+      roles: ['patient'],
+    })
       .limit(limitEscaped)
       .sort(sort);
 
     return records.map((record) => ({
       id: record.id,
-      label: record['name'],
+      label: `${record['fullName']} <${record['email']}>`,
     }));
   }
 
@@ -326,7 +339,7 @@ class PatientRepository {
   async _createAuditLog(action, id, data, options) {
     await AuditLogRepository.log(
       {
-        entityName: Patient.modelName,
+        entityName: User.modelName,
         entityId: id,
         action,
         values: data,

@@ -9,10 +9,14 @@ const schema = `
 
 const resolver = {
   recordFind: async (root, args, context) => {
-    new PermissionChecker(context)
-      .validateHas(permissions.recordRead);
+    const record = await new RecordService(context).findById(args.id, args.options);
 
-    return new RecordService(context).findById(args.id, args.options);
+    if (!context.currentUser.patient || record.owner.id.toString() !== context.currentUser.patient.toString()) {
+      new PermissionChecker(context)
+        .validateHas(permissions.recordRead);
+    }
+
+    return record;
   },
 };
 

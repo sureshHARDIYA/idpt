@@ -20,7 +20,11 @@ const EditorFormItemNotFast = ({
   inputProps,
   ...props
 }) => {
-  const value = _get(form.values, name, props.defaultValue || '');
+  const value = _get(
+    form.values,
+    name,
+    props.defaultValue || '',
+  );
 
   return (
     <Form.Item
@@ -45,15 +49,23 @@ const EditorFormItemNotFast = ({
         theme="snow"
         id={name}
         {...inputProps}
-        onBlur={() => form.setFieldTouched(field.name, true, true)}
-        onChange={(content) => form.setFieldValue(field.name, content === '<p><br></p>' ? undefined : content, true)}
+        onBlur={() =>
+          form.setFieldTouched(field.name, true, true)
+        }
+        onChange={(content) =>
+          form.setFieldValue(
+            field.name,
+            content === '<p><br></p>' ? undefined : content,
+            true,
+          )
+        }
         modules={EditorFormItemNotFast.modules}
         formats={EditorFormItemNotFast.formats}
         value={value}
       />
     </Form.Item>
   );
-}
+};
 
 EditorFormItemNotFast.defaultProps = {
   layout: formItemLayout,
@@ -71,7 +83,7 @@ EditorFormItemNotFast.modules = {
       { indent: '-1' },
       { indent: '+1' },
     ],
-    ['link', 'video'],
+    ['link', 'image'],
     ['clean'],
   ],
   clipboard: {

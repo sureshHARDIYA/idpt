@@ -1,5 +1,6 @@
 const MongooseRepository = require('./mongooseRepository');
 const User = require('../models/user');
+const Patient = require('../models/patient');
 const AuditLogRepository = require('./auditLogRepository');
 const MongooseQueryUtils = require('../utils/mongooseQueryUtils');
 const lodash = require('lodash');
@@ -79,7 +80,16 @@ module.exports = class UserRepository {
           firstName: data.firstName,
           fullName: data.fullName,
           authenticationUid: data.authenticationUid,
-          roles: data.roles || [],
+          roles: [...data.roles, 'patient'],
+        },
+      ],
+      MongooseRepository.getSessionOptionsIfExists(options),
+    );
+
+    let [patient] = await Patient.create(
+      [
+        {
+          name: data.firstName
         },
       ],
       MongooseRepository.getSessionOptionsIfExists(options),
@@ -89,6 +99,7 @@ module.exports = class UserRepository {
       User.updateOne(
         { _id: user.id },
         {
+          patient: patient.id,
           authenticationUid: user.id,
         },
       ),

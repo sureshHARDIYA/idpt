@@ -1,8 +1,17 @@
 import actions from 'modules/patient/view/patientViewActions';
 
+const INITIAL_PAGE_SIZE = 10;
+
 const initialData = {
   loading: false,
   record: null,
+  filter: {},
+  pagination: {
+    current: 1,
+    pageSize: INITIAL_PAGE_SIZE,
+  },
+  sorter: {},
+  selectedKeys: [],
 };
 
 export default (state = initialData, { type, payload }) => {
@@ -27,6 +36,13 @@ export default (state = initialData, { type, payload }) => {
       ...state,
       record: null,
       loading: false,
+    };
+  }
+
+  if (type === actions.SELECTEDS_CHANGED) {
+    return {
+      ...state,
+      selectedKeys: payload || [],
     };
   }
 

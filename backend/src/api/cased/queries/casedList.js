@@ -10,11 +10,26 @@ const schema = `
 
 const resolver = {
   casedList: async (root, args, context, info) => {
-    new PermissionChecker(context)
-      .validateHas(permissions.casedRead);
+    const defaultArgs = {
+      filter: { availableFromRange: [], createdAtRange: [] },
+      limit: 10,
+      offset: 0,
+      orderBy: null,
+      ...args
+    };
+
+    if (!(root && root.id)) {
+      new PermissionChecker(context)
+        .validateHas(permissions.casedRead);
+    } else {
+      defaultArgs.filter = {
+        ...(defaultArgs.filter || {}),
+        patient: root.id,
+      }
+    }
 
     return new CasedService(context).findAndCountAll({
-      ...args,
+      ...defaultArgs,
       requestedAttributes: graphqlSelectRequestedAttributes(
         info,
         'rows',
