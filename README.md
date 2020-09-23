@@ -9,9 +9,11 @@
 - Create Tasks
 - Create Users with roles
 - Create Task builders 
+- Patient view
 
 # Roadmaps
 
+- Assignments management for Tasks
 - Integrate Dashboard for Users
 - Integrate Dashboard for Therapists
 - Integrate IoT devices
