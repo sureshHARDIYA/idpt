@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import ContentWrapper from 'view/layout/styles/ContentWrapper';
-import PageTitle from 'view/shared/styles/PageTitle';
-import Breadcrumb from 'view/shared/Breadcrumb';
 import { i18n } from 'i18n';
-import { getHistory } from 'modules/store';
-import actions from 'modules/audio/form/audioFormActions';
-import selectors from 'modules/audio/form/audioFormSelectors';
-import { connect } from 'react-redux';
 import { Layout, Tabs } from 'antd';
+import { connect } from 'react-redux';
+import { getHistory } from 'modules/store';
+import Breadcrumb from 'view/shared/Breadcrumb';
+import PageTitle from 'view/shared/styles/PageTitle';
+import ContentWrapper from 'view/layout/styles/ContentWrapper';
+import actions from 'modules/assignments/form/assignmentsFormActions';
+import selectors from 'modules/assignments/form/assignmentsFormSelectors';
 
 import { QuestionDescriptions } from './components/helper';
 import QuestionListPanel from './components/QuestionListPanel';
@@ -20,18 +20,22 @@ const { TabPane } = Tabs;
 class AssignmentFormPage extends Component {
   state = {
     dispatched: false,
+    questions: [],
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     const { dispatch, match } = this.props;
 
     if (this.isEditing()) {
-      dispatch(actions.doFind(match.params.id));
+      await dispatch(actions.doFind(match.params.id));
     } else {
       dispatch(actions.doNew());
     }
 
-    this.setState({ dispatched: true });
+    this.setState({
+      dispatched: true,
+      questions: this.props.record.questions || [],
+    });
   }
 
   doSubmit = (id, data) => {

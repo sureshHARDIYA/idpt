@@ -330,6 +330,14 @@ const privateRoutes = [
     exact: true,
   },
   {
+    path: '/assignments/:id/edit',
+    loader: () =>
+      import('view/assignments/form/AssignmentFormPage'),
+    menu: false,
+    permissionRequired: permissions.taskEdit,
+    exact: true,
+  },
+  {
     path: '/record/new',
     loader: () => import('view/record/form/RecordFormPage'),
     menu: false,

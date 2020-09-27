@@ -90,12 +90,11 @@ export default class AssignmentsService {
         query ASSIGNMENTS_FIND($id: String!) {
           assignmentsFind(id: $id) {
             id
-            contentHTML
-            totalreadtime
-            evaluationCriteria {
-              field
-              operator
-              valueRequired
+            title
+            sub_title
+            questions {
+              title
+              _id
             }
             createdAt
             updatedAt
