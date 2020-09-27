@@ -1,1 +1,4 @@
-module.exports = [require('./assignmentCreate')];
+module.exports = [
+  require('./assignmentCreate'),
+  require('./assignmentsDestroy'),
+];

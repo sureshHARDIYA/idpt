@@ -30,6 +30,16 @@ const en = {
       name: 'Assignments',
       label: 'Assignments',
       menu: 'Assignments',
+      list: {
+        menu: 'Assignments',
+        title: 'Assignments',
+      },
+      destroy: {
+        success: 'Assignment deleted successfully',
+      },
+      destroyAll: {
+        success: 'Assignment(s) deleted successfully',
+      },
       fields: {
         id: 'ID',
         title: 'Title',

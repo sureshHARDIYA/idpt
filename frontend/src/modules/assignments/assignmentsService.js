@@ -9,7 +9,7 @@ export default class AssignmentsService {
           $id: String!
           $data: AssignmentsInput!
         ) {
-          documentUpdate(id: $id, data: $data) {
+          assignmentsUpdate(id: $id, data: $data) {
             id
           }
         }
@@ -21,14 +21,14 @@ export default class AssignmentsService {
       },
     });
 
-    return response.data.documentUpdate;
+    return response.data.assignmentsUpdate;
   }
 
   static async destroyAll(ids) {
     const response = await graphqlClient.mutate({
       mutation: gql`
         mutation ASSIGNMENTS_DESTROY($ids: [String!]!) {
-          documentDestroy(ids: $ids)
+          assignmentsDestroy(ids: $ids)
         }
       `,
 
@@ -37,7 +37,7 @@ export default class AssignmentsService {
       },
     });
 
-    return response.data.documentDestroy;
+    return response.data.assignmentsDestroy;
   }
 
   static async create(data) {
@@ -58,7 +58,7 @@ export default class AssignmentsService {
       },
     });
 
-    return response.data.documentCreate;
+    return response.data.assignmentsCreate;
   }
 
   static async import(values, importHash) {
@@ -68,7 +68,7 @@ export default class AssignmentsService {
           $data: AssignmentsInput!
           $importHash: String!
         ) {
-          documentImport(
+          assignmentsImport(
             data: $data
             importHash: $importHash
           )
@@ -81,14 +81,14 @@ export default class AssignmentsService {
       },
     });
 
-    return response.data.documentImport;
+    return response.data.assignmentsImport;
   }
 
   static async find(id) {
     const response = await graphqlClient.query({
       query: gql`
         query ASSIGNMENTS_FIND($id: String!) {
-          documentFind(id: $id) {
+          assignmentsFind(id: $id) {
             id
             contentHTML
             totalreadtime
@@ -108,7 +108,7 @@ export default class AssignmentsService {
       },
     });
 
-    return response.data.documentFind;
+    return response.data.assignmentsFind;
   }
 
   static async list(filter, orderBy, limit, offset) {
@@ -120,7 +120,7 @@ export default class AssignmentsService {
           $limit: Int
           $offset: Int
         ) {
-          documentList(
+          assignmentsList(
             filter: $filter
             orderBy: $orderBy
             limit: $limit
@@ -129,13 +129,8 @@ export default class AssignmentsService {
             count
             rows {
               id
-              contentHTML
-              totalreadtime
-              evaluationCriteria {
-                field
-                operator
-                valueRequired
-              }
+              title
+              sub_title
               createdAt
               updatedAt
             }
@@ -151,7 +146,7 @@ export default class AssignmentsService {
       },
     });
 
-    return response.data.documentList;
+    return response.data.assignmentsList;
   }
 
   static async listAutocomplete(query, limit) {
@@ -161,7 +156,7 @@ export default class AssignmentsService {
           $query: String
           $limit: Int
         ) {
-          documentAutocomplete(
+          assignmentsAutocomplete(
             query: $query
             limit: $limit
           ) {
@@ -177,6 +172,6 @@ export default class AssignmentsService {
       },
     });
 
-    return response.data.documentAutocomplete;
+    return response.data.assignmentsAutocomplete;
   }
 }

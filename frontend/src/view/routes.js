@@ -311,12 +311,21 @@ const privateRoutes = [
     menu: true,
   },
   {
+    path: '/assignments',
+    loader: () =>
+      import('view/assignments/list/AssignmentsListPage'),
+    menu: true,
+    icon: 'right',
+    label: i18n('entities.assignments.menu'),
+    permissionRequired: permissions.casedRead,
+    exact: true,
+  },
+  {
     path: '/assignments/new',
     loader: () =>
       import('view/assignments/form/AssignmentFormPage'),
-    menu: true,
-    icon: 'right',
-    label: i18n('entities.assignment.menu'),
+    menu: false,
+    label: i18n('entities.assignments.menu'),
     permissionRequired: permissions.recordRead,
     exact: true,
   },
