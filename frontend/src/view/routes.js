@@ -10,7 +10,8 @@ const patientsRoutes = [
     menu: {
       exact: true,
     },
-    loader: () => import('view/patient/view/PatientViewPage'),
+    loader: () =>
+      import('view/patient/view/PatientViewPage'),
     permissionRequired: null,
     exact: true,
   },
@@ -21,7 +22,8 @@ const patientsRoutes = [
     menu: {
       exact: true,
     },
-    loader: () => import('view/patient/view/PatientViewPage'),
+    loader: () =>
+      import('view/patient/view/PatientViewPage'),
     permissionRequired: null,
     exact: true,
   },
@@ -32,7 +34,8 @@ const patientsRoutes = [
     menu: {
       exact: true,
     },
-    loader: () => import('view/patient/view/PatientViewPage'),
+    loader: () =>
+      import('view/patient/view/PatientViewPage'),
     permissionRequired: null,
     exact: true,
   },
@@ -43,7 +46,8 @@ const patientsRoutes = [
     menu: {
       exact: true,
     },
-    loader: () => import('view/patient/view/PatientViewPage'),
+    loader: () =>
+      import('view/patient/view/PatientViewPage'),
     permissionRequired: null,
     exact: true,
   },
@@ -56,8 +60,7 @@ const patientsRoutes = [
   },
   {
     path: '/program/:id/module/:id',
-    loader: () =>
-      import('view/patient/view/TaskListView'),
+    loader: () => import('view/patient/view/TaskListView'),
     menu: false,
     exact: true,
   },
@@ -308,6 +311,16 @@ const privateRoutes = [
     menu: true,
   },
   {
+    path: '/assignments/new',
+    loader: () =>
+      import('view/assignments/form/AssignmentFormPage'),
+    menu: true,
+    icon: 'right',
+    label: i18n('entities.assignment.menu'),
+    permissionRequired: permissions.recordRead,
+    exact: true,
+  },
+  {
     path: '/record/new',
     loader: () => import('view/record/form/RecordFormPage'),
     menu: false,
@@ -371,8 +384,7 @@ const privateRoutes = [
   },
   {
     path: '/program/:id/module/:id',
-    loader: () =>
-      import('view/patient/view/TaskListView'),
+    loader: () => import('view/patient/view/TaskListView'),
     menu: false,
     permissionRequired: permissions.patientRead,
     exact: true,

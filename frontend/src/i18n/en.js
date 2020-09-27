@@ -26,6 +26,16 @@ const en = {
   },
 
   entities: {
+    assignments: {
+      name: 'Assignments',
+      label: 'Assignments',
+      menu: 'Assignments',
+      fields: {
+        id: 'ID',
+        title: 'Title',
+        sub_title: 'Sub Title',
+      },
+    },
     patient: {
       name: 'patient',
       label: 'Patients',
