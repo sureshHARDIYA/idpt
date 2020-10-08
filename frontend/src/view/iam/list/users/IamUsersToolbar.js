@@ -41,6 +41,7 @@ class IamUsersToolbar extends Component {
         icon="file-excel"
         onClick={this.doExport}
         loading={exportLoading}
+        size="large"
       >
         {i18n('common.export')}
       </Button>
@@ -76,6 +77,7 @@ class IamUsersToolbar extends Component {
         type="primary"
         icon="user-delete"
         onClick={this.doRemoveAllSelected}
+        size="large"
       >
         {i18n('common.remove')}
       </Button>
@@ -111,6 +113,7 @@ class IamUsersToolbar extends Component {
         type="primary"
         icon="check"
         onClick={this.doEnableAllSelected}
+        size="large"
       >
         {i18n('iam.enable')}
       </Button>
@@ -146,6 +149,7 @@ class IamUsersToolbar extends Component {
         type="primary"
         icon="stop"
         onClick={this.doDisableAllSelected}
+        size="large"
       >
         {i18n('iam.disable')}
       </Button>
@@ -167,7 +171,7 @@ class IamUsersToolbar extends Component {
       <Toolbar>
         {this.props.hasPermissionToCreate && (
           <Link to="/iam/new">
-            <Button type="primary" icon="user-add">
+            <Button type="primary" icon="user-add" size="large">
               {i18n('common.new')}
             </Button>
           </Link>
@@ -175,7 +179,7 @@ class IamUsersToolbar extends Component {
 
         {this.props.hasPermissionToImport && (
           <Link to="/iam/importer">
-            <Button type="primary" icon="upload">
+            <Button type="primary" icon="upload" size="large">
               {i18n('common.import')}
             </Button>
           </Link>
@@ -187,7 +191,7 @@ class IamUsersToolbar extends Component {
 
         {this.props.hasPermissionToAuditLogs && (
           <Link to="/audit-logs?entityNames=user">
-            <Button icon="file-search">
+            <Button icon="file-search" size="large">
               {i18n('auditLog.menu')}
             </Button>
           </Link>

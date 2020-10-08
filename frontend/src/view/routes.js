@@ -17,7 +17,7 @@ const patientsRoutes = [
   },
   {
     path: '/patient',
-    icon: 'home',
+    icon: 'profile',
     label: i18n('home.menu'),
     menu: {
       exact: true,

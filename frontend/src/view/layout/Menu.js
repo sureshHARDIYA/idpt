@@ -115,7 +115,7 @@ class Menu extends Component {
               )
               .map((privateRoute) => (
                 <AntMenu.Item key={privateRoute.path}>
-                  <Link to={privateRoute.path}>
+                  <Link to={privateRoute.path} style={{fontSize: '16px', fontWeight: '500px'}}>
                     <Icon type={privateRoute.icon} />
                     <span>{privateRoute.label}</span>
                   </Link>

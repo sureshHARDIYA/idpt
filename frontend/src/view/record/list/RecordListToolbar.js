@@ -35,6 +35,7 @@ class RecordToolbar extends Component {
         icon="file-excel"
         onClick={this.doExport}
         loading={exportLoading}
+        size="large"
       >
         {i18n('common.export')}
       </Button>
@@ -71,6 +72,7 @@ class RecordToolbar extends Component {
         loading={destroyLoading}
         type="primary"
         icon="delete"
+        size="large"
       >
         {i18n('common.destroy')}
       </Button>
@@ -103,7 +105,7 @@ class RecordToolbar extends Component {
       <Toolbar>
         {this.props.hasPermissionToCreate && (
           <Link to="/record/new">
-            <Button type="primary" icon="plus">
+            <Button type="primary" icon="plus" size="large">
               {i18n('common.new')}
             </Button>
           </Link>
@@ -111,7 +113,7 @@ class RecordToolbar extends Component {
 
         {this.props.hasPermissionToImport && (
           <Link to="/record/importer">
-            <Button type="primary" icon="upload">
+            <Button type="primary" icon="upload" size="large">
               {i18n('common.import')}
             </Button>
           </Link>
@@ -121,7 +123,7 @@ class RecordToolbar extends Component {
 
         {this.props.hasPermissionToAuditLogs && (
           <Link to="/audit-logs?entityNames=record">
-            <Button icon="file-search">
+            <Button icon="file-search" size="large">
               {i18n('auditLog.menu')}
             </Button>
           </Link>

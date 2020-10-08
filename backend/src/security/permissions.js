@@ -341,7 +341,8 @@ class Permissions {
           roles.viewer,
           roles.entityEditor,
           roles.recordEditor,
-          roles.recordViewer
+          roles.recordViewer,
+          roles.patient
         ]
       },
       recordAutocomplete: {
@@ -359,11 +360,7 @@ class Permissions {
       },
       epicCriteriaUpdate: {
         id: 'epicCriteriaUpdate',
-        allowedRoles: [
-          roles.owner,
-          roles.epicEditor,
-          roles.entityEditor,
-        ]
+        allowedRoles: [ roles.owner, roles.epicEditor, roles.entityEditor ]
       },
       audioImport: {
         id: 'audioImport',
