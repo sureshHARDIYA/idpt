@@ -1,21 +1,13 @@
 import React, { Component } from 'react';
 import { i18n } from 'i18n';
-import { Layout, Tabs } from 'antd';
 import { connect } from 'react-redux';
-import { getHistory } from 'modules/store';
 import Breadcrumb from 'view/shared/Breadcrumb';
 import PageTitle from 'view/shared/styles/PageTitle';
 import ContentWrapper from 'view/layout/styles/ContentWrapper';
 import actions from 'modules/assignments/form/assignmentsFormActions';
 import selectors from 'modules/assignments/form/assignmentsFormSelectors';
 
-import { QuestionDescriptions } from './components/helper';
-import QuestionListPanel from './components/QuestionListPanel';
-// import SurveyPreview from './components/SurveyPreview';
-import EditSurveyPage from './components/EditSurveyPage';
-
-const { Sider, Content } = Layout;
-const { TabPane } = Tabs;
+import FormBuilder from './builder/Render';
 
 class AssignmentFormPage extends Component {
   state = {
@@ -34,7 +26,7 @@ class AssignmentFormPage extends Component {
 
     this.setState({
       dispatched: true,
-      questions: this.props.record.questions || [],
+      questions: this.props.record ? this.props.record.questions : [],
     });
   }
 
@@ -68,34 +60,9 @@ class AssignmentFormPage extends Component {
             [this.title()],
           ]}
         />
-
         <ContentWrapper>
           <PageTitle>{this.title()}</PageTitle>
-          <Layout style={{ background: '#fff' }}>
-            <Layout style={{ background: '#fff' }}>
-              <Content>conent </Content>
-            </Layout>
-            <Sider
-              width={400}
-              style={{
-                borderLeft: '1px solid #dadada',
-                background: '#fff',
-                padding: '0 1rem',
-              }}
-            >
-              <Tabs type="card">
-                <TabPane tab="Add Question" key="1">
-                  <QuestionListPanel />
-                </TabPane>
-                <TabPane tab="Edit Question" key="2">
-                  Content of Tab Pane 2
-                </TabPane>
-                <TabPane tab="Edit Survey" key="3">
-                  <EditSurveyPage />
-                </TabPane>
-              </Tabs>
-            </Sider>
-          </Layout>
+          <FormBuilder />
         </ContentWrapper>
       </React.Fragment>
     );
