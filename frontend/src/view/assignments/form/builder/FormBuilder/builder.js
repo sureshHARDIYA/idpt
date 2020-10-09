@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Form, Row, Button, Input, List, Col, Alert } from 'antd';
 import { camelCase, isEmpty } from 'lodash';
 import arrayMove from 'array-move';
 import { SortableContainer } from 'react-sortable-hoc';
+import { connect } from 'react-redux';
 
 // Import style
 import SortableCard from './SortableCard';
@@ -175,22 +176,31 @@ const SchemaList = React.forwardRef(({ value, onChange, header }, ref) => {
   );
 });
 
-const FormBuilder = ({
-  onSave,
-  noSave = false,
-  onError,
-  formStructure = {},
-  form: { getFieldDecorator, validateFields },
-  formId = null,
-}) => {
+const FormBuilder = (props) => {
   const [errors, setErrors] = useState([]);
+  const formRef = useRef(null);
 
-  const handleSubmit = e => {
+  const {
+    onSave,
+    noSave = false,
+    onError,
+    formStructure = {},
+    form: { getFieldDecorator, validateFields },
+    formId = null,
+  } = props;
+
+  console.log(props);
+
+  const handleSubmit = () => {
     setErrors([]);
-    e.preventDefault();
+    // e.preventDefault();
     validateFields((err, formData) => {
       if (!err) {
         if (onSave) onSave(formData);
+        if(formRef.current.props) {
+          formRef.current.props.onSubmit({data: formData});
+          console.log(formRef.current.props.onSubmit);
+        }
       } else if (onError) {
         setErrors(err.schema.errors);
         onError(err);
@@ -228,10 +238,11 @@ const FormBuilder = ({
           }
           return true;
         }}
-        colon="false"
+        colon= {false}
         onSubmit={handleSubmit}
         noValidate
         id={formId}
+        ref={formRef}
       >
         <Form.Item label="Title">
           {getFieldDecorator('title', {

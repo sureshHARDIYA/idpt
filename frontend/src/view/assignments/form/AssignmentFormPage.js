@@ -62,7 +62,7 @@ class AssignmentFormPage extends Component {
         />
         <ContentWrapper>
           <PageTitle>{this.title()}</PageTitle>
-          <FormBuilder />
+          <FormBuilder onSubmit={this.doSubmit} />
         </ContentWrapper>
       </React.Fragment>
     );
