@@ -33,6 +33,13 @@ class AssignmentsListTable extends Component {
     fields.title.forTable(),
     fields.sub_title.forTable(),
     {
+      title: 'Created by',
+      dataIndex: 'createdBy',
+      render: (_, record) => (<div>  <Link to={`/iam/${record.createdBy.id}`}>
+          {typeof record.createdBy.fullName !== 'undefined' ? record.createdBy.fullName : '-'}
+        </Link></div>)
+    },
+    {
       title: '',
       dataIndex: '',
       width: '160px',

@@ -3,29 +3,36 @@ const schema = `
    id: String!
    title: String!
    sub_title: String
-   questions: [Questions]
-   publish_survey: Boolean
+   formSchema: [FormSchema]
    createdAt: DateTime
    createdBy: User
    updatedAt: DateTime
  }
 
- type Questions {
-   title: String!
-   _id: String!
-   type: optionEnum
-   options: [Options]
+ type FormSchema {
+   type: questionEnum
    placeholder: String
+   label: String!
+   field: String!
+   rules: [RuleType]
+   options: [OptionType]
+   formSchema: [RuleType]
  }
 
- type Options {
-   content: String!
-   _id:  String!
+ type OptionType {
+   field: String!
+   value: String!
+   label: String!
  }
-`;
 
-const resolver = {};
+ type RuleType {
+   required: Boolean
+   message: String!
+ }
+`
 
-exports.schema = schema;
+const resolver = {}
 
-exports.resolver = resolver;
+exports.schema = schema
+
+exports.resolver = resolver

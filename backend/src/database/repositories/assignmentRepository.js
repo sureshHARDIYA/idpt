@@ -1,7 +1,7 @@
-const MongooseRepository = require('./mongooseRepository');
-const MongooseQueryUtils = require('../utils/mongooseQueryUtils');
-const AuditLogRepository = require('./auditLogRepository');
-const Assignment = require('../models/assignment');
+const MongooseRepository = require('./mongooseRepository')
+const MongooseQueryUtils = require('../utils/mongooseQueryUtils')
+const AuditLogRepository = require('./auditLogRepository')
+const Assignment = require('../models/assignment')
 
 /**
  * Handles database operations for the Assignment.
@@ -14,33 +14,25 @@ class AssignmentRepository {
    * @param {Object} data
    * @param {Object} [options]
    */
-  async create(data, options) {
+  async create (data, options) {
     if (MongooseRepository.getSession(options)) {
-      await Assignment.createCollection();
+      await Assignment.createCollection()
     }
 
-    const currentUser = MongooseRepository.getCurrentUser(
-      options,
-    );
-    const [record] = await Assignment.create(
-      [
-        {
-          ...data,
-          createdBy: currentUser.id,
-          updatedBy: currentUser.id,
-        },
-      ],
-      MongooseRepository.getSessionOptionsIfExists(options),
-    );
+    const currentUser = MongooseRepository.getCurrentUser(options)
+    const [ record ] = await Assignment.create(
+      [ { ...data, createdBy: currentUser.id, updatedBy: currentUser.id } ],
+      MongooseRepository.getSessionOptionsIfExists(options)
+    )
 
     await this._createAuditLog(
       AuditLogRepository.CREATE,
       record.id,
       data,
-      options,
-    );
+      options
+    )
 
-    return this.findById(record.id, options);
+    return this.findById(record.id, options)
   }
 
   /**
@@ -49,30 +41,20 @@ class AssignmentRepository {
    * @param {Object} data
    * @param {Object} [options]
    */
-  async update(id, data, options) {
+  async update (id, data, options) {
     await MongooseRepository.wrapWithSessionIfExists(
-      Assignment.updateOne(
-        { _id: id },
-        {
-          ...data,
-          updatedBy: MongooseRepository.getCurrentUser(
-            options,
-          ).id,
-        },
-      ),
-      options,
-    );
+      Assignment.updateOne({ _id: id }, {
+        ...data,
+        updatedBy: MongooseRepository.getCurrentUser(options).id
+      }),
+      options
+    )
 
-    await this._createAuditLog(
-      AuditLogRepository.UPDATE,
-      id,
-      data,
-      options,
-    );
+    await this._createAuditLog(AuditLogRepository.UPDATE, id, data, options)
 
-    const record = await this.findById(id, options);
+    const record = await this.findById(id, options)
 
-    return record;
+    return record
   }
 
   /**
@@ -81,18 +63,13 @@ class AssignmentRepository {
    * @param {string} id
    * @param {Object} [options]
    */
-  async destroy(id, options) {
+  async destroy (id, options) {
     await MongooseRepository.wrapWithSessionIfExists(
       Assignment.deleteOne({ _id: id }),
-      options,
-    );
+      options
+    )
 
-    await this._createAuditLog(
-      AuditLogRepository.DELETE,
-      id,
-      null,
-      options,
-    );
+    await this._createAuditLog(AuditLogRepository.DELETE, id, null, options)
   }
 
   /**
@@ -101,11 +78,11 @@ class AssignmentRepository {
    * @param {Object} filter
    * @param {Object} [options]
    */
-  async count(filter, options) {
+  async count (filter, options) {
     return MongooseRepository.wrapWithSessionIfExists(
       Assignment.countDocuments(filter),
-      options,
-    );
+      options
+    )
   }
 
   /**
@@ -114,11 +91,11 @@ class AssignmentRepository {
    * @param {string} id
    * @param {Object} [options]
    */
-  async findById(id, options) {
+  async findById (id, options) {
     return MongooseRepository.wrapWithSessionIfExists(
       Assignment.findById(id),
-      options,
-    );
+      options
+    )
   }
 
   /**
@@ -134,117 +111,66 @@ class AssignmentRepository {
    *
    * @returns {Promise<Object>} response - Object containing the rows and the count.
    */
-  async findAndCountAll(
+  async findAndCountAll (
     { filter, limit, offset, orderBy } = {
       filter: null,
       limit: 0,
       offset: 0,
-      orderBy: null,
+      orderBy: null
     },
-    options,
+    options
   ) {
-    let criteria = {};
+    let criteria = {}
 
     if (filter) {
       if (filter.id) {
-        criteria = {
-          ...criteria,
-          ['_id']: MongooseQueryUtils.uuid(filter.id),
-        };
+        criteria = { ...criteria, _id: MongooseQueryUtils.uuid(filter.id) }
       }
 
       if (filter.url) {
         criteria = {
           ...criteria,
           url: {
-            $regex: MongooseQueryUtils.escapeRegExp(
-              filter.url,
-            ),
-            $options: 'i',
-          },
-        };
-      }
-
-      if (filter.audiolengthRange) {
-        const [start, end] = filter.audiolengthRange;
-
-        if (
-          start !== undefined &&
-          start !== null &&
-          start !== ''
-        ) {
-          criteria = {
-            ...criteria,
-            audiolength: {
-              ...criteria.audiolength,
-              $gte: start,
-            },
-          };
-        }
-
-        if (
-          end !== undefined &&
-          end !== null &&
-          end !== ''
-        ) {
-          criteria = {
-            ...criteria,
-            audiolength: {
-              ...criteria.audiolength,
-              $lte: start,
-            },
-          };
+            $regex: MongooseQueryUtils.escapeRegExp(filter.url),
+            $options: 'i'
+          }
         }
       }
 
       if (filter.createdAtRange) {
-        const [start, end] = filter.createdAtRange;
+        const [ start, end ] = filter.createdAtRange
 
-        if (
-          start !== undefined &&
-          start !== null &&
-          start !== ''
-        ) {
+        if (start !== undefined && start !== null && start !== '') {
           criteria = {
             ...criteria,
-            ['createdAt']: {
-              ...criteria.createdAt,
-              $gte: start,
-            },
-          };
+            createdAt: { ...criteria.createdAt, $gte: start }
+          }
         }
 
-        if (
-          end !== undefined &&
-          end !== null &&
-          end !== ''
-        ) {
+        if (end !== undefined && end !== null && end !== '') {
           criteria = {
             ...criteria,
-            ['createdAt']: {
-              ...criteria.createdAt,
-              $lte: end,
-            },
-          };
+            createdAt: { ...criteria.createdAt, $lte: end }
+          }
         }
       }
     }
 
-    const sort = MongooseQueryUtils.sort(
-      orderBy || 'createdAt_DESC',
-    );
+    const sort = MongooseQueryUtils.sort(orderBy || 'createdAt_DESC')
 
-    const skip = Number(offset || 0) || undefined;
-    const limitEscaped = Number(limit || 0) || undefined;
+    const skip = Number(offset || 0) || undefined
+    const limitEscaped = Number(limit || 0) || undefined
 
-    const rows = await Assignment.find(criteria)
+    const rows = await Assignment
+      .find(criteria)
       .skip(skip)
       .limit(limitEscaped)
-      .sort(sort);
+      .sort(sort)
+      .populate('createdBy')
 
-    const count = await Assignment.countDocuments(criteria);
+    const count = await Assignment.countDocuments(criteria)
 
-    return { rows, count };
+    return { rows, count }
   }
 
   /**
@@ -255,8 +181,8 @@ class AssignmentRepository {
    * @param {Object} search
    * @param {number} limit
    */
-  async findAllAutocomplete(search, limit) {
-    let criteria = {};
+  async findAllAutocomplete (search, limit) {
+    let criteria = {}
 
     if (search) {
       criteria = {
@@ -264,27 +190,23 @@ class AssignmentRepository {
           { _id: MongooseQueryUtils.uuid(search) },
           {
             url: {
-              $regex: MongooseQueryUtils.escapeRegExp(
-                search,
-              ),
-              $options: 'i',
-            },
-          },
-        ],
-      };
+              $regex: MongooseQueryUtils.escapeRegExp(search),
+              $options: 'i'
+            }
+          }
+        ]
+      }
     }
 
-    const sort = MongooseQueryUtils.sort('url_ASC');
-    const limitEscaped = Number(limit || 0) || undefined;
+    const sort = MongooseQueryUtils.sort('url_ASC')
+    const limitEscaped = Number(limit || 0) || undefined
 
-    const records = await Assignment.find(criteria)
+    const records = await Assignment
+      .find(criteria)
       .limit(limitEscaped)
-      .sort(sort);
+      .sort(sort)
 
-    return records.map((record) => ({
-      id: record.id,
-      label: record['url'],
-    }));
+    return records.map(record => ({ id: record.id, label: record['url'] }))
   }
 
   /**
@@ -295,17 +217,12 @@ class AssignmentRepository {
    * @param {object} data - The new data passed on the request
    * @param {object} options
    */
-  async _createAuditLog(action, id, data, options) {
+  async _createAuditLog (action, id, data, options) {
     await AuditLogRepository.log(
-      {
-        entityName: Assignment.modelName,
-        entityId: id,
-        action,
-        values: data,
-      },
-      options,
-    );
+      { entityName: Assignment.modelName, entityId: id, action, values: data },
+      options
+    )
   }
 }
 
-module.exports = AssignmentRepository;
+module.exports = AssignmentRepository

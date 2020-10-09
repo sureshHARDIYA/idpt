@@ -4,6 +4,8 @@ import { camelCase, isEmpty } from 'lodash';
 import arrayMove from 'array-move';
 import { SortableContainer } from 'react-sortable-hoc';
 import { connect } from 'react-redux';
+import selectors from 'modules/assignments/form/assignmentsFormSelectors';
+import actions from 'modules/assignments/form/assignmentsFormActions';
 
 // Import style
 import SortableCard from './SortableCard';
@@ -145,33 +147,6 @@ const SchemaList = React.forwardRef(({ value, onChange, header }, ref) => {
           </Button>
         </Row>
       </Col>
-      {/* <Col>
-        <Row type="flex" justify="center">
-          <Affix offsetTop={400}>
-            <Button
-              icon="plus"
-              type="primary"
-              onClick={() => {
-                const updatedList = [
-                  ...value,
-                  {
-                    type: 'input',
-                    placeholder: '',
-                    label: `Question${value.length + 1}`,
-                    field: camelCase(`Question ${value.length + 1}`),
-                    rules: [{ required: false, message: 'Field is required' }],
-                  },
-                ];
-                handleChange(updatedList);
-                setTimeout(() => {
-                  if (bottomRef.current) window.scrollTo(0, ref);
-                }, 200);
-              }}
-            />
-          </Affix>
-          <div ref={bottomRef} />
-        </Row>
-      </Col> */}
     </Row>
   );
 });
@@ -179,7 +154,6 @@ const SchemaList = React.forwardRef(({ value, onChange, header }, ref) => {
 const FormBuilder = (props) => {
   const [errors, setErrors] = useState([]);
   const formRef = useRef(null);
-
   const {
     onSave,
     noSave = false,
@@ -187,19 +161,19 @@ const FormBuilder = (props) => {
     formStructure = {},
     form: { getFieldDecorator, validateFields },
     formId = null,
+    dispatch,
+    record,
   } = props;
 
-  console.log(props);
-
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
     setErrors([]);
-    // e.preventDefault();
+    e.preventDefault();
     validateFields((err, formData) => {
       if (!err) {
         if (onSave) onSave(formData);
-        if(formRef.current.props) {
-          formRef.current.props.onSubmit({data: formData});
-          console.log(formRef.current.props.onSubmit);
+
+        if(dispatch) {
+          dispatch(actions.doCreate(formData));
         }
       } else if (onError) {
         setErrors(err.schema.errors);
@@ -261,9 +235,9 @@ const FormBuilder = (props) => {
         </Form.Item>
         <Row>
           <Form.Item validateStatus={null} help={null}>
-            {getFieldDecorator('schema', {
-              initialValue: !isEmpty(formStructure.schema)
-                ? formStructure.schema
+            {getFieldDecorator('formSchema', {
+              initialValue: record && !isEmpty(record.formSchema)
+                ? record.formSchema
                 : emptyField,
               rules: [
                 {
@@ -298,6 +272,15 @@ const FormBuilder = (props) => {
   );
 };
 
-export default Form.create({
+
+function select(state) {
+  return {
+    findLoading: selectors.selectFindLoading(state),
+    saveLoading: selectors.selectSaveLoading(state),
+    record: selectors.selectRecord(state),
+  };
+}
+
+export default connect(select)(Form.create({
   name: 'form_builder',
-})(FormBuilder);
+})(FormBuilder));

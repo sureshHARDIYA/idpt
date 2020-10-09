@@ -2,25 +2,32 @@ const schema = `
   input AssignmentInput {
     title: String!
     sub_title: String
-    questions: [QuestionsInput]
-    publish_survey: Boolean
+    formSchema: [FormSchemaInput]
   }
 
-  input QuestionsInput {
-    title: String!
-    _id: String!
-    type: optionEnum
-    options: [OptionsInput]
+  input FormSchemaInput {
+    type: questionEnum
     placeholder: String
+    label: String!
+    field: String!
+    rules: [Rule]
+    options: [OptionTypeInput]
+    formSchema: [Rule]
   }
 
-  input OptionsInput {
-    content: String!
-    _id:  String!
+  input Rule {
+    required: Boolean
+    message: String! 
   }
-`;
 
-const resolver = {};
+  input OptionTypeInput {
+    field: String!
+    value: String!
+    label: String!
+  }
+`
 
-exports.schema = schema;
-exports.resolver = resolver;
+const resolver = {}
+
+exports.schema = schema
+exports.resolver = resolver

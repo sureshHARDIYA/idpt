@@ -46,7 +46,7 @@ const SortableCard = SortableElement((
 ) => {
     // Bubble up changes to parent.
   const handleChange = (field = '', change) => {
-      // Updated schema with changes.
+      // Updated formSchema with changes.
     const allFields = items
       // Update specific property.
     if (field) {
@@ -93,7 +93,7 @@ const SortableCard = SortableElement((
                           // Update rule
                         updatedRules[ruleIndex].required = checked
                         updatedRules[ruleIndex].message = 'Field is required'
-                        handleChange('schema', updatedRules)
+                        handleChange('formSchema', updatedRules)
                       }
               }
                   }}
