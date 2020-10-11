@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import ModuleFormModal from 'view/module/form/ModuleFormModal';
 import selectors from 'modules/assignments/assignmentsSelectors';
 import ModuleService from 'modules/assignments/assignmentsService';
 import AutocompleteFormItem from 'view/shared/form/items/AutocompleteFormItem';

@@ -198,13 +198,8 @@ const FormBuilder = (props) => {
   const [errors, setErrors] = useState([]);
   const formRef = useRef(null);
   const {
-    noSave = false,
     onError,
-    form: {
-      getFieldDecorator,
-      validateFields,
-      handleReset,
-    },
+    form: { getFieldDecorator, validateFields },
     formId = null,
     record,
     isEditing,
