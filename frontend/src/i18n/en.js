@@ -278,6 +278,7 @@ const en = {
         createdAt: 'Created at',
         updatedAt: 'Updated at',
         createdAtRange: 'Created at',
+        assignments: 'Add assignment',
       },
       enumerators: {
         status: {

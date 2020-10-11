@@ -25,6 +25,8 @@ import SwitchFormItem from 'view/shared/form/items/SwitchFormItem';
 import SelectFormItem from 'view/shared/form/items/SelectFormItem';
 import TaskAutocompleteFormItem from 'view/task/autocomplete/TaskAutocompleteFormItem';
 import ModuleAutocompleteFormItem from 'view/module/autocomplete/ModuleAutocompleteFormItem';
+import AssignmentAutocompleteFormItem from 'view/assignments/autocomplete/AssignmentAutocompleteFormItem';
+
 import _get from 'lodash/get';
 
 const { fields } = model;
@@ -43,6 +45,7 @@ class TaskForm extends Component {
     fields.documents,
     fields.videos,
     fields.audios,
+    fields.assignments,
   ]);
 
   handleSubmit = (values) => {
@@ -136,6 +139,14 @@ class TaskForm extends Component {
                       label={fields.owner.label}
                       required={fields.owner.required}
                       showCreate={!this.props.modal}
+                      form={form}
+                      mode="multiple"
+                    />
+                    <AssignmentAutocompleteFormItem
+                      name={fields.assignments.name}
+                      label={fields.assignments.label}
+                      required={fields.assignments.required}
+                      showCreate={false}
                       form={form}
                       mode="multiple"
                     />

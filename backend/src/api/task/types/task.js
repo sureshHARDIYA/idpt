@@ -11,6 +11,7 @@ const schema = `
     completionRequired: Boolean
     complexityLevel: Int
     owner: [ Module! ]
+    assignments: [Assignment]
     elements: [Element]
     documents: [Document]
     audios: [Audio]
@@ -27,12 +28,14 @@ const resolver = {
 
     next: (task, _, context) => {
       if (task.next && task.next[0] && !task.next[0].name) {
-        return new TaskService(context).findByIds(task.next);
+        return new TaskService(context).findByIds(
+          task.next,
+        );
       }
 
       return task.next;
-    }
-  }
+    },
+  },
 };
 
 exports.schema = schema;
