@@ -15,7 +15,7 @@ import { isEmpty, omit } from 'lodash';
 import moment from 'moment-timezone';
 
 const CustomDatePicker = React.forwardRef((props, ref) => {
-  const handleChange = date => {
+  const handleChange = (date) => {
     if (props.onChange) props.onChange(date.format());
   };
   const { value, format, ...restProps } = props;
@@ -47,7 +47,7 @@ const CustomTimePicker = React.forwardRef((props, ref) => {
   );
 });
 
-const selectFormElement = type => {
+const selectFormElement = (type) => {
   switch (type) {
     case 'input':
       return Input;
@@ -68,8 +68,18 @@ const selectFormElement = type => {
   }
 };
 
-export const FormItemRenderer = ({ formItem, decorator, initialValue }) => {
-  const { label, field, type, help, ...allProps } = formItem;
+export const FormItemRenderer = ({
+  formItem,
+  decorator,
+  initialValue,
+}) => {
+  const {
+    label,
+    field,
+    type,
+    help,
+    ...allProps
+  } = formItem;
   const fieldProps = omit(allProps, 'placeholder');
   // Select list
   if (type === 'select') {
@@ -81,12 +91,15 @@ export const FormItemRenderer = ({ formItem, decorator, initialValue }) => {
         })(
           <Select {...fieldProps}>
             {fieldProps.options &&
-              fieldProps.options.map(item => (
-                <Select.Option key={item.value} value={item.value}>
+              fieldProps.options.map((item) => (
+                <Select.Option
+                  key={item.value}
+                  value={item.value}
+                >
                   {item.label}
                 </Select.Option>
               ))}
-          </Select>
+          </Select>,
         )}
       </Form.Item>
     );
@@ -128,7 +141,7 @@ const FormRenderer = ({
   data = {},
   onSave,
   onError,
-  formStructure: { id, type, name, description, schema },
+  formStructure: { id, type, title, sub_title, formSchema },
   formProps,
   allowDraft = true,
   allowSubmit = true,
@@ -136,7 +149,7 @@ const FormRenderer = ({
 }) => {
   const [draft, setDraft] = useState(false);
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     validateFields((err, formData) => {
       if (!err) {
@@ -153,22 +166,26 @@ const FormRenderer = ({
   getFieldDecorator('type', { initialValue: type || '' });
 
   return (
-    <Form onSubmit={handleSubmit} colon={colon} {...formProps}>
+    <Form
+      onSubmit={handleSubmit}
+      colon={colon}
+      {...formProps}
+    >
       <Col>
         <Row>
-          {name && (
+          {title && (
             <Row>
-              <h2>{name}</h2>
+              <h2>{title}</h2>
             </Row>
           )}
-          {description && (
+          {sub_title && (
             <Row>
-              <p>{description}</p>
+              <p>{sub_title}</p>
             </Row>
           )}
           <fieldset disabled={disabled}>
-            {!isEmpty(schema) &&
-              schema.map((fieldItem, index) => (
+            {!isEmpty(formSchema) &&
+              formSchema.map((fieldItem, index) => (
                 <Row key={index}>
                   <FormItemRenderer
                     formItem={fieldItem}
@@ -178,7 +195,7 @@ const FormRenderer = ({
                 </Row>
               ))}
           </fieldset>
-          {!isEmpty(schema) && allowSubmit && (
+          {!isEmpty(formSchema) && allowSubmit && (
             <Row gutter={16}>
               {allowDraft && (
                 <Col

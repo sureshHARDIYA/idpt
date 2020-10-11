@@ -45,6 +45,12 @@ const en = {
         title: 'Title',
         sub_title: 'Sub Title',
       },
+      new: {
+        title: 'New Assignment',
+      },
+      edit: {
+        title: 'Edit Assignment',
+      },
     },
     patient: {
       name: 'patient',
