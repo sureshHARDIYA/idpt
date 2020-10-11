@@ -7,9 +7,9 @@ export default class AssignmentsService {
       mutation: gql`
         mutation ASSIGNMENTS_UPDATE(
           $id: String!
-          $data: AssignmentsInput!
+          $data: AssignmentInput!
         ) {
-          assignmentsUpdate(id: $id, data: $data) {
+          assignmentUpdate(id: $id, data: $data) {
             id
           }
         }
@@ -17,7 +17,7 @@ export default class AssignmentsService {
       variables: { id, data }
     })
 
-    return response.data.assignmentsUpdate
+    return response.data.assignmentUpdate
   }
 
   static async destroyAll (ids) {
@@ -55,7 +55,7 @@ export default class AssignmentsService {
     const response = await graphqlClient.mutate({
       mutation: gql`
         mutation ASSIGNMENTS_IMPORT(
-          $data: AssignmentsInput!
+          $data: AssignmentInput!
           $importHash: String!
         ) {
           assignmentsImport(

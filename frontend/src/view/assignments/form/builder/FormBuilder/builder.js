@@ -155,37 +155,33 @@ const FormBuilder = (props) => {
   const [errors, setErrors] = useState([]);
   const formRef = useRef(null);
   const {
-    onSave,
     noSave = false,
     onError,
-    formStructure = {},
     form: { getFieldDecorator, validateFields },
     formId = null,
-    dispatch,
     record,
   } = props;
 
   const handleSubmit = (e) => {
     setErrors([]);
     e.preventDefault();
-    validateFields((err, formData) => {
+    validateFields((err, { id, ...formData }) => {
       if (!err) {
-        if (onSave) onSave(formData);
-
-        if(dispatch) {
-          dispatch(actions.doCreate(formData));
-        }
+        props.onSubmit(id, formData);
       } else if (onError) {
         setErrors(err.schema.errors);
-        onError(err);
       }
     });
   };
 
-  if (formStructure.id)
-    getFieldDecorator('id', { initialValue: formStructure.id });
-  if (formStructure.type)
-    getFieldDecorator('type', { initialValue: formStructure.type });
+  if (!record) {
+    return null;
+  }
+
+  if (record.id)
+    getFieldDecorator('id', { initialValue: record.id });
+  if (record.type)
+    getFieldDecorator('type', { initialValue: record.type });
 
   return (
     <>
@@ -212,7 +208,7 @@ const FormBuilder = (props) => {
           }
           return true;
         }}
-        colon= {false}
+        colon={false}
         onSubmit={handleSubmit}
         noValidate
         id={formId}
@@ -220,12 +216,12 @@ const FormBuilder = (props) => {
       >
         <Form.Item label="Title">
           {getFieldDecorator('title', {
-            initialValue: formStructure.title || '',
+            initialValue: record.title || '',
           })(<Input placeholder="Add form title" />)}
         </Form.Item>
         <Form.Item label="Sub title">
           {getFieldDecorator('sub_title', {
-            initialValue: formStructure.sub_title || '',
+            initialValue: record.sub_title || '',
           })(
             <Input.TextArea
               placeholder="Add form sub_title"

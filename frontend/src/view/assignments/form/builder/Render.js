@@ -6,7 +6,7 @@ import FormRenderer from './FormRenderer'
 
 const { TabPane } = Tabs
 
-const App = () => {
+const App = (props) => {
   const [ formSchema, setFormSchema ] = useState({})
   const [ data, setData ] = useState({})
 
@@ -19,6 +19,7 @@ const App = () => {
             setFormSchema(schema)
           }}
           onError={error => console.log(error)}
+          {...props}
         />
       </TabPane>
       <TabPane tab='Form Preview' key='2'>

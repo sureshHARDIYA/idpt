@@ -32,6 +32,7 @@ class AssignmentFormPage extends Component {
 
   doSubmit = (id, data) => {
     const { dispatch } = this.props;
+
     if (this.isEditing()) {
       dispatch(actions.doUpdate(id, data));
     } else {

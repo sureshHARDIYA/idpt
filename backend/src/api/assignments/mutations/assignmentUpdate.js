@@ -4,17 +4,19 @@ const permissions = require('../../../security/permissions')
   .values;
 
 const schema = `
-  assignmentCreate(data: AssignmentInput!): Assignment!
+  assignmentUpdate(id: String!, data: AssignmentInput!): Assignment!
 `;
 
 const resolver = {
-  assignmentCreate: async (root, args, context) => {
+  assignmentUpdate: async (root, args, context) => {
     // DO-NEXT: update permissions
-    // new PermissionChecker(context).validateHas(
-    //   permissions.taskCreate,
-    // );
+    // new PermissionChecker(context)
+    //   .validateHas(permissions.audioEdit);
 
-    return new AssignmentService(context).create(args.data);
+    return new AssignmentService(context).update(
+      args.id,
+      args.data
+    );
   },
 };
 
