@@ -1,5 +1,5 @@
 const schema = `
-  enum questionEnum {
+  enum QuestionEnum {
     input
     textarea
     radio
@@ -7,10 +7,17 @@ const schema = `
     select
     date
     time
+    confirm
   }
-`
 
-const resolver = {}
+  enum AssignmentTypeEnum {
+    survey
+    quiz
+    psycometric_assessment
+  }
+`;
 
-exports.schema = schema
-exports.resolver = resolver
+const resolver = {};
+
+exports.schema = schema;
+exports.resolver = resolver;

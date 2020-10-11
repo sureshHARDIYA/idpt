@@ -6,13 +6,13 @@ import PageTitle from 'view/shared/styles/PageTitle';
 import ContentWrapper from 'view/layout/styles/ContentWrapper';
 import actions from 'modules/assignments/form/assignmentsFormActions';
 import selectors from 'modules/assignments/form/assignmentsFormSelectors';
+import { getHistory } from 'modules/store';
 
 import FormBuilder from './builder/Render';
 
 class AssignmentFormPage extends Component {
   state = {
     dispatched: false,
-    questions: [],
   };
 
   async componentDidMount() {
@@ -24,10 +24,7 @@ class AssignmentFormPage extends Component {
       dispatch(actions.doNew());
     }
 
-    this.setState({
-      dispatched: true,
-      questions: this.props.record ? this.props.record.questions : [],
-    });
+    this.setState({ dispatched: true });
   }
 
   doSubmit = (id, data) => {
@@ -47,8 +44,8 @@ class AssignmentFormPage extends Component {
 
   title = () => {
     return this.isEditing()
-      ? i18n('entities.audio.edit.title')
-      : i18n('entities.audio.new.title');
+      ? i18n('entities.assignments.edit.title')
+      : i18n('entities.assignments.new.title');
   };
 
   render() {
@@ -57,7 +54,10 @@ class AssignmentFormPage extends Component {
         <Breadcrumb
           items={[
             [i18n('home.menu'), '/'],
-            [i18n('entities.audio.menu'), '/audio'],
+            [
+              i18n('entities.assignments.menu'),
+              '/assignments',
+            ],
             [this.title()],
           ]}
         />
@@ -66,8 +66,12 @@ class AssignmentFormPage extends Component {
           <FormBuilder
             onSubmit={this.doSubmit}
             record={this.props.record}
+            isEditing={this.isEditing()}
             saveLoading={this.props.saveLoading}
             findLoading={this.props.findLoading}
+            onCancel={() =>
+              getHistory().push('/assignments')
+            }
           />
         </ContentWrapper>
       </React.Fragment>

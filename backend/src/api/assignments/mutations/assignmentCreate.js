@@ -9,10 +9,9 @@ const schema = `
 
 const resolver = {
   assignmentCreate: async (root, args, context) => {
-    // DO-NEXT: update permissions
-    // new PermissionChecker(context).validateHas(
-    //   permissions.taskCreate,
-    // );
+    new PermissionChecker(context).validateHas(
+      permissions.casedCreate,
+    );
 
     return new AssignmentService(context).create(args.data);
   },

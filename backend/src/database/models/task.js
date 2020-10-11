@@ -16,12 +16,7 @@ const TaskSchema = new Schema(
     },
     status: {
       type: String,
-      enum: [
-        "ACTIVE",
-        "INACTIVE",
-        "DRAFT",
-        null
-      ],
+      enum: ['ACTIVE', 'INACTIVE', 'DRAFT', null],
     },
     tags: {
       type: String,
@@ -32,62 +27,78 @@ const TaskSchema = new Schema(
     },
     completionRequired: {
       type: Boolean,
-      default: false
+      default: false,
     },
     complexityLevel: {
       type: Number,
       min: 0,
     },
-    owner: [{
-      type: Schema.Types.ObjectId,
-      ref: 'module',
-    }],
-    next: [{
-      type: Schema.Types.ObjectId,
-      ref: 'task',
-    }],
-    audios: [new Schema({
-      url: {
-        type: String,
-        required: true
+    owner: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'module',
       },
-      evaluation: {
-        type: Number,
-        required: true
+    ],
+    next: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'task',
       },
-      resourceType: {
-        type: String,
-        default: 'Audio'
-      }
-    })],
-    videos: [new Schema({
-      url: {
-        type: String,
-        required: true
+    ],
+    audios: [
+      new Schema({
+        url: {
+          type: String,
+          required: true,
+        },
+        evaluation: {
+          type: Number,
+          required: true,
+        },
+        resourceType: {
+          type: String,
+          default: 'Audio',
+        },
+      }),
+    ],
+    videos: [
+      new Schema({
+        url: {
+          type: String,
+          required: true,
+        },
+        evaluation: {
+          type: Number,
+          required: true,
+        },
+        resourceType: {
+          type: String,
+          default: 'Video',
+        },
+      }),
+    ],
+    documents: [
+      new Schema({
+        contentHTML: {
+          type: String,
+          required: true,
+        },
+        evaluation: {
+          type: Number,
+          required: true,
+        },
+        resourceType: {
+          type: String,
+          default: 'Document',
+        },
+      }),
+    ],
+    assignments: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'assignment',
       },
-      evaluation: {
-        type: Number,
-        required: true
-      },
-      resourceType: {
-        type: String,
-        default: 'Video'
-      }
-    })],
-    documents: [new Schema({
-      contentHTML: {
-        type: String,
-        required: true
-      },
-      evaluation: {
-        type: Number,
-        required: true
-      },
-      resourceType: {
-        type: String,
-        default: 'Document'
-      }
-    })],
+    ],
     createdBy: {
       type: Schema.Types.ObjectId,
       ref: 'user',
@@ -114,7 +125,7 @@ TaskSchema.virtual('elements').get(function() {
     ...this.audios.toObject(),
     ...this.videos.toObject(),
     ...this.documents.toObject(),
-  ]
+  ];
 });
 
-module.exports = database.model('task', TaskSchema);;
+module.exports = database.model('task', TaskSchema);

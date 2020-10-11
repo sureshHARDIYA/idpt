@@ -1,3 +1,4 @@
+import { i18n } from 'i18n';
 import React, { useState, useRef } from 'react';
 import {
   Form,
@@ -7,12 +8,16 @@ import {
   List,
   Col,
   Alert,
+  Radio,
 } from 'antd';
-import { camelCase, isEmpty } from 'lodash';
 import arrayMove from 'array-move';
+import Spinner from 'view/shared/Spinner';
+import { camelCase, isEmpty } from 'lodash';
 import { SortableContainer } from 'react-sortable-hoc';
 import { connect } from 'react-redux';
 import selectors from 'modules/assignments/form/assignmentsFormSelectors';
+// import TaskAutocompleteFormItem from 'view/task/autocomplete/TaskAutocompleteFormItem';
+import { tailFormItemLayout } from 'view/shared/styles/FormWrapper';
 
 // Import style
 import SortableCard from './SortableCard';
@@ -195,9 +200,17 @@ const FormBuilder = (props) => {
   const {
     noSave = false,
     onError,
-    form: { getFieldDecorator, validateFields },
+    form: {
+      getFieldDecorator,
+      validateFields,
+      handleReset,
+    },
     formId = null,
     record,
+    isEditing,
+    findLoading,
+    saveLoading,
+    onCancel,
   } = props;
 
   const handleSubmit = (e) => {
@@ -208,17 +221,22 @@ const FormBuilder = (props) => {
         props.onSubmit(id, formData);
       } else if (onError) {
         setErrors(err.schema.errors);
+        onError(err);
       }
     });
   };
 
-  if (!record) {
-    return null;
+  if (findLoading) {
+    return <Spinner />;
   }
 
-  if (record.id)
+  if (!record && isEditing) {
+    return <Spinner />;
+  }
+
+  if (isEditing && record.id)
     getFieldDecorator('id', { initialValue: record.id });
-  if (record.type)
+  if (isEditing && record.type)
     getFieldDecorator('type', {
       initialValue: record.type,
     });
@@ -256,17 +274,32 @@ const FormBuilder = (props) => {
       >
         <Form.Item label="Title">
           {getFieldDecorator('title', {
-            initialValue: record.title || '',
+            initialValue: record ? record.title : '',
           })(<Input placeholder="Add form title" />)}
         </Form.Item>
         <Form.Item label="Sub title">
           {getFieldDecorator('sub_title', {
-            initialValue: record.sub_title || '',
+            initialValue: record ? record.sub_title : '',
           })(
             <Input.TextArea
               placeholder="Add form sub_title"
               autosize={{ minRows: 1, maxRows: 3 }}
             />,
+          )}
+        </Form.Item>
+        <Form.Item label="Assignment Type">
+          {getFieldDecorator('assignment_type', {
+            initialValue: record
+              ? record.assignment_type
+              : '',
+          })(
+            <Radio.Group>
+              <Radio value="survey">Survey</Radio>
+              <Radio value="quiz">Quiz</Radio>
+              <Radio value="psycometric_assessment">
+                Psycometric assessment
+              </Radio>
+            </Radio.Group>,
           )}
         </Form.Item>
         <Row>
@@ -296,16 +329,31 @@ const FormBuilder = (props) => {
             })(<SchemaList />)}
           </Form.Item>
         </Row>
-
-        <div
-          style={{
-            margin: '30 0',
-          }}
+        <Form.Item
+          className="form-buttons"
+          {...tailFormItemLayout}
         >
-          {!noSave && (
-            <Button htmlType="submit">Save</Button>
-          )}
-        </div>
+          <Button
+            loading={saveLoading}
+            type="primary"
+            // onClick={form.handleSubmit}
+            icon="save"
+            htmlType="submit"
+            size="large"
+          >
+            {i18n('common.save')}
+          </Button>
+          {props.onCancel ? (
+            <Button
+              disabled={saveLoading}
+              onClick={() => onCancel()}
+              icon="close"
+              size="large"
+            >
+              {i18n('common.cancel')}
+            </Button>
+          ) : null}
+        </Form.Item>
       </Form>
     </>
   );
@@ -319,6 +367,8 @@ function select(state) {
   };
 }
 
-export default Form.create({
-  name: 'form_builder',
-})(FormBuilder);
+export default connect(select)(
+  Form.create({
+    name: 'form_builder',
+  })(FormBuilder),
+);

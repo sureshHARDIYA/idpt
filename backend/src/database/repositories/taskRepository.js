@@ -142,7 +142,8 @@ class TaskRepository {
   async findById(id, options) {
     return MongooseRepository.wrapWithSessionIfExists(
       Task.findById(id)
-      .populate('owner'),
+        .populate('owner')
+        .populate('assignments'),
       options,
     );
   }
@@ -155,8 +156,7 @@ class TaskRepository {
    */
   async findByIds(ids, options) {
     return MongooseRepository.wrapWithSessionIfExists(
-      Task.find({ _id: { $in: ids } })
-      .populate('owner'),
+      Task.find({ _id: { $in: ids } }).populate('owner'),
       options,
     );
   }
@@ -220,7 +220,7 @@ class TaskRepository {
       if (filter.status) {
         criteria = {
           ...criteria,
-          status: filter.status
+          status: filter.status,
         };
       }
 
@@ -239,7 +239,11 @@ class TaskRepository {
       if (filter.pointsRange) {
         const [start, end] = filter.pointsRange;
 
-        if (start !== undefined && start !== null && start !== '') {
+        if (
+          start !== undefined &&
+          start !== null &&
+          start !== ''
+        ) {
           criteria = {
             ...criteria,
             points: {
@@ -249,7 +253,11 @@ class TaskRepository {
           };
         }
 
-        if (end !== undefined && end !== null && end !== '') {
+        if (
+          end !== undefined &&
+          end !== null &&
+          end !== ''
+        ) {
           criteria = {
             ...criteria,
             points: {
@@ -277,7 +285,11 @@ class TaskRepository {
       if (filter.complexityLevelRange) {
         const [start, end] = filter.complexityLevelRange;
 
-        if (start !== undefined && start !== null && start !== '') {
+        if (
+          start !== undefined &&
+          start !== null &&
+          start !== ''
+        ) {
           criteria = {
             ...criteria,
             complexityLevel: {
@@ -287,7 +299,11 @@ class TaskRepository {
           };
         }
 
-        if (end !== undefined && end !== null && end !== '') {
+        if (
+          end !== undefined &&
+          end !== null &&
+          end !== ''
+        ) {
           criteria = {
             ...criteria,
             complexityLevel: {
@@ -301,14 +317,18 @@ class TaskRepository {
       if (filter.type) {
         criteria = {
           ...criteria,
-          type: filter.type
+          type: filter.type,
         };
       }
 
       if (filter.createdAtRange) {
         const [start, end] = filter.createdAtRange;
 
-        if (start !== undefined && start !== null && start !== '') {
+        if (
+          start !== undefined &&
+          start !== null &&
+          start !== ''
+        ) {
           criteria = {
             ...criteria,
             ['createdAt']: {
@@ -318,7 +338,11 @@ class TaskRepository {
           };
         }
 
-        if (end !== undefined && end !== null && end !== '') {
+        if (
+          end !== undefined &&
+          end !== null &&
+          end !== ''
+        ) {
           criteria = {
             ...criteria,
             ['createdAt']: {
@@ -365,9 +389,11 @@ class TaskRepository {
           { _id: MongooseQueryUtils.uuid(search) },
           {
             name: {
-              $regex: MongooseQueryUtils.escapeRegExp(search),
+              $regex: MongooseQueryUtils.escapeRegExp(
+                search,
+              ),
               $options: 'i',
-            }
+            },
           },
         ],
       };

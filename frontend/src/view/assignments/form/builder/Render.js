@@ -23,16 +23,23 @@ const App = (props) => {
         />
       </TabPane>
       <TabPane tab="Form Preview" key="2">
-        <FormRenderer
-          allowDraft
-          formStructure={props.record && props.record}
-          data={data}
-          onSave={(changedData) => {
-            setData(changedData);
-          }}
-          onError={(error) => console.log(error)}
-          {...props}
-        />
+        {props.record && (
+          <FormRenderer
+            allowDraft
+            formStructure={props.record && props.record}
+            data={data}
+            onSave={(changedData) => {
+              setData(changedData);
+            }}
+            onError={(error) => console.log(error)}
+            {...props}
+          />
+        )}
+        {!props.record && (
+          <span>
+            First create form and save to preview it.
+          </span>
+        )}
       </TabPane>
       <TabPane tab="JSON Schema viewer" key="3">
         <div className="column">

@@ -21,7 +21,7 @@ const RenderOptions = ({
       type="ghost"
       title="Add"
       icon="plus"
-      size="medium"
+      size="default"
       style={{ marginTop: 10 }}
       onClick={() => {
         const newOptions = [

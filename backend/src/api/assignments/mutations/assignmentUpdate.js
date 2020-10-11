@@ -9,13 +9,13 @@ const schema = `
 
 const resolver = {
   assignmentUpdate: async (root, args, context) => {
-    // DO-NEXT: update permissions
-    // new PermissionChecker(context)
-    //   .validateHas(permissions.audioEdit);
+    new PermissionChecker(context).validateHas(
+      permissions.casedEdit,
+    );
 
     return new AssignmentService(context).update(
       args.id,
-      args.data
+      args.data,
     );
   },
 };

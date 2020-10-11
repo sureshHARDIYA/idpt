@@ -3,6 +3,8 @@ const schema = `
    id: String!
    title: String!
    sub_title: String
+   assignment_type: AssignmentTypeEnum
+   owner: [Task!]
    formSchema: [FormSchema]
    createdAt: DateTime
    createdBy: User
@@ -10,7 +12,7 @@ const schema = `
  }
 
  type FormSchema {
-   type: questionEnum
+   type: QuestionEnum
    placeholder: String
    label: String!
    field: String!
@@ -29,10 +31,10 @@ const schema = `
    required: Boolean
    message: String!
  }
-`
+`;
 
-const resolver = {}
+const resolver = {};
 
-exports.schema = schema
+exports.schema = schema;
 
-exports.resolver = resolver
+exports.resolver = resolver;
