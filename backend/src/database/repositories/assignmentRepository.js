@@ -1,30 +1,28 @@
 const MongooseRepository = require('./mongooseRepository');
 const MongooseQueryUtils = require('../utils/mongooseQueryUtils');
 const AuditLogRepository = require('./auditLogRepository');
-const Task = require('../models/task');
-const Module = require('../models/module');
+const Assignment = require('../models/assignment');
 
 /**
- * Handles database operations for the Task.
+ * Handles database operations for the Assignment.
  * See https://mongoosejs.com/docs/index.html to learn how to customize it.
  */
-class TaskRepository {
+class AssignmentRepository {
   /**
-   * Creates the Task.
+   * Creates the Assignment.
    *
    * @param {Object} data
    * @param {Object} [options]
    */
   async create(data, options) {
     if (MongooseRepository.getSession(options)) {
-      await Task.createCollection();
+      await Assignment.createCollection();
     }
 
     const currentUser = MongooseRepository.getCurrentUser(
       options,
     );
-
-    const [record] = await Task.create(
+    const [record] = await Assignment.create(
       [
         {
           ...data,
@@ -42,26 +40,18 @@ class TaskRepository {
       options,
     );
 
-    await MongooseRepository.refreshTwoWayRelationManyToMany(
-      record,
-      'owner',
-      Module,
-      'tasks',
-      options,
-    );
-
     return this.findById(record.id, options);
   }
 
   /**
-   * Updates the Task.
+   * Updates the Assignment.
    *
    * @param {Object} data
    * @param {Object} [options]
    */
   async update(id, data, options) {
     await MongooseRepository.wrapWithSessionIfExists(
-      Task.updateOne(
+      Assignment.updateOne(
         { _id: id },
         {
           ...data,
@@ -82,26 +72,18 @@ class TaskRepository {
 
     const record = await this.findById(id, options);
 
-    await MongooseRepository.refreshTwoWayRelationManyToMany(
-      record,
-      'owner',
-      Module,
-      'tasks',
-      options,
-    );
-
     return record;
   }
 
   /**
-   * Deletes the Task.
+   * Deletes the Assignment.
    *
    * @param {string} id
    * @param {Object} [options]
    */
   async destroy(id, options) {
     await MongooseRepository.wrapWithSessionIfExists(
-      Task.deleteOne({ _id: id }),
+      Assignment.deleteOne({ _id: id }),
       options,
     );
 
@@ -111,58 +93,36 @@ class TaskRepository {
       null,
       options,
     );
-
-    await MongooseRepository.destroyRelationToMany(
-      id,
-      Module,
-      'tasks',
-      options,
-    );
   }
 
   /**
-   * Counts the number of Tasks based on the filter.
+   * Counts the number of Assignments based on the filter.
    *
    * @param {Object} filter
    * @param {Object} [options]
    */
   async count(filter, options) {
     return MongooseRepository.wrapWithSessionIfExists(
-      Task.countDocuments(filter),
+      Assignment.countDocuments(filter),
       options,
     );
   }
 
   /**
-   * Finds the Task and its relations.
+   * Finds the Assignment and its relations.
    *
    * @param {string} id
    * @param {Object} [options]
    */
   async findById(id, options) {
     return MongooseRepository.wrapWithSessionIfExists(
-      Task.findById(id)
-        .populate('owner')
-        .populate('assignments'),
+      Assignment.findById(id),
       options,
     );
   }
 
   /**
-   * Finds the Task and its relations.
-   *
-   * @param {string} ids
-   * @param {Object} [options]
-   */
-  async findByIds(ids, options) {
-    return MongooseRepository.wrapWithSessionIfExists(
-      Task.find({ _id: { $in: ids } }).populate('owner'),
-      options,
-    );
-  }
-
-  /**
-   * Finds the Tasks based on the query.
+   * Finds the Assignments based on the query.
    * See https://mongoosejs.com/docs/queries.html to learn how
    * to customize the queries.
    *
@@ -189,135 +149,19 @@ class TaskRepository {
       if (filter.id) {
         criteria = {
           ...criteria,
-          ['_id']: MongooseQueryUtils.uuid(filter.id),
+          _id: MongooseQueryUtils.uuid(filter.id),
         };
       }
 
-      if (filter.name) {
+      if (filter.url) {
         criteria = {
           ...criteria,
-          name: {
+          url: {
             $regex: MongooseQueryUtils.escapeRegExp(
-              filter.name,
+              filter.url,
             ),
             $options: 'i',
           },
-        };
-      }
-
-      if (filter.description) {
-        criteria = {
-          ...criteria,
-          description: {
-            $regex: MongooseQueryUtils.escapeRegExp(
-              filter.description,
-            ),
-            $options: 'i',
-          },
-        };
-      }
-
-      if (filter.status) {
-        criteria = {
-          ...criteria,
-          status: filter.status,
-        };
-      }
-
-      if (filter.tags) {
-        criteria = {
-          ...criteria,
-          tags: {
-            $regex: MongooseQueryUtils.escapeRegExp(
-              filter.tags,
-            ),
-            $options: 'i',
-          },
-        };
-      }
-
-      if (filter.pointsRange) {
-        const [start, end] = filter.pointsRange;
-
-        if (
-          start !== undefined &&
-          start !== null &&
-          start !== ''
-        ) {
-          criteria = {
-            ...criteria,
-            points: {
-              ...criteria.points,
-              $gte: start,
-            },
-          };
-        }
-
-        if (
-          end !== undefined &&
-          end !== null &&
-          end !== ''
-        ) {
-          criteria = {
-            ...criteria,
-            points: {
-              ...criteria.points,
-              $lte: start,
-            },
-          };
-        }
-      }
-
-      if (
-        filter.completionRequired === true ||
-        filter.completionRequired === 'true' ||
-        filter.completionRequired === false ||
-        filter.completionRequired === 'false'
-      ) {
-        criteria = {
-          ...criteria,
-          completionRequired:
-            filter.completionRequired === true ||
-            filter.completionRequired === 'true',
-        };
-      }
-
-      if (filter.complexityLevelRange) {
-        const [start, end] = filter.complexityLevelRange;
-
-        if (
-          start !== undefined &&
-          start !== null &&
-          start !== ''
-        ) {
-          criteria = {
-            ...criteria,
-            complexityLevel: {
-              ...criteria.complexityLevel,
-              $gte: start,
-            },
-          };
-        }
-
-        if (
-          end !== undefined &&
-          end !== null &&
-          end !== ''
-        ) {
-          criteria = {
-            ...criteria,
-            complexityLevel: {
-              ...criteria.complexityLevel,
-              $lte: start,
-            },
-          };
-        }
-      }
-
-      if (filter.type) {
-        criteria = {
-          ...criteria,
-          type: filter.type,
         };
       }
 
@@ -331,7 +175,7 @@ class TaskRepository {
         ) {
           criteria = {
             ...criteria,
-            ['createdAt']: {
+            createdAt: {
               ...criteria.createdAt,
               $gte: start,
             },
@@ -345,10 +189,7 @@ class TaskRepository {
         ) {
           criteria = {
             ...criteria,
-            ['createdAt']: {
-              ...criteria.createdAt,
-              $lte: end,
-            },
+            createdAt: { ...criteria.createdAt, $lte: end },
           };
         }
       }
@@ -361,19 +202,19 @@ class TaskRepository {
     const skip = Number(offset || 0) || undefined;
     const limitEscaped = Number(limit || 0) || undefined;
 
-    const rows = await Task.find(criteria)
+    const rows = await Assignment.find(criteria)
       .skip(skip)
       .limit(limitEscaped)
       .sort(sort)
-      .populate('owner');
+      .populate('createdBy');
 
-    const count = await Task.countDocuments(criteria);
+    const count = await Assignment.countDocuments(criteria);
 
     return { rows, count };
   }
 
   /**
-   * Lists the Tasks to populate the autocomplete.
+   * Lists the Assignments to populate the autocomplete.
    * See https://mongoosejs.com/docs/queries.html to learn how to
    * customize the query.
    *
@@ -388,7 +229,7 @@ class TaskRepository {
         $or: [
           { _id: MongooseQueryUtils.uuid(search) },
           {
-            name: {
+            url: {
               $regex: MongooseQueryUtils.escapeRegExp(
                 search,
               ),
@@ -399,16 +240,16 @@ class TaskRepository {
       };
     }
 
-    const sort = MongooseQueryUtils.sort('name_ASC');
+    const sort = MongooseQueryUtils.sort('url_ASC');
     const limitEscaped = Number(limit || 0) || undefined;
 
-    const records = await Task.find(criteria)
+    const records = await Assignment.find(criteria)
       .limit(limitEscaped)
       .sort(sort);
 
     return records.map((record) => ({
       id: record.id,
-      label: record['name'],
+      label: record['title'],
     }));
   }
 
@@ -423,7 +264,7 @@ class TaskRepository {
   async _createAuditLog(action, id, data, options) {
     await AuditLogRepository.log(
       {
-        entityName: Task.modelName,
+        entityName: Assignment.modelName,
         entityId: id,
         action,
         values: data,
@@ -433,4 +274,4 @@ class TaskRepository {
   }
 }
 
-module.exports = TaskRepository;
+module.exports = AssignmentRepository;

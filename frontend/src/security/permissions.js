@@ -44,13 +44,15 @@ class Permissions {
           roles.owner,
           roles.editor,
           roles.viewer,
-
-
         ],
       },
       auditLogRead: {
         id: 'auditLogRead',
-        allowedRoles: [roles.owner, roles.auditLogViewer, roles.viewer],
+        allowedRoles: [
+          roles.owner,
+          roles.auditLogViewer,
+          roles.viewer,
+        ],
       },
       settingsEdit: {
         id: 'settingsEdit',
@@ -375,7 +377,6 @@ class Permissions {
           roles.entityEditor,
           roles.audioEditor,
           roles.audioViewer,
-
         ],
       },
 

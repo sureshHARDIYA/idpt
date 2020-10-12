@@ -26,6 +26,32 @@ const en = {
   },
 
   entities: {
+    assignments: {
+      name: 'Assignments',
+      label: 'Assignments',
+      menu: 'Assignments',
+      list: {
+        menu: 'Assignments',
+        title: 'Assignments',
+      },
+      destroy: {
+        success: 'Assignment deleted successfully',
+      },
+      destroyAll: {
+        success: 'Assignment(s) deleted successfully',
+      },
+      fields: {
+        id: 'ID',
+        title: 'Title',
+        sub_title: 'Sub Title',
+      },
+      new: {
+        title: 'New Assignment',
+      },
+      edit: {
+        title: 'Edit Assignment',
+      },
+    },
     patient: {
       name: 'patient',
       label: 'Patients',
@@ -252,6 +278,7 @@ const en = {
         createdAt: 'Created at',
         updatedAt: 'Updated at',
         createdAtRange: 'Created at',
+        assignments: 'Add assignment',
       },
       enumerators: {
         status: {

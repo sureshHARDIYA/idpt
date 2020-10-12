@@ -113,6 +113,10 @@ export default class TaskService {
               id
               name
             }
+            assignments {
+              id
+              title
+            }
             next {
               id
               name
