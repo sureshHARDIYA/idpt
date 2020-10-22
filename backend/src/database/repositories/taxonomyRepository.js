@@ -1,30 +1,29 @@
 const MongooseRepository = require('./mongooseRepository');
 const MongooseQueryUtils = require('../utils/mongooseQueryUtils');
 const AuditLogRepository = require('./auditLogRepository');
-const Task = require('../models/task');
-const Module = require('../models/module');
+const Taxonomy = require('../models/taxonomy');
 
 /**
- * Handles database operations for the Task.
+ * Handles database operations for the Taxonomy.
  * See https://mongoosejs.com/docs/index.html to learn how to customize it.
  */
-class TaskRepository {
+class TaxonomyRepository {
   /**
-   * Creates the Task.
+   * Creates the Taxonomy.
    *
    * @param {Object} data
    * @param {Object} [options]
    */
   async create(data, options) {
     if (MongooseRepository.getSession(options)) {
-      await Task.createCollection();
+      await Taxonomy.createCollection();
     }
 
     const currentUser = MongooseRepository.getCurrentUser(
       options,
     );
 
-    const [record] = await Task.create(
+    const [record] = await Taxonomy.create(
       [
         {
           ...data,
@@ -42,6 +41,8 @@ class TaskRepository {
       options,
     );
 
+    /*
+    // TODO connect to case/module/task
     await MongooseRepository.refreshTwoWayRelationManyToMany(
       record,
       'owner',
@@ -49,19 +50,20 @@ class TaskRepository {
       'tasks',
       options,
     );
+    */
 
     return this.findById(record.id, options);
   }
 
   /**
-   * Updates the Task.
+   * Updates the Taxonomy.
    *
    * @param {Object} data
    * @param {Object} [options]
    */
   async update(id, data, options) {
     await MongooseRepository.wrapWithSessionIfExists(
-      Task.updateOne(
+      Taxonomy.updateOne(
         { _id: id },
         {
           ...data,
@@ -82,6 +84,7 @@ class TaskRepository {
 
     const record = await this.findById(id, options);
 
+    /*
     await MongooseRepository.refreshTwoWayRelationManyToMany(
       record,
       'owner',
@@ -89,6 +92,7 @@ class TaskRepository {
       'tasks',
       options,
     );
+    */
 
     return record;
   }
@@ -101,7 +105,7 @@ class TaskRepository {
    */
   async destroy(id, options) {
     await MongooseRepository.wrapWithSessionIfExists(
-      Task.deleteOne({ _id: id }),
+      Taxonomy.deleteOne({ _id: id }),
       options,
     );
 
@@ -112,12 +116,14 @@ class TaskRepository {
       options,
     );
 
+    /*
     await MongooseRepository.destroyRelationToMany(
       id,
       Module,
       'tasks',
       options,
     );
+    */
   }
 
   /**
