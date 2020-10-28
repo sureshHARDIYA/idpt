@@ -439,4 +439,4 @@ class TaxonomyRepository {
   }
 }
 
-module.exports = TaskRepository;
+module.exports = TaxonomyRepository;

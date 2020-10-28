@@ -57,6 +57,10 @@ const assignmentTypes = require('./assignments/types');
 const assignmentQueries = require('./assignments/queries');
 const assignmentMutations = require('./assignments/mutations');
 
+const taxonomyTypes = require('./taxonomy/types');
+const taxonomyQueries = require('./taxonomy/queries');
+const taxonomyMutations = require('./taxonomy/mutations');
+
 const types = [
   ...sharedTypes,
   ...iamTypes,
@@ -71,6 +75,7 @@ const types = [
   ...roadmapTypes,
   ...epicTypes,
   ...assignmentTypes,
+  ...taxonomyTypes
 ].map((type) => type.schema);
 
 const mutations = [
@@ -86,6 +91,7 @@ const mutations = [
   ...roadmapMutations,
   ...epicMutations,
   ...assignmentMutations,
+  ...taxonomyMutations,
 ].map((mutation) => mutation.schema);
 
 const queries = [
@@ -101,6 +107,7 @@ const queries = [
   ...recordQueries,
   ...roadmapQueries,
   ...epicQueries,
+  ...taxonomyQueries,
 ].map((query) => query.schema);
 
 const query = `
