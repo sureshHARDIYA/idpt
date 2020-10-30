@@ -98,7 +98,7 @@ class TaxonomyRepository {
   }
 
   /**
-   * Deletes the Task.
+   * Deletes the Taxonomy.
    *
    * @param {string} id
    * @param {Object} [options]
@@ -127,29 +127,28 @@ class TaxonomyRepository {
   }
 
   /**
-   * Counts the number of Tasks based on the filter.
+   * Counts the number of Taxonomies based on the filter.
    *
    * @param {Object} filter
    * @param {Object} [options]
    */
   async count(filter, options) {
     return MongooseRepository.wrapWithSessionIfExists(
-      Task.countDocuments(filter),
+      Taxonomy.countDocuments(filter),
       options,
     );
   }
 
   /**
-   * Finds the Task and its relations.
+   * Finds the Taxonomy and its relations.
    *
    * @param {string} id
    * @param {Object} [options]
    */
   async findById(id, options) {
     return MongooseRepository.wrapWithSessionIfExists(
-      Task.findById(id)
-        .populate('owner')
-        .populate('assignments'),
+      Taxonomy.findById(id)
+        .populate('parent'),
       options,
     );
   }
@@ -429,7 +428,7 @@ class TaxonomyRepository {
   async _createAuditLog(action, id, data, options) {
     await AuditLogRepository.log(
       {
-        entityName: Task.modelName,
+        entityName: Taxonomy.modelName,
         entityId: id,
         action,
         values: data,
