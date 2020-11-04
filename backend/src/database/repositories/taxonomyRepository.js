@@ -154,20 +154,20 @@ class TaxonomyRepository {
   }
 
   /**
-   * Finds the Task and its relations.
+   * Finds the Taxonomy and its relations.
    *
    * @param {string} ids
    * @param {Object} [options]
    */
   async findByIds(ids, options) {
     return MongooseRepository.wrapWithSessionIfExists(
-      Task.find({ _id: { $in: ids } }).populate('owner'),
+      Taxonomy.find({ _id: { $in: ids } }).populate('owner'),
       options,
     );
   }
 
   /**
-   * Finds the Tasks based on the query.
+   * Finds the Taxonomies based on the query.
    * See https://mongoosejs.com/docs/queries.html to learn how
    * to customize the queries.
    *
@@ -366,19 +366,19 @@ class TaxonomyRepository {
     const skip = Number(offset || 0) || undefined;
     const limitEscaped = Number(limit || 0) || undefined;
 
-    const rows = await Task.find(criteria)
+    const rows = await Taxonomy.find(criteria)
       .skip(skip)
       .limit(limitEscaped)
       .sort(sort)
       .populate('owner');
 
-    const count = await Task.countDocuments(criteria);
+    const count = await Taxonomy.countDocuments(criteria);
 
     return { rows, count };
   }
 
   /**
-   * Lists the Tasks to populate the autocomplete.
+   * Lists the Taxonomies to populate the autocomplete.
    * See https://mongoosejs.com/docs/queries.html to learn how to
    * customize the query.
    *
@@ -407,7 +407,7 @@ class TaxonomyRepository {
     const sort = MongooseQueryUtils.sort('name_ASC');
     const limitEscaped = Number(limit || 0) || undefined;
 
-    const records = await Task.find(criteria)
+    const records = await Taxonomy.find(criteria)
       .limit(limitEscaped)
       .sort(sort);
 

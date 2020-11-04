@@ -10,7 +10,7 @@ const schema = `
 const resolver = {
   taxonomyUpdate: async (root, args, context) => {
     new PermissionChecker(context)
-      .validateHas(permissions.taskEdit);
+      .validateHas(permissions.taxonomyEdit);
 
     return new TaxonomyService(context).update(
       args.id,
