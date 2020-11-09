@@ -161,7 +161,7 @@ class TaxonomyRepository {
    */
   async findByIds(ids, options) {
     return MongooseRepository.wrapWithSessionIfExists(
-      Taxonomy.find({ _id: { $in: ids } }).populate('owner'),
+      Taxonomy.find({ _id: { $in: ids } }).populate('parent'),
       options,
     );
   }
@@ -198,30 +198,6 @@ class TaxonomyRepository {
         };
       }
 
-      if (filter.name) {
-        criteria = {
-          ...criteria,
-          name: {
-            $regex: MongooseQueryUtils.escapeRegExp(
-              filter.name,
-            ),
-            $options: 'i',
-          },
-        };
-      }
-
-      if (filter.description) {
-        criteria = {
-          ...criteria,
-          description: {
-            $regex: MongooseQueryUtils.escapeRegExp(
-              filter.description,
-            ),
-            $options: 'i',
-          },
-        };
-      }
-
       if (filter.status) {
         criteria = {
           ...criteria,
@@ -229,100 +205,10 @@ class TaxonomyRepository {
         };
       }
 
-      if (filter.tags) {
+      if (filter.parent) {
         criteria = {
           ...criteria,
-          tags: {
-            $regex: MongooseQueryUtils.escapeRegExp(
-              filter.tags,
-            ),
-            $options: 'i',
-          },
-        };
-      }
-
-      if (filter.pointsRange) {
-        const [start, end] = filter.pointsRange;
-
-        if (
-          start !== undefined &&
-          start !== null &&
-          start !== ''
-        ) {
-          criteria = {
-            ...criteria,
-            points: {
-              ...criteria.points,
-              $gte: start,
-            },
-          };
-        }
-
-        if (
-          end !== undefined &&
-          end !== null &&
-          end !== ''
-        ) {
-          criteria = {
-            ...criteria,
-            points: {
-              ...criteria.points,
-              $lte: start,
-            },
-          };
-        }
-      }
-
-      if (
-        filter.completionRequired === true ||
-        filter.completionRequired === 'true' ||
-        filter.completionRequired === false ||
-        filter.completionRequired === 'false'
-      ) {
-        criteria = {
-          ...criteria,
-          completionRequired:
-            filter.completionRequired === true ||
-            filter.completionRequired === 'true',
-        };
-      }
-
-      if (filter.complexityLevelRange) {
-        const [start, end] = filter.complexityLevelRange;
-
-        if (
-          start !== undefined &&
-          start !== null &&
-          start !== ''
-        ) {
-          criteria = {
-            ...criteria,
-            complexityLevel: {
-              ...criteria.complexityLevel,
-              $gte: start,
-            },
-          };
-        }
-
-        if (
-          end !== undefined &&
-          end !== null &&
-          end !== ''
-        ) {
-          criteria = {
-            ...criteria,
-            complexityLevel: {
-              ...criteria.complexityLevel,
-              $lte: start,
-            },
-          };
-        }
-      }
-
-      if (filter.type) {
-        criteria = {
-          ...criteria,
-          type: filter.type,
+          status: filter.status,
         };
       }
 
