@@ -126,7 +126,10 @@ module.exports = class RoadmapRepository {
       })
       .populate({
         path: "children",
-        populate: "task"
+        populate: {
+          path: 'task',
+          populate: 'assignments',
+        },
       })
       .populate('module'),
       options,

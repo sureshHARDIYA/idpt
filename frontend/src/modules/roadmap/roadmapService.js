@@ -67,6 +67,32 @@ export default class RoadmapService {
                 id
                 name
                 description
+
+                assignments {
+                  id
+                  title
+                  sub_title
+                  assignment_type
+                  formSchema {
+                    type
+                    label
+                    field
+                    options {
+                      field
+                      value
+                      label
+                    }
+                    placeholder
+                    rules {
+                      required
+                      message
+                    }
+                    formSchema {
+                      required
+                      message
+                    }
+                  }
+                }
               }
 
               children {
