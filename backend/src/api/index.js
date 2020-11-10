@@ -21,6 +21,7 @@ app.options('*', cors());
 var allowedOrigins = [
   '127.0.0.1',
   'http://localhost:3000',
+  'http://localhost:8080',
   'http://localhost:3001',
   'https://idpt.herokuapp.com',
   'https://idpt.herokuapp.com/',
@@ -32,12 +33,13 @@ var allowedOrigins = [
 app.use(
   cors({
     origin: function(origin, callback) {
+      console.log('The request is coming from:', origin);
       // allow requests with no origin
       // (like mobile apps or curl requests)
       if (!origin) return callback(null, true);
       if (allowedOrigins.indexOf(origin) === -1) {
         var msg =
-          'The CORSD policy for this site does not ' +
+          'The CORS policy for this site does not ' +
           'allow access from the specified Origin.';
         return callback(new Error(msg), false);
       }
