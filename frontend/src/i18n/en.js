@@ -581,6 +581,60 @@ const en = {
         },
       },
     },
+
+    taxonomy: {
+      name: 'taxonomy',
+      label: 'Taxonomies',
+      menu: 'Taxonomies',
+      single: 'Taxonomy',
+      exporterFileName: 'taxonomy_export',
+      list: {
+        menu: 'Taxonomies',
+        title: 'Taxonomies',
+      },
+      create: {
+        success: 'Taxonomy saved successfully',
+      },
+      update: {
+        success: 'Taxonomy saved successfully',
+      },
+      destroy: {
+        success: 'Taxonomy deleted successfully',
+      },
+      destroyAll: {
+        success: 'Taxonomies deleted successfully',
+      },
+      edit: {
+        title: 'Edit Taxonomy',
+      },
+      fields: {
+        id: 'Id',
+        owner: 'Parent',
+        status: 'Status',
+        createdAt: 'Created at',
+        updatedAt: 'Updated at',
+        createdAtRange: 'Created at',
+      },
+      enumerators: {
+        status: {
+          ACTIVE: 'ACTIVE',
+          INACTIVE: 'INACTIVE',
+          DRAFT: 'DRAFT',
+        },
+      },
+      new: {
+        title: 'New Taxonomy',
+      },
+      view: {
+        title: 'View Taxonomy',
+      },
+      importer: {
+        title: 'Import Taxonomies',
+        fileName: 'taxonomy_import_template',
+        hint:
+          'Files/Images columns must be the URLs of the files separated by space.',
+      },
+    },
   },
 
   auth: {

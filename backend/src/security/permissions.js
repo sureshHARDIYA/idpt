@@ -294,6 +294,69 @@ class Permissions {
           roles.moduleViewer
         ]
       },
+      taxonomyImport: {
+        id: 'taxonomyImport',
+        allowedRoles: [
+          roles.owner,
+          roles.editor,
+          roles.entityEditor,
+          roles.taxonomyEditor
+        ]
+      },
+      taxonomyCreate: {
+        id: 'taxonomyCreate',
+        allowedRoles: [
+          roles.owner,
+          roles.editor,
+          roles.entityEditor,
+          roles.taxonomyEditor
+        ],
+        allowedStorageFolders: [ 'taxonomy' ]
+      },
+      taxonomyEdit: {
+        id: 'taxonomyEdit',
+        allowedRoles: [
+          roles.owner,
+          roles.editor,
+          roles.entityEditor,
+          roles.taxonomyEditor
+        ],
+        allowedStorageFolders: [ 'taxonomy' ]
+      },
+      taxonomyDestroy: {
+        id: 'taxonomyDestroy',
+        allowedRoles: [
+          roles.owner,
+          roles.editor,
+          roles.entityEditor,
+          roles.taxonomyEditor
+        ],
+        allowedStorageFolders: [ 'taxonomy' ]
+      },
+      taxonomyRead: {
+        id: 'taxonomyRead',
+        allowedRoles: [
+          roles.owner,
+          roles.editor,
+          roles.viewer,
+          roles.entityEditor,
+          roles.taxonomyEditor,
+          roles.taxonomyViewer
+        ]
+      },
+      taxonomyAutocomplete: {
+        id: 'taxonomyAutocomplete',
+        allowedRoles: [
+          roles.owner,
+          roles.editor,
+          roles.viewer,
+          roles.entityEditor,
+          roles.taxonomyEditor,
+          roles.taxonomyViewer,
+          roles.moduleEditor,
+          roles.moduleViewer
+        ]
+      },
       recordImport: {
         id: 'recordImport',
         allowedRoles: [
