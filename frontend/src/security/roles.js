@@ -23,6 +23,8 @@ class Roles {
       audioViewer: 'audioViewer',
       documentEditor: 'documentEditor',
       documentViewer: 'documentViewer',
+      taxonomyEditor: 'taxonomyEditor',
+      taxonomyViewer: 'taxonomyViewer',
     };
   }
 
