@@ -38,7 +38,7 @@ const fields = {
     ],
     {},
   ),
-  owner: new RelationToManyField(
+  parent: new RelationToManyField(
     'parent',
     label('parent'),
     {},

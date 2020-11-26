@@ -205,10 +205,11 @@ class TaxonomyRepository {
         };
       }
 
+      // TODO fix filtering on parent
       if (filter.parent) {
         criteria = {
           ...criteria,
-          status: filter.status,
+          parent: filter.parent,
         };
       }
 
