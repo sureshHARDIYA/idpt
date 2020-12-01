@@ -609,7 +609,8 @@ const en = {
       },
       fields: {
         id: 'Id',
-        owner: 'Parent',
+        parent: 'Parent',
+        name: 'Name',
         status: 'Status',
         createdAt: 'Created at',
         updatedAt: 'Updated at',
