@@ -30,8 +30,8 @@ class TaxonomyListTable extends Component {
   };
 
   columns = [
-    fields.name.forTable(),
-    fields.status.forTable(),
+    // fields.name.forTable(),
+    // fields.status.forTable(),
     fields.parent.forTable({
       render: (value) => <ModuleListItem value={value} />,
     }),

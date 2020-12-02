@@ -18,8 +18,8 @@ import SelectFormItem from 'view/shared/form/items/SelectFormItem';
 const { fields } = model;
 
 const schema = new FormFilterSchema([
-  fields.name,
-  fields.status,
+  // fields.name,
+  // fields.status,
   fields.parent,
 ]);
 
@@ -61,13 +61,13 @@ class TaxonomyListFilter extends Component {
             return (
               <Form onSubmit={form.handleSubmit}>
                 <Row gutter={24}>
-                  <Col md={24} lg={12}>
+                  {/* <Col md={24} lg={12}>
                     <InputFormItem
                       name={fields.name.name}
                       label={fields.name.label}
                       layout={formItemLayout}
                     />
-                  </Col>
+                  </Col> */}
                   <Col md={24} lg={12}>
                     <InputFormItem
                       name={fields.parent.name}
@@ -75,7 +75,7 @@ class TaxonomyListFilter extends Component {
                       layout={formItemLayout}
                     />
                   </Col>
-                  <Col md={24} lg={12}>
+                  {/* <Col md={24} lg={12}>
                     <SelectFormItem
                       name={fields.status.name}
                       label={fields.status.label}
@@ -87,7 +87,7 @@ class TaxonomyListFilter extends Component {
                       )}
                       layout={formItemLayout}
                     />
-                  </Col>
+                  </Col> */}
                 </Row>
                 <Row>
                   <Col className="filter-buttons" span={24}>

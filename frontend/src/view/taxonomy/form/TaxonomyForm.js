@@ -2,10 +2,6 @@ import {
   Button,
   Form,
   Tabs,
-  Row,
-  Col,
-  Divider,
-  Popconfirm,
 } from 'antd';
 import { Formik, FieldArray } from 'formik';
 import { i18n } from 'i18n';
@@ -31,8 +27,8 @@ const { fields } = model;
 
 class TaxonomyForm extends Component {
   schema = new FormSchema(fields.id, [
-    fields.name,
-    fields.status,
+    // fields.name,
+    // fields.status,
     fields.parent,
   ]);
 
@@ -70,13 +66,13 @@ class TaxonomyForm extends Component {
                     key="1"
                     tab="Generate Information"
                   >
-                    <InputFormItem
+                    {/* <InputFormItem
                       name={fields.name.name}
                       label={fields.name.label}
                       required={fields.name.required}
                       autoFocus
-                    />
-                    <SelectFormItem
+                    /> */}
+                    {/* <SelectFormItem
                       name={fields.status.name}
                       label={fields.status.label}
                       options={fields.status.options.map(
@@ -86,7 +82,7 @@ class TaxonomyForm extends Component {
                         }),
                       )}
                       required={fields.status.required}
-                    />
+                    /> */}
                     <TaxonomyAutocompleteFormItem
                       name={fields.parent.name}
                       label={fields.parent.label}

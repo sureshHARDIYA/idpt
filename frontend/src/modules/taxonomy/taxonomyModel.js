@@ -16,9 +16,12 @@ function enumeratorLabel(name, value) {
 
 const fields = {
   id: new IdField('id', label('id')),
+  /*
   name: new StringField('name', label('name'), {
     required: true,
   }),
+  */
+ /*
   status: new EnumeratorField(
     'status',
     label('status'),
@@ -38,6 +41,7 @@ const fields = {
     ],
     {},
   ),
+  */
   parent: new RelationToManyField(
     'parent',
     label('parent'),
