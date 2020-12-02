@@ -68,6 +68,6 @@ We welcome your contribution in any form, as small as it can be. For contributin
 
 # Contributors
 
-| <img src="https://cdn.rawgit.com/sureshHARDIYA/portfolio/e2f31a2a/assets/vendor/browserstack.svg" width="250" height="250"/> | Big thanks to BrowserStack for providing cross-browser testing to Open Source projects! |
-| ---------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
-| <img src="https://intromat.no/wp-content/uploads/2016/08/logo-x1.png" width="250" height="250" />                            | For creating environment for working on IDPT system open-source framework.              |
+| <img src="https://cdn.rawgit.com/sureshHARDIYA/portfolio/e2f31a2a/assets/vendor/browserstack.svg" width="250" height="70"/> | Big thanks to BrowserStack for providing cross-browser testing to Open Source projects! |
+| --------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| <img src="https://intromat.no/wp-content/uploads/2016/08/logo-x1.png" width="250" height="70" />                            | For creating environment for working on IDPT system open-source framework.              |
