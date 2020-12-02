@@ -54,3 +54,10 @@ ICBT, Cognitive Behvaioral Therapy, Internet Intervent, Web application for onli
 
 # Contribution
 We welcome your contribution in any form, as small as it can be. For contributing anything, create a PR and we will be happy to review within a few working days. If you have any question, feel free to shoot an email [skmu@hvl.no](skmu@hvl.no)
+
+# Contributors 
+
+| <img src="https://cdn.rawgit.com/sureshHARDIYA/portfolio/e2f31a2a/assets/vendor/browserstack.svg" width="250" height="250"/> 	| Big thanks to BrowserStack for providing cross-browser testing to Open Source projects! 	|
+|------------------------------------------------------------------------------------------------------------------------------	|-----------------------------------------------------------------------------------------	|
+| INTROMAT                                                                                                                      | For creating environment for working on IDPT system open-source framework.             	|
+ 
