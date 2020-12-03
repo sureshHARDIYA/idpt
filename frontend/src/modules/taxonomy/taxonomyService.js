@@ -87,7 +87,6 @@ export default class TaxonomyService {
             parent {
               id
             }
-            status
             createdAt
             updatedAt
           }
@@ -123,7 +122,6 @@ export default class TaxonomyService {
               parent {
                 id
               }
-              status
               updatedAt
               createdAt
             }
