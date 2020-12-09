@@ -15,6 +15,7 @@ import document from 'modules/document/documentReducers';
 import assignments from 'modules/assignments/assignmentsReducers';
 import roadmap from 'modules/roadmap/roadmapReducers';
 import epic from 'modules/epic/epicReducers';
+import taxonomy from 'modules/taxonomy/taxonomyReducers';
 import { combineReducers } from 'redux';
 
 export default (history) =>
@@ -36,4 +37,5 @@ export default (history) =>
     document,
     assignments,
     roadmap,
+    taxonomy,
   });

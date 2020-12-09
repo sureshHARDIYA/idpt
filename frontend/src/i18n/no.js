@@ -581,6 +581,61 @@ const no = {
         },
       },
     },
+
+    taxonomy: {
+      name: 'taxonomy',
+      label: 'Taxonomies',
+      menu: 'Taxonomies',
+      single: 'Taxonomy',
+      exporterFileName: 'taxonomy_export',
+      list: {
+        menu: 'Taxonomies',
+        title: 'Taxonomies',
+      },
+      create: {
+        success: 'Oppretting av Taxonomy vellykket',
+      },
+      update: {
+        success: 'Lagring av Taxonomy vellykket',
+      },
+      destroy: {
+        success: 'Sletting av Taxonomy vellykket',
+      },
+      destroyAll: {
+        success: 'Sletting av Taxonomies vellykked',
+      },
+      edit: {
+        title: 'Rediger Taxonomy',
+      },
+      fields: {
+        id: 'Id',
+        parent: 'Forelder',
+        name: 'Navn',
+        status: 'Status',
+        createdAt: 'Opprettet',
+        updatedAt: 'Oppdatert',
+        createdAtRange: 'Opprettet',
+      },
+      enumerators: {
+        status: {
+          ACTIVE: 'ACTIVE',
+          INACTIVE: 'INACTIVE',
+          DRAFT: 'DRAFT',
+        },
+      },
+      new: {
+        title: 'Ny Taxonomy',
+      },
+      view: {
+        title: 'Se Taxonomy',
+      },
+      importer: {
+        title: 'Importer Taxonomies',
+        fileName: 'taxonomy_import_template',
+        hint:
+          'Fil/bildekolonner må være filenes URLer separert med mellomrom.',
+      },
+    },
   },
 
   auth: {

@@ -4,7 +4,7 @@ const { fields } = model;
 
 export default [
   fields.id,
-  fields.status,
+  // fields.status,
   fields.parent,
   fields.createdAt,
   fields.updatedAt

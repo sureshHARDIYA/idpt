@@ -205,10 +205,11 @@ class TaxonomyRepository {
         };
       }
 
+      // TODO fix filtering on parent
       if (filter.parent) {
         criteria = {
           ...criteria,
-          status: filter.status,
+          parent: filter.parent,
         };
       }
 
@@ -299,7 +300,8 @@ class TaxonomyRepository {
 
     return records.map((record) => ({
       id: record.id,
-      label: record['name'],
+      label: record.id, // TODO add proper label instead
+      // label: record['name'],
     }));
   }
 
