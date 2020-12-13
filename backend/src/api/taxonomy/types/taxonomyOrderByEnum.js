@@ -2,6 +2,8 @@ const schema = `
   enum TaxonomyOrderByEnum {
     id_ASC
     id_DESC
+    name_ASC
+    name_DES
     parent_ASC
     parent_DESC
     status_ASC

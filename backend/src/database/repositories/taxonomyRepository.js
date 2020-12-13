@@ -198,6 +198,18 @@ class TaxonomyRepository {
         };
       }
 
+      if (filter.name) {
+        criteria = {
+          ...criteria,
+          name: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.name,
+            ),
+            $options: 'i',
+          },
+        };
+      }
+
       if (filter.status) {
         criteria = {
           ...criteria,
@@ -300,8 +312,7 @@ class TaxonomyRepository {
 
     return records.map((record) => ({
       id: record.id,
-      label: record.id, // TODO add proper label instead
-      // label: record['name'],
+      label: record['name'],
     }));
   }
 

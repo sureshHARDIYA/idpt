@@ -1,5 +1,6 @@
 const schema = `
   input TaxonomyInput {
+    name: String!
     parent: [String!]
   }
 `;
