@@ -18,11 +18,12 @@ class TaxonomyView extends Component {
           value={fields.id.forView(record.id)}
         />
 
-        {/* <TextViewItem
+        <TextViewItem
           label={fields.name.label}
           value={fields.name.forView(record.name)}
         />
 
+        {/*
         <TextViewItem
           label={fields.status.label}
           value={fields.status.forView(record.status)}
