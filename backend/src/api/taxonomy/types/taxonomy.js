@@ -4,7 +4,7 @@ const schema = `
   type Taxonomy {
     id: String!
     name: String
-    parent: Taxonomy
+    parent: [Taxonomy!]
     createdAt: DateTime
     updatedAt: DateTime
   }

@@ -306,6 +306,7 @@ class TaxonomyRepository {
     const sort = MongooseQueryUtils.sort('name_ASC');
     const limitEscaped = Number(limit || 0) || undefined;
 
+
     const records = await Taxonomy.find(criteria)
       .limit(limitEscaped)
       .sort(sort);
