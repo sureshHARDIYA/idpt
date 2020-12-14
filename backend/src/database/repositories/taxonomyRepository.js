@@ -269,7 +269,7 @@ class TaxonomyRepository {
       .skip(skip)
       .limit(limitEscaped)
       .sort(sort)
-      .populate('owner');
+      .populate('parent');
 
     const count = await Taxonomy.countDocuments(criteria);
 
