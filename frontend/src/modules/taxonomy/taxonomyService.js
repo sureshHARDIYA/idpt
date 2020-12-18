@@ -84,8 +84,10 @@ export default class TaxonomyService {
         query TAXONOMY_FIND($id: String!) {
           taxonomyFind(id: $id) {
             id
+            name
             parent {
               id
+              name
             }
             createdAt
             updatedAt
@@ -119,8 +121,10 @@ export default class TaxonomyService {
             count
             rows {
               id
+              name
               parent {
                 id
+                name
               }
               updatedAt
               createdAt

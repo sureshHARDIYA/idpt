@@ -3,7 +3,8 @@ const TaxonomyService = require('../../../services/taxonomyService');
 const schema = `
   type Taxonomy {
     id: String!
-    parent: Taxonomy
+    name: String
+    parent: [Taxonomy!]
     createdAt: DateTime
     updatedAt: DateTime
   }

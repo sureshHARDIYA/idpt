@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Spinner from 'view/shared/Spinner';
 import ViewWrapper from 'view/shared/styles/ViewWrapper';
 import TextViewItem from 'view/shared/view/TextViewItem';
-import ModuleViewItem from 'view/module/view/ModuleViewItem';
+import TaxonomyViewItem from 'view/taxonomy/view/TaxonomyViewItem';
 
 const { fields } = model;
 
@@ -18,17 +18,12 @@ class TaxonomyView extends Component {
           value={fields.id.forView(record.id)}
         />
 
-        {/* <TextViewItem
+        <TextViewItem
           label={fields.name.label}
           value={fields.name.forView(record.name)}
         />
 
-        <TextViewItem
-          label={fields.status.label}
-          value={fields.status.forView(record.status)}
-        /> */}
-
-        <ModuleViewItem
+        <TaxonomyViewItem
           label={fields.parent.label}
           value={fields.parent.forView(record.parent)}
         />

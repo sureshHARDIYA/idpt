@@ -11,7 +11,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import TableWrapper from 'view/shared/styles/TableWrapper';
 import ButtonLink from 'view/shared/styles/ButtonLink';
-import ModuleListItem from 'view/module/list/ModuleListItem';
+import TaxonomyListItem from 'view/taxonomy/list/TaxonomyListItem';
 
 const { fields } = model;
 
@@ -30,10 +30,10 @@ class TaxonomyListTable extends Component {
   };
 
   columns = [
-    // fields.name.forTable(),
+    fields.name.forTable(),
     // fields.status.forTable(),
     fields.parent.forTable({
-      render: (value) => <ModuleListItem value={value} />,
+      render: (value) => <TaxonomyListItem value={value} />,
     }),
     {
       title: '',

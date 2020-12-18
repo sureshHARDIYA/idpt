@@ -198,6 +198,18 @@ class TaxonomyRepository {
         };
       }
 
+      if (filter.name) {
+        criteria = {
+          ...criteria,
+          name: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.name,
+            ),
+            $options: 'i',
+          },
+        };
+      }
+
       if (filter.status) {
         criteria = {
           ...criteria,
@@ -257,7 +269,7 @@ class TaxonomyRepository {
       .skip(skip)
       .limit(limitEscaped)
       .sort(sort)
-      .populate('owner');
+      .populate('parent');
 
     const count = await Taxonomy.countDocuments(criteria);
 
@@ -294,14 +306,14 @@ class TaxonomyRepository {
     const sort = MongooseQueryUtils.sort('name_ASC');
     const limitEscaped = Number(limit || 0) || undefined;
 
+
     const records = await Taxonomy.find(criteria)
       .limit(limitEscaped)
       .sort(sort);
 
     return records.map((record) => ({
       id: record.id,
-      label: record.id, // TODO add proper label instead
-      // label: record['name'],
+      label: record['name'],
     }));
   }
 

@@ -7,6 +7,10 @@ const Schema = database.Schema;
  */
 const TaxonomySchema = new Schema(
   {
+    name: {
+      type: String,
+      required: true,
+    },
     parent: [
       {
         type: Schema.Types.ObjectId,

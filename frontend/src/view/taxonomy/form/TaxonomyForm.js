@@ -27,7 +27,7 @@ const { fields } = model;
 
 class TaxonomyForm extends Component {
   schema = new FormSchema(fields.id, [
-    // fields.name,
+    fields.name,
     // fields.status,
     fields.parent,
   ]);
@@ -66,12 +66,12 @@ class TaxonomyForm extends Component {
                     key="1"
                     tab="Generate Information"
                   >
-                    {/* <InputFormItem
+                    <InputFormItem
                       name={fields.name.name}
                       label={fields.name.label}
                       required={fields.name.required}
                       autoFocus
-                    /> */}
+                    />
                     {/* <SelectFormItem
                       name={fields.status.name}
                       label={fields.status.label}
