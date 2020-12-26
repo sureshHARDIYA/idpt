@@ -43,20 +43,20 @@ For getting started with development follow the [wiki page documention](https://
 - Create Users with roles
 - Create Task builders
 - Patient view
+- Assignments management for Tasks
+- Create and assign taxonomy for each entities (Case, Model, Tasks)
 
 # Roadmaps
 
-- Assignments management for Tasks
+- User profiling techniques
 - Integrate Dashboard for Users
 - Integrate Dashboard for Therapists
 - Integrate IoT devices
 - Exchange of messages based on HL7 FHIR
 
-# Cite this
+# What can I use this application for?
 
-> S. K. Mukhiya, J. D. Wake, Y. Inal and Y. Lamo, "Adaptive Systems for Internet-Delivered Psychological Treatments," in IEEE Access, vol. 8, pp. 112220-112236, 2020, doi: 10.1109/ACCESS.2020.3002793.
-> Suresh Kumar Mukhiya, Usman Ahmed, Fazle Rabbi, Ka I Pun, & Yngve Lamo (EasyChair, 2020). Adaptation of IDPT System Based on Patient-Authored Text Data Using NLP.
-> Suresh Kumar Mukhiya, Fazle Rabbi, Ka I Pun, Yngve Lamo. An architectural design for self-reporting e-health systems, DOI: 10.13140/RG.2.2.14802.30404
+We envision to create IDPT system that enhances user interaction and increases user adherence. To do so, we rely on building comprehensive user profiling. This prototype is an early stage of what we envision. However, we made this project open-source to increase user support in development, testing, and extension. This open-source framework can be used for creating any healthcare interventions. We envision that we can get enough support from both industry and academic partners to modularize this project as an aggregation of plugins.
 
 # Tags
 
@@ -71,3 +71,7 @@ We welcome your contribution in any form, as small as it can be. For contributin
 | <img src="https://cdn.rawgit.com/sureshHARDIYA/portfolio/e2f31a2a/assets/vendor/browserstack.svg" width="250" height="70"/> | Big thanks to BrowserStack for providing cross-browser testing to Open Source projects! |
 | --------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
 | <img src="https://intromat.no/wp-content/uploads/2016/08/logo-x1.png" width="250" height="70" />                            | For creating environment for working on IDPT system open-source framework.              |
+
+# MIT License
+
+[Read more](/LICENSE)
