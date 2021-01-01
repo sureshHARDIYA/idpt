@@ -127,21 +127,12 @@ const privateRoutes = [
   },
 
   {
-    path: '/audit-logs',
-    icon: 'file-search',
-    label: i18n('auditLog.menu'),
-    loader: () => import('view/auditLog/AuditLogPage'),
-    menu: true,
-    permissionRequired: permissions.auditLogRead,
-  },
-
-  {
     path: '/patient',
     loader: () =>
       import('view/patient/list/PatientListPage'),
     permissionRequired: permissions.patientRead,
     exact: true,
-    icon: 'right',
+    icon: 'usergroup-add',
     label: i18n('entities.patient.menu'),
     menu: true,
   },
@@ -190,7 +181,7 @@ const privateRoutes = [
     loader: () => import('view/cased/list/CasedListPage'),
     permissionRequired: permissions.casedRead,
     exact: true,
-    icon: 'right',
+    icon: 'book',
     label: i18n('entities.cased.menu'),
     menu: true,
   },
@@ -229,7 +220,7 @@ const privateRoutes = [
     loader: () => import('view/module/list/ModuleListPage'),
     permissionRequired: permissions.moduleRead,
     exact: true,
-    icon: 'right',
+    icon: 'container',
     label: i18n('entities.module.menu'),
     menu: true,
   },
@@ -268,7 +259,7 @@ const privateRoutes = [
     loader: () => import('view/task/list/TaskListPage'),
     permissionRequired: permissions.taskRead,
     exact: true,
-    icon: 'right',
+    icon: 'carry-out',
     label: i18n('entities.task.menu'),
     menu: true,
   },
@@ -306,7 +297,7 @@ const privateRoutes = [
     loader: () => import('view/record/list/RecordListPage'),
     permissionRequired: permissions.recordRead,
     exact: true,
-    icon: 'right',
+    icon: 'profile',
     label: i18n('entities.record.menu'),
     menu: true,
   },
@@ -315,7 +306,7 @@ const privateRoutes = [
     loader: () =>
       import('view/assignments/list/AssignmentsListPage'),
     menu: true,
-    icon: 'right',
+    icon: 'solution',
     label: i18n('entities.assignments.menu'),
     permissionRequired: permissions.casedRead,
     exact: true,
@@ -370,16 +361,18 @@ const privateRoutes = [
   },
   {
     path: '/taxonomy',
-    loader: () => import('view/taxonomy/list/TaxonomyListPage'),
+    loader: () =>
+      import('view/taxonomy/list/TaxonomyListPage'),
     permissionRequired: permissions.taxonomyRead,
     exact: true,
-    icon: 'right',
+    icon: 'apartment',
     label: i18n('entities.taxonomy.menu'),
     menu: true,
   },
   {
     path: '/taxonomy/new',
-    loader: () => import('view/taxonomy/form/TaxonomyFormPage'),
+    loader: () =>
+      import('view/taxonomy/form/TaxonomyFormPage'),
     menu: false,
     permissionRequired: permissions.taxonomyCreate,
     exact: true,
@@ -394,14 +387,16 @@ const privateRoutes = [
   },
   {
     path: '/taxonomy/:id/edit',
-    loader: () => import('view/taxonomy/form/TaxonomyFormPage'),
+    loader: () =>
+      import('view/taxonomy/form/TaxonomyFormPage'),
     menu: false,
     permissionRequired: permissions.taxonomyEdit,
     exact: true,
   },
   {
     path: '/taxonomy/:id',
-    loader: () => import('view/taxonomy/view/TaxonomyViewPage'),
+    loader: () =>
+      import('view/taxonomy/view/TaxonomyViewPage'),
     menu: false,
     permissionRequired: permissions.taxonomyRead,
     exact: true,
@@ -443,6 +438,14 @@ const privateRoutes = [
     menu: false,
     permissionRequired: permissions.patientRead,
     exact: true,
+  },
+  {
+    path: '/audit-logs',
+    icon: 'file-search',
+    label: i18n('auditLog.menu'),
+    loader: () => import('view/auditLog/AuditLogPage'),
+    menu: true,
+    permissionRequired: permissions.auditLogRead,
   },
 ];
 
