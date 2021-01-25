@@ -66,6 +66,8 @@ ICBT, Cognitive Behvaioral Therapy, Internet Intervent, Web application for onli
 
 We welcome your contribution in any form, as small as it can be. For contributing anything, create a PR and we will be happy to review within a few working days. If you have any question, feel free to shoot an email [skmu@hvl.no](skmu@hvl.no)
 
+[![Contributors](https://contributors-img.firebaseapp.com/image?repo=sureshHARDIYA/idpt)](https://github.com/sureshHARDIYA/idpt/graphs/contributors)
+
 # Contributors
 
 | <img src="https://cdn.rawgit.com/sureshHARDIYA/portfolio/e2f31a2a/assets/vendor/browserstack.svg" width="250" height="70"/> | Big thanks to BrowserStack for providing cross-browser testing to Open Source projects! |
