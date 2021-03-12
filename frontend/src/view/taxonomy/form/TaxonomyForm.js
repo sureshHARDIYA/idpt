@@ -1,27 +1,16 @@
-import {
-  Button,
-  Form,
-  Tabs,
-} from 'antd';
-import { Formik, FieldArray } from 'formik';
+import { Button, Form, Tabs } from 'antd';
+import { Formik } from 'formik';
 import { i18n } from 'i18n';
 import model from 'modules/taxonomy/taxonomyModel';
 import React, { Component } from 'react';
 import ViewFormItem from 'view/shared/form/items/ViewFormItem';
 import Spinner from 'view/shared/Spinner';
 import FormWrapper, {
-  formItemLayout,
   tailFormItemLayout,
 } from 'view/shared/styles/FormWrapper';
-import Editor from 'view/shared/form/items/Editor';
 import FormSchema from 'view/shared/form/formSchema';
 import InputFormItem from 'view/shared/form/items/InputFormItem';
-import InputNumberFormItem from 'view/shared/form/items/InputNumberFormItem';
-import SwitchFormItem from 'view/shared/form/items/SwitchFormItem';
-import SelectFormItem from 'view/shared/form/items/SelectFormItem';
 import TaxonomyAutocompleteFormItem from 'view/taxonomy/autocomplete/TaxonomyAutocompleteFormItem';
-
-import _get from 'lodash/get';
 
 const { fields } = model;
 

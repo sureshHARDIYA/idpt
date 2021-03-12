@@ -12,8 +12,6 @@ import FilterWrapper, {
 } from 'view/shared/styles/FilterWrapper';
 import FormFilterSchema from 'view/shared/form/formFilterSchema';
 import InputFormItem from 'view/shared/form/items/InputFormItem';
-import InputNumberRangeFormItem from 'view/shared/form/items/InputNumberRangeFormItem';
-import SelectFormItem from 'view/shared/form/items/SelectFormItem';
 
 const { fields } = model;
 
@@ -123,4 +121,6 @@ function select(state) {
   };
 }
 
-export default withRouter(connect(select)(TaxonomyListFilter));
+export default withRouter(
+  connect(select)(TaxonomyListFilter),
+);
