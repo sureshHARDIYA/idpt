@@ -6,7 +6,22 @@ import { connect } from 'react-redux';
 import actions from 'modules/roadmap/view/roadmapViewActions';
 import selectors from 'modules/roadmap/view/roadmapViewSelectors';
 import _get from 'lodash/get';
-import { Button, Divider, Icon, Tabs, Input, Form, Checkbox, Row, Col, Radio, DatePicker, TimePicker, Select, Collapse } from 'antd';
+import {
+  Button,
+  Divider,
+  Icon,
+  Tabs,
+  Input,
+  Form,
+  Checkbox,
+  Row,
+  Col,
+  Radio,
+  DatePicker,
+  TimePicker,
+  Select,
+  Collapse,
+} from 'antd';
 
 const formItemLayout = {
   labelCol: {
@@ -46,7 +61,9 @@ class RecordRoadmapPage extends Component {
   }
 
   get tabs() {
-    return _get(this.props.roadmap, 'children', []).map((task) => task.host.name);
+    return _get(this.props.roadmap, 'children', []).map(
+      (task) => task.host.name,
+    );
   }
 
   changeTab = (activeKey) => {
@@ -80,67 +97,96 @@ class RecordRoadmapPage extends Component {
 
   renderFormSchema = (form) => {
     switch (form.type) {
-      case 'textarea': return <Input.TextArea placeholder={form.placeholder} />
-      case 'radio': return (
-        <Radio.Group style={{ width: '100%' }}>
-          <Row>
+      case 'textarea':
+        return (
+          <Input.TextArea placeholder={form.placeholder} />
+        );
+      case 'radio':
+        return (
+          <Radio.Group style={{ width: '100%' }}>
+            <Row>
+              {form.options.map((option) => (
+                <Col span={8} key={option.value}>
+                  <Radio value={option.value}>
+                    {option.label}
+                  </Radio>
+                </Col>
+              ))}
+            </Row>
+          </Radio.Group>
+        );
+      case 'checkbox':
+        return (
+          <Checkbox.Group style={{ width: '100%' }}>
+            <Row>
+              {form.options.map((option) => (
+                <Col span={8} key={option.value}>
+                  <Checkbox value={option.value}>
+                    {option.label}
+                  </Checkbox>
+                </Col>
+              ))}
+            </Row>
+          </Checkbox.Group>
+        );
+      case 'select':
+        return (
+          <Select style={{ width: '100%' }}>
             {form.options.map((option) => (
-              <Col span={8} key={option.value}>
-                <Radio value={option.value}>{option.label}</Radio>
-              </Col>
-            ))}
-          </Row>
-        </Radio.Group>
-      );
-      case 'checkbox': return (
-        <Checkbox.Group style={{ width: '100%' }}>
-          <Row>
-            {form.options.map((option) => (
-              <Col span={8} key={option.value}>
-                <Checkbox value={option.value}>{option.label}</Checkbox>
-              </Col>
-            ))}
-          </Row>
-        </Checkbox.Group>
-      );
-      case 'select': return (
-        <Select style={{ width: '100%' }}>
-            {form.options.map((option) => (
-              <Select.Option key={option.value} value={option.value}>
+              <Select.Option
+                key={option.value}
+                value={option.value}
+              >
                 {option.label}
               </Select.Option>
             ))}
-        </Select>
-      );
-      case 'date': return <DatePicker />;
-      case 'time': return <TimePicker />;
-      default: return <Input placeholder={form.placeholder} />;
+          </Select>
+        );
+      case 'date':
+        return <DatePicker />;
+      case 'time':
+        return <TimePicker />;
+      default:
+        return <Input placeholder={form.placeholder} />;
     }
-  }
+  };
 
   renderAssignment = (assignments) => {
     return (
       <Collapse>
         {assignments.map((assignment) => (
-              <Collapse.Panel header={assignment.title} key={assignment.id}>
-                <Form {...formItemLayout}>
-                    {assignment.formSchema.map((item) => {
-                      return (
-                        <Form.Item label={item.label} key={item.field} required={!!item.rules.find((r) => r.required)}>
-                          {this.renderFormSchema(item)}
-                        </Form.Item>
-                      )
-                    })}
-                  </Form>
-              </Collapse.Panel>
-          ))}
+          <Collapse.Panel
+            header={assignment.title}
+            key={assignment.id}
+          >
+            <Form {...formItemLayout}>
+              {assignment.formSchema.map((item) => {
+                return (
+                  <Form.Item
+                    label={item.label}
+                    key={item.field}
+                    required={
+                      !!item.rules.find((r) => r.required)
+                    }
+                  >
+                    {this.renderFormSchema(item)}
+                  </Form.Item>
+                );
+              })}
+            </Form>
+          </Collapse.Panel>
+        ))}
       </Collapse>
-    )
-  }
+    );
+  };
 
   render() {
     const { roadmap } = this.props;
     const casedName = _get(roadmap, 'record.host.name');
+    const subTasks = _get(roadmap, 'children', []);
+    const hasSubTasks = Array.isArray(subTasks)
+      ? subTasks.length > 0
+      : subTasks !== null;
 
     return (
       <React.Fragment>
@@ -148,43 +194,56 @@ class RecordRoadmapPage extends Component {
           items={[
             [i18n('home.menu'), '/'],
             [i18n('entities.record.menu'), '/program'],
-            !!casedName && [casedName, `/program/${_get(roadmap, 'record.id')}`],
+            !!casedName && [
+              casedName,
+              `/program/${_get(roadmap, 'record.id')}`,
+            ],
             [i18n('entities.record.module.title')],
-          ].filter(i => i)}
+          ].filter((i) => i)}
         />
         <ContentWrapper>
-          <Tabs
-            tabPosition="right"
-            onChange={this.changeTab}
-            activeKey={this.state.activeTab}
-          >
-            {_get(roadmap, 'children', []).map((task, index) => (
-              <Tabs.TabPane tab={_get(task, 'host.name')} key={(index + 1).toString()}>
-                <h1>{task.host.name}</h1>
-                {this.getDescription(task.host.description)}
-                {this.renderAssignment(task.host.assignments)}
-              </Tabs.TabPane>
-            ))}
-          </Tabs>
-          <Divider dashed />
-            <Button.Group
-              size="large"
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-              }}
+          {hasSubTasks && (
+            <Tabs
+              tabPosition="right"
+              onChange={this.changeTab}
+              activeKey={this.state.activeTab}
             >
-              <Button
-                type="primary"
-                onClick={this.previousClick}
-                disabled={
-                  this.state.isDisabled ||
-                  this.state.activeTab === '1'
-                }
-              >
-                <Icon type="left" />
-                Backward
-              </Button>
+              {subTasks.map((task, index) => (
+                <Tabs.TabPane
+                  tab={_get(task, 'host.name')}
+                  key={(index + 1).toString()}
+                >
+                  <h1>{task.host.name}</h1>
+                  {this.getDescription(
+                    task.host.description,
+                  )}
+                  {this.renderAssignment(
+                    task.host.assignments,
+                  )}
+                </Tabs.TabPane>
+              ))}
+            </Tabs>
+          )}
+          <Divider dashed />
+          <Button.Group
+            size="large"
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+            }}
+          >
+            <Button
+              type="primary"
+              onClick={this.previousClick}
+              disabled={
+                this.state.isDisabled ||
+                this.state.activeTab === '1'
+              }
+            >
+              <Icon type="left" />
+              Backward
+            </Button>
+            {hasSubTasks && (
               <Button
                 type="primary"
                 onClick={this.forwardClick}
@@ -196,16 +255,17 @@ class RecordRoadmapPage extends Component {
                 Forward
                 <Icon type="right" />
               </Button>
-            </Button.Group>
+            )}
+          </Button.Group>
         </ContentWrapper>
       </React.Fragment>
-    )
+    );
   }
 }
 
 const select = (state) => ({
   roadmap: selectors.selectRecord(state),
   loading: selectors.selectLoading(state),
-})
+});
 
 export default connect(select)(RecordRoadmapPage);
