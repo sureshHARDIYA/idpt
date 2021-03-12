@@ -15,6 +15,7 @@ class I18nFlags extends Component {
       <I18nFlagsWrapper>
         {getLanguages().map((language) => (
           <img
+            width="24"
             key={language.id}
             alt={language.label}
             title={language.label}
