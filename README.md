@@ -33,7 +33,7 @@ password: 123456
 
 # Getting started (Development)
 
-For getting started with development follow the [wiki page documention](https://github.com/sureshHARDIYA/idpt/wiki).
+For getting started with development follow the [documention](https://idpt.gitbook.io/web/).
 
 # Features
 
