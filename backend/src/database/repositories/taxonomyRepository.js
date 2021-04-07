@@ -148,7 +148,8 @@ class TaxonomyRepository {
   async findById(id, options) {
     return MongooseRepository.wrapWithSessionIfExists(
       Taxonomy.findById(id)
-        .populate('parent'),
+        .populate('parent')
+        .populate('children'),
       options,
     );
   }
@@ -162,6 +163,7 @@ class TaxonomyRepository {
   async findByIds(ids, options) {
     return MongooseRepository.wrapWithSessionIfExists(
       Taxonomy.find({ _id: { $in: ids } }).populate('parent'),
+      Taxonomy.find({ _id: { $in: ids } }).populate('children'),
       options,
     );
   }
@@ -225,6 +227,14 @@ class TaxonomyRepository {
         };
       }
 
+      // TODO fix filtering on children
+      if (filter.children) {
+        criteria = {
+          ...criteria,
+          children: filter.children,
+        };
+      }
+
       if (filter.createdAtRange) {
         const [start, end] = filter.createdAtRange;
 
@@ -269,7 +279,8 @@ class TaxonomyRepository {
       .skip(skip)
       .limit(limitEscaped)
       .sort(sort)
-      .populate('parent');
+      .populate('parent')
+      .populate('children');
 
     const count = await Taxonomy.countDocuments(criteria);
 
