@@ -89,6 +89,10 @@ export default class TaxonomyService {
               id
               name
             }
+            children {
+              id
+              name
+            }
             createdAt
             updatedAt
           }
@@ -123,6 +127,10 @@ export default class TaxonomyService {
               id
               name
               parent {
+                id
+                name
+              }
+              children {
                 id
                 name
               }

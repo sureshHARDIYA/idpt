@@ -35,6 +35,9 @@ class TaxonomyListTable extends Component {
     fields.parent.forTable({
       render: (value) => <TaxonomyListItem value={value} />,
     }),
+    fields.children.forTable({
+      render: (value) => <TaxonomyListItem value={value} />,
+    }),
     {
       title: '',
       dataIndex: '',

@@ -19,6 +19,7 @@ class TaxonomyForm extends Component {
     fields.name,
     // fields.status,
     fields.parent,
+    fields.children,
   ]);
 
   handleSubmit = (values) => {
@@ -76,6 +77,14 @@ class TaxonomyForm extends Component {
                       name={fields.parent.name}
                       label={fields.parent.label}
                       required={fields.parent.required}
+                      showCreate={!this.props.modal}
+                      form={form}
+                      mode="multiple"
+                    />
+                    <TaxonomyAutocompleteFormItem
+                      name={fields.children.name}
+                      label={fields.children.label}
+                      required={fields.children.required}
                       showCreate={!this.props.modal}
                       form={form}
                       mode="multiple"

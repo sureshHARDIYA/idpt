@@ -28,6 +28,11 @@ class TaxonomyView extends Component {
           value={fields.parent.forView(record.parent)}
         />
 
+        <TaxonomyViewItem
+          label={fields.children.label}
+          value={fields.children.forView(record.parent)}
+        />
+
         <TextViewItem
           label={fields.createdAt.label}
           value={fields.createdAt.forView(record.createdAt)}

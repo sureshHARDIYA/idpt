@@ -7,6 +7,7 @@ export default [
   // fields.status,
   fields.name,
   fields.parent,
+  fields.children,
   fields.createdAt,
   fields.updatedAt
 ];

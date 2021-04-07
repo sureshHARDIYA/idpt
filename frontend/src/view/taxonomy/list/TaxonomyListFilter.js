@@ -19,6 +19,7 @@ const schema = new FormFilterSchema([
   fields.name,
   // fields.status,
   fields.parent,
+  fields.children,
 ]);
 
 class TaxonomyListFilter extends Component {
@@ -70,6 +71,13 @@ class TaxonomyListFilter extends Component {
                     <InputFormItem
                       name={fields.parent.name}
                       label={fields.parent.label}
+                      layout={formItemLayout}
+                    />
+                  </Col>
+                  <Col md={24} lg={12}>
+                    <InputFormItem
+                      name={fields.children.name}
+                      label={fields.children.label}
                       layout={formItemLayout}
                     />
                   </Col>

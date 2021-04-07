@@ -40,6 +40,11 @@ const fields = {
     label('parent'),
     {},
   ),
+  children: new RelationToManyField(
+    'children',
+    label('children'),
+    {},
+  ),
   createdAt: new DateTimeField(
     'createdAt',
     label('createdAt'),

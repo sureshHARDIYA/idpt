@@ -610,6 +610,7 @@ const en = {
       fields: {
         id: 'Id',
         parent: 'Parent',
+        children: 'Children',
         name: 'Name',
         status: 'Status',
         createdAt: 'Created at',

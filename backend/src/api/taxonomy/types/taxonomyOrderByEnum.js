@@ -6,6 +6,8 @@ const schema = `
     name_DES
     parent_ASC
     parent_DESC
+    children_ASC
+    children_DESC
     status_ASC
     status_DESC
     createdAt_ASC
