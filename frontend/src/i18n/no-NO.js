@@ -610,6 +610,7 @@ const no = {
       fields: {
         id: 'Id',
         parent: 'Forelder',
+        subtaxonomies: 'Barn',
         name: 'Navn',
         status: 'Status',
         createdAt: 'Opprettet',

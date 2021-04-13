@@ -119,18 +119,3 @@ function select(state) {
 }
 
 export default connect(select)(TaxonomyListTable);
-
-function removeIdDuplicates(array) {
-  let ids = []; // Ids found so far
-  let filteredArray = [];
-
-  array.forEach((elem) => {
-    if (!ids.includes(elem.id)) {
-      ids.push(elem.id);
-      filteredArray.push(elem);
-    }
-  });
-  
-  return filteredArray;
-}
-

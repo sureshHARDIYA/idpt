@@ -610,7 +610,7 @@ const en = {
       fields: {
         id: 'Id',
         parent: 'Parent',
-        children: 'Children',
+        subtaxonomies: 'Children',
         name: 'Name',
         status: 'Status',
         createdAt: 'Created at',
