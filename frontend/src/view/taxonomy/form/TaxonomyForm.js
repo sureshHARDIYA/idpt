@@ -19,7 +19,7 @@ class TaxonomyForm extends Component {
     fields.name,
     // fields.status,
     fields.parent,
-    fields.children,
+    fields.subtaxonomies,
   ]);
 
   handleSubmit = (values) => {
@@ -82,9 +82,9 @@ class TaxonomyForm extends Component {
                       mode="multiple"
                     />
                     <TaxonomyAutocompleteFormItem
-                      name={fields.children.name}
-                      label={fields.children.label}
-                      required={fields.children.required}
+                      name={fields.subtaxonomies.name}
+                      label={fields.subtaxonomies.label}
+                      required={fields.subtaxonomies.required}
                       showCreate={!this.props.modal}
                       form={form}
                       mode="multiple"

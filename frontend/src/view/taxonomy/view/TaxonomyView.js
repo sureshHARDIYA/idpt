@@ -29,8 +29,8 @@ class TaxonomyView extends Component {
         />
 
         <TaxonomyViewItem
-          label={fields.children.label}
-          value={fields.children.forView(record.parent)}
+          label={fields.subtaxonomies.label}
+          value={fields.subtaxonomies.forView(record.subtaxonomies)}
         />
 
         <TextViewItem

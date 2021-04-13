@@ -35,7 +35,7 @@ class TaxonomyListTable extends Component {
     fields.parent.forTable({
       render: (value) => <TaxonomyListItem value={value} />,
     }),
-    fields.children.forTable({
+    fields.subtaxonomies.forTable({
       render: (value) => <TaxonomyListItem value={value} />,
     }),
     {
@@ -80,12 +80,13 @@ class TaxonomyListTable extends Component {
   };
 
   render() {
-    const { pagination, rows, loading } = this.props;
+    let { pagination, rows, loading } = this.props;
 
     return (
       <TableWrapper>
         <Table
           rowKey="id"
+          expandIcon={x => false} // Hide unwanted expandable rows
           loading={loading}
           columns={this.columns}
           dataSource={rows}
@@ -118,3 +119,18 @@ function select(state) {
 }
 
 export default connect(select)(TaxonomyListTable);
+
+function removeIdDuplicates(array) {
+  let ids = []; // Ids found so far
+  let filteredArray = [];
+
+  array.forEach((elem) => {
+    if (!ids.includes(elem.id)) {
+      ids.push(elem.id);
+      filteredArray.push(elem);
+    }
+  });
+  
+  return filteredArray;
+}
+
