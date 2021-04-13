@@ -3,7 +3,7 @@ const schema = `
     id_ASC
     id_DESC
     name_ASC
-    name_DES
+    name_DESC
     parent_ASC
     parent_DESC
     children_ASC
