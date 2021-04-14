@@ -19,7 +19,6 @@ const schema = new FormFilterSchema([
   fields.name,
   // fields.status,
   fields.parent,
-  // fields.children,
   fields.subtaxonomies,
 ]);
 

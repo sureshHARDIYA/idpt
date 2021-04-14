@@ -17,7 +17,7 @@ const TaxonomySchema = new Schema(
         // ref: 'taxonomy',
       },
     ],
-    children: [
+    subtaxonomies: [
       {
         type: Schema.Types.ObjectId,
         // ref: 'taxonomy',

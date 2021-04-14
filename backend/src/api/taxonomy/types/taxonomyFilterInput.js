@@ -3,7 +3,7 @@ const schema = `
     id: String
     name: String
     parent: [String!]
-    children: [String!]
+    subtaxonomies: [String!]
     status: TaxonomyStatusEnum
     createdAtRange: [ DateTime ]
   }

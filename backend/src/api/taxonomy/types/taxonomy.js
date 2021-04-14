@@ -5,7 +5,7 @@ const schema = `
     id: String!
     name: String
     parent: [Taxonomy!]
-    children: [Taxonomy!]
+    subtaxonomies: [Taxonomy!]
     createdAt: DateTime
     updatedAt: DateTime
   }

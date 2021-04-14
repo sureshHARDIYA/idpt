@@ -149,7 +149,7 @@ class TaxonomyRepository {
     return MongooseRepository.wrapWithSessionIfExists(
       Taxonomy.findById(id)
         .populate('parent')
-        .populate('children'),
+        .populate('subtaxonomies'),
       options,
     );
   }
@@ -163,7 +163,7 @@ class TaxonomyRepository {
   async findByIds(ids, options) {
     return MongooseRepository.wrapWithSessionIfExists(
       Taxonomy.find({ _id: { $in: ids } }).populate('parent'),
-      Taxonomy.find({ _id: { $in: ids } }).populate('children'),
+      Taxonomy.find({ _id: { $in: ids } }).populate('subtaxonomies'),
       options,
     );
   }
@@ -227,11 +227,11 @@ class TaxonomyRepository {
         };
       }
 
-      // TODO fix filtering on children
-      if (filter.children) {
+      // TODO fix filtering on subtaxonomies
+      if (filter.subtaxonomies) {
         criteria = {
           ...criteria,
-          children: filter.children,
+          subtaxonomies: filter.subtaxonomies,
         };
       }
 
@@ -280,7 +280,7 @@ class TaxonomyRepository {
       .limit(limitEscaped)
       .sort(sort)
       .populate('parent')
-      .populate('children');
+      .populate('subtaxonomies');
 
     const count = await Taxonomy.countDocuments(criteria);
 

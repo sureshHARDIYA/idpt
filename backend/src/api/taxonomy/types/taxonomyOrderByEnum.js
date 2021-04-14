@@ -6,8 +6,8 @@ const schema = `
     name_DESC
     parent_ASC
     parent_DESC
-    children_ASC
-    children_DESC
+    subtaxonomies_ASC
+    subtaxonomies_DESC
     status_ASC
     status_DESC
     createdAt_ASC

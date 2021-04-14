@@ -89,7 +89,7 @@ export default class TaxonomyService {
               id
               name
             }
-            children {
+            subtaxonomies {
               id
               name
             }
@@ -108,7 +108,7 @@ export default class TaxonomyService {
   }
 
   static async list(filter, orderBy, limit, offset) {
-    let response = await graphqlClient.query({
+    const response = await graphqlClient.query({
       query: gql`
         query TAXONOMY_LIST(
           $filter: TaxonomyFilterInput
@@ -130,7 +130,7 @@ export default class TaxonomyService {
                 id
                 name
               }
-              children {
+              subtaxonomies {
                 id
                 name
               }
@@ -148,15 +148,7 @@ export default class TaxonomyService {
         offset,
       },
     });
-      
-    // Temporary fix for avoiding unnecessary expandable rows
-    // because children is a reserved attribute name
-    response.data.taxonomyList.rows = response.data.taxonomyList.rows.map(tax => {
-      tax.subtaxonomies = tax.children;
-      tax.children = [];
-      return tax;
-    });
-
+    
     return response.data.taxonomyList;
   }
 
