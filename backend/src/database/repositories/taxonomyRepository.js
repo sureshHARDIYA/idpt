@@ -23,6 +23,7 @@ class TaxonomyRepository {
       options,
     );
 
+
     const [record] = await Taxonomy.create(
       [
         {
@@ -33,6 +34,31 @@ class TaxonomyRepository {
       ],
       MongooseRepository.getSessionOptionsIfExists(options),
     );
+
+    const parents = data.parent;
+    const subtaxonomies = data.subtaxonomies;
+
+    // If parents are specified,
+    // update the parent objects
+    // to have this taxonomy as a child
+    if (parents) {
+      parents.forEach(async id => {
+        let parentData = await Taxonomy.findById(id);
+        parentData.subtaxonomies.push(record.id);
+        parentData.save();
+      });
+    }
+
+    // If subtaxonomies are specified,
+    // update the child objects
+    // to have this taxonomy as a parent
+    if (subtaxonomies) {
+      subtaxonomies.forEach(async id => {
+        let childData = await Taxonomy.findById(id);
+        childData.parent.push(record.id);
+        childData.save();
+        });
+    }
 
     await this._createAuditLog(
       AuditLogRepository.CREATE,
