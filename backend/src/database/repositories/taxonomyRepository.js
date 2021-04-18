@@ -57,7 +57,7 @@ class TaxonomyRepository {
         let childData = await Taxonomy.findById(id);
         childData.parent.push(record.id);
         childData.save();
-        });
+      });
     }
 
     await this._createAuditLog(
@@ -88,6 +88,71 @@ class TaxonomyRepository {
    * @param {Object} [options]
    */
   async update(id, data, options) {
+    // If any parents or subtaxonomies are added or removed in the update,
+    // update the associated taxonomies as well.
+    const oldData = await Taxonomy.findById(id);
+
+    // Update old/new parents
+    if (oldData.parent) {
+      const oldParents = oldData.parent.map(x => x.toString())
+      const newParents = data.parent ? data.parent : [];
+
+      if (oldParents !== newParents) {
+        let removedParents = oldParents.filter(x => !newParents.includes(x));
+        let addedParents = newParents.filter(x => !oldParents.includes(x));
+
+        console.log('removedParents', removedParents)
+        console.log('addedParents', addedParents)
+        
+        // Remove this taxonomy from the child list of all removed parents
+        removedParents.forEach(async x => {
+          let oldParentData = await Taxonomy.findById(x); 
+          oldParentData.subtaxonomies = oldParentData.subtaxonomies.filter(y => {
+            console.log('y',y,'x',x); 
+            return y.toString() !== x;}
+            );
+          oldParentData.save();
+        });
+
+        // Add this taxonomy to the child list of all added parents
+        addedParents.forEach(async x => {
+          let newParentData = await Taxonomy.findById(x); 
+          newParentData.subtaxonomies.push(id);
+          newParentData.save();
+        });
+      }
+    }
+
+    // Update old/new subtaxonomies
+    if (oldData.subtaxonomies) {
+      const oldChildren = oldData.subtaxonomies.map(x => x.toString())
+      const newChildren = data.subtaxonomies ? data.subtaxonomies : [];
+
+      if (oldChildren !== newChildren) {
+        let removedChildren = oldChildren.filter(x => !newChildren.includes(x));
+        let addedChildren = newChildren.filter(x => !oldChildren.includes(x));
+        
+        // Remove this taxonomy from the parent list of all removed subtaxonomies
+        removedChildren.forEach(async x => {
+          let oldChildData = await Taxonomy.findById(x); 
+          oldChildData.parent = oldChildData.parent.filter(y => {
+            console.log('y',y,'x',x); 
+            return y.toString() !== x;
+          });
+          oldChildData.save();
+          // console.log('removed ', x)
+        });
+
+        // Add this taxonomy to the parent list of all added subtaxonomies
+        addedChildren.forEach(async x => {
+          let newChildData = await Taxonomy.findById(x); 
+          newChildData.parent.push(id);
+          newChildData.save();
+          // console.log('added ', x)
+        });
+      }
+    }
+
     await MongooseRepository.wrapWithSessionIfExists(
       Taxonomy.updateOne(
         { _id: id },
@@ -129,7 +194,49 @@ class TaxonomyRepository {
    * @param {string} id
    * @param {Object} [options]
    */
-  async destroy(id, options) {
+   async destroy(id, options) {
+    const data = await Taxonomy.findById(id);
+    const parents = data.parent;
+    const subtaxonomies = data.subtaxonomies;
+
+    // If parents are specified,
+    // update the parent objects
+    // to remove this taxonomy as a child
+    if (parents) {
+        parents.forEach(async parentId => {
+          let parentData = await Taxonomy.findById(parentId);
+          parentData.subtaxonomies = parentData.subtaxonomies.filter(x => x.toString() !== id);
+          parentData.save();
+
+          // Log change
+          await this._createAuditLog(
+            AuditLogRepository.UPDATE,
+            id,
+            parentData,
+            options,
+          );
+      });
+    }
+
+    // If subtaxonomies are specified,
+    // update the child objects
+    // to remove this taxonomy as a parent
+    if (subtaxonomies) {
+      subtaxonomies.forEach(async childId => {
+        let childData = await Taxonomy.findById(childId);
+        childData.parent = childData.parent.filter(x => x.toString() !== id);
+        childData.save();
+
+        // Log change
+        await this._createAuditLog(
+          AuditLogRepository.UPDATE,
+          id,
+          childData,
+          options,
+        );
+      });
+    }
+
     await MongooseRepository.wrapWithSessionIfExists(
       Taxonomy.deleteOne({ _id: id }),
       options,
