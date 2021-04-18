@@ -23,7 +23,7 @@ class TaxonomyListItem extends Component {
     if (this.props.hasPermissionToRead) {
       return (
         <div key={record.id}>
-          <Link to={`/taxonomy/${record.name}`}>
+          <Link to={`/taxonomy/${record.id}`}>
             {record['name']}
           </Link>
         </div>
