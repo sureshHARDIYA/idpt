@@ -45,7 +45,7 @@ class TaxonomyRepository {
       parents.forEach(async id => {
         let parentData = await Taxonomy.findById(id);
         parentData.subtaxonomies.push(record.id);
-        parentData.save();
+        await parentData.save();
       });
     }
 
@@ -56,7 +56,7 @@ class TaxonomyRepository {
       subtaxonomies.forEach(async id => {
         let childData = await Taxonomy.findById(id);
         childData.parent.push(record.id);
-        childData.save();
+        await childData.save();
       });
     }
 
@@ -101,24 +101,19 @@ class TaxonomyRepository {
         let removedParents = oldParents.filter(x => !newParents.includes(x));
         let addedParents = newParents.filter(x => !oldParents.includes(x));
 
-        console.log('removedParents', removedParents)
-        console.log('addedParents', addedParents)
-        
         // Remove this taxonomy from the child list of all removed parents
         removedParents.forEach(async x => {
           let oldParentData = await Taxonomy.findById(x); 
-          oldParentData.subtaxonomies = oldParentData.subtaxonomies.filter(y => {
-            console.log('y',y,'x',x); 
-            return y.toString() !== x;}
-            );
-          oldParentData.save();
+
+          oldParentData.subtaxonomies = oldParentData.subtaxonomies.filter(y => y.toString() !== id);
+          await oldParentData.save();
         });
 
         // Add this taxonomy to the child list of all added parents
         addedParents.forEach(async x => {
           let newParentData = await Taxonomy.findById(x); 
           newParentData.subtaxonomies.push(id);
-          newParentData.save();
+          await newParentData.save();
         });
       }
     }
@@ -135,20 +130,15 @@ class TaxonomyRepository {
         // Remove this taxonomy from the parent list of all removed subtaxonomies
         removedChildren.forEach(async x => {
           let oldChildData = await Taxonomy.findById(x); 
-          oldChildData.parent = oldChildData.parent.filter(y => {
-            console.log('y',y,'x',x); 
-            return y.toString() !== x;
-          });
-          oldChildData.save();
-          // console.log('removed ', x)
+          oldChildData.parent = oldChildData.parent.filter(y => y.toString() !== id);
+          await oldChildData.save();
         });
 
         // Add this taxonomy to the parent list of all added subtaxonomies
         addedChildren.forEach(async x => {
           let newChildData = await Taxonomy.findById(x); 
           newChildData.parent.push(id);
-          newChildData.save();
-          // console.log('added ', x)
+          await newChildData.save();
         });
       }
     }
@@ -205,16 +195,20 @@ class TaxonomyRepository {
     if (parents) {
         parents.forEach(async parentId => {
           let parentData = await Taxonomy.findById(parentId);
-          parentData.subtaxonomies = parentData.subtaxonomies.filter(x => x.toString() !== id);
-          parentData.save();
 
-          // Log change
-          await this._createAuditLog(
-            AuditLogRepository.UPDATE,
-            id,
-            parentData,
-            options,
-          );
+        // Avoid undefined-related errors
+          if (parentData) {
+            parentData.subtaxonomies = parentData.subtaxonomies.filter(x => x.toString() !== id);
+            await parentData.save();
+
+            // Log change
+            await this._createAuditLog(
+              AuditLogRepository.UPDATE,
+              id,
+              parentData,
+              options,
+            );
+          }
       });
     }
 
@@ -224,16 +218,20 @@ class TaxonomyRepository {
     if (subtaxonomies) {
       subtaxonomies.forEach(async childId => {
         let childData = await Taxonomy.findById(childId);
-        childData.parent = childData.parent.filter(x => x.toString() !== id);
-        childData.save();
+        
+        // Avoid undefined-related errors
+        if (childData) {
+          childData.parent = childData.parent.filter(x => x.toString() !== id);
+          childData.save();
 
-        // Log change
-        await this._createAuditLog(
-          AuditLogRepository.UPDATE,
-          id,
-          childData,
-          options,
-        );
+          // Log change
+          await this._createAuditLog(
+            AuditLogRepository.UPDATE,
+            id,
+            childData,
+            options,
+          );
+        }
       });
     }
 
