@@ -137,6 +137,16 @@ const privateRoutes = [
     menu: true,
   },
   {
+    path: '/patient/responses',
+    loader: () =>
+      import('view/assignmentResponse/list/AssignmentResponseListPage'),
+    permissionRequired: permissions.patientRead,
+    exact: true,
+    icon: 'usergroup-add',
+    label: i18n('entities.assignmentResponse.menu'),
+    menu: true,
+  },
+  {
     path: '/patient/new',
     loader: () =>
       import('view/patient/form/PatientFormPage'),

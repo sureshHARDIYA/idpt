@@ -92,9 +92,17 @@ class RecordRoadmapPage extends Component {
       data:changedData
     });
 
-    const { dispatch, match } = this.props;
-    console.log(match);
-    dispatch(assignmentsFormActions.doAssignmentSubmission(changedData));
+    const { dispatch } = this.props;
+
+    console.log(changedData);
+
+    const payload = {
+      assignmentID: changedData.formData.id,
+      formData: JSON.stringify(changedData.formData)
+    };
+
+
+    dispatch(assignmentsFormActions.doAssignmentSubmission(payload));
   }
 
   renderFormSchema = (form) => {
@@ -153,7 +161,7 @@ class RecordRoadmapPage extends Component {
     }
   };
 
-  renderAssignment = (taskID, assignments) => {
+  renderAssignment = (assignments) => {
     return (
       <Collapse>
         {assignments.map((assignment) => (
@@ -161,7 +169,6 @@ class RecordRoadmapPage extends Component {
             header={assignment.title}
             key={assignment.id}
           >
-            {console.log(taskID)}
             <FormRenderer
               allowDraft={false}
               formStructure={assignment}
@@ -213,7 +220,6 @@ class RecordRoadmapPage extends Component {
                     task.host.description,
                   )}
                   {task.host.assignments.length ? this.renderAssignment(
-                    task.host.id,
                     task.host.assignments,
                   ): null}
                 </Tabs.TabPane>
