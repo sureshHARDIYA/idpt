@@ -48,6 +48,8 @@ For getting started with development follow the [documention](https://idpt.gitbo
 
 # Roadmaps
 
+- Convert into TypeScript
+- User lerna to introduce package systems
 - User profiling techniques
 - Integrate Dashboard for Users
 - Integrate Dashboard for Therapists

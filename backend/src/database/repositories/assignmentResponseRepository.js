@@ -1,7 +1,7 @@
 const MongooseRepository = require('./mongooseRepository')
 const MongooseQueryUtils = require('../utils/mongooseQueryUtils')
 const AuditLogRepository = require('./auditLogRepository')
-const Assignment = require('../models/assignment')
+const Assignment = require('../models/assignmentResponse')
 
 /**
  * Handles database operations for the Assignment.

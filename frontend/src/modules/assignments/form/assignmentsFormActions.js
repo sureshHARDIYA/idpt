@@ -52,6 +52,20 @@ const actions = {
       dispatch({ type: actions.CREATE_ERROR })
     }
   },
+  doAssignmentSubmission: values => async dispatch => {
+    try {
+      dispatch({ type: actions.CREATE_STARTED })
+
+      await AssignmentsService.submitAssignment(values)
+
+      dispatch({ type: actions.CREATE_SUCCESS })
+      Message.success(i18n('entities.assignments.create.success'))
+      // getHistory().push('/assignments')
+    } catch (error) {
+      Error.handle(error)
+      dispatch({ type: actions.CREATE_ERROR })
+    }
+  },
   doUpdate: (id, values) => async (dispatch, getState) => {
     try {
       dispatch({ type: actions.UPDATE_STARTED })

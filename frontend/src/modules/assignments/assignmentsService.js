@@ -1,8 +1,8 @@
-import gql from 'graphql-tag';
-import graphqlClient from 'modules/shared/graphql/graphqlClient';
+import gql from 'graphql-tag'
+import graphqlClient from 'modules/shared/graphql/graphqlClient'
 
 export default class AssignmentsService {
-  static async update(id, data) {
+  static async update (id, data) {
     const response = await graphqlClient.mutate({
       mutation: gql`
         mutation ASSIGNMENTS_UPDATE(
@@ -14,26 +14,26 @@ export default class AssignmentsService {
           }
         }
       `,
-      variables: { id, data },
-    });
+      variables: { id, data }
+    })
 
-    return response.data.assignmentUpdate;
+    return response.data.assignmentUpdate
   }
 
-  static async destroyAll(ids) {
+  static async destroyAll (ids) {
     const response = await graphqlClient.mutate({
       mutation: gql`
         mutation ASSIGNMENTS_DESTROY($ids: [String!]!) {
           assignmentsDestroy(ids: $ids)
         }
       `,
-      variables: { ids },
-    });
+      variables: { ids }
+    })
 
-    return response.data.assignmentsDestroy;
+    return response.data.assignmentsDestroy
   }
 
-  static async create(data) {
+  static async create (data) {
     const response = await graphqlClient.mutate({
       mutation: gql`
         mutation ASSIGNMENTS_CREATE(
@@ -45,13 +45,30 @@ export default class AssignmentsService {
           }
         }
       `,
-      variables: { data },
-    });
+      variables: { data }
+    })
 
-    return response.data.assignmentsCreate;
+    return response.data.assignmentsCreate
   }
 
-  static async import(values, importHash) {
+  static async submitAssignment (data) {
+    const response = await graphqlClient.mutate({
+      mutation: gql`
+      mutation ASSIGNMENTS_SUBMIT(
+        $data: assignmentResponseInput!
+      ) {
+        assignmentCreate(data: $data) {
+          id
+        }
+      }
+      `,
+      variables: { data }
+    })
+
+    return response
+  }
+
+  static async import (values, importHash) {
     const response = await graphqlClient.mutate({
       mutation: gql`
         mutation ASSIGNMENTS_IMPORT(
@@ -64,13 +81,13 @@ export default class AssignmentsService {
           )
         }
       `,
-      variables: { data: values, importHash },
-    });
+      variables: { data: values, importHash }
+    })
 
-    return response.data.assignmentsImport;
+    return response.data.assignmentsImport
   }
 
-  static async find(id) {
+  static async find (id) {
     const response = await graphqlClient.query({
       query: gql`
         query ASSIGNMENTS_FIND($id: String!) {
@@ -103,13 +120,13 @@ export default class AssignmentsService {
           }
         }
       `,
-      variables: { id },
-    });
+      variables: { id }
+    })
 
-    return response.data.assignmentsFind;
+    return response.data.assignmentsFind
   }
 
-  static async list(filter, orderBy, limit, offset) {
+  static async list (filter, orderBy, limit, offset) {
     const response = await graphqlClient.query({
       query: gql`
         query ASSIGNMENTS_LIST(
@@ -144,13 +161,13 @@ export default class AssignmentsService {
           }
         }
       `,
-      variables: { filter, orderBy, limit, offset },
-    });
+      variables: { filter, orderBy, limit, offset }
+    })
 
-    return response.data.assignmentsList;
+    return response.data.assignmentsList
   }
 
-  static async listAutocomplete(query, limit) {
+  static async listAutocomplete (query, limit) {
     const response = await graphqlClient.query({
       query: gql`
         query ASSIGNMENTS_AUTOCOMPLETE(
@@ -166,9 +183,9 @@ export default class AssignmentsService {
           }
         }
       `,
-      variables: { query, limit },
-    });
+      variables: { query, limit }
+    })
 
-    return response.data.assignmentsAutocomplete;
+    return response.data.assignmentsAutocomplete
   }
 }
