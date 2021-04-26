@@ -8,7 +8,7 @@ const Schema = database.Schema
 const AssignmentResponseSchema = new Schema(
   {
     assignmentID: [ { type: Schema.Types.ObjectId, ref: 'assignment' } ],
-    formData: { type: Schema.Types.Mixed },
+    formData: { type: Schema.Types.Map, of: String },
     createdBy: { type: Schema.Types.ObjectId, ref: 'user' },
     importHash: { type: String }
   },

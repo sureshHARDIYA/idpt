@@ -49,6 +49,11 @@ class AssignmentResponseListTable extends Component {
         return assignmentID ? (<div><Link to={`/assignments/${assignmentID.id}/edit`}>{assignmentID.title}</Link></div>) : null;
        }
     },
+    {
+      title: 'Created by',
+      dataIndex: 'createdBy',
+      render: (record) => <Link to={`/iam/${record.id}`}>{record.fullName}</Link>
+    },
     fields.createdAt.forTable(),
     fields.formData.forTable({
       title: null,

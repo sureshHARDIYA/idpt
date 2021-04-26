@@ -1,10 +1,10 @@
-import AssignmentsService from 'modules/assignments/assignmentsService'
-import Errors from 'modules/shared/error/errors'
+import { i18n } from 'i18n'
 import Message from 'view/shared/message'
 import { getHistory } from 'modules/store'
-import { i18n } from 'i18n'
+import Errors from 'modules/shared/error/errors'
+import assignmentResponseService from 'modules/assignmentResponse/assignmentResponseService'
 
-const prefix = 'ASSIGNMENT_FORM'
+const prefix = 'ASSIGNMENT_RESPONE_FORM'
 
 const actions = {
   RESET: `${prefix}_RESET`,
@@ -24,7 +24,7 @@ const actions = {
     try {
       dispatch({ type: actions.FIND_STARTED })
 
-      const record = await AssignmentsService.find(id)
+      const record = await assignmentResponseService.find(id)
 
       dispatch({ type: actions.FIND_SUCCESS, payload: record })
     } catch (error) {
@@ -39,24 +39,7 @@ const actions = {
     try {
       dispatch({ type: actions.CREATE_STARTED })
 
-      await AssignmentsService.create(values)
-
-      dispatch({ type: actions.CREATE_SUCCESS })
-
-      Message.success(i18n('entities.assignments.create.success'))
-
-      getHistory().push('/assignments')
-    } catch (error) {
-      Errors.handle(error)
-
-      dispatch({ type: actions.CREATE_ERROR })
-    }
-  },
-  doAssignmentSubmission: values => async dispatch => {
-    try {
-      dispatch({ type: actions.CREATE_STARTED })
-
-      await AssignmentsService.submitAssignment(values)
+      await assignmentResponseService.submitAssignment(values)
 
       dispatch({ type: actions.CREATE_SUCCESS })
       Message.success(i18n('entities.assignments.create.success'))
@@ -64,23 +47,6 @@ const actions = {
     } catch (error) {
       Error.handle(error)
       dispatch({ type: actions.CREATE_ERROR })
-    }
-  },
-  doUpdate: (id, values) => async (dispatch, getState) => {
-    try {
-      dispatch({ type: actions.UPDATE_STARTED })
-
-      await AssignmentsService.update(id, values)
-
-      dispatch({ type: actions.UPDATE_SUCCESS })
-
-      Message.success(i18n('entities.assignments.update.success'))
-
-      getHistory().push(`/assignments/${id}/edit`)
-    } catch (error) {
-      Errors.handle(error)
-
-      dispatch({ type: actions.UPDATE_ERROR })
     }
   }
 }

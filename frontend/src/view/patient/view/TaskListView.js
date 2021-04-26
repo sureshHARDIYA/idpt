@@ -22,7 +22,7 @@ import {
   Collapse,
 } from 'antd';
 import FormRenderer from 'view/assignments/form/builder/FormRenderer';
-import assignmentsFormActions from 'modules/assignments/form/assignmentsFormActions';
+import assignmentResponseFormActions from 'modules/assignmentResponse/form/assignmentResponseFormActions';
 
 class RecordRoadmapPage extends Component {
   state = {
@@ -93,16 +93,18 @@ class RecordRoadmapPage extends Component {
     });
 
     const { dispatch } = this.props;
+    const assignmentID = changedData.formData.id;
 
-    console.log(changedData);
+    delete changedData.formData.type;
+    delete changedData.formData.id;
+    delete changedData.formData.formId;
 
     const payload = {
-      assignmentID: changedData.formData.id,
-      formData: JSON.stringify(changedData.formData)
+      assignmentID: assignmentID,
+      formData: changedData.formData
     };
 
-
-    dispatch(assignmentsFormActions.doAssignmentSubmission(payload));
+    dispatch(assignmentResponseFormActions.doCreate(payload));
   }
 
   renderFormSchema = (form) => {

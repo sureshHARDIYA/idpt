@@ -1,7 +1,7 @@
 const schema = `
   input assignmentResponseInput {
     assignmentID: String
-    formData: String
+    formData: JSON
   }
 `
 

@@ -1,3 +1,1 @@
-module.exports = [
-  require('./assignmentResponseList')
-]
+module.exports = [ require('./assignmentResponseList') ]

@@ -2,7 +2,7 @@ const schema = `
  type AssignmentResponse {
    id: String!
    assignmentID: [Assignment!]
-   formData: String
+   formData: JSON
    createdAt: DateTime
    createdBy: User
  }
