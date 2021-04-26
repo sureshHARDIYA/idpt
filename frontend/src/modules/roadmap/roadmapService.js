@@ -1,8 +1,8 @@
-import gql from 'graphql-tag';
-import graphqlClient from 'modules/shared/graphql/graphqlClient';
+import gql from 'graphql-tag'
+import graphqlClient from 'modules/shared/graphql/graphqlClient'
 
 export default class RoadmapService {
-  static async update(id, data) {
+  static async update (id, data) {
     const response = await graphqlClient.mutate({
       mutation: gql`
         mutation ROADMAP_UPDATE(
@@ -14,33 +14,26 @@ export default class RoadmapService {
           }
         }
       `,
+      variables: { id, data }
+    })
 
-      variables: {
-        id,
-        data,
-      },
-    });
-
-    return response.data.roadmapUpdate;
+    return response.data.roadmapUpdate
   }
 
-  static async destroyAll(ids) {
+  static async destroyAll (ids) {
     const response = await graphqlClient.mutate({
       mutation: gql`
         mutation ROADMAP_DESTROY($ids: [String!]!) {
           roadmapDestroy(ids: $ids)
         }
       `,
+      variables: { ids }
+    })
 
-      variables: {
-        ids,
-      },
-    });
-
-    return response.data.roadmapDestroy;
+    return response.data.roadmapDestroy
   }
 
-  static async find(id) {
+  static async find (id) {
     const response = await graphqlClient.query({
       query: gql`
         query ROADMAP_FIND($id: String!) {
@@ -73,6 +66,9 @@ export default class RoadmapService {
                   title
                   sub_title
                   assignment_type
+                  owner {
+                    id
+                  }
                   formSchema {
                     type
                     label
@@ -111,16 +107,13 @@ export default class RoadmapService {
           }
         }
       `,
+      variables: { id }
+    })
 
-      variables: {
-        id,
-      },
-    });
-
-    return response.data.roadmapFind;
+    return response.data.roadmapFind
   }
 
-  static async list(filter, orderBy, limit, offset) {
+  static async list (filter, orderBy, limit, offset) {
     const response = await graphqlClient.query({
       query: gql`
         query ROADMAP_LIST(
@@ -146,19 +139,13 @@ export default class RoadmapService {
           }
         }
       `,
+      variables: { filter, orderBy, limit, offset }
+    })
 
-      variables: {
-        filter,
-        orderBy,
-        limit,
-        offset,
-      },
-    });
-
-    return response.data.roadmapList;
+    return response.data.roadmapList
   }
 
-  static async listAutocomplete(query, limit) {
+  static async listAutocomplete (query, limit) {
     const response = await graphqlClient.query({
       query: gql`
         query ROADMAP_AUTOCOMPLETE(
@@ -171,13 +158,9 @@ export default class RoadmapService {
           }
         }
       `,
+      variables: { query, limit }
+    })
 
-      variables: {
-        query,
-        limit,
-      },
-    });
-
-    return response.data.roadmapAutocomplete;
+    return response.data.roadmapAutocomplete
   }
 }

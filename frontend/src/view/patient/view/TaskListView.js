@@ -12,7 +12,6 @@ import {
   Icon,
   Tabs,
   Input,
-  Form,
   Checkbox,
   Row,
   Col,
@@ -22,23 +21,16 @@ import {
   Select,
   Collapse,
 } from 'antd';
-
-const formItemLayout = {
-  labelCol: {
-    xs: { span: 24 },
-    sm: { span: 24 },
-  },
-  wrapperCol: {
-    xs: { span: 24 },
-    sm: { span: 24 },
-  },
-};
+import FormRenderer from 'view/assignments/form/builder/FormRenderer';
+import assignmentResponseFormActions from 'modules/assignmentResponse/form/assignmentResponseFormActions';
 
 class RecordRoadmapPage extends Component {
   state = {
     activeTab: '1',
     max: 4,
+    data: {},
     isDisabled: false,
+    dispatched: false,
   };
 
   componentDidMount() {
@@ -94,6 +86,26 @@ class RecordRoadmapPage extends Component {
       activeTab: (currentId - 1).toString(),
     });
   };
+
+  submitAssignment= (changedData) => {
+    this.setState({
+      data:changedData
+    });
+
+    const { dispatch } = this.props;
+    const assignmentID = changedData.formData.id;
+
+    delete changedData.formData.type;
+    delete changedData.formData.id;
+    delete changedData.formData.formId;
+
+    const payload = {
+      assignmentID: assignmentID,
+      formData: changedData.formData
+    };
+
+    dispatch(assignmentResponseFormActions.doCreate(payload));
+  }
 
   renderFormSchema = (form) => {
     switch (form.type) {
@@ -159,21 +171,13 @@ class RecordRoadmapPage extends Component {
             header={assignment.title}
             key={assignment.id}
           >
-            <Form {...formItemLayout}>
-              {assignment.formSchema.map((item) => {
-                return (
-                  <Form.Item
-                    label={item.label}
-                    key={item.field}
-                    required={
-                      !!item.rules.find((r) => r.required)
-                    }
-                  >
-                    {this.renderFormSchema(item)}
-                  </Form.Item>
-                );
-              })}
-            </Form>
+            <FormRenderer
+              allowDraft={false}
+              formStructure={assignment}
+              data={this.state.data}
+              onSave={(changedData) => this.submitAssignment(changedData)}
+              onError={(error) => console.log(error)}
+            />
           </Collapse.Panel>
         ))}
       </Collapse>
@@ -217,9 +221,9 @@ class RecordRoadmapPage extends Component {
                   {this.getDescription(
                     task.host.description,
                   )}
-                  {this.renderAssignment(
+                  {task.host.assignments.length ? this.renderAssignment(
                     task.host.assignments,
-                  )}
+                  ): null}
                 </Tabs.TabPane>
               ))}
             </Tabs>

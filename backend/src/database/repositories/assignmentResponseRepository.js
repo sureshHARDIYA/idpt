@@ -1,26 +1,26 @@
 const MongooseRepository = require('./mongooseRepository')
 const MongooseQueryUtils = require('../utils/mongooseQueryUtils')
 const AuditLogRepository = require('./auditLogRepository')
-const Assignment = require('../models/assignment')
+const assignmentResponse = require('../models/assignmentResponse')
 
 /**
- * Handles database operations for the Assignment.
+ * Handles database operations for the assignmentResponse.
  * See https://mongoosejs.com/docs/index.html to learn how to customize it.
  */
-class AssignmentRepository {
+class assignmentResponseRepository {
   /**
-   * Creates the Assignment.
+   * Creates the assignmentResponse.
    *
    * @param {Object} data
    * @param {Object} [options]
    */
   async create (data, options) {
     if (MongooseRepository.getSession(options)) {
-      await Assignment.createCollection()
+      await assignmentResponse.createCollection()
     }
 
     const currentUser = MongooseRepository.getCurrentUser(options)
-    const [ record ] = await Assignment.create(
+    const [ record ] = await assignmentResponse.create(
       [ { ...data, createdBy: currentUser.id, updatedBy: currentUser.id } ],
       MongooseRepository.getSessionOptionsIfExists(options)
     )
@@ -36,14 +36,14 @@ class AssignmentRepository {
   }
 
   /**
-   * Updates the Assignment.
+   * Updates the assignmentResponse.
    *
    * @param {Object} data
    * @param {Object} [options]
    */
   async update (id, data, options) {
     await MongooseRepository.wrapWithSessionIfExists(
-      Assignment.updateOne({ _id: id }, {
+      assignmentResponse.updateOne({ _id: id }, {
         ...data,
         updatedBy: MongooseRepository.getCurrentUser(options).id
       }),
@@ -58,14 +58,14 @@ class AssignmentRepository {
   }
 
   /**
-   * Deletes the Assignment.
+   * Deletes the assignmentResponse.
    *
    * @param {string} id
    * @param {Object} [options]
    */
   async destroy (id, options) {
     await MongooseRepository.wrapWithSessionIfExists(
-      Assignment.deleteOne({ _id: id }),
+      assignmentResponse.deleteOne({ _id: id }),
       options
     )
 
@@ -73,33 +73,33 @@ class AssignmentRepository {
   }
 
   /**
-   * Counts the number of Assignments based on the filter.
+   * Counts the number of assignmentResponses based on the filter.
    *
    * @param {Object} filter
    * @param {Object} [options]
    */
   async count (filter, options) {
     return MongooseRepository.wrapWithSessionIfExists(
-      Assignment.countDocuments(filter),
+      assignmentResponse.countDocuments(filter),
       options
     )
   }
 
   /**
-   * Finds the Assignment and its relations.
+   * Finds the assignmentResponse and its relations.
    *
    * @param {string} id
    * @param {Object} [options]
    */
   async findById (id, options) {
     return MongooseRepository.wrapWithSessionIfExists(
-      Assignment.findById(id).populate('owner'),
+      assignmentResponse.findById(id).populate('owner'),
       options
     )
   }
 
   /**
-   * Finds the Assignments based on the query.
+   * Finds the assignmentResponses based on the query.
    * See https://mongoosejs.com/docs/queries.html to learn how
    * to customize the queries.
    *
@@ -161,20 +161,21 @@ class AssignmentRepository {
     const skip = Number(offset || 0) || undefined
     const limitEscaped = Number(limit || 0) || undefined
 
-    const rows = await Assignment
+    const rows = await assignmentResponse
       .find(criteria)
       .skip(skip)
       .limit(limitEscaped)
       .sort(sort)
+      .populate('assignmentID')
       .populate('createdBy')
 
-    const count = await Assignment.countDocuments(criteria)
+    const count = await assignmentResponse.countDocuments(criteria)
 
     return { rows, count }
   }
 
   /**
-   * Lists the Assignments to populate the autocomplete.
+   * Lists the assignmentResponses to populate the autocomplete.
    * See https://mongoosejs.com/docs/queries.html to learn how to
    * customize the query.
    *
@@ -201,7 +202,7 @@ class AssignmentRepository {
     const sort = MongooseQueryUtils.sort('url_ASC')
     const limitEscaped = Number(limit || 0) || undefined
 
-    const records = await Assignment
+    const records = await assignmentResponse
       .find(criteria)
       .limit(limitEscaped)
       .sort(sort)
@@ -219,10 +220,15 @@ class AssignmentRepository {
    */
   async _createAuditLog (action, id, data, options) {
     await AuditLogRepository.log(
-      { entityName: Assignment.modelName, entityId: id, action, values: data },
+      {
+        entityName: assignmentResponse.modelName,
+        entityId: id,
+        action,
+        values: data
+      },
       options
     )
   }
 }
 
-module.exports = AssignmentRepository
+module.exports = assignmentResponseRepository

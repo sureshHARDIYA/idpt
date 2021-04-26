@@ -52,6 +52,32 @@ const en = {
         title: 'Edit Assignment',
       },
     },
+    assignmentResponse: {
+      name: 'assignment Response',
+      label: 'Responses',
+      menu: 'Responses',
+      list: {
+        menu: 'Response',
+        title: 'Response',
+      },
+      destroy: {
+        success: 'Assignment Response deleted successfully',
+      },
+      destroyAll: {
+        success: 'Assignment Response deleted successfully',
+      },
+      fields: {
+        id: 'ID',
+        title: 'Title',
+        createdAt: 'Created at',
+      },
+      new: {
+        title: 'New Assignment Response ',
+      },
+      edit: {
+        title: 'Edit Assignment Response',
+      },
+    },
     patient: {
       name: 'patient',
       label: 'Patients',

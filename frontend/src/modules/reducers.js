@@ -1,24 +1,25 @@
-import { connectRouter } from 'connected-react-router';
-import layout from 'modules/layout/layoutReducers';
-import auth from 'modules/auth/authReducers';
-import iam from 'modules/iam/iamReducers';
-import auditLog from 'modules/auditLog/auditLogReducers';
-import settings from 'modules/settings/settingsReducers';
-import patient from 'modules/patient/patientReducers';
-import cased from 'modules/cased/casedReducers';
-import module from 'modules/module/moduleReducers';
-import task from 'modules/task/taskReducers';
-import audio from 'modules/audio/audioReducers';
-import video from 'modules/video/videoReducers';
-import record from 'modules/record/recordReducers';
-import document from 'modules/document/documentReducers';
-import assignments from 'modules/assignments/assignmentsReducers';
-import roadmap from 'modules/roadmap/roadmapReducers';
-import epic from 'modules/epic/epicReducers';
-import taxonomy from 'modules/taxonomy/taxonomyReducers';
-import { combineReducers } from 'redux';
+import { combineReducers } from 'redux'
+import iam from 'modules/iam/iamReducers'
+import task from 'modules/task/taskReducers'
+import auth from 'modules/auth/authReducers'
+import epic from 'modules/epic/epicReducers'
+import audio from 'modules/audio/audioReducers'
+import cased from 'modules/cased/casedReducers'
+import video from 'modules/video/videoReducers'
+import module from 'modules/module/moduleReducers'
+import layout from 'modules/layout/layoutReducers'
+import record from 'modules/record/recordReducers'
+import patient from 'modules/patient/patientReducers'
+import roadmap from 'modules/roadmap/roadmapReducers'
+import { connectRouter } from 'connected-react-router'
+import settings from 'modules/settings/settingsReducers'
+import auditLog from 'modules/auditLog/auditLogReducers'
+import document from 'modules/document/documentReducers'
+import taxonomy from 'modules/taxonomy/taxonomyReducers'
+import assignments from 'modules/assignments/assignmentsReducers'
+import assignmentResponse from 'modules/assignmentResponse/assignmentResponseReducers'
 
-export default (history) =>
+export default history =>
   combineReducers({
     router: connectRouter(history),
     layout,
@@ -38,4 +39,5 @@ export default (history) =>
     assignments,
     roadmap,
     taxonomy,
-  });
+    assignmentResponse
+  })

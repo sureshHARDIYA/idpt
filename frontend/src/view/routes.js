@@ -64,6 +64,13 @@ const patientsRoutes = [
     menu: false,
     exact: true,
   },
+  {
+    path: '/profile',
+    loader: () => import('view/auth/ProfileFormPage'),
+    permissionRequired: null,
+    exact: true,
+    menu: false,
+  },
 ];
 
 const privateRoutes = [
@@ -134,6 +141,16 @@ const privateRoutes = [
     exact: true,
     icon: 'usergroup-add',
     label: i18n('entities.patient.menu'),
+    menu: true,
+  },
+  {
+    path: '/patient/responses',
+    loader: () =>
+      import('view/assignmentResponse/list/AssignmentResponseListPage'),
+    permissionRequired: permissions.patientRead,
+    exact: true,
+    icon: 'usergroup-add',
+    label: i18n('entities.assignmentResponse.menu'),
     menu: true,
   },
   {
