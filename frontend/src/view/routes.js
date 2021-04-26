@@ -64,6 +64,13 @@ const patientsRoutes = [
     menu: false,
     exact: true,
   },
+  {
+    path: '/profile',
+    loader: () => import('view/auth/ProfileFormPage'),
+    permissionRequired: null,
+    exact: true,
+    menu: false,
+  },
 ];
 
 const privateRoutes = [
