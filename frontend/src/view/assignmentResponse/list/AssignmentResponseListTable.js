@@ -62,7 +62,11 @@ class AssignmentResponseListTable extends Component {
           <ButtonLink
             onClick={() =>
               this.setState({
-                selectedValues: values
+                selectedValues: JSON.stringify(
+                  values,
+                  null,
+                  2,
+                ),
               })
             }
           >
