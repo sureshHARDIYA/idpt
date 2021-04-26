@@ -1,6 +1,6 @@
 const schema = `
-  type AssignmentResponsePage {
-    rows: [Assignment!]!
+  type assignmentResponsePage {
+    rows: [AssignmentResponse!]!
     count: Int!
   }
 `

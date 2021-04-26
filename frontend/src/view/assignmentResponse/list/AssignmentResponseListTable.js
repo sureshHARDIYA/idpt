@@ -1,20 +1,28 @@
 import { i18n } from 'i18n';
-import { Table, Popconfirm } from 'antd';
-import actions from 'modules/assignmentResponse/list/assignmentResponseListActions';
-import destroyActions from 'modules/cased/destroy/casedDestroyActions';
-import selectors from 'modules/cased/list/casedListSelectors';
-import destroySelectors from 'modules/cased/destroy/casedDestroySelectors';
-import model from 'modules/cased/casedModel';
-import casedSelectors from 'modules/cased/casedSelectors';
-import React, { Component } from 'react';
+import { Table } from 'antd';
+import _get from 'lodash/get';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import TableWrapper from 'view/shared/styles/TableWrapper';
+import React, { Component } from 'react';
 import ButtonLink from 'view/shared/styles/ButtonLink';
+import TableWrapper from 'view/shared/styles/TableWrapper';
+import AuditLogViewModal from 'view/auditLog/AuditLogViewModal';
+import model from 'modules/assignmentResponse/assignmentResponseModel';
+import casedSelectors from 'modules/assignmentResponse/assignmentResponseSelectors';
+import selectors from 'modules/assignmentResponse/list/assignmentResponseListSelectors';
+import actions from 'modules/assignmentResponse/list/assignmentResponseListActions';
 
 const { fields } = model;
 
 class AssignmentResponseListTable extends Component {
+  state = {
+    selectedValues: null,
+  };
+
+  onAuditLogViewModalClose() {
+    this.setState({ selectedValues: null });
+  }
+
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch(
@@ -30,43 +38,34 @@ class AssignmentResponseListTable extends Component {
     );
   };
 
-  doDestroy = (id) => {
-    const { dispatch } = this.props;
-    dispatch(destroyActions.doDestroy(id));
-  };
-
   columns = [
     fields.id.forTable(),
-    fields.createdAt.forTable(),
     {
-      title: '',
-      dataIndex: '',
-      width: '160px',
-      render: (_, record) => (
-        <div className="table-actions">
-          <Link to={`/cased/${record.id}`}>
-            {i18n('common.view')}
-          </Link>
-          {this.props.hasPermissionToEdit && (
-            <Link to={`/cased/${record.id}/edit`}>
-              {i18n('common.edit')}
-            </Link>
-          )}
-          {this.props.hasPermissionToDestroy && (
-            <Popconfirm
-              title={i18n('common.areYouSure')}
-              onConfirm={() => this.doDestroy(record.id)}
-              okText={i18n('common.yes')}
-              cancelText={i18n('common.no')}
-            >
-              <ButtonLink>
-                {i18n('common.destroy')}
-              </ButtonLink>
-            </Popconfirm>
-          )}
-        </div>
-      ),
+      title: 'Assignment',
+      dataIndex: 'assignmentID',
+      render: (_, record) => {
+        const assignmentID = _get(record, 'assignmentID[0]')
+
+        return assignmentID ? (<div><Link to={`/assignments/${assignmentID.id}/edit`}>{assignmentID.title}</Link></div>) : null;
+       }
     },
+    fields.createdAt.forTable(),
+    fields.formData.forTable({
+      title: null,
+      render: (values) => {
+        return (
+          <ButtonLink
+            onClick={() =>
+              this.setState({
+                selectedValues: values
+              })
+            }
+          >
+            {i18n('common.view')}
+          </ButtonLink>
+        );
+      },
+    }),
   ];
 
   rowSelection = () => {
@@ -83,6 +82,7 @@ class AssignmentResponseListTable extends Component {
     const { pagination, rows, loading } = this.props;
 
     return (
+      <React.Fragment>
       <TableWrapper>
         <Table
           rowKey="id"
@@ -95,6 +95,12 @@ class AssignmentResponseListTable extends Component {
           scroll={{ x: true }}
         />
       </TableWrapper>
+      <AuditLogViewModal
+        visible={!!this.state.selectedValues}
+        code={this.state.selectedValues}
+        onCancel={() => this.onAuditLogViewModalClose()}
+      />
+      </React.Fragment>
     );
   }
 }
@@ -102,8 +108,7 @@ class AssignmentResponseListTable extends Component {
 function select(state) {
   return {
     loading:
-      selectors.selectLoading(state) ||
-      destroySelectors.selectLoading(state),
+      selectors.selectLoading(state),
     rows: selectors.selectRows(state),
     pagination: selectors.selectPagination(state),
     filter: selectors.selectFilter(state),

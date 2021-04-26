@@ -8,7 +8,7 @@ const graphqlSelectRequestedAttributes = require(
 )
 
 const schema = `
-  assignmentResponseList(limit: Int, offset: Int, orderBy: AssignmentsOrderByEnum): AssignmentsPage!
+  assignmentResponseList(limit: Int, offset: Int, orderBy: AssignmentsOrderByEnum): assignmentResponsePage!
 `
 
 const resolver = {

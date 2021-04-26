@@ -1,38 +1,7 @@
 import gql from 'graphql-tag'
 import graphqlClient from 'modules/shared/graphql/graphqlClient'
 
-export default class AssignmentsService {
-  static async update (id, data) {
-    const response = await graphqlClient.mutate({
-      mutation: gql`
-        mutation ASSIGNMENTS_UPDATE(
-          $id: String!
-          $data: AssignmentInput!
-        ) {
-          assignmentUpdate(id: $id, data: $data) {
-            id
-          }
-        }
-      `,
-      variables: { id, data }
-    })
-
-    return response.data.assignmentUpdate
-  }
-
-  static async destroyAll (ids) {
-    const response = await graphqlClient.mutate({
-      mutation: gql`
-        mutation ASSIGNMENTS_DESTROY($ids: [String!]!) {
-          assignmentsDestroy(ids: $ids)
-        }
-      `,
-      variables: { ids }
-    })
-
-    return response.data.assignmentsDestroy
-  }
-
+export default class AssignmentReponseService {
   static async create (data) {
     const response = await graphqlClient.mutate({
       mutation: gql`
@@ -66,25 +35,6 @@ export default class AssignmentsService {
     })
 
     return response
-  }
-
-  static async import (values, importHash) {
-    const response = await graphqlClient.mutate({
-      mutation: gql`
-        mutation ASSIGNMENTS_IMPORT(
-          $data: AssignmentInput!
-          $importHash: String!
-        ) {
-          assignmentsImport(
-            data: $data
-            importHash: $importHash
-          )
-        }
-      `,
-      variables: { data: values, importHash }
-    })
-
-    return response.data.assignmentsImport
   }
 
   static async find (id) {
@@ -129,63 +79,34 @@ export default class AssignmentsService {
   static async list (filter, orderBy, limit, offset) {
     const response = await graphqlClient.query({
       query: gql`
-        query ASSIGNMENTS_LIST(
-          $filter: AssignmentsFilterInput
-          $orderBy: AssignmentsOrderByEnum
+        query ASSIGNMENTS_RESPONSE_LIST(
           $limit: Int
           $offset: Int
         ) {
-          assignmentsList(
-            filter: $filter
-            orderBy: $orderBy
+          assignmentResponseList(
             limit: $limit
             offset: $offset
           ) {
             count
             rows {
               id
-              title
-              sub_title
-              formSchema {
-                type
-                label
-                field
+              formData
+              assignmentID {
+                id
+                title
               }
               createdBy {
                 id
                 fullName
               }
               createdAt
-              updatedAt
             }
           }
         }
       `,
-      variables: { filter, orderBy, limit, offset }
+      variables: { limit, offset }
     })
 
-    return response.data.assignmentsList
-  }
-
-  static async listAutocomplete (query, limit) {
-    const response = await graphqlClient.query({
-      query: gql`
-        query ASSIGNMENTS_AUTOCOMPLETE(
-          $query: String
-          $limit: Int
-        ) {
-          assignmentsAutocomplete(
-            query: $query
-            limit: $limit
-          ) {
-            id
-            label
-          }
-        }
-      `,
-      variables: { query, limit }
-    })
-
-    return response.data.assignmentsAutocomplete
+    return response.data.assignmentResponseList
   }
 }

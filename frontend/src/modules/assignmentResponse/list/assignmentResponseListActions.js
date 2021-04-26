@@ -1,9 +1,7 @@
-import AssignmentResponseService from 'modules/assignmentResponse/assignmentResponseService'
-import selectors from 'modules/assignmentResponse/list/assignmentResponseListSelectors'
-// import { i18n } from 'i18n'
-// import exporterFields from 'modules/assignmentResponse/list/assignmentResponseListExporterFields'
 import Errors from 'modules/shared/error/errors'
-// import Exporter from 'modules/shared/exporter/exporter'
+import selectors from 'modules/assignmentResponse/list/assignmentResponseListSelectors'
+import AssignmentResponseService from 'modules/assignmentResponse/assignmentResponseService'
+
 const prefix = 'ASSIGNMENTS_RESPONSE_LIST'
 
 const actions = {
@@ -25,34 +23,6 @@ const actions = {
 
     dispatch(actions.doFetch())
   },
-  // doExport: () => async (dispatch, getState) => {
-  //   try {
-  //     if (!exporterFields || !exporterFields.length) {
-  //       throw new Error('exporterFields is required')
-  //     }
-  //
-  //     dispatch({ type: actions.EXPORT_STARTED })
-  //
-  //     const filter = selectors.selectFilter(getState())
-  //     const response = await AssignmentResponseService.list(
-  //       filter,
-  //       selectors.selectOrderBy(getState()),
-  //       null,
-  //       null
-  //     )
-  //
-  //     new Exporter(
-  //       exporterFields,
-  //       i18n('entities.assignmentResponse.exporterFileName')
-  //     ).transformAndExportAsExcelFile(response.rows)
-  //
-  //     dispatch({ type: actions.EXPORT_SUCCESS })
-  //   } catch (error) {
-  //     Errors.handle(error)
-  //
-  //     dispatch({ type: actions.EXPORT_ERROR })
-  //   }
-  // },
   doChangePaginationAndSort: (pagination, sorter) =>
     async (dispatch, getState) => {
       dispatch({ type: actions.PAGINATION_CHANGED, payload: pagination })
