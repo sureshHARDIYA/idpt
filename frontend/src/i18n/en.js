@@ -274,6 +274,7 @@ const en = {
         type: 'Type',
         owner: 'Owner',
         elements: 'Elements',
+        prerequisite: 'Prerequisite',
         next: 'Next task',
         createdAt: 'Created at',
         updatedAt: 'Updated at',

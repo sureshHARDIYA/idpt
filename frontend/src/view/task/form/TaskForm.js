@@ -28,6 +28,7 @@ import ModuleAutocompleteFormItem from 'view/module/autocomplete/ModuleAutocompl
 import AssignmentAutocompleteFormItem from 'view/assignments/autocomplete/AssignmentAutocompleteFormItem';
 
 import _get from 'lodash/get';
+import ImagesFormItem from "../../shared/form/items/ImagesFormItem";
 
 const { fields } = model;
 
@@ -41,6 +42,7 @@ class TaskForm extends Component {
     fields.completionRequired,
     fields.complexityLevel,
     fields.owner,
+    fields.prerequisite,
     fields.next,
     fields.documents,
     fields.videos,
@@ -126,6 +128,14 @@ class TaskForm extends Component {
                       required={
                         fields.complexityLevel.required
                       }
+                    />
+                    <TaskAutocompleteFormItem
+                        name={fields.prerequisite.name}
+                        label={fields.prerequisite.label}
+                        required={fields.prerequisite.required}
+                        showCreate={!this.props.modal}
+                        form={form}
+                        mode="multiple"
                     />
                     <TaskAutocompleteFormItem
                       name={fields.next.name}

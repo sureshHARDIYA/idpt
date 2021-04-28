@@ -36,6 +36,9 @@ class TaskListTable extends Component {
     fields.points.forTable(),
     fields.completionRequired.forTable(),
     fields.complexityLevel.forTable(),
+    fields.prerequisite.forTable({
+      render: (value) => <ModuleListItem value={value} />,
+    }),
     fields.owner.forTable({
       render: (value) => <ModuleListItem value={value} />,
     }),
