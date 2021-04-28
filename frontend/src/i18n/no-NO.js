@@ -274,6 +274,7 @@ const no = {
         type: 'Type',
         owner: 'Owner',
         elements: 'Elements',
+        prerequisite: 'Prerequisite',
         next: 'Next task',
         createdAt: 'Opprettet',
         updatedAt: 'Oppdatert',

@@ -11,6 +11,7 @@ export default [
   fields.points,
   fields.completionRequired,
   fields.complexityLevel,
+  fields.prerequisite,
   fields.owner,
   fields.createdAt,
   fields.updatedAt,
