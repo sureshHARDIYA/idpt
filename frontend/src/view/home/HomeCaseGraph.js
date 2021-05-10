@@ -24,16 +24,13 @@ const data = {nodes, edges};
 const options = {
     autoResize: true,
     height: "500px",
-    //width: '100%',
-    //locale: 'en',
-    //locales: locales,
-    clickToUse: false,
-    //configure: {...},
     edges: {
         color: "#000000",
         width: 1,
     },
-    //nodes: {...},
+    nodes: {
+        shape: "box",
+    },
     groups: {
         useDefaultGroups: true,
     },
@@ -44,8 +41,6 @@ const options = {
         dragNodes: false,
         hover: true,
     },
-    //manipulation: {...},
-    //physics: {...},
 };
 
 const events = {
