@@ -1,15 +1,16 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import { i18n } from 'i18n';
+//import { i18n } from 'i18n';
 import { Row, Col, Card } from 'antd';
-import HomeBarChart from 'view/home/HomeBarChart';
-import HomeDoughnutChart from 'view/home/HomeDoughnutChart';
-import HomeRadarChart from 'view/home/HomeRadarChart';
-import HomeMixChartTwo from 'view/home/HomeMixChartTwo';
-import HomeMixChartOne from 'view/home/HomeMixChartOne';
-import HomeHorizontalBarChart from 'view/home/HomeHorizontalBarChart';
-import HomePolarChart from 'view/home/HomePolarChart';
-import HomeLineChart from 'view/home/HomeLineChart';
+//import HomeBarChart from 'view/home/HomeBarChart';
+//import HomeDoughnutChart from 'view/home/HomeDoughnutChart';
+//import HomeRadarChart from 'view/home/HomeRadarChart';
+//import HomeMixChartTwo from 'view/home/HomeMixChartTwo';
+//import HomeMixChartOne from 'view/home/HomeMixChartOne';
+//import HomeHorizontalBarChart from 'view/home/HomeHorizontalBarChart';
+//import HomePolarChart from 'view/home/HomePolarChart';
+//import HomeLineChart from 'view/home/HomeLineChart';
+import HomeCaseGraph from 'view/home/HomeCaseGraph';
 
 class HomePage extends PureComponent {
   render() {
@@ -33,17 +34,20 @@ class HomePage extends PureComponent {
 
     return (
       <React.Fragment>
+{/*
         <Row gutter={24}>
           <Col {...threeColumnsResponsiveProps}>
             <Card bodyStyle={{ padding: 8 }}>
               <HomeDoughnutChart />
             </Card>
           </Col>
+
           <Col {...threeColumnsResponsiveProps}>
             <Card bodyStyle={{ padding: 8 }}>
               <HomeMixChartTwo />
             </Card>
           </Col>
+
           <Col {...threeColumnsResponsiveProps}>
             <Card bodyStyle={{ padding: 8 }}>
               <HomeBarChart />
@@ -67,16 +71,19 @@ class HomePage extends PureComponent {
               <HomeHorizontalBarChart />
             </Card>
           </Col>
+
           <Col {...threeColumnsResponsiveProps}>
             <Card bodyStyle={{ padding: 8 }}>
               <HomeLineChart />
             </Card>
           </Col>
+
           <Col {...threeColumnsResponsiveProps}>
             <Card bodyStyle={{ padding: 8 }}>
               <HomeRadarChart />
             </Card>
           </Col>
+
         </Row>
         <p
           style={{
@@ -87,6 +94,10 @@ class HomePage extends PureComponent {
         >
           {i18n('home.message')}
         </p>
+*/}
+        <Card bodyStyle={{ padding: 8 }}>
+          <HomeCaseGraph />
+        </Card>
       </React.Fragment>
     );
   }
