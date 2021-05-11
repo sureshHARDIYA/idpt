@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import Graph from "react-graph-vis";
+import CasedGraph from "../../modules/cased/graph/casedGraph";
 
 
 const nodes = [
@@ -38,7 +39,7 @@ const options = {
         hierarchical: false,
     },
     interaction: {
-        dragNodes: false,
+        //dragNodes: true,
         hover: true,
     },
 };
@@ -47,9 +48,9 @@ const events = {
     select: function (event) {
         let {nodes, edges} = event;
         console.log(nodes + ", " + edges)
+        console.log(CasedGraph.testFunction())
     }
 };
-
 
 export default class HomeCaseGraph extends Component {
     render() {
@@ -58,9 +59,6 @@ export default class HomeCaseGraph extends Component {
                 graph={data}
                 options={options}
                 events={events}
-                getNetwork={network => {
-                    //  if you want access to vis.js network api you can set the state in a parent component using this property
-                }}
             />
         );
     }
