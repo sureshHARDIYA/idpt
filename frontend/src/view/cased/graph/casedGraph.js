@@ -7,7 +7,7 @@ export default class CasedGraph extends Component {
 
     static testFunction() {
         console.log("%c WE ARE INSIDE TEST-FUNCTION", "color:magenta;font-weight:bold")
-        console.log({CasedListTable})
+        console.log(CasedListTable.WrappedComponent.propTypes)
         return "WE ARE OUT OF TEST-FUNCTION";
     }
 

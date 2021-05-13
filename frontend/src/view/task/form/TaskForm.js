@@ -7,10 +7,10 @@ import {
   Divider,
   Popconfirm,
 } from 'antd';
-import { Formik, FieldArray } from 'formik';
-import { i18n } from 'i18n';
+import {Formik, FieldArray} from 'formik';
+import {i18n} from 'i18n';
 import model from 'modules/task/taskModel';
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import ViewFormItem from 'view/shared/form/items/ViewFormItem';
 import Spinner from 'view/shared/Spinner';
 import FormWrapper, {
@@ -30,7 +30,7 @@ import AssignmentAutocompleteFormItem from 'view/assignments/autocomplete/Assign
 import _get from 'lodash/get';
 import ImagesFormItem from "../../shared/form/items/ImagesFormItem";
 
-const { fields } = model;
+const {fields} = model;
 
 class TaskForm extends Component {
   schema = new FormSchema(fields.id, [
@@ -51,7 +51,7 @@ class TaskForm extends Component {
   ]);
 
   handleSubmit = (values) => {
-    const { id, ...data } = this.schema.cast(values);
+    const {id, ...data} = this.schema.cast(values);
     this.props.onSubmit(id, data);
   };
 
@@ -61,7 +61,7 @@ class TaskForm extends Component {
   };
 
   renderForm() {
-    const { saveLoading, isEditing } = this.props;
+    const {saveLoading, isEditing} = this.props;
 
     return (
       <FormWrapper>
@@ -116,26 +116,12 @@ class TaskForm extends Component {
                       label={fields.points.label}
                       required={fields.points.required}
                     />
-                    <SwitchFormItem
-                      name={fields.completionRequired.name}
-                      label={
-                        fields.completionRequired.label
-                      }
-                    />
                     <InputNumberFormItem
                       name={fields.complexityLevel.name}
                       label={fields.complexityLevel.label}
                       required={
                         fields.complexityLevel.required
                       }
-                    />
-                    <TaskAutocompleteFormItem
-                        name={fields.prerequisite.name}
-                        label={fields.prerequisite.label}
-                        required={fields.prerequisite.required}
-                        showCreate={!this.props.modal}
-                        form={form}
-                        mode="multiple"
                     />
                     <TaskAutocompleteFormItem
                       name={fields.next.name}
@@ -163,386 +149,414 @@ class TaskForm extends Component {
                   </Tabs.TabPane>
                   <Tabs.TabPane
                     key="2"
-                    tab="Documents Element"
+                    tab="Multimedia"
                   >
-                    <FieldArray
-                      name="documents"
-                      render={(arrayHelpers) => {
-                        const documents = _get(
-                          form,
-                          'values.documents',
-                          [],
-                        );
 
-                        if (!documents.length) {
-                          return (
-                            <Form.Item
-                              {...formItemLayout}
-                              label="No document"
-                            >
-                              <Button
-                                onClick={() =>
-                                  arrayHelpers.push({
-                                    id: `D${Date.now()}`,
-                                  })
-                                }
-                                style={{ marginRight: 10 }}
-                                type="primary"
-                                icon="plus"
-                              />
-                            </Form.Item>
-                          );
-                        }
+                    <Tabs defaultActiveKey="1">
+                      <Tabs.TabPane
+                        key="1"
+                        tab="Documents Element"
+                      >
+                        <FieldArray
+                          name="documents"
+                          render={(arrayHelpers) => {
+                            const documents = _get(
+                              form,
+                              'values.documents',
+                              [],
+                            );
 
-                        return documents.map(
-                          (item, index, items) => (
-                            <div
-                              key={item.id}
-                              style={{ marginBottom: 20 }}
-                            >
-                              <Form.Item
-                                {...formItemLayout}
-                                label="Document"
-                              >
-                                <Row
-                                  type="flex"
-                                  justify="start"
+                            if (!documents.length) {
+                              return (
+                                <Form.Item
+                                  {...formItemLayout}
+                                  label="No document"
                                 >
-                                  <Col span={8}>
-                                    #{item.id}
-                                  </Col>
-                                  <Col
-                                    span={16}
-                                    style={{
-                                      textAlign: 'right',
-                                    }}
+                                  <Button
+                                    onClick={() =>
+                                      arrayHelpers.push({
+                                        id: `D${Date.now()}`,
+                                      })
+                                    }
+                                    style={{marginRight: 10}}
+                                    type="primary"
+                                    icon="plus"
+                                  />
+                                </Form.Item>
+                              );
+                            }
+
+                            return documents.map(
+                              (item, index, items) => (
+                                <div
+                                  key={item.id}
+                                  style={{marginBottom: 20}}
+                                >
+                                  <Form.Item
+                                    {...formItemLayout}
+                                    label="Document"
                                   >
-                                    {index ===
-                                      items.length - 1 && (
-                                      <Button
-                                        onClick={() =>
-                                          arrayHelpers.push(
-                                            {
-                                              id: `D${Date.now()}`,
-                                            },
-                                          )
-                                        }
-                                        style={{
-                                          marginRight: 10,
-                                        }}
-                                        type="primary"
-                                        icon="plus"
-                                      />
-                                    )}
-                                    <Popconfirm
-                                      placement="top"
-                                      onConfirm={() =>
-                                        arrayHelpers.remove(
-                                          index,
-                                        )
-                                      }
-                                      okText="Yes"
-                                      cancelText="No"
-                                      title={`Are you sure delete this document?`}
+                                    <Row
+                                      type="flex"
+                                      justify="start"
                                     >
-                                      <Button
-                                        type="danger"
-                                        icon="delete"
-                                      />
-                                    </Popconfirm>
-                                  </Col>
-                                </Row>
-                              </Form.Item>
-                              <Editor
-                                name={`documents.${index}.contentHTML`}
-                                label={
-                                  fields.documents.fields
-                                    .contentHTML.label
-                                }
-                                required={
-                                  fields.documents.fields
-                                    .contentHTML.required
-                                }
-                              />
-                              <Form.Item
-                                {...formItemLayout}
-                                label="Evaluation criteria"
-                              >
-                                (>=)
-                              </Form.Item>
-                              <InputFormItem
-                                name={`documents.${index}.evaluation`}
-                                label={
-                                  fields.documents.fields
-                                    .evaluation.label
-                                }
-                                required={
-                                  fields.documents.fields
-                                    .evaluation.required
-                                }
-                              />
-                              <Divider />
-                            </div>
-                          ),
-                        );
-                      }}
-                    />
+                                      <Col span={8}>
+                                        #{item.id}
+                                      </Col>
+                                      <Col
+                                        span={16}
+                                        style={{
+                                          textAlign: 'right',
+                                        }}
+                                      >
+                                        {index ===
+                                        items.length - 1 && (
+                                          <Button
+                                            onClick={() =>
+                                              arrayHelpers.push(
+                                                {
+                                                  id: `D${Date.now()}`,
+                                                },
+                                              )
+                                            }
+                                            style={{
+                                              marginRight: 10,
+                                            }}
+                                            type="primary"
+                                            icon="plus"
+                                          />
+                                        )}
+                                        <Popconfirm
+                                          placement="top"
+                                          onConfirm={() =>
+                                            arrayHelpers.remove(
+                                              index,
+                                            )
+                                          }
+                                          okText="Yes"
+                                          cancelText="No"
+                                          title={`Are you sure delete this document?`}
+                                        >
+                                          <Button
+                                            type="danger"
+                                            icon="delete"
+                                          />
+                                        </Popconfirm>
+                                      </Col>
+                                    </Row>
+                                  </Form.Item>
+                                  <Editor
+                                    name={`documents.${index}.contentHTML`}
+                                    label={
+                                      fields.documents.fields
+                                        .contentHTML.label
+                                    }
+                                    required={
+                                      fields.documents.fields
+                                        .contentHTML.required
+                                    }
+                                  />
+                                  <Form.Item
+                                    {...formItemLayout}
+                                    label="Evaluation criteria"
+                                  >
+                                    (>=)
+                                  </Form.Item>
+                                  <InputFormItem
+                                    name={`documents.${index}.evaluation`}
+                                    label={
+                                      fields.documents.fields
+                                        .evaluation.label
+                                    }
+                                    required={
+                                      fields.documents.fields
+                                        .evaluation.required
+                                    }
+                                  />
+                                  <Divider/>
+                                </div>
+                              ),
+                            );
+                          }}
+                        />
+                      </Tabs.TabPane>
+                      <Tabs.TabPane
+                        key="2"
+                        tab="Audios Element"
+                      >
+                        <FieldArray
+                          name="audios"
+                          render={(arrayHelpers) => {
+                            const audios = _get(
+                              form,
+                              'values.audios',
+                              [],
+                            );
+
+                            if (!audios.length) {
+                              return (
+                                <Form.Item
+                                  {...formItemLayout}
+                                  label="No audio"
+                                >
+                                  <Button
+                                    onClick={() =>
+                                      arrayHelpers.push({
+                                        id: `A${Date.now()}`,
+                                      })
+                                    }
+                                    style={{marginRight: 10}}
+                                    type="primary"
+                                    icon="plus"
+                                  />
+                                </Form.Item>
+                              );
+                            }
+
+                            return audios.map(
+                              (item, index, items) => (
+                                <div
+                                  key={item.id}
+                                  style={{marginBottom: 20}}
+                                >
+                                  <Form.Item
+                                    {...formItemLayout}
+                                    label="Audio"
+                                  >
+                                    <Row
+                                      type="flex"
+                                      justify="start"
+                                    >
+                                      <Col span={8}>
+                                        #{item.id}
+                                      </Col>
+                                      <Col
+                                        span={16}
+                                        style={{
+                                          textAlign: 'right',
+                                        }}
+                                      >
+                                        {index ===
+                                        items.length - 1 && (
+                                          <Button
+                                            onClick={() =>
+                                              arrayHelpers.push(
+                                                {
+                                                  id: `A${Date.now()}`,
+                                                },
+                                              )
+                                            }
+                                            style={{
+                                              marginRight: 10,
+                                            }}
+                                            type="primary"
+                                            icon="plus"
+                                          />
+                                        )}
+                                        <Popconfirm
+                                          placement="top"
+                                          onConfirm={() =>
+                                            arrayHelpers.remove(
+                                              index,
+                                            )
+                                          }
+                                          okText="Yes"
+                                          cancelText="No"
+                                          title={`Are you sure delete this audio?`}
+                                        >
+                                          <Button
+                                            type="danger"
+                                            icon="delete"
+                                          />
+                                        </Popconfirm>
+                                      </Col>
+                                    </Row>
+                                  </Form.Item>
+                                  <InputFormItem
+                                    name={`audios.${index}.url`}
+                                    label={
+                                      fields.audios.fields.url
+                                        .label
+                                    }
+                                    required={
+                                      fields.audios.fields.url
+                                        .required
+                                    }
+                                  />
+                                  <Form.Item
+                                    {...formItemLayout}
+                                    label="Evaluation criteria"
+                                  >
+                                    (>=)
+                                  </Form.Item>
+                                  <InputFormItem
+                                    name={`audios.${index}.evaluation`}
+                                    label={
+                                      fields.audios.fields
+                                        .evaluation.label
+                                    }
+                                    required={
+                                      fields.audios.fields
+                                        .evaluation.required
+                                    }
+                                  />
+                                  <Divider/>
+                                </div>
+                              ),
+                            );
+                          }}
+                        />
+                      </Tabs.TabPane>
+                      <Tabs.TabPane
+                        key="3"
+                        tab="Videos Element"
+                      >
+                        <FieldArray
+                          name="videos"
+                          render={(arrayHelpers) => {
+                            const videos = _get(
+                              form,
+                              'values.videos',
+                              [],
+                            );
+
+                            if (!videos.length) {
+                              return (
+                                <Form.Item
+                                  {...formItemLayout}
+                                  label="No video"
+                                >
+                                  <Button
+                                    onClick={() =>
+                                      arrayHelpers.push({
+                                        id: `V${Date.now()}`,
+                                      })
+                                    }
+                                    style={{marginRight: 10}}
+                                    type="primary"
+                                    icon="plus"
+                                  />
+                                </Form.Item>
+                              );
+                            }
+
+                            return videos.map(
+                              (item, index, items) => (
+                                <div
+                                  key={item.id}
+                                  style={{marginBottom: 20}}
+                                >
+                                  <Form.Item
+                                    {...formItemLayout}
+                                    label="Video"
+                                  >
+                                    <Row
+                                      type="flex"
+                                      justify="start"
+                                    >
+                                      <Col span={8}>
+                                        #{item.id}
+                                      </Col>
+                                      <Col
+                                        span={16}
+                                        style={{
+                                          textAlign: 'right',
+                                        }}
+                                      >
+                                        {index ===
+                                        items.length - 1 && (
+                                          <Button
+                                            onClick={() =>
+                                              arrayHelpers.push(
+                                                {
+                                                  id: `V${Date.now()}`,
+                                                },
+                                              )
+                                            }
+                                            style={{
+                                              marginRight: 10,
+                                            }}
+                                            type="primary"
+                                            icon="plus"
+                                          />
+                                        )}
+                                        <Popconfirm
+                                          placement="top"
+                                          onConfirm={() =>
+                                            arrayHelpers.remove(
+                                              index,
+                                            )
+                                          }
+                                          okText="Yes"
+                                          cancelText="No"
+                                          title={`Are you sure delete this video?`}
+                                        >
+                                          <Button
+                                            type="danger"
+                                            icon="delete"
+                                          />
+                                        </Popconfirm>
+                                      </Col>
+                                    </Row>
+                                  </Form.Item>
+                                  <InputFormItem
+                                    name={`videos.${index}.url`}
+                                    label={
+                                      fields.videos.fields.url
+                                        .label
+                                    }
+                                    required={
+                                      fields.videos.fields.url
+                                        .required
+                                    }
+                                  />
+                                  <Form.Item
+                                    {...formItemLayout}
+                                    label="Evaluation criteria"
+                                  >
+                                    (>=)
+                                  </Form.Item>
+                                  <InputFormItem
+                                    name={`videos.${index}.evaluation`}
+                                    label={
+                                      fields.videos.fields
+                                        .evaluation.label
+                                    }
+                                    required={
+                                      fields.videos.fields
+                                        .evaluation.required
+                                    }
+                                  />
+                                  <Divider/>
+                                </div>
+                              ),
+                            );
+                          }}
+                        />
+                      </Tabs.TabPane>
+                    </Tabs>
                   </Tabs.TabPane>
                   <Tabs.TabPane
                     key="3"
-                    tab="Audios Element"
+                    tab="Constraints"
                   >
-                    <FieldArray
-                      name="audios"
-                      render={(arrayHelpers) => {
-                        const audios = _get(
-                          form,
-                          'values.audios',
-                          [],
-                        );
-
-                        if (!audios.length) {
-                          return (
-                            <Form.Item
-                              {...formItemLayout}
-                              label="No audio"
-                            >
-                              <Button
-                                onClick={() =>
-                                  arrayHelpers.push({
-                                    id: `A${Date.now()}`,
-                                  })
-                                }
-                                style={{ marginRight: 10 }}
-                                type="primary"
-                                icon="plus"
-                              />
-                            </Form.Item>
-                          );
-                        }
-
-                        return audios.map(
-                          (item, index, items) => (
-                            <div
-                              key={item.id}
-                              style={{ marginBottom: 20 }}
-                            >
-                              <Form.Item
-                                {...formItemLayout}
-                                label="Audio"
-                              >
-                                <Row
-                                  type="flex"
-                                  justify="start"
-                                >
-                                  <Col span={8}>
-                                    #{item.id}
-                                  </Col>
-                                  <Col
-                                    span={16}
-                                    style={{
-                                      textAlign: 'right',
-                                    }}
-                                  >
-                                    {index ===
-                                      items.length - 1 && (
-                                      <Button
-                                        onClick={() =>
-                                          arrayHelpers.push(
-                                            {
-                                              id: `A${Date.now()}`,
-                                            },
-                                          )
-                                        }
-                                        style={{
-                                          marginRight: 10,
-                                        }}
-                                        type="primary"
-                                        icon="plus"
-                                      />
-                                    )}
-                                    <Popconfirm
-                                      placement="top"
-                                      onConfirm={() =>
-                                        arrayHelpers.remove(
-                                          index,
-                                        )
-                                      }
-                                      okText="Yes"
-                                      cancelText="No"
-                                      title={`Are you sure delete this audio?`}
-                                    >
-                                      <Button
-                                        type="danger"
-                                        icon="delete"
-                                      />
-                                    </Popconfirm>
-                                  </Col>
-                                </Row>
-                              </Form.Item>
-                              <InputFormItem
-                                name={`audios.${index}.url`}
-                                label={
-                                  fields.audios.fields.url
-                                    .label
-                                }
-                                required={
-                                  fields.audios.fields.url
-                                    .required
-                                }
-                              />
-                              <Form.Item
-                                {...formItemLayout}
-                                label="Evaluation criteria"
-                              >
-                                (>=)
-                              </Form.Item>
-                              <InputFormItem
-                                name={`audios.${index}.evaluation`}
-                                label={
-                                  fields.audios.fields
-                                    .evaluation.label
-                                }
-                                required={
-                                  fields.audios.fields
-                                    .evaluation.required
-                                }
-                              />
-                              <Divider />
-                            </div>
-                          ),
-                        );
-                      }}
+                    <SwitchFormItem
+                      name={fields.completionRequired.name}
+                      label={
+                        fields.completionRequired.label
+                      }
                     />
-                  </Tabs.TabPane>
-                  <Tabs.TabPane
-                    key="4"
-                    tab="Videos Element"
-                  >
-                    <FieldArray
-                      name="videos"
-                      render={(arrayHelpers) => {
-                        const videos = _get(
-                          form,
-                          'values.videos',
-                          [],
-                        );
-
-                        if (!videos.length) {
-                          return (
-                            <Form.Item
-                              {...formItemLayout}
-                              label="No video"
-                            >
-                              <Button
-                                onClick={() =>
-                                  arrayHelpers.push({
-                                    id: `V${Date.now()}`,
-                                  })
-                                }
-                                style={{ marginRight: 10 }}
-                                type="primary"
-                                icon="plus"
-                              />
-                            </Form.Item>
-                          );
-                        }
-
-                        return videos.map(
-                          (item, index, items) => (
-                            <div
-                              key={item.id}
-                              style={{ marginBottom: 20 }}
-                            >
-                              <Form.Item
-                                {...formItemLayout}
-                                label="Video"
-                              >
-                                <Row
-                                  type="flex"
-                                  justify="start"
-                                >
-                                  <Col span={8}>
-                                    #{item.id}
-                                  </Col>
-                                  <Col
-                                    span={16}
-                                    style={{
-                                      textAlign: 'right',
-                                    }}
-                                  >
-                                    {index ===
-                                      items.length - 1 && (
-                                      <Button
-                                        onClick={() =>
-                                          arrayHelpers.push(
-                                            {
-                                              id: `V${Date.now()}`,
-                                            },
-                                          )
-                                        }
-                                        style={{
-                                          marginRight: 10,
-                                        }}
-                                        type="primary"
-                                        icon="plus"
-                                      />
-                                    )}
-                                    <Popconfirm
-                                      placement="top"
-                                      onConfirm={() =>
-                                        arrayHelpers.remove(
-                                          index,
-                                        )
-                                      }
-                                      okText="Yes"
-                                      cancelText="No"
-                                      title={`Are you sure delete this video?`}
-                                    >
-                                      <Button
-                                        type="danger"
-                                        icon="delete"
-                                      />
-                                    </Popconfirm>
-                                  </Col>
-                                </Row>
-                              </Form.Item>
-                              <InputFormItem
-                                name={`videos.${index}.url`}
-                                label={
-                                  fields.videos.fields.url
-                                    .label
-                                }
-                                required={
-                                  fields.videos.fields.url
-                                    .required
-                                }
-                              />
-                              <Form.Item
-                                {...formItemLayout}
-                                label="Evaluation criteria"
-                              >
-                                (>=)
-                              </Form.Item>
-                              <InputFormItem
-                                name={`videos.${index}.evaluation`}
-                                label={
-                                  fields.videos.fields
-                                    .evaluation.label
-                                }
-                                required={
-                                  fields.videos.fields
-                                    .evaluation.required
-                                }
-                              />
-                              <Divider />
-                            </div>
-                          ),
-                        );
-                      }}
+                    <TaskAutocompleteFormItem
+                      name={fields.prerequisite.name}
+                      label={fields.prerequisite.label}
+                      required={fields.prerequisite.required}
+                      showCreate={!this.props.modal}
+                      form={form}
+                      mode="multiple"
                     />
                   </Tabs.TabPane>
                 </Tabs>
+
                 <Form.Item
                   className="form-buttons"
                   {...tailFormItemLayout}
@@ -583,14 +597,14 @@ class TaskForm extends Component {
   }
 
   render() {
-    const { isEditing, findLoading, record } = this.props;
+    const {isEditing, findLoading, record} = this.props;
 
     if (findLoading) {
-      return <Spinner />;
+      return <Spinner/>;
     }
 
     if (isEditing && !record) {
-      return <Spinner />;
+      return <Spinner/>;
     }
 
     return this.renderForm();
