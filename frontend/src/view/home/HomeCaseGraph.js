@@ -1,16 +1,37 @@
 import React, {Component} from "react";
 import Graph from "react-graph-vis";
-import CasedGraph from "../../modules/cased/graph/casedGraph";
+import CasedGraph from "../cased/graph/casedGraph";
 
 
 const nodes = [
     {id: 1, group: "g1", shape: "ellipse", label: "Node 1", x: 0, y: 0},
-    {id: 2, group: "g1", label: "Node 2", x: 0, y: 200},
+    {id: 2, group: "g1", hidden: false, label: "Node 2", x: 0, y: 200},
     {id: 3, group: "g2", label: "Node 3", x: 200, y: 0},
     {id: 4, group: "g2", label: "Node 4", x: 200, y: 200},
     {id: 5, group: "g3", label: "Node 5", x: 400, y: 0},
     {id: 6, group: "g4", label: "Node 6", x: 600, y: 0},
 ];
+/*
+Desired elements in an case-node:
+- id (idField)                          - id
+- name (stringField)                    - label
+- status (enumeratorField)              - hidden ("ACTIVE" = false, "INACTIVE" = true, "DRAFT" = true)
+- modules (relationToManyField)         - NEW GRAPH
+
+Desired elements in a module-node:
+- id (idField)                          - id
+- name (stringField)                    - label
+- status (enumeratorField)              - hidden ("ACTIVE" = false, "INACTIVE" = true, "DRAFT" = true)
+- tasks (relationToManyField)           - NEW GRAPH
+- prerequisite (relationToManyField)    - edge from that to this
+
+Desired elements in a task-node:
+- id (idField)                          - id
+- name (stringField)                    - label
+- status (enumeratorField)              - hidden ("ACTIVE" = false, "INACTIVE" = true, "DRAFT" = true)
+- completionRequired (booleanField)     - shape (true = "box", false = "ellipse")
+- prerequisite (relationToManyField)    - edge from that to this
+ */
 
 const edges = [
     {id: 1, from: 1, to: 2},
