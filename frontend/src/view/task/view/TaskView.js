@@ -4,7 +4,7 @@ import Spinner from 'view/shared/Spinner';
 import ViewWrapper from 'view/shared/styles/ViewWrapper';
 import TextViewItem from 'view/shared/view/TextViewItem';
 import ModuleViewItem from 'view/module/view/ModuleViewItem';
-import ImagesViewItem from "../../shared/view/ImagesViewItem";
+//import ImagesViewItem from "../../shared/view/ImagesViewItem";
 
 const { fields } = model;
 
