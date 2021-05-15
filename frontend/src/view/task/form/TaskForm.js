@@ -28,7 +28,7 @@ import ModuleAutocompleteFormItem from 'view/module/autocomplete/ModuleAutocompl
 import AssignmentAutocompleteFormItem from 'view/assignments/autocomplete/AssignmentAutocompleteFormItem';
 
 import _get from 'lodash/get';
-import ImagesFormItem from "../../shared/form/items/ImagesFormItem";
+//import ImagesFormItem from "../../shared/form/items/ImagesFormItem";
 
 const {fields} = model;
 
