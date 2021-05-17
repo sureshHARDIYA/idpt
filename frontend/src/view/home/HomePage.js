@@ -11,7 +11,7 @@ import { /*Row, Col,*/ Card} from 'antd';
 //import HomePolarChart from 'view/home/HomePolarChart';
 //import HomeLineChart from 'view/home/HomeLineChart';
 import HomeCaseGraph from 'view/home/HomeCaseGraph';
-import CasedGraphPage from "../cased/graph/CasedGraphPage";
+import OverviewGraphPage from "../overview/OverviewGraphPage";
 
 class HomePage extends PureComponent {
   render() {
@@ -100,7 +100,7 @@ class HomePage extends PureComponent {
           <HomeCaseGraph/>
         </Card>
 
-        <CasedGraphPage/>
+        <OverviewGraphPage/>
       </React.Fragment>
     );
   }
