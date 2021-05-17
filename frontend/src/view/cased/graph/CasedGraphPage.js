@@ -19,6 +19,7 @@ class CasedGraphPage extends Component {
   }
 
   handleButtonClick = () => {
+    //TODO: Remove this function when done. It belongs to the button used to manually trigger a render
     this.forceUpdate();
   }
 
@@ -68,9 +69,14 @@ class CasedGraphPage extends Component {
 
           </Row>
         </ContentWrapper>
+
+
         <div>
+          {
+            //TODO: Remove this div when done. The button is used to manually trigger a render
+          }
           <button onClick={this.handleButtonClick}>
-            Click me
+            Force render
           </button>
         </div>
       </React.Fragment>
