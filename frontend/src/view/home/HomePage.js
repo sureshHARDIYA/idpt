@@ -10,7 +10,7 @@ import { /*Row, Col,*/ Card} from 'antd';
 //import HomeHorizontalBarChart from 'view/home/HomeHorizontalBarChart';
 //import HomePolarChart from 'view/home/HomePolarChart';
 //import HomeLineChart from 'view/home/HomeLineChart';
-import HomeCaseGraph from 'view/home/HomeCaseGraph';
+import HomeDummyGraph from 'view/home/HomeDummyGraph';
 import OverviewGraphPage from "../overview/OverviewGraphPage";
 
 class HomePage extends PureComponent {
@@ -97,7 +97,7 @@ class HomePage extends PureComponent {
         </p>
 */}
         <Card bodyStyle={{padding: 8}}>
-          <HomeCaseGraph/>
+          <HomeDummyGraph/>
         </Card>
 
         <OverviewGraphPage/>

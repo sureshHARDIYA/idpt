@@ -83,7 +83,7 @@ const events = {
   }*/
 };
 
-export default class HomeCaseGraph extends Component {
+export default class HomeDummyGraph extends Component {
   render() {
     return (
       <React.Fragment>
