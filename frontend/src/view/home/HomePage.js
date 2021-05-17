@@ -1,7 +1,7 @@
-import React, { PureComponent } from 'react';
-import { connect } from 'react-redux';
+import React, {PureComponent} from 'react';
+import {connect} from 'react-redux';
 //import { i18n } from 'i18n';
-import { Row, Col, Card } from 'antd';
+import { /*Row, Col,*/ Card} from 'antd';
 //import HomeBarChart from 'view/home/HomeBarChart';
 //import HomeDoughnutChart from 'view/home/HomeDoughnutChart';
 //import HomeRadarChart from 'view/home/HomeRadarChart';
@@ -11,10 +11,11 @@ import { Row, Col, Card } from 'antd';
 //import HomePolarChart from 'view/home/HomePolarChart';
 //import HomeLineChart from 'view/home/HomeLineChart';
 import HomeCaseGraph from 'view/home/HomeCaseGraph';
+import CasedGraphPage from "../cased/graph/CasedGraphPage";
 
 class HomePage extends PureComponent {
   render() {
-    const twoColumnsResponsiveProps = {
+    /*const twoColumnsResponsiveProps = {
       xs: 24,
       sm: 24,
       md: 12,
@@ -30,11 +31,11 @@ class HomePage extends PureComponent {
       lg: 12,
       xl: 8,
       style: { marginBottom: 24 },
-    };
+    };/**/
 
     return (
       <React.Fragment>
-{/*
+        {/*
         <Row gutter={24}>
           <Col {...threeColumnsResponsiveProps}>
             <Card bodyStyle={{ padding: 8 }}>
@@ -95,9 +96,11 @@ class HomePage extends PureComponent {
           {i18n('home.message')}
         </p>
 */}
-        <Card bodyStyle={{ padding: 8 }}>
-          <HomeCaseGraph />
+        <Card bodyStyle={{padding: 8}}>
+          <HomeCaseGraph/>
         </Card>
+
+        <CasedGraphPage/>
       </React.Fragment>
     );
   }
