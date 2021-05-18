@@ -26,18 +26,18 @@ class CasedGraph extends Component {
   };
 
   setSelectedNode(currentId) {
-    const {rows} = this.props;
-    return rows.find(node => node.id === currentId);
+    const {casedRows} = this.props;
+    return casedRows.find(node => node.id === currentId);
   };
 
   getNodes = () => {
-    const {rows} = this.props;
-    if (!rows.length) {
+    const {casedRows} = this.props;
+    if (!casedRows.length) {
       return []
     }
 
     // Re-label the 'name'-property to 'label', to fit the requirements of the Graph-framefork
-    const nodes = rows.map(row => {
+    const nodes = casedRows.map(row => {
         const {name: label, ...rest} = row;
         return {label, ...rest};
       }
@@ -70,8 +70,8 @@ class CasedGraph extends Component {
 function select(state) {
   return {
     loading: selectors.selectLoading(state) || destroySelectors.selectLoading(state),
-    rows: selectors.selectRows(state),
-    record: selectors.selectRecord(state),
+    casedRows: selectors.selectRows(state),
+    casedRecord: selectors.selectRecord(state),
     hasPermissionToEdit: casedSelectors.selectPermissionToEdit(state,),
     hasPermissionToDestroy: casedSelectors.selectPermissionToDestroy(state,),
     hasPermissionToRead: casedSelectors.selectPermissionToRead(state,),
