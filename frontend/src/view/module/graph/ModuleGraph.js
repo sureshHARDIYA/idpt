@@ -12,8 +12,18 @@ class ModuleGraph extends Component {
   options = {
     autoResize: true,
     height: "500px",
-    nodes: {shape: "box"},
+    nodes: {shape: "box"}, edges: {
+      color: "#000000",
+      width: 1,
+    },
     interaction: {hover: true},
+    physics: {
+      enabled: true, // This must be false to use manual positioning for nodes
+      stabilization: { // Force the graph to stabilize before being shown
+        enabled: true,
+        iterations: 5000
+      }
+    },
   };
 
   events = {
@@ -31,17 +41,22 @@ class ModuleGraph extends Component {
   };
 
   getNodes = () => {
-    const {moduleRows} = this.props;
+    const {moduleRows, casedRecord} = this.props;
     if (!moduleRows.length) {
       return []
     }
 
     // Re-label the 'name'-property to 'label', to fit the requirements of the Graph-framefork
-    const nodes = moduleRows.map(row => {
+    let nodes = moduleRows.map(row => {
         const {name: label, ...rest} = row;
         return {label, ...rest};
       }
     );
+
+    // Filter: Get the modules that correspond to the casedRecord
+    if (!!casedRecord) {
+      nodes = nodes.filter(n => casedRecord.modules.map(m => m.id).includes(n.id));
+    }
 
     // Add coordinates to each row, to prettify the graph-result
     let yValue = -50;
@@ -50,15 +65,39 @@ class ModuleGraph extends Component {
       e.y = yValue += 50
     })
 
+    this.getEdges()
     return nodes;
   };
 
+
+  getEdges = () => {
+    const {moduleRows} = this.props;
+    if (!moduleRows.length) {
+      return []
+    }
+
+    let edgeId = 0;
+    let edges = [];
+    moduleRows.forEach(m => {
+        if (!!m.prerequisite.length) {
+          let prereq = m.prerequisite.map(p => p.id)
+          prereq.forEach(p => edges.push({id: edgeId++, from: p, to: m.id}))
+
+        }
+      }
+    )
+
+    return edges;
+  };
+
   render() {
+    console.log("Module: ", this.props)
+
     return (
       <Graph
         graph={{
           nodes: this.getNodes(),
-          edges: []
+          edges: this.getEdges()
         }}
         options={this.options}
         events={this.events}

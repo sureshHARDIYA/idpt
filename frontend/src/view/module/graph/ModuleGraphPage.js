@@ -23,7 +23,6 @@ class ModuleGraphPage extends Component {
     const twoColumnsResponsiveProps = {
       xs: 24, sm: 24, md: 12, lg: 12, xl: 12, style: {marginBottom: 24},
     };
-    console.log("Module: ", this.props)
 
     return (
       <React.Fragment>
@@ -34,7 +33,7 @@ class ModuleGraphPage extends Component {
         <Row gutter={24}>
           <Col {...twoColumnsResponsiveProps}>
             <Card bodyStyle={{padding: 8}}>
-              <ModuleGraph/>
+              <ModuleGraph casedRecord={this.props.casedRecord}/>
             </Card>
           </Col>
 
