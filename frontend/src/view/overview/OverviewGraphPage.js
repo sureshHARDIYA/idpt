@@ -1,24 +1,18 @@
 import React, {Component} from 'react';
 import ContentWrapper from 'view/layout/styles/ContentWrapper';
 import PageTitle from 'view/shared/styles/PageTitle';
-import selectors from "../../modules/cased/graph/casedGraphSelectors";
-import destroySelectors from "../../modules/cased/destroy/casedDestroySelectors";
-import casedSelectors from "../../modules/cased/casedSelectors";
 import {connect} from "react-redux";
-import actions from "../../modules/cased/graph/casedGraphActions";
+
+import casedGraphSelectors from "../../modules/cased/graph/casedGraphSelectors";
 import CasedGraphPage from "../cased/graph/CasedGraphPage";
 
+import moduleGraphSelectors from "../../modules/module/graph/moduleGraphSelectors";
+import ModuleGraphPage from "../module/graph/ModuleGraphPage";
+
 class OverviewGraphPage extends Component {
-  componentDidMount() {
-    const {dispatch} = this.props;
-    dispatch(actions.doFetch());
-  }
-
   handleButtonClick = () => {
-    //TODO: Remove this function when done. It belongs to the button used to manually trigger a render
-    this.forceUpdate();
+    this.forceUpdate(); /*TODO: Remove this when done. Used to manually trigger a render*/
   }
-
 
   render() {
     return (
@@ -29,14 +23,12 @@ class OverviewGraphPage extends Component {
           </PageTitle>
 
           <CasedGraphPage/>
+          <ModuleGraphPage casedRecord={this.props.casedRecord}/>
 
         </ContentWrapper>
 
-
         <div>
-          {
-            //TODO: Remove this div when done. The button is used to manually trigger a render
-          }
+          {/*TODO: Remove this div when done. The button is used to manually trigger a render*/}
           <button onClick={this.handleButtonClick}>
             Force render
           </button>
@@ -48,12 +40,8 @@ class OverviewGraphPage extends Component {
 
 function select(state) {
   return {
-    loading: selectors.selectLoading(state) || destroySelectors.selectLoading(state),
-    rows: selectors.selectRows(state),
-    record: selectors.selectRecord(state),
-    hasPermissionToEdit: casedSelectors.selectPermissionToEdit(state,),
-    hasPermissionToDestroy: casedSelectors.selectPermissionToDestroy(state,),
-    hasPermissionToRead: casedSelectors.selectPermissionToRead(state,),
+    casedRecord: casedGraphSelectors.selectRecord(state),
+    moduleRecord: moduleGraphSelectors.selectRecord(state),
   };
 }
 
