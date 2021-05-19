@@ -12,9 +12,17 @@ class ModuleGraph extends Component {
   options = {
     autoResize: true,
     height: "500px",
-    nodes: {shape: "box"}, edges: {
+    nodes: {shape: "box"},
+    edges: {
       color: "#000000",
       width: 1,
+      smooth: { // Removing smoothness, results in straight lines (horizonal / vertical / diagonal)
+
+        enabled: true,
+        type: "curvedCW",
+        forceDirection: "vertical",
+        roundness: .3
+      },
     },
     interaction: {hover: true},
     physics: {
@@ -59,10 +67,11 @@ class ModuleGraph extends Component {
     }
 
     // Add coordinates to each row, to prettify the graph-result
-    let yValue = -50;
+    let xValue = -100;
+    let yValue = -100;
     nodes.forEach(e => {
-      e.x = 0;
-      e.y = yValue += 50
+      e.x = xValue > 300 ? 0 : xValue += 100;
+      e.y = yValue += 100
     })
 
     this.getEdges()
