@@ -32,13 +32,13 @@ class TaskGraphPage extends Component {
 
         <Row gutter={24}>
           <Col {...twoColumnsResponsiveProps}>
-            <Card bodyStyle={{padding: 8}}>
+            <Card bodyStyle={{padding: 8, height: "500px"}}>
               <TaskGraph moduleRecord={this.props.moduleRecord}/>
             </Card>
           </Col>
 
           <Col {...twoColumnsResponsiveProps}>
-            <Card bodyStyle={{padding: 8}}>
+            <Card bodyStyle={{padding: 8, height: "500px", overflow: "auto"}}>
               <TaskView
                 loading={this.props.loading}
                 record={this.props.taskRecord}
