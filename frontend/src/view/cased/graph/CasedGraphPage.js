@@ -32,13 +32,13 @@ class CasedGraphPage extends Component {
 
         <Row gutter={24}>
           <Col {...twoColumnsResponsiveProps}>
-            <Card bodyStyle={{padding: 8}}>
+            <Card bodyStyle={{padding: 8, height: "500px"}}>
               <CasedGraph/>
             </Card>
           </Col>
 
           <Col {...twoColumnsResponsiveProps}>
-            <Card bodyStyle={{padding: 8}}>
+            <Card bodyStyle={{padding: 8, height: "500px", overflow: "auto"}}>
               <CasedView
                 loading={this.props.loading}
                 record={this.props.casedRecord}
