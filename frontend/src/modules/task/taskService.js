@@ -184,6 +184,59 @@ export default class TaskService {
     return response.data.taskList;
   }
 
+  static async graph(filter, orderBy, limit, offset) {
+    const response = await graphqlClient.query({
+      query: gql`
+        query TASK_LIST(
+          $filter: TaskFilterInput
+          $orderBy: TaskOrderByEnum
+          $limit: Int
+          $offset: Int
+        ) {
+          taskList(
+            filter: $filter
+            orderBy: $orderBy
+            limit: $limit
+            offset: $offset
+          ) {
+            count
+            rows {
+              id
+              name
+              description
+              status
+              tags
+              points
+              completionRequired
+              complexityLevel
+              owner {
+                id
+                name
+              }
+              next {
+                id
+                name
+              }
+              ${ELEMENT_FRAGAMENT}
+              updatedAt
+              createdAt
+            }
+          }
+        }
+      `,
+
+      variables: {
+        filter,
+        orderBy,
+        limit,
+        offset,
+      },
+    });
+
+    return response.data.taskList;
+  }
+
+
   static async listAutocomplete(query, limit) {
     const response = await graphqlClient.query({
       query: gql`
