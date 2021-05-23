@@ -9,6 +9,8 @@ import CasedGraphPage from "../cased/graph/CasedGraphPage";
 import moduleGraphSelectors from "../../modules/module/graph/moduleGraphSelectors";
 import ModuleGraphPage from "../module/graph/ModuleGraphPage";
 
+import TaskGraphPage from "../task/graph/TaskGraphPage";
+
 class OverviewGraphPage extends Component {
   handleButtonClick = () => {
     this.forceUpdate(); /*TODO: Remove this when done. Used to manually trigger a render*/
@@ -24,6 +26,7 @@ class OverviewGraphPage extends Component {
 
           <CasedGraphPage/>
           <ModuleGraphPage casedRecord={this.props.casedRecord}/>
+          <TaskGraphPage moduleRecord={this.props.moduleRecord}/>
 
         </ContentWrapper>
 
