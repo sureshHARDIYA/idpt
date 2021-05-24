@@ -7,7 +7,9 @@ import Graph from "react-graph-vis";
 import actions from "../../../modules/cased/graph/casedGraphActions";
 
 class CasedGraph extends Component {
-
+  state = {
+    casedNetwork: {}
+  };
 
   options = {
     autoResize: true,
@@ -20,9 +22,12 @@ class CasedGraph extends Component {
     selectNode: (event) => {
       const currentId = event.nodes[0];
       const currentNode = this.setSelectedNode(currentId);
-      this.props.dispatch(actions.doChangeSelected(currentNode))
-
+      this.props.dispatch(actions.doChangeSelected(currentNode));
     },
+    stabilized: () => {
+      this.state.casedNetwork.setOptions({physics: {enabled: false}});
+      this.state.casedNetwork.fit();
+    }
   };
 
   setSelectedNode(currentId) {
@@ -62,6 +67,9 @@ class CasedGraph extends Component {
         }}
         options={this.options}
         events={this.events}
+        getNetwork={casedNetwork => {
+          this.setState({casedNetwork})
+        }}
       />
     );
   };

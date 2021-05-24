@@ -8,7 +8,9 @@ import actions from "../../../modules/task/graph/taskGraphActions";
 import {connect} from 'react-redux';
 
 class TaskGraph extends Component {
-
+  state = {
+    taskNetwork: {}
+  };
 
   options = {
     autoResize: true,
@@ -34,6 +36,10 @@ class TaskGraph extends Component {
       const currentNode = this.setSelectedNode(currentId);
       this.props.dispatch(actions.doChangeSelected(currentNode))
     },
+    stabilized: () => {
+      this.state.taskNetwork.setOptions({physics: {enabled: false}});
+      this.state.taskNetwork.fit();
+    }
   };
 
   setSelectedNode(currentId) {
@@ -63,11 +69,11 @@ class TaskGraph extends Component {
     let xValue = -100;
     let yValue = -100;
     nodes.forEach(e => {
-      e.x = xValue > 300 ? xValue = 0 : xValue += 100;
-      e.y = yValue += 100
-    })
+      e.x = (xValue += 100) % 300;
+      e.y = yValue += 100;
+    });
 
-    this.getEdges()
+    this.getEdges();
     return nodes;
   };
 
@@ -75,29 +81,24 @@ class TaskGraph extends Component {
   getEdges = () => {
     const {taskRows} = this.props;
     if (!taskRows.length) {
-      return []
+      return [];
     }
 
     let edgeId = 0;
     let edges = [];
 
-    console.log("TASKS:" , taskRows)
-
     taskRows.forEach(t => {
         if (!!t.next.length) {
-          let next = t.next.map(n => n.id)
-          next.forEach(n => edges.push({id: edgeId++, from: t.id, to: n}))
-
+          let next = t.next.map(n => n.id);
+          next.forEach(n => edges.push({id: edgeId++, from: t.id, to: n}));
         }
       }
-    )
+    );
 
     return edges;
   };
 
   render() {
-    console.log("Module: ", this.props)
-
     return (
       <Graph
         graph={{
@@ -106,6 +107,9 @@ class TaskGraph extends Component {
         }}
         options={this.options}
         events={this.events}
+        getNetwork={taskNetwork => {
+          this.setState({taskNetwork})
+        }}
       />
     );
   };
@@ -119,7 +123,6 @@ function select(state) {
     hasPermissionToEdit: taskSelectors.selectPermissionToEdit(state,),
     hasPermissionToDestroy: taskSelectors.selectPermissionToDestroy(state,),
     hasPermissionToRead: taskSelectors.selectPermissionToRead(state,),
-
   };
 }
 

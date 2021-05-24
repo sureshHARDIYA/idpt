@@ -7,7 +7,9 @@ import Graph from "react-graph-vis";
 import actions from "../../../modules/module/graph/moduleGraphActions";
 
 class ModuleGraph extends Component {
-
+  state = {
+    moduleNetwork: {}
+  };
 
   options = {
     autoResize: true,
@@ -16,13 +18,6 @@ class ModuleGraph extends Component {
     edges: {
       color: "#000000",
       width: 1,
-      smooth: { // Removing smoothness, results in straight lines (horizonal / vertical / diagonal)
-
-        enabled: true,
-        type: "curvedCW",
-        forceDirection: "vertical",
-        roundness: .3
-      },
     },
     interaction: {hover: true},
     physics: {
@@ -38,9 +33,13 @@ class ModuleGraph extends Component {
     selectNode: (event) => {
       const currentId = event.nodes[0];
       const currentNode = this.setSelectedNode(currentId);
-      this.props.dispatch(actions.doChangeSelected(currentNode))
-
+      this.props.dispatch(actions.doChangeSelected(currentNode));
     },
+    stabilized: () => {
+      console.log("FINISHED STABILIZATION")
+      this.state.moduleNetwork.setOptions({physics: {enabled: false}});
+      this.state.moduleNetwork.fit();
+    }
   };
 
   setSelectedNode(currentId) {
@@ -51,7 +50,7 @@ class ModuleGraph extends Component {
   getNodes = () => {
     const {moduleRows, casedRecord} = this.props;
     if (!moduleRows.length) {
-      return []
+      return [];
     }
 
     // Re-label the 'name'-property to 'label', to fit the requirements of the Graph-framefork
@@ -70,11 +69,11 @@ class ModuleGraph extends Component {
     let xValue = -100;
     let yValue = -100;
     nodes.forEach(e => {
-      e.x = xValue > 300 ? 0 : xValue += 100;
-      e.y = yValue += 100
-    })
+      e.x = (xValue += 100) % 300;
+      e.y = yValue += 100;
+    });
 
-    this.getEdges()
+    this.getEdges();
     return nodes;
   };
 
@@ -100,8 +99,6 @@ class ModuleGraph extends Component {
   };
 
   render() {
-    console.log("Module: ", this.props)
-
     return (
       <Graph
         graph={{
@@ -110,6 +107,9 @@ class ModuleGraph extends Component {
         }}
         options={this.options}
         events={this.events}
+        getNetwork={moduleNetwork => {
+          this.setState({moduleNetwork})
+        }}
       />
     );
   };
