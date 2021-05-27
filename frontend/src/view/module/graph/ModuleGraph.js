@@ -36,7 +36,6 @@ class ModuleGraph extends Component {
       this.props.dispatch(actions.doChangeSelected(currentNode));
     },
     stabilized: () => {
-      console.log("FINISHED STABILIZATION")
       this.state.moduleNetwork.setOptions({physics: {enabled: false}});
       this.state.moduleNetwork.fit();
     }
