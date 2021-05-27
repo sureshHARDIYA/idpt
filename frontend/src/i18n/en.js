@@ -167,6 +167,7 @@ const en = {
         status: 'Status',
         featuredImage: 'FeaturedImage',
         modules: 'Modules',
+        taxonomies: 'Taxonomies',
         patients: 'Patients',
         availableFromRange: 'AvailableFrom',
         availableFrom: 'AvailableFrom',

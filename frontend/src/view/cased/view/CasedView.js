@@ -5,6 +5,7 @@ import ViewWrapper from 'view/shared/styles/ViewWrapper';
 import TextViewItem from 'view/shared/view/TextViewItem';
 import ImagesViewItem from 'view/shared/view/ImagesViewItem';
 import ModuleViewItem from 'view/module/view/ModuleViewItem';
+import TaxonomyViewItem from 'view/taxonomy/view/TaxonomyViewItem';
 
 const { fields } = model;
 
@@ -42,6 +43,11 @@ class CasedView extends Component {
         <ModuleViewItem
           label={fields.modules.label}
           value={fields.modules.forView(record.modules)}
+        />
+
+        <TaxonomyViewItem
+          label={fields.taxonomies.label}
+          value={fields.taxonomies.forView(record.taxonomies)}
         />
 
         <TextViewItem
