@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PageSubTitle from 'view/shared/styles/PageSubTitle';
-import {Button, Card, Col, Row} from "antd";
+import {Card, Col, Row} from "antd";
 
 import selectors from 'modules/module/graph/moduleGraphSelectors';
 import destroySelectors from 'modules/module/destroy/moduleDestroySelectors';
@@ -9,9 +9,7 @@ import actions from "../../../modules/module/graph/moduleGraphActions";
 import {connect} from "react-redux";
 
 import ModuleGraph from "./ModuleGraph";
-import {Link} from "react-router-dom";
-import {i18n} from "../../../i18n";
-import ModuleView from "../view/ModuleView";
+import ModuleViewContent from "../view/ModuleViewContent";
 
 class ModuleGraphPage extends Component {
   componentDidMount() {
@@ -39,22 +37,10 @@ class ModuleGraphPage extends Component {
 
           <Col {...twoColumnsResponsiveProps}>
             <Card bodyStyle={{padding: 8, height: "500px", overflow: "auto"}}>
-              <ModuleView
+              <ModuleViewContent
                 loading={this.props.loading}
                 record={this.props.moduleRecord}
               />
-
-              <div>
-                {!!this.props.moduleRecord ?
-                  (
-                    <Link to={`/module/${this.props.moduleRecord.id}`}>
-                      <Button type="primary" icon="view">
-                        {i18n('common.view')}
-                      </Button>
-                    </Link>)
-                  : ("")
-                }
-              </div>
             </Card>
           </Col>
         </Row>

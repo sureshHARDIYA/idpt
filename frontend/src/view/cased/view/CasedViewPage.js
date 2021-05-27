@@ -2,12 +2,11 @@ import React, { Component } from 'react';
 import ContentWrapper from 'view/layout/styles/ContentWrapper';
 import PageTitle from 'view/shared/styles/PageTitle';
 import Breadcrumb from 'view/shared/Breadcrumb';
-import CasedView from 'view/cased/view/CasedView';
 import { i18n } from 'i18n';
 import actions from 'modules/cased/view/casedViewActions';
 import { connect } from 'react-redux';
 import selectors from 'modules/cased/view/casedViewSelectors';
-import CasedViewToolbar from 'view/cased/view/CasedViewToolbar';
+import CasedViewContent from "./CasedViewContent";
 
 class CasedPage extends Component {
   componentDidMount() {
@@ -31,9 +30,7 @@ class CasedPage extends Component {
             {i18n('entities.cased.view.title')}
           </PageTitle>
 
-          <CasedViewToolbar match={this.props.match} />
-
-          <CasedView
+          <CasedViewContent
             loading={this.props.loading}
             record={this.props.record}
           />
