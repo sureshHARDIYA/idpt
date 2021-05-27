@@ -12,9 +12,6 @@ import ModuleGraphPage from "../module/graph/ModuleGraphPage";
 import TaskGraphPage from "../task/graph/TaskGraphPage";
 
 class OverviewGraphPage extends Component {
-  handleButtonClick = () => {
-    this.forceUpdate(); /*TODO: Remove this when done. Used to manually trigger a render*/
-  }
 
   render() {
     return (
@@ -27,15 +24,9 @@ class OverviewGraphPage extends Component {
           <CasedGraphPage/>
           <ModuleGraphPage casedRecord={this.props.casedRecord}/>
           <TaskGraphPage moduleRecord={this.props.moduleRecord}/>
-
         </ContentWrapper>
 
-        <div>
-          {/*TODO: Remove this div when done. The button is used to manually trigger a render*/}
-          <button onClick={this.handleButtonClick}>
-            Force render
-          </button>
-        </div>
+        <button onClick={() => {this.forceUpdate();}}>Force render</button> {/*TODO: Remove line when done. Used to manually trigger render*/}
       </React.Fragment>
     );
   }
