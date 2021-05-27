@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PageSubTitle from 'view/shared/styles/PageSubTitle';
-import {Button, Card, Col, Row} from "antd";
+import {Card, Col, Row} from "antd";
 
 import selectors from 'modules/task/graph/taskGraphSelectors';
 import destroySelectors from 'modules/task/destroy/taskDestroySelectors';
@@ -9,9 +9,7 @@ import actions from "../../../modules/task/graph/taskGraphActions";
 import {connect} from "react-redux";
 
 import TaskGraph from "./TaskGraph";
-import {Link} from "react-router-dom";
-import {i18n} from "../../../i18n";
-import TaskView from "../view/TaskView";
+import TaskViewContent from "../view/TaskViewContent";
 
 class TaskGraphPage extends Component {
   componentDidMount() {
@@ -39,22 +37,10 @@ class TaskGraphPage extends Component {
 
           <Col {...twoColumnsResponsiveProps}>
             <Card bodyStyle={{padding: 8, height: "500px", overflow: "auto"}}>
-              <TaskView
+              <TaskViewContent
                 loading={this.props.loading}
                 record={this.props.taskRecord}
               />
-
-              <div>
-                {!!this.props.taskRecord ?
-                  (
-                    <Link to={`/task/${this.props.taskRecord.id}`}>
-                      <Button type="primary" icon="view">
-                        {i18n('common.view')}
-                      </Button>
-                    </Link>)
-                  : ("")
-                }
-              </div>
             </Card>
           </Col>
         </Row>

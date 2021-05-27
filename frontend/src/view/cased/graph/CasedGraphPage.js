@@ -1,17 +1,14 @@
 import React, {Component} from 'react';
 import PageSubTitle from 'view/shared/styles/PageSubTitle';
 import CasedGraph from "./CasedGraph";
-import {Button, Card, Col, Row} from "antd";
+import {Card, Col, Row} from "antd";
 
 import selectors from "../../../modules/cased/graph/casedGraphSelectors";
 import destroySelectors from "../../../modules/cased/destroy/casedDestroySelectors";
 import casedSelectors from "../../../modules/cased/casedSelectors";
 import {connect} from "react-redux";
-
-import CasedView from "../view/CasedView";
-import {Link} from "react-router-dom";
-import {i18n} from "../../../i18n";
 import actions from "../../../modules/cased/graph/casedGraphActions";
+import CasedViewContent from "../view/CasedViewContent";
 
 class CasedGraphPage extends Component {
   componentDidMount() {
@@ -39,22 +36,10 @@ class CasedGraphPage extends Component {
 
           <Col {...twoColumnsResponsiveProps}>
             <Card bodyStyle={{padding: 8, height: "500px", overflow: "auto"}}>
-              <CasedView
-                loading={this.props.loading}
+              <CasedViewContent
                 record={this.props.casedRecord}
+                loading={this.props.loading}
               />
-
-              <div>
-                {!!this.props.casedRecord ?
-                  (
-                    <Link to={`/cased/${this.props.casedRecord.id}`}>
-                      <Button type="primary" icon="view">
-                        {i18n('common.view')}
-                      </Button>
-                    </Link>)
-                  : ("")
-                }
-              </div>
             </Card>
           </Col>
         </Row>

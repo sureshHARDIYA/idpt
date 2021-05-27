@@ -2,12 +2,11 @@ import React, { Component } from 'react';
 import ContentWrapper from 'view/layout/styles/ContentWrapper';
 import PageTitle from 'view/shared/styles/PageTitle';
 import Breadcrumb from 'view/shared/Breadcrumb';
-import TaskView from 'view/task/view/TaskView';
 import { i18n } from 'i18n';
 import actions from 'modules/task/view/taskViewActions';
 import { connect } from 'react-redux';
 import selectors from 'modules/task/view/taskViewSelectors';
-import TaskViewToolbar from 'view/task/view/TaskViewToolbar';
+import TaskViewContent from "./TaskViewContent";
 
 class TaskPage extends Component {
   componentDidMount() {
@@ -31,9 +30,7 @@ class TaskPage extends Component {
             {i18n('entities.task.view.title')}
           </PageTitle>
 
-          <TaskViewToolbar match={this.props.match} />
-
-          <TaskView
+          <TaskViewContent
             loading={this.props.loading}
             record={this.props.record}
           />

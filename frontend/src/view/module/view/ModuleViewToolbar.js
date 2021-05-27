@@ -11,7 +11,7 @@ import auditLogSelectors from 'modules/auditLog/auditLogSelectors';
 
 class ModuleViewToolbar extends Component {
   id = () => {
-    return this.props.match.params.id;
+    return this.props.id;
   };
 
   doDestroy = () => {
