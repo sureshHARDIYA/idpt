@@ -27,6 +27,12 @@ const CasedSchema = new Schema(
         ref: 'module',
       },
     ],
+    taxonomies: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'taxonomy',
+      },
+    ],
     audience: {
       type: String,
       default: 'ALL',
