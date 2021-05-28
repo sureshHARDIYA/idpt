@@ -56,6 +56,11 @@ const fields = {
     label('tasks'),
     {},
   ),
+  taxonomies: new RelationToManyField(
+    'taxonomies',
+    label('taxonomies'),
+    {},
+  ),
   featuredImage: new ImagesField(
     'featuredImage',
     label('featuredImage'),

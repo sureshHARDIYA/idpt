@@ -10,6 +10,7 @@ import ButtonLink from 'view/shared/styles/ButtonLink';
 import CasedListItem from 'view/cased/list/CasedListItem';
 import TableWrapper from 'view/shared/styles/TableWrapper';
 import ModuleListItem from 'view/module/list/ModuleListItem';
+import TaxonomyListItem from 'view/taxonomy/list/TaxonomyListItem';
 import actions from 'modules/module/list/moduleListActions';
 import moduleSelectors from 'modules/module/moduleSelectors';
 import selectors from 'modules/module/list/moduleListSelectors';
@@ -40,6 +41,9 @@ class ModuleListTable extends Component {
     fields.status.forTable(),
     fields.tasks.forTable({
       render: (value) => <TaskListItem value={value} />,
+    }),
+    fields.taxonomies.forTable({
+      render: (value) => <TaxonomyListItem value={value} />,
     }),
     {
       title: 'Avatar',

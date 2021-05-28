@@ -7,6 +7,7 @@ import ImagesViewItem from 'view/shared/view/ImagesViewItem';
 import CasedViewItem from 'view/cased/view/CasedViewItem';
 import TaskViewItem from 'view/task/view/TaskViewItem';
 import ModuleViewItem from 'view/module/view/ModuleViewItem';
+import TaxonomyViewItem from 'view/taxonomy/view/TaxonomyViewItem';
 
 const { fields } = model;
 
@@ -44,6 +45,11 @@ class ModuleView extends Component {
         <TaskViewItem
           label={fields.tasks.label}
           value={fields.tasks.forView(record.tasks)}
+        />
+
+        <TaxonomyViewItem
+          label={fields.taxonomies.label}
+          value={fields.taxonomies.forView(record.taxonomies)}
         />
 
         <ImagesViewItem

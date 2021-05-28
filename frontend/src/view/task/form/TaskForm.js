@@ -26,6 +26,7 @@ import SelectFormItem from 'view/shared/form/items/SelectFormItem';
 import TaskAutocompleteFormItem from 'view/task/autocomplete/TaskAutocompleteFormItem';
 import ModuleAutocompleteFormItem from 'view/module/autocomplete/ModuleAutocompleteFormItem';
 import AssignmentAutocompleteFormItem from 'view/assignments/autocomplete/AssignmentAutocompleteFormItem';
+import TaxonomyAutocompleteFormItem from 'view/taxonomy/autocomplete/TaxonomyAutocompleteFormItem';
 
 import _get from 'lodash/get';
 
@@ -41,6 +42,7 @@ class TaskForm extends Component {
     fields.completionRequired,
     fields.complexityLevel,
     fields.owner,
+    fields.taxonomies,
     fields.next,
     fields.documents,
     fields.videos,
@@ -147,6 +149,14 @@ class TaskForm extends Component {
                       label={fields.assignments.label}
                       required={fields.assignments.required}
                       showCreate={false}
+                      form={form}
+                      mode="multiple"
+                    />
+                    <TaxonomyAutocompleteFormItem
+                      name={fields.taxonomies.name}
+                      label={fields.taxonomies.label}
+                      required={fields.taxonomies.required}
+                      showCreate={!this.props.modal}
                       form={form}
                       mode="multiple"
                     />

@@ -3,6 +3,8 @@ const MongooseQueryUtils = require('../utils/mongooseQueryUtils');
 const AuditLogRepository = require('./auditLogRepository');
 const Taxonomy = require('../models/taxonomy');
 const Cased = require('../models/cased');
+const Module = require('../models/module');
+const Task = require('../models/task');
 
 /**
  * Handles database operations for the Taxonomy.
@@ -126,6 +128,20 @@ class TaxonomyRepository {
     await MongooseRepository.destroyRelationToMany(
       id,
       Cased,
+      'taxonomies',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToMany(
+      id,
+      Module,
+      'taxonomies',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToMany(
+      id,
+      Task,
       'taxonomies',
       options,
     );

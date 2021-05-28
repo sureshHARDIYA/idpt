@@ -4,6 +4,7 @@ import Spinner from 'view/shared/Spinner';
 import ViewWrapper from 'view/shared/styles/ViewWrapper';
 import TextViewItem from 'view/shared/view/TextViewItem';
 import ModuleViewItem from 'view/module/view/ModuleViewItem';
+import TaxonomyViewItem from 'view/taxonomy/view/TaxonomyViewItem';
 
 const { fields } = model;
 
@@ -56,6 +57,11 @@ class TaskView extends Component {
         <ModuleViewItem
           label={fields.owner.label}
           value={fields.owner.forView(record.owner)}
+        />
+
+        <TaxonomyViewItem
+          label={fields.taxonomies.label}
+          value={fields.taxonomies.forView(record.taxonomies)}
         />
 
         <TextViewItem
