@@ -32,6 +32,10 @@ const ModuleSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: 'task',
     }],
+    taxonomies: [{
+      type: Schema.Types.ObjectId,
+      ref: 'taxonomy',
+    }],
     featuredImage: [FileSchema],
     prerequisite: [{
       type: Schema.Types.ObjectId,

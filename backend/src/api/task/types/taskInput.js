@@ -10,6 +10,7 @@ const schema = `
     type: TaskTypeEnum
     next: [String!]
     owner: [String!]
+    taxonomies: [ String! ]
     assignments: [String!]
     audios: [AudioInput]
     videos: [VideoInput]

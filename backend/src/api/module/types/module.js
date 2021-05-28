@@ -6,6 +6,7 @@ const schema = `
     description: String
     status: ModuleStatusEnum
     tasks: [ Task! ]
+    taxonomies: [ Taxonomy! ]
     featuredImage: [ File! ]
     prerequisite: [ Module! ]
     createdAt: DateTime
