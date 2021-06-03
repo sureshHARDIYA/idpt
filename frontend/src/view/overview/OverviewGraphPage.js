@@ -10,16 +10,33 @@ import moduleGraphSelectors from "../../modules/module/graph/moduleGraphSelector
 import ModuleGraphPage from "../module/graph/ModuleGraphPage";
 
 import TaskGraphPage from "../task/graph/TaskGraphPage";
+import {Collapse} from "antd";
 
 class OverviewGraphPage extends Component {
 
+  text = `
+  Select a node by clicking on said node, and deselect by clicking on the graph background.
+  
+  A node selection activates the corresponding element-information on the right, and the corresponding subgraph below.
+  
+  Nodes can be dragged around to enhance the view experience.
+  `;
+
   render() {
+    const { Panel } = Collapse;
+
     return (
       <React.Fragment>
         <ContentWrapper>
           <PageTitle>
             Overview
           </PageTitle>
+
+          <Collapse>
+            <Panel header="Instructions for the overview graphs">
+              {this.text}
+            </Panel>
+          </Collapse>
 
           <CasedGraphPage/>
           <ModuleGraphPage casedRecord={this.props.casedRecord}/>
