@@ -37,7 +37,7 @@ class TaskGraph extends Component {
       this.props.dispatch(actions.doChangeSelected(currentNode))
     },
     deselectNode: () => {
-      this.props.dispatch(actions.doChangeSelected(null));
+      this.props.dispatch(actions.doDeselect());
     },
     stabilized: () => {
       this.state.taskNetwork.setOptions({physics: {enabled: false}});

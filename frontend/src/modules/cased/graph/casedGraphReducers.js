@@ -17,6 +17,12 @@ export default (state = initialData, { type, payload }) => {
     };
   }
 
+  if (type === actions.DESELECT_RECORD) {
+    return {
+      ...state,
+      record: null,
+    };
+  }
 
   if (type === actions.FETCH_STARTED) {
     return {

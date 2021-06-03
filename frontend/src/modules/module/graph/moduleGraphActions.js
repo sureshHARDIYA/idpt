@@ -9,12 +9,18 @@ const actions = {
   FETCH_ERROR: `${prefix}_FETCH_ERROR`,
 
   SELECT_RECORD: `${prefix}_SELECT_RECORD`,
-
+  DESELECT_RECORD: `${prefix}_DESELECT_RECORD`,
 
   doChangeSelected(payload) {
     return {
       type: actions.SELECT_RECORD,
       payload,
+    };
+  },
+
+  doDeselect() {
+    return {
+      type: actions.DESELECT_RECORD,
     };
   },
 
