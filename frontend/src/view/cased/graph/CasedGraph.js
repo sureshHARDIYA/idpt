@@ -24,6 +24,9 @@ class CasedGraph extends Component {
       const currentNode = this.setSelectedNode(currentId);
       this.props.dispatch(actions.doChangeSelected(currentNode));
     },
+    deselectNode: () => {
+      this.props.dispatch(actions.doChangeSelected(null));
+    },
     stabilized: () => {
       this.state.casedNetwork.setOptions({physics: {enabled: false}});
       this.state.casedNetwork.fit();
