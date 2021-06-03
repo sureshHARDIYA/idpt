@@ -18,6 +18,8 @@ class TaskGraphPage extends Component {
   }
 
   render() {
+    const {loading, taskRecord, moduleRecord} = this.props
+
     const twoColumnsResponsiveProps = {
       xs: 24, sm: 24, md: 12, lg: 12, xl: 12, style: {marginBottom: 24},
     };
@@ -31,16 +33,18 @@ class TaskGraphPage extends Component {
         <Row gutter={24}>
           <Col {...twoColumnsResponsiveProps}>
             <Card bodyStyle={{padding: 8, height: "500px"}}>
-              <TaskGraph moduleRecord={this.props.moduleRecord}/>
+              <TaskGraph moduleRecord={moduleRecord}/>
             </Card>
           </Col>
 
           <Col {...twoColumnsResponsiveProps}>
             <Card bodyStyle={{padding: 8, height: "500px", overflow: "auto"}}>
-              <TaskViewContent
-                loading={this.props.loading}
-                record={this.props.taskRecord}
-              />
+              {!taskRecord ? ("Select a node in the graph on the left to show the corresponding information.") :
+                <TaskViewContent
+                  loading={loading}
+                  record={taskRecord}
+                />
+              }
             </Card>
           </Col>
         </Row>

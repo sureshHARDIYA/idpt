@@ -18,6 +18,8 @@ class ModuleGraphPage extends Component {
   }
 
   render() {
+    const {loading, casedRecord, moduleRecord} = this.props
+
     const twoColumnsResponsiveProps = {
       xs: 24, sm: 24, md: 12, lg: 12, xl: 12, style: {marginBottom: 24},
     };
@@ -31,16 +33,18 @@ class ModuleGraphPage extends Component {
         <Row gutter={24}>
           <Col {...twoColumnsResponsiveProps}>
             <Card bodyStyle={{padding: 8, height: "500px"}}>
-              <ModuleGraph casedRecord={this.props.casedRecord}/>
+              <ModuleGraph casedRecord={casedRecord}/>
             </Card>
           </Col>
 
           <Col {...twoColumnsResponsiveProps}>
             <Card bodyStyle={{padding: 8, height: "500px", overflow: "auto"}}>
-              <ModuleViewContent
-                loading={this.props.loading}
-                record={this.props.moduleRecord}
-              />
+              {!moduleRecord ? ("Select a node in the graph on the left to show the corresponding information.") :
+                <ModuleViewContent
+                  loading={loading}
+                  record={moduleRecord}
+                />
+              }
             </Card>
           </Col>
         </Row>

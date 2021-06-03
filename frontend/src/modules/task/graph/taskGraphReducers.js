@@ -31,7 +31,7 @@ export default (state = initialData, { type, payload }) => {
       ...state,
       loading: false,
       rows: payload.rows,
-      record: payload.rows[0],
+      record: null,
       count: payload.count,
     };
   }
