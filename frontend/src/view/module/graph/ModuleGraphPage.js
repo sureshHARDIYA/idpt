@@ -26,30 +26,30 @@ class ModuleGraphPage extends Component {
 
     return (
       <React.Fragment>
-        <PageSubTitle>
-          Modules
-        </PageSubTitle>
+        {!casedRecord ? ('') : <>
+          <PageSubTitle>
+            Modules
+          </PageSubTitle>
 
-        <Row gutter={24}>
-          <Col {...twoColumnsResponsiveProps}>
-            <Card bodyStyle={{padding: 8, height: "500px"}}>
-              {!casedRecord ? ("Select a node in the above graph to show this corresponding subgraph.") :
+          <Row gutter={24}>
+            <Col {...twoColumnsResponsiveProps}>
+              <Card bodyStyle={{padding: 8, height: "500px"}}>
                 <ModuleGraph casedRecord={casedRecord}/>
-              }
-            </Card>
-          </Col>
+              </Card>
+            </Col>
 
-          <Col {...twoColumnsResponsiveProps}>
-            <Card bodyStyle={{padding: 8, height: "500px", overflow: "auto"}}>
-              {!moduleRecord ? ("Select a node in the graph on the left to show the corresponding information.") :
-                <ModuleViewContent
-                  loading={loading}
-                  record={moduleRecord}
-                />
-              }
-            </Card>
-          </Col>
-        </Row>
+            <Col {...twoColumnsResponsiveProps}>
+              <Card bodyStyle={{padding: 8, height: "500px", overflow: "auto"}}>
+                {!moduleRecord ? ("Select a node in the graph on the left to show the corresponding information.") :
+                  <ModuleViewContent
+                    loading={loading}
+                    record={moduleRecord}
+                  />
+                }
+              </Card>
+            </Col>
+          </Row>
+        </>}
       </React.Fragment>
     );
   }
