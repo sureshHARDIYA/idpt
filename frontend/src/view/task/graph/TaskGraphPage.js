@@ -33,7 +33,9 @@ class TaskGraphPage extends Component {
         <Row gutter={24}>
           <Col {...twoColumnsResponsiveProps}>
             <Card bodyStyle={{padding: 8, height: "500px"}}>
-              <TaskGraph moduleRecord={moduleRecord}/>
+              {!moduleRecord ? ("Select a node in the above graph to show this corresponding subgraph.") :
+                <TaskGraph moduleRecord={moduleRecord}/>
+              }
             </Card>
           </Col>
 

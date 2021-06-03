@@ -33,7 +33,9 @@ class ModuleGraphPage extends Component {
         <Row gutter={24}>
           <Col {...twoColumnsResponsiveProps}>
             <Card bodyStyle={{padding: 8, height: "500px"}}>
-              <ModuleGraph casedRecord={casedRecord}/>
+              {!casedRecord ? ("Select a node in the above graph to show this corresponding subgraph.") :
+                <ModuleGraph casedRecord={casedRecord}/>
+              }
             </Card>
           </Col>
 
