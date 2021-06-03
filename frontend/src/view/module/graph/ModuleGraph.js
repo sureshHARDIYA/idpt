@@ -36,7 +36,7 @@ class ModuleGraph extends Component {
       this.props.dispatch(actions.doChangeSelected(currentNode));
     },
     deselectNode: () => {
-      this.props.dispatch(actions.doChangeSelected(null));
+      this.props.dispatch(actions.doDeselect());
     },
     stabilized: () => {
       this.state.moduleNetwork.setOptions({physics: {enabled: false}});
