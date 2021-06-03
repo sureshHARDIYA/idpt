@@ -26,30 +26,30 @@ class TaskGraphPage extends Component {
 
     return (
       <React.Fragment>
-        <PageSubTitle>
-          Tasks
-        </PageSubTitle>
+        {!moduleRecord ? ("") : <>
+          <PageSubTitle>
+            Tasks
+          </PageSubTitle>
 
-        <Row gutter={24}>
-          <Col {...twoColumnsResponsiveProps}>
-            <Card bodyStyle={{padding: 8, height: "500px"}}>
-              {!moduleRecord ? ("Select a node in the above graph to show this corresponding subgraph.") :
+          <Row gutter={24}>
+            <Col {...twoColumnsResponsiveProps}>
+              <Card bodyStyle={{padding: 8, height: "500px"}}>
                 <TaskGraph moduleRecord={moduleRecord}/>
-              }
-            </Card>
-          </Col>
+              </Card>
+            </Col>
 
-          <Col {...twoColumnsResponsiveProps}>
-            <Card bodyStyle={{padding: 8, height: "500px", overflow: "auto"}}>
-              {!taskRecord ? ("Select a node in the graph on the left to show the corresponding information.") :
-                <TaskViewContent
-                  loading={loading}
-                  record={taskRecord}
-                />
-              }
-            </Card>
-          </Col>
-        </Row>
+            <Col {...twoColumnsResponsiveProps}>
+              <Card bodyStyle={{padding: 8, height: "500px", overflow: "auto"}}>
+                {!taskRecord ? ("Select a node in the graph on the left to show the corresponding information.") :
+                  <TaskViewContent
+                    loading={loading}
+                    record={taskRecord}
+                  />
+                }
+              </Card>
+            </Col>
+          </Row>
+        </>}
       </React.Fragment>
     );
   }
