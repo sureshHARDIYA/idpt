@@ -17,6 +17,8 @@ class CasedGraphPage extends Component {
   }
 
   render() {
+    const {loading, casedRecord} = this.props
+
     const twoColumnsResponsiveProps = {
       xs: 24, sm: 24, md: 12, lg: 12, xl: 12, style: {marginBottom: 24},
     };
@@ -36,10 +38,12 @@ class CasedGraphPage extends Component {
 
           <Col {...twoColumnsResponsiveProps}>
             <Card bodyStyle={{padding: 8, height: "500px", overflow: "auto"}}>
-              <CasedViewContent
-                record={this.props.casedRecord}
-                loading={this.props.loading}
-              />
+              {!casedRecord ? ("Select a node in the graph on the left to show the corresponding information.") :
+                <CasedViewContent
+                  loading={loading}
+                  record={casedRecord}
+                />
+              }
             </Card>
           </Col>
         </Row>
