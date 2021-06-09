@@ -10,6 +10,7 @@ import {connect} from "react-redux";
 
 import TaskGraph from "./TaskGraph";
 import TaskViewContent from "../view/TaskViewContent";
+import {i18n} from "../../../i18n";
 
 class TaskGraphPage extends Component {
   componentDidMount() {
@@ -27,7 +28,7 @@ class TaskGraphPage extends Component {
     return (
       <React.Fragment>
         <PageSubTitle>
-          Tasks
+          {i18n('overview.titles.tasks')}
         </PageSubTitle>
 
         <Row gutter={24}>
@@ -39,7 +40,7 @@ class TaskGraphPage extends Component {
 
           <Col {...twoColumnsResponsiveProps}>
             <Card bodyStyle={{padding: 8, height: "500px", overflow: "auto"}}>
-              {!taskRecord ? ("Select a node in the graph on the left to show the corresponding information.") :
+              {!taskRecord ? <p>{i18n('overview.instructions.left')}</p> :
                 <TaskViewContent
                   loading={loading}
                   record={taskRecord}
@@ -53,14 +54,14 @@ class TaskGraphPage extends Component {
   }
 
   render() {
-    const {casedRecord, moduleRecord} = this.props
+    const {casedRecord, moduleRecord} = this.props;
 
     if (!casedRecord) {
-      return ("")
+      return <p>{""}</p>;
     }
 
     if (!moduleRecord) {
-      return ("Select a node in the above graph to show the corresponding subgraph.")
+      return <p>{i18n('overview.instructions.above')}</p>;
     }
 
     return this.renderTask();

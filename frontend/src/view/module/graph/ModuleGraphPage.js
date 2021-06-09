@@ -10,6 +10,7 @@ import {connect} from "react-redux";
 
 import ModuleGraph from "./ModuleGraph";
 import ModuleViewContent from "../view/ModuleViewContent";
+import {i18n} from "../../../i18n";
 
 class ModuleGraphPage extends Component {
   componentDidMount() {
@@ -27,7 +28,7 @@ class ModuleGraphPage extends Component {
     return (
       <React.Fragment>
         <PageSubTitle>
-          Modules
+          {i18n('overview.titles.modules')}
         </PageSubTitle>
 
         <Row gutter={24}>
@@ -39,7 +40,7 @@ class ModuleGraphPage extends Component {
 
           <Col {...twoColumnsResponsiveProps}>
             <Card bodyStyle={{padding: 8, height: "500px", overflow: "auto"}}>
-              {!moduleRecord ? ("Select a node in the graph on the left to show the corresponding information.") :
+              {!moduleRecord ? <p>{i18n('overview.instructions.left')}</p> :
                 <ModuleViewContent
                   loading={loading}
                   record={moduleRecord}
@@ -53,10 +54,10 @@ class ModuleGraphPage extends Component {
   }
 
   render() {
-    const {casedRecord} = this.props
+    const {casedRecord} = this.props;
 
     if (!casedRecord) {
-      return ("Select a node in the above graph to show the corresponding subgraph.")
+      return <p>{i18n('overview.instructions.above')}</p>;
     }
 
     return this.renderModule();

@@ -13,6 +13,7 @@ import {connect} from "react-redux";
 
 import TaskGraphPage from "../task/graph/TaskGraphPage";
 import {Collapse} from "antd";
+import {i18n} from "../../i18n";
 
 class OverviewGraphPage extends Component {
   componentWillUnmount() {
@@ -20,14 +21,6 @@ class OverviewGraphPage extends Component {
     dispatch(casedActions.doDeselect());
     dispatch(moduleActions.doDeselect());
   }
-
-  text = `
-  Select a node by clicking on said node, and deselect by clicking on the graph background.
-  
-  A node selection activates the corresponding element-information on the right, and the corresponding subgraph below.
-  
-  Nodes can be dragged around to enhance the view experience.
-  `;
 
   render() {
     const {casedRecord, moduleRecord} = this.props
@@ -37,12 +30,14 @@ class OverviewGraphPage extends Component {
       <React.Fragment>
         <ContentWrapper>
           <PageTitle>
-            Overview
+            {i18n('overview.label')}
           </PageTitle>
 
           <Collapse>
-            <Panel header="Instructions for the overview graphs" key={1}>
-              {this.text}
+            <Panel header={i18n('overview.instructions.header')} key={1}>
+              <p>{i18n('overview.instructions.select')}</p>
+              <p>{i18n('overview.instructions.activate')}</p>
+              <p>{i18n('overview.instructions.drag')}</p>
             </Panel>
           </Collapse>
 

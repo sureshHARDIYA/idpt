@@ -9,6 +9,7 @@ import casedSelectors from "../../../modules/cased/casedSelectors";
 import {connect} from "react-redux";
 import actions from "../../../modules/cased/graph/casedGraphActions";
 import CasedViewContent from "../view/CasedViewContent";
+import {i18n} from "../../../i18n";
 
 class CasedGraphPage extends Component {
   componentDidMount() {
@@ -26,7 +27,7 @@ class CasedGraphPage extends Component {
     return (
       <React.Fragment>
         <PageSubTitle>
-          Cases
+          {i18n('overview.titles.cased')}
         </PageSubTitle>
 
         <Row gutter={24}>
@@ -38,7 +39,7 @@ class CasedGraphPage extends Component {
 
           <Col {...twoColumnsResponsiveProps}>
             <Card bodyStyle={{padding: 8, height: "500px", overflow: "auto"}}>
-              {!casedRecord ? ("Select a node in the graph on the left to show the corresponding information.") :
+              {!casedRecord ? <p>{i18n('overview.instructions.left')}</p> :
                 <CasedViewContent
                   loading={loading}
                   record={casedRecord}

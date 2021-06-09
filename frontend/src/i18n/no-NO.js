@@ -918,6 +918,22 @@ const no = {
       customer: 'Kunde',
     },
   },
+  overview: {
+    label: 'Oversikt',
+    titles: {
+      cased: 'Case oversikt',
+      modules: 'Module oversikt',
+      tasks: 'Task oversikt',
+    },
+    instructions: {
+      header: 'Klikk her for å se instruksjoner for oversikt-grafene',
+      select: 'Velg en node ved å klikke på den, og fjern valget ved å klikke på grafens bakgrunn.',
+      activate: 'Et node-valg aktiverer elementets korresponderende informasjon på høyre side, og den korresponderende delgrafen under den gjeldende grafen.',
+      drag: 'Noder kan bli flyttet rundt i grafen, for å forbedre visningsopplevelsen.',
+      left: 'Velg en node i grafen til venstre for å vise den korresponderende informasjonen.',
+      above: 'Velg en node i grafen over for å vise den korresponderende delgrafen.',
+    },
+  },
   errors: {
     backToHome: 'Tilbake til hjem',
     403: `Beklager, du har ikke tilgang til denne siden`,

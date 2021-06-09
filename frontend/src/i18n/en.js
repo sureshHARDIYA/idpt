@@ -944,6 +944,22 @@ const en = {
       customer: 'Customer',
     },
   },
+  overview: {
+    label: 'Overview',
+    titles: {
+      cased: 'Case overview',
+      modules: 'Module overview',
+      tasks: 'Task overview',
+    },
+    instructions: {
+      header: 'Click here to se instructions for the overview graphs',
+      select: 'Select a node by clicking on said node, and deselect by clicking on the graph background.',
+      activate: 'A node selection activates the corresponding element-information on the right, and the corresponding subgraph below.',
+      drag: 'Nodes can be dragged around to enhance the view experience.',
+      left: 'Select a node in the graph on the left to show the corresponding information.',
+      above: 'Select a node in the above graph to show the corresponding subgraph.',
+    },
+  },
   errors: {
     backToHome: 'Back to home',
     403: `Sorry, you don't have access to this page`,
