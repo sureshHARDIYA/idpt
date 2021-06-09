@@ -1,18 +1,25 @@
 import React, {Component} from 'react';
 import ContentWrapper from 'view/layout/styles/ContentWrapper';
 import PageTitle from 'view/shared/styles/PageTitle';
-import {connect} from "react-redux";
 
 import casedGraphSelectors from "../../modules/cased/graph/casedGraphSelectors";
 import CasedGraphPage from "../cased/graph/CasedGraphPage";
+import casedActions from "../../modules/cased/graph/casedGraphActions";
 
 import moduleGraphSelectors from "../../modules/module/graph/moduleGraphSelectors";
 import ModuleGraphPage from "../module/graph/ModuleGraphPage";
+import moduleActions from "../../modules/module/graph/moduleGraphActions";
+import {connect} from "react-redux";
 
 import TaskGraphPage from "../task/graph/TaskGraphPage";
 import {Collapse} from "antd";
 
 class OverviewGraphPage extends Component {
+  componentWillUnmount() {
+    const {dispatch} = this.props;
+    dispatch(casedActions.doDeselect());
+    dispatch(moduleActions.doDeselect());
+  }
 
   text = `
   Select a node by clicking on said node, and deselect by clicking on the graph background.
@@ -23,7 +30,8 @@ class OverviewGraphPage extends Component {
   `;
 
   render() {
-    const { Panel } = Collapse;
+    const {casedRecord, moduleRecord} = this.props
+    const {Panel} = Collapse;
 
     return (
       <React.Fragment>
@@ -33,14 +41,17 @@ class OverviewGraphPage extends Component {
           </PageTitle>
 
           <Collapse>
-            <Panel header="Instructions for the overview graphs">
+            <Panel header="Instructions for the overview graphs" key={1}>
               {this.text}
             </Panel>
           </Collapse>
 
           <CasedGraphPage/>
-          <ModuleGraphPage casedRecord={this.props.casedRecord}/>
-          <TaskGraphPage moduleRecord={this.props.moduleRecord}/>
+          <ModuleGraphPage casedRecord={casedRecord}/>
+          <TaskGraphPage
+            casedRecord={casedRecord}
+            moduleRecord={moduleRecord}
+          />
         </ContentWrapper>
 
         <button onClick={() => {this.forceUpdate();}}>Force render</button> {/*TODO: Remove line when done. Used to manually trigger render*/}
