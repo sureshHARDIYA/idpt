@@ -17,7 +17,7 @@ class ModuleGraphPage extends Component {
     dispatch(actions.doFetch());
   }
 
-  render() {
+  renderModule() {
     const {loading, casedRecord, moduleRecord} = this.props
 
     const twoColumnsResponsiveProps = {
@@ -26,32 +26,40 @@ class ModuleGraphPage extends Component {
 
     return (
       <React.Fragment>
-        {!casedRecord ? ('') : <>
-          <PageSubTitle>
-            Modules
-          </PageSubTitle>
+        <PageSubTitle>
+          Modules
+        </PageSubTitle>
 
-          <Row gutter={24}>
-            <Col {...twoColumnsResponsiveProps}>
-              <Card bodyStyle={{padding: 8, height: "500px"}}>
-                <ModuleGraph casedRecord={casedRecord}/>
-              </Card>
-            </Col>
+        <Row gutter={24}>
+          <Col {...twoColumnsResponsiveProps}>
+            <Card bodyStyle={{padding: 8, height: "500px"}}>
+              <ModuleGraph casedRecord={casedRecord}/>
+            </Card>
+          </Col>
 
-            <Col {...twoColumnsResponsiveProps}>
-              <Card bodyStyle={{padding: 8, height: "500px", overflow: "auto"}}>
-                {!moduleRecord ? ("Select a node in the graph on the left to show the corresponding information.") :
-                  <ModuleViewContent
-                    loading={loading}
-                    record={moduleRecord}
-                  />
-                }
-              </Card>
-            </Col>
-          </Row>
-        </>}
+          <Col {...twoColumnsResponsiveProps}>
+            <Card bodyStyle={{padding: 8, height: "500px", overflow: "auto"}}>
+              {!moduleRecord ? ("Select a node in the graph on the left to show the corresponding information.") :
+                <ModuleViewContent
+                  loading={loading}
+                  record={moduleRecord}
+                />
+              }
+            </Card>
+          </Col>
+        </Row>
       </React.Fragment>
     );
+  }
+
+  render() {
+    const {casedRecord} = this.props
+
+    if (!casedRecord) {
+      return ("Select a node in the above graph to show the corresponding subgraph.")
+    }
+
+    return this.renderModule();
   }
 }
 

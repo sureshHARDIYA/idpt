@@ -17,7 +17,7 @@ class TaskGraphPage extends Component {
     dispatch(actions.doFetch());
   }
 
-  render() {
+  renderTask() {
     const {loading, taskRecord, moduleRecord} = this.props
 
     const twoColumnsResponsiveProps = {
@@ -26,32 +26,44 @@ class TaskGraphPage extends Component {
 
     return (
       <React.Fragment>
-        {!moduleRecord ? ("") : <>
-          <PageSubTitle>
-            Tasks
-          </PageSubTitle>
+        <PageSubTitle>
+          Tasks
+        </PageSubTitle>
 
-          <Row gutter={24}>
-            <Col {...twoColumnsResponsiveProps}>
-              <Card bodyStyle={{padding: 8, height: "500px"}}>
-                <TaskGraph moduleRecord={moduleRecord}/>
-              </Card>
-            </Col>
+        <Row gutter={24}>
+          <Col {...twoColumnsResponsiveProps}>
+            <Card bodyStyle={{padding: 8, height: "500px"}}>
+              <TaskGraph moduleRecord={moduleRecord}/>
+            </Card>
+          </Col>
 
-            <Col {...twoColumnsResponsiveProps}>
-              <Card bodyStyle={{padding: 8, height: "500px", overflow: "auto"}}>
-                {!taskRecord ? ("Select a node in the graph on the left to show the corresponding information.") :
-                  <TaskViewContent
-                    loading={loading}
-                    record={taskRecord}
-                  />
-                }
-              </Card>
-            </Col>
-          </Row>
-        </>}
+          <Col {...twoColumnsResponsiveProps}>
+            <Card bodyStyle={{padding: 8, height: "500px", overflow: "auto"}}>
+              {!taskRecord ? ("Select a node in the graph on the left to show the corresponding information.") :
+                <TaskViewContent
+                  loading={loading}
+                  record={taskRecord}
+                />
+              }
+            </Card>
+          </Col>
+        </Row>
       </React.Fragment>
     );
+  }
+
+  render() {
+    const {casedRecord, moduleRecord} = this.props
+
+    if (!casedRecord) {
+      return ("")
+    }
+
+    if (!moduleRecord) {
+      return ("Select a node in the above graph to show the corresponding subgraph.")
+    }
+
+    return this.renderTask();
   }
 }
 
