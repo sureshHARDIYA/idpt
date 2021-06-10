@@ -24,7 +24,7 @@
     "graphql-type-json": "0.3.0",
     "helmet": "3.21.2",
     "jsonwebtoken": "^8.5.1",
-    "lodash": "4.17.19",
+    "lodash": "4.17.21",
     "moment": "2.24.0",
     "mongoose": "5.7.8",
     "nodemailer": "6.3.1",
