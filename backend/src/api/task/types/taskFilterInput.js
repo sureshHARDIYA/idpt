@@ -1,6 +1,7 @@
 const schema = `
   input TaskFilterInput {
     id: String
+    ids: [ ID ]
     name: String
     description: String
     status: TaskStatusEnum

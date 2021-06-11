@@ -193,6 +193,13 @@ class TaskRepository {
         };
       }
 
+      if (filter.ids) {
+        criteria = {
+          ...criteria,
+          ['_id']: {$in: filter.ids},
+        };
+      }
+
       if (filter.name) {
         criteria = {
           ...criteria,
