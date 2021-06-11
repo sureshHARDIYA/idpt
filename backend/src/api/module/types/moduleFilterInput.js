@@ -1,6 +1,7 @@
 const schema = `
   input ModuleFilterInput {
     id: String
+    ids: [ ID ]
     name: String
     status: ModuleStatusEnum
     createdAtRange: [ DateTime ]
