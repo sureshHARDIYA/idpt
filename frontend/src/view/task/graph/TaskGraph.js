@@ -51,7 +51,7 @@ class TaskGraph extends Component {
   };
 
   getNodes = () => {
-    const {taskRows, moduleRecord} = this.props;
+    const {taskRows} = this.props;
     if (!taskRows.length) {
       return []
     }
@@ -62,11 +62,6 @@ class TaskGraph extends Component {
         return {label, ...rest};
       }
     );
-
-    // Filter: Get the tasks that correspond to the moduleRecord
-    if (!!moduleRecord) {
-      nodes = nodes.filter(n => moduleRecord.tasks.map(m => m.id).includes(n.id));
-    }
 
     // Add coordinates to each row, to prettify the graph-result
     let xValue = -100;

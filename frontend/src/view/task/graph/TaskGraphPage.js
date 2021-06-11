@@ -8,6 +8,7 @@ import taskSelectors from 'modules/task/taskSelectors';
 import actions from "../../../modules/task/graph/taskGraphActions";
 import {connect} from "react-redux";
 
+import TaskGraphFilter from "./TaskGraphFilter";
 import TaskGraph from "./TaskGraph";
 import TaskViewContent from "../view/TaskViewContent";
 import {i18n} from "../../../i18n";
@@ -30,6 +31,8 @@ class TaskGraphPage extends Component {
         <PageSubTitle>
           {i18n('overview.titles.tasks')}
         </PageSubTitle>
+
+        <TaskGraphFilter moduleRecord={moduleRecord}/>
 
         <Row gutter={24}>
           <Col {...twoColumnsResponsiveProps}>
