@@ -184,20 +184,14 @@ export default class TaskService {
     return response.data.taskList;
   }
 
-  static async graph(filter, orderBy, limit, offset) {
+  static async graph(filter) {
     const response = await graphqlClient.query({
       query: gql`
-        query TASK_LIST(
+        query TASK_GRAPH(
           $filter: TaskFilterInput
-          $orderBy: TaskOrderByEnum
-          $limit: Int
-          $offset: Int
         ) {
-          taskList(
+          taskGraph(
             filter: $filter
-            orderBy: $orderBy
-            limit: $limit
-            offset: $offset
           ) {
             count
             rows {
@@ -227,15 +221,11 @@ export default class TaskService {
 
       variables: {
         filter,
-        orderBy,
-        limit,
-        offset,
       },
     });
 
-    return response.data.taskList;
+    return response.data.taskGraph;
   }
-
 
   static async listAutocomplete(query, limit) {
     const response = await graphqlClient.query({
