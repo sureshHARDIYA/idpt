@@ -20,9 +20,8 @@ class CasedGraph extends Component {
 
   events = {
     selectNode: (event) => {
-      const currentId = event.nodes[0];
-      const currentNode = this.setSelectedNode(currentId);
-      this.props.dispatch(actions.doChangeSelected(currentNode));
+      const nodeId = event.nodes[0];
+      this.props.dispatch(actions.doChangeSelected(nodeId));
     },
     deselectNode: () => {
       this.props.dispatch(actions.doDeselect());
@@ -31,11 +30,6 @@ class CasedGraph extends Component {
       this.state.casedNetwork.setOptions({physics: {enabled: false}});
       this.state.casedNetwork.fit();
     }
-  };
-
-  setSelectedNode(currentId) {
-    const {casedRows} = this.props;
-    return casedRows.find(node => node.id === currentId);
   };
 
   getNodes = () => {

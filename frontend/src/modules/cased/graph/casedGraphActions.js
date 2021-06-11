@@ -1,4 +1,5 @@
 import CasedService from 'modules/cased/casedService';
+import selectors from 'modules/cased/graph/casedGraphSelectors';
 import Errors from 'modules/shared/error/errors';
 
 const prefix = 'CASED_GRAPH';
@@ -11,11 +12,14 @@ const actions = {
   SELECT_RECORD: `${prefix}_SELECT_RECORD`,
   DESELECT_RECORD: `${prefix}_DESELECT_RECORD`,
 
-  doChangeSelected(payload) {
-    return {
+  doChangeSelected: (payload) => async (dispatch, getState) => {
+    const rows = selectors.selectRows(getState());
+    const record = rows.find(record => record.id === payload);
+
+    dispatch({
       type: actions.SELECT_RECORD,
-      payload,
-    };
+      payload: record,
+    });
   },
 
   doDeselect() {

@@ -31,9 +31,8 @@ class ModuleGraph extends Component {
 
   events = {
     selectNode: (event) => {
-      const currentId = event.nodes[0];
-      const currentNode = this.setSelectedNode(currentId);
-      this.props.dispatch(actions.doChangeSelected(currentNode));
+      const nodeId = event.nodes[0];
+      this.props.dispatch(actions.doChangeSelected(nodeId));
     },
     deselectNode: () => {
       this.props.dispatch(actions.doDeselect());
@@ -42,11 +41,6 @@ class ModuleGraph extends Component {
       this.state.moduleNetwork.setOptions({physics: {enabled: false}});
       this.state.moduleNetwork.fit();
     }
-  };
-
-  setSelectedNode(currentId) {
-    const {moduleRows} = this.props;
-    return moduleRows.find(node => node.id === currentId);
   };
 
   getNodes = () => {
