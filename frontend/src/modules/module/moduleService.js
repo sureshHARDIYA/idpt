@@ -178,6 +178,55 @@ export default class ModuleService {
     return response.data.moduleList;
   }
 
+  static async graph(filter) {
+    const response = await graphqlClient.query({
+      query: gql`
+        query MODULE_GRAPH(
+          $filter: ModuleFilterInput
+        ) {
+          moduleGraph(
+            filter: $filter
+          ) {
+            count
+            rows {
+              id
+              owner {
+                id
+                name
+              }
+              name
+              description
+              status
+              tasks {
+                id
+                name
+              }
+              featuredImage {
+                id
+                name
+                sizeInBytes
+                publicUrl
+                privateUrl
+              }
+              prerequisite {
+                id
+                name
+              }
+              updatedAt
+              createdAt
+            }
+          }
+        }
+      `,
+
+      variables: {
+        filter,
+      },
+    });
+
+    return response.data.moduleGraph;
+  }
+
   static async listAutocomplete(query, limit) {
     const response = await graphqlClient.query({
       query: gql`

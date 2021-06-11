@@ -33,7 +33,7 @@ const actions = {
         payload: {filter},
       });
 
-      const response = await ModuleService.list(filter);
+      const response = await ModuleService.graph(filter);
 
       dispatch({
         type: actions.FETCH_SUCCESS,
