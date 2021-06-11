@@ -8,6 +8,7 @@ import moduleSelectors from 'modules/module/moduleSelectors';
 import actions from "../../../modules/module/graph/moduleGraphActions";
 import {connect} from "react-redux";
 
+import ModuleGraphFilter from "./ModuleGraphFilter";
 import ModuleGraph from "./ModuleGraph";
 import ModuleViewContent from "../view/ModuleViewContent";
 import {i18n} from "../../../i18n";
@@ -16,7 +17,7 @@ class ModuleGraphPage extends Component {
   componentDidMount() {
     const {dispatch} = this.props;
     dispatch(actions.doFetch());
-  }
+  } // TODO: See if this can be moved down in the call-hierarchy (At the moment, removing it causes delayed physics to graph)
 
   renderModule() {
     const {loading, casedRecord, moduleRecord} = this.props
@@ -31,10 +32,12 @@ class ModuleGraphPage extends Component {
           {i18n('overview.titles.modules')}
         </PageSubTitle>
 
+        <ModuleGraphFilter casedRecord={casedRecord}/>
+
         <Row gutter={24}>
           <Col {...twoColumnsResponsiveProps}>
             <Card bodyStyle={{padding: 8, height: "500px"}}>
-              <ModuleGraph casedRecord={casedRecord}/>
+              <ModuleGraph/>
             </Card>
           </Col>
 

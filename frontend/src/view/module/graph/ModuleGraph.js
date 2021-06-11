@@ -50,7 +50,7 @@ class ModuleGraph extends Component {
   };
 
   getNodes = () => {
-    const {moduleRows, casedRecord} = this.props;
+    const {moduleRows} = this.props;
     if (!moduleRows.length) {
       return [];
     }
@@ -61,11 +61,6 @@ class ModuleGraph extends Component {
         return {label, ...rest};
       }
     );
-
-    // Filter: Get the modules that correspond to the casedRecord
-    if (!!casedRecord) {
-      nodes = nodes.filter(n => casedRecord.modules.map(m => m.id).includes(n.id));
-    }
 
     // Add coordinates to each row, to prettify the graph-result
     let xValue = -100;
