@@ -16,11 +16,6 @@ import ModuleViewContent from "../view/ModuleViewContent";
 import {i18n} from "../../../i18n";
 
 class ModuleGraphPage extends Component {
-  componentDidMount() {
-    const {dispatch} = this.props;
-    dispatch(actions.doFetch());
-  } // TODO: See if this can be moved down in the call-hierarchy (At the moment, removing it causes delayed physics to graph)
-
   componentWillUnmount() {
     const {dispatch} = this.props;
     dispatch(actions.doDeselect());
@@ -75,7 +70,6 @@ function select(state) {
     loading: selectors.selectLoading(state) || destroySelectors.selectLoading(state),
     moduleRecord: selectors.selectRecord(state),
     casedRecord: casedGraphSelectors.selectRecord(state),
-
   };
 }
 

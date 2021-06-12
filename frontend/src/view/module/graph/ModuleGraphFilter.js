@@ -18,7 +18,7 @@ class ModuleGraphFilter extends Component {
   }
 
   render() {
-    return "";
+    return null;
   }
 }
 

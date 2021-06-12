@@ -4,6 +4,7 @@ import Graph from "react-graph-vis";
 import selectors from 'modules/task/graph/taskGraphSelectors';
 import actions from "../../../modules/task/graph/taskGraphActions";
 import {connect} from 'react-redux';
+import Spinner from "../../shared/Spinner";
 
 class TaskGraph extends Component {
   state = {
@@ -92,7 +93,7 @@ class TaskGraph extends Component {
     return edges;
   };
 
-  render() {
+  renderGraph() {
     return (
       <Graph
         graph={{
@@ -107,10 +108,21 @@ class TaskGraph extends Component {
       />
     );
   };
+
+  render() {
+    const {loading} = this.props;
+
+    if (loading) {
+      return <Spinner/>;
+    }
+
+    return this.renderGraph();
+  };
 }
 
 function select(state) {
   return {
+    loading: selectors.selectLoading(state),
     taskRows: selectors.selectRows(state),
     hasRows: selectors.selectHasRows(state)
   };

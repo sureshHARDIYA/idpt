@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Graph from "react-graph-vis";
 import actions from "../../../modules/module/graph/moduleGraphActions";
+import Spinner from "../../shared/Spinner";
 
 class ModuleGraph extends Component {
   state = {
@@ -91,7 +92,7 @@ class ModuleGraph extends Component {
     return edges;
   };
 
-  render() {
+  renderGraph() {
     return (
       <Graph
         graph={{
@@ -106,10 +107,21 @@ class ModuleGraph extends Component {
       />
     );
   };
+
+  render() {
+    const {loading} = this.props;
+
+    if (loading) {
+      return <Spinner/>;
+    }
+
+    return this.renderGraph();
+  };
 }
 
 function select(state) {
   return {
+    loading: selectors.selectLoading(state),
     moduleRows: selectors.selectRows(state),
     hasRows: selectors.selectHasRows(state)
   };

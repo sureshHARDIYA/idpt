@@ -6,7 +6,6 @@ import {connect} from 'react-redux';
 
 class ModuleGraphFilter extends Component {
   componentDidMount() {
-
     const {moduleRecord, dispatch} = this.props;
 
     let tasks = null;
@@ -19,7 +18,7 @@ class ModuleGraphFilter extends Component {
   }
 
   render() {
-    return "";
+    return null;
   }
 }
 

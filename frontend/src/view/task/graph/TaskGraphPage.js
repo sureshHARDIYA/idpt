@@ -17,11 +17,6 @@ import TaskViewContent from "../view/TaskViewContent";
 import {i18n} from "../../../i18n";
 
 class TaskGraphPage extends Component {
-  componentDidMount() {
-    const {dispatch} = this.props;
-    dispatch(actions.doFetch());
-  }
-
   componentWillUnmount() {
     const {dispatch} = this.props;
     dispatch(actions.doDeselect());
