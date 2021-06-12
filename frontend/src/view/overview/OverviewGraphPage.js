@@ -40,8 +40,6 @@ class OverviewGraphPage extends Component {
         <CasedGraphPage/>
         <ModuleGraphPage/>
         <TaskGraphPage/>
-
-        <button onClick={() => {this.forceUpdate();}}>Force render</button> {/*TODO: Remove line when done. Used to manually trigger render*/}
       </ContentWrapper>
     );
   }
