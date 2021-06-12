@@ -1,6 +1,4 @@
 import selectors from 'modules/module/graph/moduleGraphSelectors';
-import destroySelectors from 'modules/module/destroy/moduleDestroySelectors';
-import casedSelectors from 'modules/module/moduleSelectors';
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Graph from "react-graph-vis";
@@ -112,13 +110,7 @@ class ModuleGraph extends Component {
 
 function select(state) {
   return {
-    loading: selectors.selectLoading(state) || destroySelectors.selectLoading(state),
     moduleRows: selectors.selectRows(state),
-    moduleRecord: selectors.selectRecord(state),
-    hasPermissionToEdit: casedSelectors.selectPermissionToEdit(state,),
-    hasPermissionToDestroy: casedSelectors.selectPermissionToDestroy(state,),
-    hasPermissionToRead: casedSelectors.selectPermissionToRead(state,),
-
   };
 }
 

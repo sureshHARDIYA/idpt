@@ -4,8 +4,9 @@ import {Card, Col, Row} from "antd";
 
 import selectors from 'modules/module/graph/moduleGraphSelectors';
 import destroySelectors from 'modules/module/destroy/moduleDestroySelectors';
-import moduleSelectors from 'modules/module/moduleSelectors';
 import actions from "../../../modules/module/graph/moduleGraphActions";
+
+import casedGraphSelectors from "../../../modules/cased/graph/casedGraphSelectors";
 import {connect} from "react-redux";
 
 import ModuleGraphFilter from "./ModuleGraphFilter";
@@ -70,12 +71,9 @@ class ModuleGraphPage extends Component {
 function select(state) {
   return {
     loading: selectors.selectLoading(state) || destroySelectors.selectLoading(state),
-    moduleFilter: selectors.selectFilter(state),
-    moduleRows: selectors.selectRows(state),
     moduleRecord: selectors.selectRecord(state),
-    hasPermissionToEdit: moduleSelectors.selectPermissionToEdit(state,),
-    hasPermissionToDestroy: moduleSelectors.selectPermissionToDestroy(state,),
-    hasPermissionToRead: moduleSelectors.selectPermissionToRead(state,),
+    casedRecord: casedGraphSelectors.selectRecord(state),
+
   };
 }
 

@@ -4,8 +4,10 @@ import {Card, Col, Row} from "antd";
 
 import selectors from 'modules/task/graph/taskGraphSelectors';
 import destroySelectors from 'modules/task/destroy/taskDestroySelectors';
-import taskSelectors from 'modules/task/taskSelectors';
 import actions from "../../../modules/task/graph/taskGraphActions";
+
+import casedGraphSelectors from "../../../modules/cased/graph/casedGraphSelectors";
+import moduleGraphSelectors from "../../../modules/module/graph/moduleGraphSelectors";
 import {connect} from "react-redux";
 
 import TaskGraphFilter from "./TaskGraphFilter";
@@ -74,12 +76,9 @@ class TaskGraphPage extends Component {
 function select(state) {
   return {
     loading: selectors.selectLoading(state) || destroySelectors.selectLoading(state),
-    moduleFilter: selectors.selectFilter(state),
-    taskRows: selectors.selectRows(state),
     taskRecord: selectors.selectRecord(state),
-    hasPermissionToEdit: taskSelectors.selectPermissionToEdit(state,),
-    hasPermissionToDestroy: taskSelectors.selectPermissionToDestroy(state,),
-    hasPermissionToRead: taskSelectors.selectPermissionToRead(state,),
+    casedRecord: casedGraphSelectors.selectRecord(state),
+    moduleRecord: moduleGraphSelectors.selectRecord(state),
   };
 }
 

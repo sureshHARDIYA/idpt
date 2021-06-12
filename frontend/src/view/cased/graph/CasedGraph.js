@@ -1,6 +1,4 @@
 import selectors from 'modules/cased/graph/casedGraphSelectors';
-import destroySelectors from 'modules/cased/destroy/casedDestroySelectors';
-import casedSelectors from 'modules/cased/casedSelectors';
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Graph from "react-graph-vis";
@@ -78,13 +76,7 @@ class CasedGraph extends Component {
 
 function select(state) {
   return {
-    loading: selectors.selectLoading(state) || destroySelectors.selectLoading(state),
     casedRows: selectors.selectRows(state),
-    casedRecord: selectors.selectRecord(state),
-    hasPermissionToEdit: casedSelectors.selectPermissionToEdit(state,),
-    hasPermissionToDestroy: casedSelectors.selectPermissionToDestroy(state,),
-    hasPermissionToRead: casedSelectors.selectPermissionToRead(state,),
-
   };
 }
 

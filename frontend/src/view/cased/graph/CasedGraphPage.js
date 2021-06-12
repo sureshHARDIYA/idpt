@@ -5,7 +5,6 @@ import {Card, Col, Row} from "antd";
 
 import selectors from "../../../modules/cased/graph/casedGraphSelectors";
 import destroySelectors from "../../../modules/cased/destroy/casedDestroySelectors";
-import casedSelectors from "../../../modules/cased/casedSelectors";
 import {connect} from "react-redux";
 import actions from "../../../modules/cased/graph/casedGraphActions";
 import CasedViewContent from "../view/CasedViewContent";
@@ -56,11 +55,7 @@ class CasedGraphPage extends Component {
 function select(state) {
   return {
     loading: selectors.selectLoading(state) || destroySelectors.selectLoading(state),
-    casedRows: selectors.selectRows(state),
     casedRecord: selectors.selectRecord(state),
-    hasPermissionToEdit: casedSelectors.selectPermissionToEdit(state,),
-    hasPermissionToDestroy: casedSelectors.selectPermissionToDestroy(state,),
-    hasPermissionToRead: casedSelectors.selectPermissionToRead(state,),
   };
 }
 

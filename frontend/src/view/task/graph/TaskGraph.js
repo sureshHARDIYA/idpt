@@ -2,8 +2,6 @@ import React, {Component} from 'react';
 import Graph from "react-graph-vis";
 
 import selectors from 'modules/task/graph/taskGraphSelectors';
-import destroySelectors from 'modules/task/destroy/taskDestroySelectors';
-import taskSelectors from 'modules/task/taskSelectors';
 import actions from "../../../modules/task/graph/taskGraphActions";
 import {connect} from 'react-redux';
 
@@ -113,12 +111,7 @@ class TaskGraph extends Component {
 
 function select(state) {
   return {
-    loading: selectors.selectLoading(state) || destroySelectors.selectLoading(state),
     taskRows: selectors.selectRows(state),
-    taskRecord: selectors.selectRecord(state),
-    hasPermissionToEdit: taskSelectors.selectPermissionToEdit(state,),
-    hasPermissionToDestroy: taskSelectors.selectPermissionToDestroy(state,),
-    hasPermissionToRead: taskSelectors.selectPermissionToRead(state,),
   };
 }
 
