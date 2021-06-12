@@ -72,8 +72,8 @@ class ModuleGraph extends Component {
 
 
   getEdges = () => {
-    const {moduleRows} = this.props;
-    if (!moduleRows.length) {
+    const {moduleRows, hasRows} = this.props;
+    if (!hasRows) {
       return []
     }
 
@@ -111,6 +111,7 @@ class ModuleGraph extends Component {
 function select(state) {
   return {
     moduleRows: selectors.selectRows(state),
+    hasRows: selectors.selectHasRows(state)
   };
 }
 

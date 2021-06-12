@@ -12,6 +12,15 @@ const selectRows = createSelector(
   (raw) => raw.rows,
 );
 
+const selectCount = createSelector(
+  [selectRaw],
+  (raw) => raw.count,
+);
+
+const selectHasRows = createSelector(
+  [selectCount],
+  (count) => count > 0,
+);
 
 const selectRecord = createSelector(
   [selectRaw],
@@ -28,6 +37,8 @@ const selectFilter = createSelector(
 export default {
   selectLoading,
   selectRows,
+  selectCount,
+  selectHasRows,
   selectRecord,
   selectFilter,
 };

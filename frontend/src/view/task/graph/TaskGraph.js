@@ -73,8 +73,8 @@ class TaskGraph extends Component {
 
 
   getEdges = () => {
-    const {taskRows} = this.props;
-    if (!taskRows.length) {
+    const {taskRows, hasRows} = this.props;
+    if (!hasRows) {
       return [];
     }
 
@@ -112,6 +112,7 @@ class TaskGraph extends Component {
 function select(state) {
   return {
     taskRows: selectors.selectRows(state),
+    hasRows: selectors.selectHasRows(state)
   };
 }
 

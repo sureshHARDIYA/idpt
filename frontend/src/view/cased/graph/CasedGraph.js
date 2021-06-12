@@ -35,8 +35,8 @@ class CasedGraph extends Component {
   };
 
   getNodes = () => {
-    const {casedRows} = this.props;
-    if (!casedRows.length) {
+    const {casedRows, hasRows} = this.props;
+    if (!hasRows) {
       return []
     }
 
@@ -77,6 +77,7 @@ class CasedGraph extends Component {
 function select(state) {
   return {
     casedRows: selectors.selectRows(state),
+    hasRows: selectors.selectHasRows(state)
   };
 }
 
