@@ -46,9 +46,9 @@ class ModuleGraph extends Component {
   };
 
   getNodes = () => {
-    const {moduleRows} = this.props;
-    if (!moduleRows.length) {
-      return [];
+    const {moduleRows, hasRows} = this.props;
+    if (!hasRows) {
+      return []
     }
 
     // Re-label the 'name'-property to 'label', to fit the requirements of the Graph-framefork

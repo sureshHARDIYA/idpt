@@ -47,9 +47,9 @@ class TaskGraph extends Component {
   };
 
   getNodes = () => {
-    const {taskRows} = this.props;
-    if (!taskRows.length) {
-      return []
+    const {taskRows, hasRows} = this.props;
+    if (!hasRows) {
+      return [];
     }
 
     // Re-label the 'name'-property to 'label', to fit the requirements of the Graph-framefork
