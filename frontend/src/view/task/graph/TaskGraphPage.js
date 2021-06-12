@@ -22,6 +22,11 @@ class TaskGraphPage extends Component {
     dispatch(actions.doFetch());
   }
 
+  componentWillUnmount() {
+    const {dispatch} = this.props;
+    dispatch(actions.doDeselect());
+  }
+
   renderTask() {
     const {loading, taskRecord, moduleRecord} = this.props;
 

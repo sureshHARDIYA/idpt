@@ -17,6 +17,11 @@ class CasedGraphPage extends Component {
     dispatch(actions.doFetch());
   }
 
+  componentWillUnmount() {
+    const {dispatch} = this.props;
+    dispatch(actions.doDeselect());
+  }
+
   render() {
     const {loading, casedRecord} = this.props;
 

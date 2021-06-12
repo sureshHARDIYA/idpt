@@ -21,6 +21,11 @@ class ModuleGraphPage extends Component {
     dispatch(actions.doFetch());
   } // TODO: See if this can be moved down in the call-hierarchy (At the moment, removing it causes delayed physics to graph)
 
+  componentWillUnmount() {
+    const {dispatch} = this.props;
+    dispatch(actions.doDeselect());
+  }
+
   renderModule() {
     const {loading, casedRecord, moduleRecord} = this.props;
 
