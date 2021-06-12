@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import PageSubTitle from 'view/shared/styles/PageSubTitle';
+import {twoColumnsResponsiveProps} from 'view/shared/styles/ResponsiveProps';
 import CasedGraph from "./CasedGraph";
 import {Card, Col, Row} from "antd";
 
@@ -17,11 +18,7 @@ class CasedGraphPage extends Component {
   }
 
   render() {
-    const {loading, casedRecord} = this.props
-
-    const twoColumnsResponsiveProps = {
-      xs: 24, sm: 24, md: 12, lg: 12, xl: 12, style: {marginBottom: 24},
-    };
+    const {loading, casedRecord} = this.props;
 
     return (
       <React.Fragment>

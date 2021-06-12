@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import PageSubTitle from 'view/shared/styles/PageSubTitle';
+import {twoColumnsResponsiveProps} from 'view/shared/styles/ResponsiveProps';
 import {Card, Col, Row} from "antd";
 
 import selectors from 'modules/module/graph/moduleGraphSelectors';
@@ -21,11 +22,7 @@ class ModuleGraphPage extends Component {
   } // TODO: See if this can be moved down in the call-hierarchy (At the moment, removing it causes delayed physics to graph)
 
   renderModule() {
-    const {loading, casedRecord, moduleRecord} = this.props
-
-    const twoColumnsResponsiveProps = {
-      xs: 24, sm: 24, md: 12, lg: 12, xl: 12, style: {marginBottom: 24},
-    };
+    const {loading, casedRecord, moduleRecord} = this.props;
 
     return (
       <React.Fragment>

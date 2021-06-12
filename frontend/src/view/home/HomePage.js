@@ -1,6 +1,7 @@
 import React, {PureComponent} from 'react';
 import {connect} from 'react-redux';
 //import { i18n } from 'i18n';
+//import {twoColumnsResponsiveProps, threeColumnsResponsiveProps} from 'view/shared/styles/ResponsiveProps';
 import { /*Row, Col,*/ Card} from 'antd';
 //import HomeBarChart from 'view/home/HomeBarChart';
 //import HomeDoughnutChart from 'view/home/HomeDoughnutChart';
@@ -15,24 +16,6 @@ import OverviewGraphPage from "../overview/OverviewGraphPage";
 
 class HomePage extends PureComponent {
   render() {
-    /*const twoColumnsResponsiveProps = {
-      xs: 24,
-      sm: 24,
-      md: 12,
-      lg: 12,
-      xl: 12,
-      style: { marginBottom: 24 },
-    };
-
-    const threeColumnsResponsiveProps = {
-      xs: 24,
-      sm: 24,
-      md: 12,
-      lg: 12,
-      xl: 8,
-      style: { marginBottom: 24 },
-    };/**/
-
     return (
       <React.Fragment>
         {/*
@@ -84,7 +67,6 @@ class HomePage extends PureComponent {
               <HomeRadarChart />
             </Card>
           </Col>
-
         </Row>
         <p
           style={{
