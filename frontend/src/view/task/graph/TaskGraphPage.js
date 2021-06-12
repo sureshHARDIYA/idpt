@@ -37,7 +37,7 @@ class TaskGraphPage extends Component {
         <Row gutter={24}>
           <Col {...twoColumnsResponsiveProps}>
             <Card bodyStyle={{padding: 8, height: "500px"}}>
-              <TaskGraph moduleRecord={moduleRecord}/>
+              <TaskGraph/>
             </Card>
           </Col>
 
@@ -60,7 +60,7 @@ class TaskGraphPage extends Component {
     const {casedRecord, moduleRecord} = this.props;
 
     if (!casedRecord) {
-      return <p>{""}</p>;
+      return null;
     }
 
     if (!moduleRecord) {
