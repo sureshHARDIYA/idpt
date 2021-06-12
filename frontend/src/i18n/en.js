@@ -955,7 +955,7 @@ const en = {
       header: 'Click here to se instructions for the overview graphs',
       select: 'Select a node by clicking on said node, and deselect by clicking on the graph background.',
       activate: 'A node selection activates the corresponding element-information on the right, and the corresponding subgraph below.',
-      drag: 'Nodes can be dragged around to enhance the view experience.',
+      drag: 'Nodes can be dragged around to enhance the view experience, and the complete graph can be moved by dragging the graph background.',
       left: 'Select a node in the graph on the left to show the corresponding information.',
       above: 'Select a node in the above graph to show the corresponding subgraph.',
     },

@@ -929,7 +929,7 @@ const no = {
       header: 'Klikk her for å se instruksjoner for oversikt-grafene',
       select: 'Velg en node ved å klikke på den, og fjern valget ved å klikke på grafens bakgrunn.',
       activate: 'Et node-valg aktiverer elementets korresponderende informasjon på høyre side, og den korresponderende delgrafen under den gjeldende grafen.',
-      drag: 'Noder kan bli flyttet rundt i grafen, for å forbedre visningsopplevelsen.',
+      drag: 'Noder kan bli flyttet rundt i grafen, for å forbedre visningsopplevelsen, og hele grafen kan flyttes ved å dra i grafens bakgrunn.',
       left: 'Velg en node i grafen til venstre for å vise den korresponderende informasjonen.',
       above: 'Velg en node i grafen over for å vise den korresponderende delgrafen.',
     },
