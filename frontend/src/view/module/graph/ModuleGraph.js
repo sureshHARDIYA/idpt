@@ -8,7 +8,7 @@ import actions from "../../../modules/module/graph/moduleGraphActions";
 
 class ModuleGraph extends Component {
   state = {
-    moduleNetwork: {}
+    moduleNetwork: null
   };
 
   options = {
@@ -38,8 +38,12 @@ class ModuleGraph extends Component {
       this.props.dispatch(actions.doDeselect());
     },
     stabilized: () => {
-      this.state.moduleNetwork.setOptions({physics: {enabled: false}});
-      this.state.moduleNetwork.fit();
+      const {moduleNetwork} = this.state;
+
+      if (!!moduleNetwork) {
+        moduleNetwork.setOptions({physics: {enabled: false}});
+        moduleNetwork.fit();
+      }
     }
   };
 

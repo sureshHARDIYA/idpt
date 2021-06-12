@@ -8,7 +8,7 @@ import actions from "../../../modules/cased/graph/casedGraphActions";
 
 class CasedGraph extends Component {
   state = {
-    casedNetwork: {}
+    casedNetwork: null
   };
 
   options = {
@@ -27,8 +27,12 @@ class CasedGraph extends Component {
       this.props.dispatch(actions.doDeselect());
     },
     stabilized: () => {
-      this.state.casedNetwork.setOptions({physics: {enabled: false}});
-      this.state.casedNetwork.fit();
+      const {casedNetwork} = this.state;
+
+      if (!!casedNetwork) {
+        casedNetwork.setOptions({physics: {enabled: false}});
+        casedNetwork.fit();
+      }
     }
   };
 

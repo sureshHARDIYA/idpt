@@ -9,7 +9,7 @@ import {connect} from 'react-redux';
 
 class TaskGraph extends Component {
   state = {
-    taskNetwork: {}
+    taskNetwork: null
   };
 
   options = {
@@ -39,8 +39,12 @@ class TaskGraph extends Component {
       this.props.dispatch(actions.doDeselect());
     },
     stabilized: () => {
-      this.state.taskNetwork.setOptions({physics: {enabled: false}});
-      this.state.taskNetwork.fit();
+      const {taskNetwork} = this.state;
+
+      if (!!taskNetwork) {
+        taskNetwork.setOptions({physics: {enabled: false}});
+        taskNetwork.fit();
+      }
     }
   };
 
