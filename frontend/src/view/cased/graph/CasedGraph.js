@@ -11,7 +11,7 @@ class CasedGraph extends Component {
 
   options = {
     autoResize: true,
-    height: "500px",
+    height: "100%",
     nodes: {shape: "box"},
     interaction: {hover: true},
   };
