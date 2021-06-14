@@ -46,6 +46,45 @@ const actions = {
     }
   },
 
+  doTaskStartDocumentCount: (epicId, ids) => (dispatch, getState) => {
+    const patientId = _get(getState(), 'auth.currentUser.patientId');
+    const ownerId = _get(getState(), 'roadmap.view.record.record.ownerId');
+
+    console.log('():', { epicId, ids, ownerId, patientId })
+    console.log('getState():', getState())
+
+    if (ownerId && ownerId === patientId) {
+      const timestamp = moment.utc().toDate().getTime();
+      const counting = _get(getState(), 'epic.view.document', {});
+      const stops = Object.keys(counting || {}).filter((id) => ids.includes(id));
+
+      console.log('stops:', { stops })
+
+      if (stops.length > 0) {
+        EpicService.documentCount(epicId, Object.entries(counting).reduce((obj, [id, start]) => {
+          const duration = Math.ceil((timestamp - start) / 1000);
+
+          console.log('duration:', { duration })
+
+          if (duration > 0) {
+            return [...obj, { id, start: start.toString(), duration }]
+          }
+
+          return obj;
+        }, []))
+        .then(() => dispatch(actions.doFind(epicId, true)));
+      }
+
+      dispatch({
+        payload: ids.reduce((obj, id) => ({
+          ...obj,
+          [id]: timestamp,
+        }), {}),
+        type: actions.COUNT_DOCUMENT_STARTED
+      });
+    }
+  },
+
   doStartDocumentCount: (epicId, ids) => (dispatch, getState) => {
     const patientId = _get(getState(), 'auth.currentUser.patientId');
     const ownerId = _get(getState(), 'epic.view.record.roadmap.record.ownerId');

@@ -360,7 +360,7 @@ class Permissions {
       },
       epicCriteriaUpdate: {
         id: 'epicCriteriaUpdate',
-        allowedRoles: [ roles.owner, roles.epicEditor, roles.entityEditor ]
+        allowedRoles: [ roles.owner, roles.epicEditor, roles.entityEditor, roles.patient]
       },
       audioImport: {
         id: 'audioImport',

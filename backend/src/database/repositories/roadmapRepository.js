@@ -83,12 +83,13 @@ module.exports = class RoadmapRepository {
   static async destroy(id, options) {
     const roadmap = await Roadmap.findOne({ _id: id });
 
-    await Promise.all(roadmap.children.map((epic) => EpicRepository.destroy(epic, options)))
-
-    await MongooseRepository.wrapWithSessionIfExists(
-      Roadmap.deleteOne({ _id: roadmap._id }),
-      options,
-    );
+    if (roadmap) {
+      await Promise.all(roadmap.children.map((epic) => EpicRepository.destroy(epic, options)))
+      await MongooseRepository.wrapWithSessionIfExists(
+        Roadmap.deleteOne({ _id: roadmap._id }),
+        options,
+      );
+    }
 
     await this._createAuditLog(
       AuditLogRepository.DELETE,

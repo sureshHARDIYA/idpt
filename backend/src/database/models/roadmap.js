@@ -99,7 +99,78 @@ RoadmapSchema.pre('save', function(next) {
 })
 
 RoadmapSchema.post('updateOne', async function() {
-  await this.model.findOne(this.getQuery()).then((instance) => instance.save());
+  await this.model.findOne(this.getQuery()).then(async (instance) => {
+
+    console.log('Tracking record:', {
+      module: {
+        id: instance.id,
+        state: instance.state
+      },
+      prerequisite: instance.prerequisite,
+      tasks: instance.states
+    });
+
+    const { next, record, children } = await instance.populate('next').populate('children').execPopulate();
+
+    if (instance.state === 'ACTIVATE' && children.length > 0 && !children.find((item) => item.state !== 'LOCKED')) {
+      children[0].state = 'ACTIVATE';
+      await children[0].save();
+    }
+
+    const states = Object.values(instance.states || {});
+    const prerequisite = Object.values(instance.prerequisite || {});
+    const state = `${instance.state}`;
+
+    if (states.length > 0 && states.length === instance.children.length) {
+    console.log('1', state, instance.state)
+
+      if (
+        state === 'ACTIVATE' &&
+        state !== 'PROGRESS' &&
+        (states.includes('PROGRESS') || states.includes('COMPLETE'))
+      ) {
+        instance.state = 'PROGRESS';
+      } else if (
+        state === 'LOCKED' &&
+        state !== 'ACTIVATE' &&
+        states.includes('ACTIVATE')
+      ) {
+        instance.state = 'ACTIVATE';
+      }
+    }
+
+    console.log('2', state, instance.state)
+
+    if (
+      instance.state === 'LOCKED' &&
+      prerequisite.length > 0 &&
+      !prerequisite.find((item) => item !== 'COMPLETE')
+    ) {
+      instance.state = 'ACTIVATE';
+    } else if (instance.state === 'PROGRESS' && states.length === instance.children.length && !states.find((item) => item !== 'COMPLETE')) {
+      instance.state = 'COMPLETE';
+    }
+
+    console.log(state, instance.state)
+
+    if (state !== instance.state) {
+      await instance.save()
+    }
+
+    await Record.updateOne(
+      { _id: record },
+      { $set: { [`states.${instance._id}`]: instance.state } }
+    )
+
+    for (const item of next) {
+      try {
+        item.prerequisite[instance._id] = instance.state;
+        await item.save();
+      } catch (e) {
+        console.log('RoadmapSchema Save:', item.id, e.toString());
+      }
+    }
+  });
 })
 
 RoadmapSchema.post('save', async function() {

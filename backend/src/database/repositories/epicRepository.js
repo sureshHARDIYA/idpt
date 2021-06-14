@@ -369,7 +369,6 @@ module.exports = class EpicRepository {
 
     const epic = await Epic.findById(id);
 
-
     epic.elements.forEach(element => {
       if (criteriaData[element.resourceId]) {
         element.history.push({

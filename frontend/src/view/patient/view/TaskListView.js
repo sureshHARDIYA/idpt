@@ -3,6 +3,7 @@ import ContentWrapper from 'view/layout/styles/ContentWrapper';
 import Breadcrumb from 'view/shared/Breadcrumb';
 import { i18n } from 'i18n';
 import { connect } from 'react-redux';
+import epicActions from 'modules/epic/view/epicViewActions';
 import actions from 'modules/roadmap/view/roadmapViewActions';
 import selectors from 'modules/roadmap/view/roadmapViewSelectors';
 import _get from 'lodash/get';
@@ -27,7 +28,8 @@ class RecordRoadmapPage extends Component {
   };
 
   componentDidMount() {
-    const { dispatch, match } = this.props;
+    const { dispatch, match, roadmap } = this.props;
+
     dispatch(actions.doFind(match.params.id));
   }
 
@@ -57,6 +59,7 @@ class RecordRoadmapPage extends Component {
 
   forwardClick = () => {
     const currentId = parseInt(this.state.activeTab, 10);
+    this.updateDurationDocument(currentId - 1);
 
     this.setState({
       activeTab: (currentId + 1).toString(),
@@ -64,8 +67,24 @@ class RecordRoadmapPage extends Component {
     });
   };
 
+  updateDurationDocument = (currentId) => {
+    const task = _get(this.props.roadmap, `children.${currentId}`);
+
+    console.log('task:', task)
+
+    if (!!task && ['ACTIVATE', 'PROGRESS'].includes(task.state)) {
+      const documents = task.evaluations.filter(item => item.resourceType === 'Document').map(({ id }) => id)
+
+      this.props.dispatch(
+        epicActions.doTaskStartDocumentCount(task.id, documents)
+      );
+    }
+  }
+
   previousClick = () => {
+    this.updateDurationDocument();
     const currentId = parseInt(this.state.activeTab, 10);
+    this.updateDurationDocument(currentId + 1);
 
     if (currentId === 1) {
       this.setState({

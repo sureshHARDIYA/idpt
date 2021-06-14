@@ -41,8 +41,6 @@ class AudioRepository {
       options,
     );
 
-
-
     return this.findById(record.id, options);
   }
 

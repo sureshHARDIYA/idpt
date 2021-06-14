@@ -134,8 +134,8 @@ EpicSchema.pre('save', function(next) {
   next();
 });
 
-EpicSchema.post('updateOne', async function() {
-  await this.model
+EpicSchema.post('updateOne', function() {
+  return this.model
     .findOne(this.getQuery())
     .then((instance) => instance.save());
 });

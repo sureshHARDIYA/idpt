@@ -47,6 +47,7 @@ export default class RoadmapService {
           roadmapFind(id: $id) {
             record {
               id
+              ownerId
               host {
                 id
                 name
@@ -63,6 +64,16 @@ export default class RoadmapService {
             children {
               id
               state
+
+              evaluations: elements {
+                id
+                total
+                done
+                content
+                operator
+                evaluation
+                resourceType
+              }
               host {
                 id
                 name
