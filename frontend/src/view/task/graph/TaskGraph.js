@@ -8,7 +8,7 @@ import selectors from 'modules/task/graph/taskGraphSelectors';
 import actions from "../../../modules/task/graph/taskGraphActions";
 import {connect} from 'react-redux';
 
-const { fields } = model;
+const {fields} = model;
 
 class TaskGraph extends Component {
   state = {
@@ -16,9 +16,10 @@ class TaskGraph extends Component {
   };
 
   options = {
-    autoResize: true,
-    height: "100%",
-    nodes: {shape: "box"},
+    nodes: {
+      shape: "box",
+      borderWidth: 2,
+    },
     edges: {
       color: "#000000",
       width: 1,
@@ -59,11 +60,13 @@ class TaskGraph extends Component {
 
     taskRows.forEach(row => {
       const rowId = fields.id.forView(row.id);
+      const completionRequired = fields.completionRequired.forView(row.completionRequired);
 
       data.nodes.push({
         id: rowId,
         label: fields.name.forView(row.name),
         color: graphStatusColor[fields.status.forView(row.status) || 'DEFAULT'],
+        shapeProperties: completionRequired === "No" ? {borderDashes: [5, 5]} : null,
         x: (counters.xValue += 100) % 300,
         y: counters.yValue += 100,
       });

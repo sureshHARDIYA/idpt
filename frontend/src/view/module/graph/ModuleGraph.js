@@ -16,9 +16,10 @@ class ModuleGraph extends Component {
   };
 
   options = {
-    autoResize: true,
-    height: "100%",
-    nodes: {shape: "box"},
+    nodes: {
+      shape: "box",
+      borderWidth: 2,
+    },
     edges: {
       color: "#000000",
       width: 1,
