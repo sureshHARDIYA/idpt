@@ -1,8 +1,13 @@
-import selectors from 'modules/cased/graph/casedGraphSelectors';
 import React, {Component} from 'react';
-import {connect} from 'react-redux';
 import Graph from "react-graph-vis";
+import {graphStatusColor} from "../../shared/styles/GraphStyles";
+import model from "../../../modules/cased/casedModel";
+
+import selectors from 'modules/cased/graph/casedGraphSelectors';
 import actions from "../../../modules/cased/graph/casedGraphActions";
+import {connect} from 'react-redux';
+
+const {fields} = model;
 
 class CasedGraph extends Component {
   state = {
@@ -34,36 +39,29 @@ class CasedGraph extends Component {
     }
   };
 
-  getNodes = () => {
-    const {casedRows, hasRows} = this.props;
-    if (!hasRows) {
-      return []
-    }
+  getData = () => {
+    const {casedRows} = this.props;
 
-    // Re-label the 'name'-property to 'label', to fit the requirements of the Graph-framefork
-    const nodes = casedRows.map(row => {
-        const {name: label, ...rest} = row;
-        return {label, ...rest};
-      }
-    );
-
-    // Add coordinates to each row, to prettify the graph-result
+    let data = {nodes: [], edges: []};
     let yValue = -50;
-    nodes.forEach(e => {
-      e.x = 0;
-      e.y = yValue += 50
-    })
 
-    return nodes;
+    casedRows.forEach(row => {
+      data.nodes.push({
+        id: fields.id.forView(row.id),
+        label: fields.name.forView(row.name),
+        color: graphStatusColor[fields.status.forView(row.status) || 'DEFAULT'],
+        x: 0,
+        y: yValue += 50,
+      });
+    });
+
+    return data;
   };
 
   render() {
     return (
       <Graph
-        graph={{
-          nodes: this.getNodes(),
-          edges: []
-        }}
+        graph={this.getData()}
         options={this.options}
         events={this.events}
         getNetwork={casedNetwork => {
@@ -77,7 +75,6 @@ class CasedGraph extends Component {
 function select(state) {
   return {
     casedRows: selectors.selectRows(state),
-    hasRows: selectors.selectHasRows(state)
   };
 }
 

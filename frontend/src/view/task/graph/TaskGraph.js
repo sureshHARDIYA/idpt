@@ -1,10 +1,14 @@
 import React, {Component} from 'react';
 import Graph from "react-graph-vis";
+import {graphStatusColor} from "../../shared/styles/GraphStyles";
+import Spinner from "../../shared/Spinner";
+import model from "../../../modules/task/taskModel";
 
 import selectors from 'modules/task/graph/taskGraphSelectors';
 import actions from "../../../modules/task/graph/taskGraphActions";
 import {connect} from 'react-redux';
-import Spinner from "../../shared/Spinner";
+
+const { fields } = model;
 
 class TaskGraph extends Component {
   state = {
@@ -47,59 +51,40 @@ class TaskGraph extends Component {
     }
   };
 
-  getNodes = () => {
-    const {taskRows, hasRows} = this.props;
-    if (!hasRows) {
-      return [];
-    }
+  getData = () => {
+    const {taskRows} = this.props;
 
-    // Re-label the 'name'-property to 'label', to fit the requirements of the Graph-framefork
-    let nodes = taskRows.map(row => {
-        const {name: label, ...rest} = row;
-        return {label, ...rest};
-      }
-    );
+    let data = {nodes: [], edges: []};
+    let counters = {edgeId: 0, xValue: -100, yValue: -100};
 
-    // Add coordinates to each row, to prettify the graph-result
-    let xValue = -100;
-    let yValue = -100;
-    nodes.forEach(e => {
-      e.x = (xValue += 100) % 300;
-      e.y = yValue += 100;
+    taskRows.forEach(row => {
+      const rowId = fields.id.forView(row.id);
+
+      data.nodes.push({
+        id: rowId,
+        label: fields.name.forView(row.name),
+        color: graphStatusColor[fields.status.forView(row.status) || 'DEFAULT'],
+        x: (counters.xValue += 100) % 300,
+        y: counters.yValue += 100,
+      });
+
+      const nextTask = fields.next.forView(row.next);
+      nextTask.forEach(next =>
+        data.edges.push({
+          id: counters.edgeId++,
+          from: rowId,
+          to: fields.id.forView(next.id)
+        })
+      );
     });
 
-    this.getEdges();
-    return nodes;
-  };
-
-
-  getEdges = () => {
-    const {taskRows, hasRows} = this.props;
-    if (!hasRows) {
-      return [];
-    }
-
-    let edgeId = 0;
-    let edges = [];
-
-    taskRows.forEach(t => {
-        if (!!t.next.length) {
-          let next = t.next.map(n => n.id);
-          next.forEach(n => edges.push({id: edgeId++, from: t.id, to: n}));
-        }
-      }
-    );
-
-    return edges;
+    return data;
   };
 
   renderGraph() {
     return (
       <Graph
-        graph={{
-          nodes: this.getNodes(),
-          edges: this.getEdges()
-        }}
+        graph={this.getData()}
         options={this.options}
         events={this.events}
         getNetwork={taskNetwork => {
@@ -124,7 +109,6 @@ function select(state) {
   return {
     loading: selectors.selectLoading(state),
     taskRows: selectors.selectRows(state),
-    hasRows: selectors.selectHasRows(state)
   };
 }
 

@@ -1,9 +1,14 @@
-import selectors from 'modules/module/graph/moduleGraphSelectors';
 import React, {Component} from 'react';
-import {connect} from 'react-redux';
 import Graph from "react-graph-vis";
-import actions from "../../../modules/module/graph/moduleGraphActions";
+import {graphStatusColor} from 'view/shared/styles/GraphStyles';
 import Spinner from "../../shared/Spinner";
+import model from "../../../modules/module/moduleModel";
+
+import selectors from 'modules/module/graph/moduleGraphSelectors';
+import actions from "../../../modules/module/graph/moduleGraphActions";
+import {connect} from 'react-redux';
+
+const {fields} = model;
 
 class ModuleGraph extends Component {
   state = {
@@ -46,59 +51,40 @@ class ModuleGraph extends Component {
     }
   };
 
-  getNodes = () => {
-    const {moduleRows, hasRows} = this.props;
-    if (!hasRows) {
-      return []
-    }
+  getData = () => {
+    const {moduleRows} = this.props;
 
-    // Re-label the 'name'-property to 'label', to fit the requirements of the Graph-framefork
-    let nodes = moduleRows.map(row => {
-        const {name: label, ...rest} = row;
-        return {label, ...rest};
-      }
-    );
+    let data = {nodes: [], edges: []};
+    let counters = {edgeId: 0, xValue: -100, yValue: -100};
 
-    // Add coordinates to each row, to prettify the graph-result
-    let xValue = -100;
-    let yValue = -100;
-    nodes.forEach(e => {
-      e.x = (xValue += 100) % 300;
-      e.y = yValue += 100;
+    moduleRows.forEach(row => {
+      const rowId = fields.id.forView(row.id);
+
+      data.nodes.push({
+        id: rowId,
+        label: fields.name.forView(row.name),
+        color: graphStatusColor[fields.status.forView(row.status) || 'DEFAULT'],
+        x: (counters.xValue += 100) % 300,
+        y: counters.yValue += 100,
+      });
+
+      const prereq = fields.prerequisite.forView(row.prerequisite);
+      prereq.forEach(pre =>
+        data.edges.push({
+          id: counters.edgeId++,
+          from: fields.id.forView(pre.id),
+          to: rowId
+        })
+      );
     });
 
-    this.getEdges();
-    return nodes;
-  };
-
-
-  getEdges = () => {
-    const {moduleRows, hasRows} = this.props;
-    if (!hasRows) {
-      return []
-    }
-
-    let edgeId = 0;
-    let edges = [];
-    moduleRows.forEach(m => {
-        if (!!m.prerequisite.length) {
-          let prereq = m.prerequisite.map(p => p.id)
-          prereq.forEach(p => edges.push({id: edgeId++, from: p, to: m.id}))
-
-        }
-      }
-    )
-
-    return edges;
+    return data;
   };
 
   renderGraph() {
     return (
       <Graph
-        graph={{
-          nodes: this.getNodes(),
-          edges: this.getEdges()
-        }}
+        graph={this.getData()}
         options={this.options}
         events={this.events}
         getNetwork={moduleNetwork => {
@@ -123,7 +109,6 @@ function select(state) {
   return {
     loading: selectors.selectLoading(state),
     moduleRows: selectors.selectRows(state),
-    hasRows: selectors.selectHasRows(state)
   };
 }
 
