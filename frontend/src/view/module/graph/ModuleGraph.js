@@ -31,7 +31,7 @@ class ModuleGraph extends Component {
   events = {
     selectNode: (event) => {
       const nodeId = event.nodes[0];
-      this.props.dispatch(actions.doChangeSelected(nodeId));
+      this.props.dispatch(actions.doFind(nodeId));
     },
     deselectNode: () => {
       this.props.dispatch(actions.doDeselect());

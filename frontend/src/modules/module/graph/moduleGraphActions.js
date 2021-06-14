@@ -1,6 +1,6 @@
 import ModuleService from 'modules/module/moduleService';
-import selectors from 'modules/module/graph/moduleGraphSelectors';
 import Errors from 'modules/shared/error/errors';
+import {getHistory} from "../../store";
 
 const prefix = 'MODULE_GRAPH';
 
@@ -9,17 +9,33 @@ const actions = {
   FETCH_SUCCESS: `${prefix}_FETCH_SUCCESS`,
   FETCH_ERROR: `${prefix}_FETCH_ERROR`,
 
-  SELECT_RECORD: `${prefix}_SELECT_RECORD`,
+  FIND_STARTED: `${prefix}_FIND_STARTED`,
+  FIND_SUCCESS: `${prefix}_FIND_SUCCESS`,
+  FIND_ERROR: `${prefix}_FIND_ERROR`,
+
   DESELECT_RECORD: `${prefix}_DESELECT_RECORD`,
 
-  doChangeSelected: (payload) => async (dispatch, getState) => {
-    const rows = selectors.selectRows(getState());
-    const record = rows.find(record => record.id === payload);
+  doFind: (id) => async (dispatch) => {
+    try {
+      dispatch({
+        type: actions.FIND_STARTED,
+      });
 
-    dispatch({
-      type: actions.SELECT_RECORD,
-      payload: record,
-    });
+      const record = await ModuleService.find(id);
+
+      dispatch({
+        type: actions.FIND_SUCCESS,
+        payload: record,
+      });
+    } catch (error) {
+      Errors.handle(error);
+
+      dispatch({
+        type: actions.FIND_ERROR,
+      });
+
+      getHistory().push('/module');
+    }
   },
 
   doDeselect() {
