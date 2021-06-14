@@ -192,9 +192,6 @@ export default class ModuleService {
               id
               name
               status
-              tasks {
-                id
-              }
               prerequisite {
                 id
               }

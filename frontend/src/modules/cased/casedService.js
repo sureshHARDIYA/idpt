@@ -178,9 +178,6 @@ export default class CasedService {
               id
               name
               status
-              modules {
-                id
-              }
             }
           }
         }
