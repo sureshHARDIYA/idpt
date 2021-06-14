@@ -5,7 +5,7 @@ const permissions = require('../../../security/permissions')
 const graphqlSelectRequestedAttributes = require('../../shared/utils/graphqlSelectRequestedAttributes');
 
 const schema = `
-  casedGraph(filter: CasedFilterInput, limit: Int, offset: Int, orderBy: CasedOrderByEnum): CasedPage!
+  casedGraph: CasedPage!
 `;
 
 const resolver = {

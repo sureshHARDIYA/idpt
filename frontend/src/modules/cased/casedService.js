@@ -168,21 +168,11 @@ export default class CasedService {
     return response.data.casedList;
   }
 
-  static async graph(filter, orderBy, limit, offset) {
+  static async graph() {
     const response = await graphqlClient.query({
       query: gql`
-        query CASED_GRAPH(
-          $filter: CasedFilterInput
-          $orderBy: CasedOrderByEnum
-          $limit: Int
-          $offset: Int
-        ) {
-          casedGraph(
-            filter: $filter
-            orderBy: $orderBy
-            limit: $limit
-            offset: $offset
-          ) {
+        query CASED_GRAPH {
+          casedGraph {
             count
             rows {
               id
@@ -196,15 +186,9 @@ export default class CasedService {
           }
         }
       `,
-
-      variables: {
-        filter,
-        orderBy,
-        limit,
-        offset,
-      },
     });
 
+    console.log(response.data.casedGraph.rows)
     return response.data.casedGraph;
   }
 
