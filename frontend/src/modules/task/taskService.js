@@ -197,23 +197,12 @@ export default class TaskService {
             rows {
               id
               name
-              description
               status
-              tags
-              points
               completionRequired
-              complexityLevel
-              owner {
-                id
-                name
-              }
               next {
                 id
                 name
               }
-              ${ELEMENT_FRAGAMENT}
-              updatedAt
-              createdAt
             }
           }
         }

@@ -180,7 +180,6 @@ export default class CasedService {
               status
               modules {
                 id
-                name
               }
             }
           }
@@ -188,7 +187,6 @@ export default class CasedService {
       `,
     });
 
-    console.log(response.data.casedGraph.rows)
     return response.data.casedGraph;
   }
 

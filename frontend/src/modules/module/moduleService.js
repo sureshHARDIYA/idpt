@@ -190,30 +190,14 @@ export default class ModuleService {
             count
             rows {
               id
-              owner {
-                id
-                name
-              }
               name
-              description
               status
               tasks {
                 id
-                name
-              }
-              featuredImage {
-                id
-                name
-                sizeInBytes
-                publicUrl
-                privateUrl
               }
               prerequisite {
                 id
-                name
               }
-              updatedAt
-              createdAt
             }
           }
         }
