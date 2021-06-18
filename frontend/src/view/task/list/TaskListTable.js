@@ -12,6 +12,7 @@ import { Link } from 'react-router-dom';
 import TableWrapper from 'view/shared/styles/TableWrapper';
 import ButtonLink from 'view/shared/styles/ButtonLink';
 import ModuleListItem from 'view/module/list/ModuleListItem';
+import TaxonomyListItem from 'view/taxonomy/list/TaxonomyListItem';
 
 const { fields } = model;
 
@@ -38,6 +39,9 @@ class TaskListTable extends Component {
     fields.complexityLevel.forTable(),
     fields.owner.forTable({
       render: (value) => <ModuleListItem value={value} />,
+    }),
+    fields.taxonomies.forTable({
+      render: (value) => <TaxonomyListItem value={value} />,
     }),
     {
       title: '',

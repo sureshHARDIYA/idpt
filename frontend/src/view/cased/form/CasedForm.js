@@ -15,6 +15,7 @@ import ImagesFormItem from 'view/shared/form/items/ImagesFormItem';
 import SelectFormItem from 'view/shared/form/items/SelectFormItem';
 import DatePickerFormItem from 'view/shared/form/items/DatePickerFormItem';
 import ModuleAutocompleteFormItem from 'view/module/autocomplete/ModuleAutocompleteFormItem';
+import TaxonomyAutocompleteFormItem from 'view/taxonomy/autocomplete/TaxonomyAutocompleteFormItem';
 import UserAutocompleteFormItem from 'view/iam/autocomplete/UserAutocompleteFormItem';
 import RadioFormItem from 'view/shared/form/items/RadioFormItem';
 
@@ -27,6 +28,7 @@ class CasedForm extends Component {
     fields.status,
     fields.featuredImage,
     fields.modules,
+    fields.taxonomies,
     fields.patients,
     fields.availableFrom,
     fields.audience,
@@ -111,6 +113,14 @@ class CasedForm extends Component {
                   name={fields.modules.name}
                   label={fields.modules.label}
                   required={fields.modules.required}
+                  showCreate={!this.props.modal}
+                  form={form}
+                  mode="multiple"
+                />
+                <TaxonomyAutocompleteFormItem
+                  name={fields.taxonomies.name}
+                  label={fields.taxonomies.label}
+                  required={fields.taxonomies.required}
                   showCreate={!this.props.modal}
                   form={form}
                   mode="multiple"

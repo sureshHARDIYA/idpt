@@ -11,6 +11,7 @@ const schema = `
     completionRequired: Boolean
     complexityLevel: Int
     owner: [ Module! ]
+    taxonomies: [ Taxonomy! ]
     assignments: [Assignment]
     elements: [Element]
     documents: [Document]

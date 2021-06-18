@@ -8,6 +8,7 @@ export default [
   fields.description,
   fields.status,
   fields.tasks,
+  fields.taxonomies,
   fields.featuredImage,
   fields.prerequisite,
 ];

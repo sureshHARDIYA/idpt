@@ -12,6 +12,7 @@ export default [
   fields.completionRequired,
   fields.complexityLevel,
   fields.owner,
+  fields.taxonomies,
   fields.createdAt,
   fields.updatedAt,
 ];

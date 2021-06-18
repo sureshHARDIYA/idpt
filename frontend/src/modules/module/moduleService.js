@@ -95,6 +95,10 @@ export default class ModuleService {
               id
               name
             }
+            taxonomies {
+              id
+              name
+            }
             featuredImage {
               id
               name
@@ -146,6 +150,10 @@ export default class ModuleService {
               description
               status
               tasks {
+                id
+                name
+              }
+              taxonomies {
                 id
                 name
               }

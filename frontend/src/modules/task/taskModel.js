@@ -72,6 +72,11 @@ const fields = {
     label('assignments'),
     {},
   ),
+  taxonomies: new RelationToManyField(
+    'taxonomies',
+    label('taxonomies'),
+    {},
+  ),
   next: new RelationToManyField('next', label('next'), {}),
   createdAt: new DateTimeField(
     'createdAt',
