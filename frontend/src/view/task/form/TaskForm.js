@@ -268,7 +268,7 @@ class TaskForm extends Component {
                                 {...formItemLayout}
                                 label="Evaluation criteria"
                               >
-                                (>=)
+                                {`(>=)`}
                               </Form.Item>
                               <InputFormItem
                                 name={`documents.${index}.evaluation`}
@@ -395,7 +395,7 @@ class TaskForm extends Component {
                                 {...formItemLayout}
                                 label="Evaluation criteria"
                               >
-                                (>=)
+                                {`(>=)`}
                               </Form.Item>
                               <InputFormItem
                                 name={`audios.${index}.evaluation`}
@@ -522,7 +522,7 @@ class TaskForm extends Component {
                                 {...formItemLayout}
                                 label="Evaluation criteria"
                               >
-                                (>=)
+                                {`(>=)`}
                               </Form.Item>
                               <InputFormItem
                                 name={`videos.${index}.evaluation`}
