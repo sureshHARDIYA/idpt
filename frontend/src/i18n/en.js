@@ -34,6 +34,12 @@ const en = {
         menu: 'Assignments',
         title: 'Assignments',
       },
+      create: {
+        success: 'Assignment created successfully',
+      },
+      update: {
+        success: 'Assignment updated successfully',
+      },
       destroy: {
         success: 'Assignment deleted successfully',
       },
