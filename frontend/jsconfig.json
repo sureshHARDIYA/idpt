@@ -4,7 +4,14 @@
     "target": "es2016",
     "jsx": "preserve",
     "checkJs": true,
-    "baseUrl": "./src"
+    "baseUrl": "./src",
+    "paths": {
+      "i18n/*": ["i18n/*"],
+      "view/*": ["view/*"],
+      "config/*": ["config/*"],
+      "security/*": ["security/*"],
+      "modules/*": ["modules/*"]
+    }
   },
   "exclude": ["node_modules", "**/node_modules/*"]
 }
