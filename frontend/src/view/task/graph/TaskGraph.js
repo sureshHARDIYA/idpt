@@ -20,14 +20,11 @@ class TaskGraph extends Component {
       shape: "box",
       borderWidth: 2,
     },
-    edges: {
-      color: "#000000",
-      width: 1,
-    },
+    edges: {width: 1},
     interaction: {hover: true},
     physics: {
-      enabled: true, // This must be false to use manual positioning for nodes
-      stabilization: { // Force the graph to stabilize before being shown
+      enabled: true,
+      stabilization: {
         enabled: true,
         iterations: 5000
       }
@@ -98,9 +95,9 @@ class TaskGraph extends Component {
   };
 
   render() {
-    const {loading} = this.props;
+    const {loading, hasRows} = this.props;
 
-    if (loading) {
+    if (loading || !hasRows) {
       return <Spinner/>;
     }
 
@@ -110,8 +107,9 @@ class TaskGraph extends Component {
 
 function select(state) {
   return {
-    loading: selectors.selectLoading(state),
+    loading: selectors.selectLoadingRows(state),
     taskRows: selectors.selectRows(state),
+    hasRows: selectors.selectHasRows(state),
   };
 }
 

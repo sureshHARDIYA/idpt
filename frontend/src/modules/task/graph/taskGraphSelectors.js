@@ -2,9 +2,21 @@ import { createSelector } from 'reselect';
 
 const selectRaw = (state) => state.task.graph;
 
+const selectLoadingRecord = createSelector(
+  [selectRaw],
+  (raw) => raw.loadingRecord,
+);
+
+const selectLoadingRows = createSelector(
+  [selectRaw],
+  (raw) => raw.loadingRows,
+);
+
 const selectLoading = createSelector(
   [selectRaw],
-  (raw) => raw.loading,
+  (raw) => {
+    return raw.loadingRows || raw.loadingRecord;
+  }
 );
 
 const selectRows = createSelector(
@@ -35,6 +47,8 @@ const selectFilter = createSelector(
 );
 
 export default {
+  selectLoadingRecord,
+  selectLoadingRows,
   selectLoading,
   selectRows,
   selectCount,

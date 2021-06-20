@@ -4,7 +4,8 @@ import actions from 'modules/module/graph/moduleGraphActions';
 const initialData = {
   rows: [],
   count: 0,
-  loading: false,
+  loadingRecord: false,
+  loadingRows: false,
   filter: {},
   record: null,
 };
@@ -20,7 +21,7 @@ export default (state = initialData, {type, payload}) => {
   if (type === actions.FETCH_STARTED) {
     return {
       ...state,
-      loading: true,
+      loadingRows: true,
       record: null,
       filter: payload ? payload.filter : {},
     };
@@ -29,7 +30,7 @@ export default (state = initialData, {type, payload}) => {
   if (type === actions.FETCH_SUCCESS) {
     return {
       ...state,
-      loading: false,
+      loadingRows: false,
       rows: payload.rows,
       record: null,
       count: payload.count,
@@ -39,7 +40,7 @@ export default (state = initialData, {type, payload}) => {
   if (type === actions.FETCH_ERROR) {
     return {
       ...state,
-      loading: false,
+      loadingRows: false,
       rows: [],
       record: null,
       count: 0,
@@ -50,7 +51,7 @@ export default (state = initialData, {type, payload}) => {
     return {
       ...state,
       record: null,
-      loading: true,
+      loadingRecord: true,
     };
   }
 
@@ -58,7 +59,7 @@ export default (state = initialData, {type, payload}) => {
     return {
       ...state,
       record: payload,
-      loading: false,
+      loadingRecord: false,
     };
   }
 
@@ -66,7 +67,7 @@ export default (state = initialData, {type, payload}) => {
     return {
       ...state,
       record: null,
-      loading: false,
+      loadingRecord: false,
     };
   }
 
