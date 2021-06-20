@@ -1,17 +1,17 @@
 import model from 'modules/task/taskModel';
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Spinner from 'view/shared/Spinner';
 import ViewWrapper from 'view/shared/styles/ViewWrapper';
 import TextViewItem from 'view/shared/view/TextViewItem';
 import ModuleViewItem from 'view/module/view/ModuleViewItem';
+import TaxonomyViewItem from 'view/taxonomy/view/TaxonomyViewItem';
 import {Tabs} from "antd";
-//import ImagesViewItem from "../../shared/view/ImagesViewItem";
 
-const {fields} = model;
+const { fields } = model;
 
 class TaskView extends Component {
   renderView() {
-    const {record} = this.props;
+    const { record } = this.props;
 
     return (
       <ViewWrapper>
@@ -60,6 +60,11 @@ class TaskView extends Component {
               value={fields.owner.forView(record.owner)}
             />
 
+            <TaxonomyViewItem
+              label={fields.taxonomies.label}
+              value={fields.taxonomies.forView(record.taxonomies)}
+            />
+
             <TextViewItem
               label={fields.createdAt.label}
               value={fields.createdAt.forView(record.createdAt)}
@@ -90,10 +95,10 @@ class TaskView extends Component {
   }
 
   render() {
-    const {record, loading} = this.props;
+    const { record, loading } = this.props;
 
     if (loading || !record) {
-      return <Spinner/>;
+      return <Spinner />;
     }
 
     return this.renderView();

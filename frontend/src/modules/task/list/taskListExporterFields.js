@@ -13,6 +13,7 @@ export default [
   fields.complexityLevel,
   fields.prerequisite,
   fields.owner,
+  fields.taxonomies,
   fields.createdAt,
   fields.updatedAt,
 ];

@@ -34,6 +34,12 @@ const en = {
         menu: 'Assignments',
         title: 'Assignments',
       },
+      create: {
+        success: 'Assignment created successfully',
+      },
+      update: {
+        success: 'Assignment updated successfully',
+      },
       destroy: {
         success: 'Assignment deleted successfully',
       },
@@ -167,6 +173,7 @@ const en = {
         status: 'Status',
         featuredImage: 'FeaturedImage',
         modules: 'Modules',
+        taxonomies: 'Taxonomies',
         patients: 'Patients',
         availableFromRange: 'AvailableFrom',
         availableFrom: 'AvailableFrom',
@@ -234,6 +241,7 @@ const en = {
         description: 'Description',
         status: 'Status',
         tasks: 'Tasks',
+        taxonomies: 'Taxonomies',
         featuredImage: 'FeaturedImage',
         prerequisite: 'Prerequisite',
         createdAt: 'Created at',
@@ -299,6 +307,7 @@ const en = {
         complexityLevel: 'ComplexityLevel',
         type: 'Type',
         owner: 'Owner',
+        taxonomies: 'Taxonomies',
         elements: 'Elements',
         prerequisite: 'Prerequisite',
         next: 'Next task',

@@ -2,6 +2,9 @@ const MongooseRepository = require('./mongooseRepository');
 const MongooseQueryUtils = require('../utils/mongooseQueryUtils');
 const AuditLogRepository = require('./auditLogRepository');
 const Taxonomy = require('../models/taxonomy');
+const Cased = require('../models/cased');
+const Module = require('../models/module');
+const Task = require('../models/task');
 
 /**
  * Handles database operations for the Taxonomy.
@@ -84,15 +87,13 @@ class TaxonomyRepository {
 
     const record = await this.findById(id, options);
 
-    /*
-    await MongooseRepository.refreshTwoWayRelationManyToMany(
-      record,
-      'owner',
-      Module,
-      'tasks',
-      options,
-    );
-    */
+    // await MongooseRepository.refreshTwoWayRelationManyToMany(
+    //   record,
+    //   'owner',
+    //   Module,
+    //   'tasks',
+    //   options,
+    // );
 
     return record;
   }
@@ -116,14 +117,34 @@ class TaxonomyRepository {
       options,
     );
 
-    /*
+    await MongooseRepository.destroyRelationToMany(
+      id,
+      Taxonomy,
+      'parent',
+      options,
+    );
+
+
+    await MongooseRepository.destroyRelationToMany(
+      id,
+      Cased,
+      'taxonomies',
+      options,
+    );
+
     await MongooseRepository.destroyRelationToMany(
       id,
       Module,
-      'tasks',
+      'taxonomies',
       options,
     );
-    */
+
+    await MongooseRepository.destroyRelationToMany(
+      id,
+      Task,
+      'taxonomies',
+      options,
+    );
   }
 
   /**

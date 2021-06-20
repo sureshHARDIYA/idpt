@@ -98,6 +98,10 @@ export default class CasedService {
               id
               name
             }
+            taxonomies {
+              id
+              name
+            }
             audience
             audienceList
             availableFrom
@@ -146,6 +150,10 @@ export default class CasedService {
               audience
               audienceList
               modules {
+                id
+                name
+              }
+              taxonomies {
                 id
                 name
               }

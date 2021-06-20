@@ -4,6 +4,7 @@ const AuditLogRepository = require('./auditLogRepository');
 const Module = require('../models/module');
 const Cased = require('../models/cased');
 const Task = require('../models/task');
+const Taxonomy = require('../models/taxonomy');
 
 /**
  * Handles database operations for the Module.
@@ -59,6 +60,14 @@ class ModuleRepository {
       options,
     );
 
+    await MongooseRepository.refreshTwoWayRelationManyToMany(
+      record,
+      'taxonomies',
+      Taxonomy,
+      'owner',
+      options,
+    );
+
     return this.findById(record.id, options);
   }
 
@@ -107,6 +116,14 @@ class ModuleRepository {
       options,
     );
 
+    await MongooseRepository.refreshTwoWayRelationManyToMany(
+      record,
+      'taxonomies',
+      Taxonomy,
+      'owner',
+      options,
+    );
+
     return record;
   }
 
@@ -149,6 +166,13 @@ class ModuleRepository {
       'owner',
       options,
     );
+
+    await MongooseRepository.destroyRelationToMany(
+      id,
+      Taxonomy,
+      'owner',
+      options,
+    );
   }
 
   /**
@@ -175,6 +199,7 @@ class ModuleRepository {
       Module.findById(id)
       .populate('owner')
       .populate('tasks')
+      .populate('taxonomies')
       .populate('prerequisite'),
       options,
     );
@@ -276,6 +301,7 @@ class ModuleRepository {
       .sort(sort)
       .populate('owner')
       .populate('tasks')
+      .populate('taxonomies')
       .populate('prerequisite');
 
     const count = await Module.countDocuments(criteria);

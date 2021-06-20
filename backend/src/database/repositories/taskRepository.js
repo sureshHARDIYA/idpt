@@ -3,6 +3,7 @@ const MongooseQueryUtils = require('../utils/mongooseQueryUtils');
 const AuditLogRepository = require('./auditLogRepository');
 const Task = require('../models/task');
 const Module = require('../models/module');
+const Taxonomy = require('../models/taxonomy');
 
 /**
  * Handles database operations for the Task.
@@ -50,6 +51,15 @@ class TaskRepository {
       options,
     );
 
+
+    await MongooseRepository.refreshTwoWayRelationManyToMany(
+      record,
+      'taxonomies',
+      Taxonomy,
+      'owner',
+      options,
+    );
+
     return this.findById(record.id, options);
   }
 
@@ -90,6 +100,14 @@ class TaskRepository {
       options,
     );
 
+    await MongooseRepository.refreshTwoWayRelationManyToMany(
+      record,
+      'taxonomies',
+      Taxonomy,
+      'owner',
+      options,
+    );
+
     return record;
   }
 
@@ -118,6 +136,13 @@ class TaskRepository {
       'tasks',
       options,
     );
+
+    await MongooseRepository.destroyRelationToMany(
+      id,
+      Taxonomy,
+      'owner',
+      options,
+    );
   }
 
   /**
@@ -143,6 +168,7 @@ class TaskRepository {
     return MongooseRepository.wrapWithSessionIfExists(
       Task.findById(id)
         .populate('owner')
+        .populate('taxonomies')
         .populate('assignments'),
       options,
     );
@@ -372,7 +398,8 @@ class TaskRepository {
       .skip(skip)
       .limit(limitEscaped)
       .sort(sort)
-      .populate('owner');
+      .populate('owner')
+      .populate('taxonomies');
 
     const count = await Task.countDocuments(criteria);
 

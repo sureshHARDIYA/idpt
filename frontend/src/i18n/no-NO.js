@@ -52,6 +52,32 @@ const no = {
         title: 'Rediger Assignment',
       },
     },
+    assignmentResponse: {
+      name: 'assignment Response',
+      label: 'Responses',
+      menu: 'Responses',
+      list: {
+        menu: 'Response',
+        title: 'Response',
+      },
+      destroy: {
+        success: 'Assignment Response deleted successfully',
+      },
+      destroyAll: {
+        success: 'Assignment Response deleted successfully',
+      },
+      fields: {
+        id: 'ID',
+        title: 'Title',
+        createdAt: 'Created at',
+      },
+      new: {
+        title: 'New Assignment Response ',
+      },
+      edit: {
+        title: 'Edit Assignment Response',
+      },
+    },
     patient: {
       name: 'patient',
       label: 'Patients',
@@ -141,6 +167,7 @@ const no = {
         status: 'Status',
         featuredImage: 'FeaturedImage',
         modules: 'Modules',
+        taxonomies: 'Taxonomies',
         patients: 'Patients',
         availableFromRange: 'AvailableFrom',
         availableFrom: 'AvailableFrom',
@@ -208,6 +235,7 @@ const no = {
         description: 'Description',
         status: 'Status',
         tasks: 'Tasks',
+        taxonomies: 'Taxonomies',
         featuredImage: 'FeaturedImage',
         prerequisite: 'Prerequisite',
         createdAt: 'Opprettet',
@@ -273,6 +301,7 @@ const no = {
         complexityLevel: 'ComplexityLevel',
         type: 'Type',
         owner: 'Owner',
+        taxonomies: 'Taxonomies',
         elements: 'Elements',
         prerequisite: 'Prerequisite',
         next: 'Next task',

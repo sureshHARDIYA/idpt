@@ -16,6 +16,7 @@ import ImagesFormItem from 'view/shared/form/items/ImagesFormItem';
 import CasedAutocompleteFormItem from 'view/cased/autocomplete/CasedAutocompleteFormItem';
 import TaskAutocompleteFormItem from 'view/task/autocomplete/TaskAutocompleteFormItem';
 import ModuleAutocompleteFormItem from 'view/module/autocomplete/ModuleAutocompleteFormItem';
+import TaxonomyAutocompleteFormItem from 'view/taxonomy/autocomplete/TaxonomyAutocompleteFormItem';
 
 const { fields } = model;
 
@@ -26,6 +27,7 @@ class ModuleForm extends Component {
     fields.description,
     fields.status,
     fields.tasks,
+    fields.taxonomies,
     fields.featuredImage,
     fields.prerequisite,
   ]);
@@ -92,6 +94,14 @@ class ModuleForm extends Component {
                   name={fields.tasks.name}
                   label={fields.tasks.label}
                   required={fields.tasks.required}
+                  showCreate={!this.props.modal}
+                  form={form}
+                  mode="multiple"
+                />
+                <TaxonomyAutocompleteFormItem
+                  name={fields.taxonomies.name}
+                  label={fields.taxonomies.label}
+                  required={fields.taxonomies.required}
                   showCreate={!this.props.modal}
                   form={form}
                   mode="multiple"

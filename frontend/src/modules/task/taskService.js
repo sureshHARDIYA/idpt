@@ -117,6 +117,10 @@ export default class TaskService {
               id
               title
             }
+            taxonomies {
+              id
+              name
+            }
             next {
               id
               name
@@ -162,6 +166,10 @@ export default class TaskService {
               completionRequired
               complexityLevel
               owner {
+                id
+                name
+              }
+              taxonomies {
                 id
                 name
               }

@@ -5,6 +5,7 @@ const schema = `
     status: CasedStatusEnum!
     featuredImage: [ FileInput! ]
     modules: [ String! ]
+    taxonomies: [ String! ]
     patients: [ String! ]
     audience: Audience
     audienceList: [String]

@@ -3,6 +3,7 @@ const MongooseQueryUtils = require('../utils/mongooseQueryUtils');
 const AuditLogRepository = require('./auditLogRepository');
 const Cased = require('../models/cased');
 const Module = require('../models/module');
+const Taxonomy = require('../models/taxonomy');
 const Patient = require('../models/patient');
 const Record = require('../models/record');
 
@@ -52,6 +53,14 @@ class CasedRepository {
       options,
     );
 
+    await MongooseRepository.refreshTwoWayRelationManyToMany(
+      record,
+      'taxonomies',
+      Taxonomy,
+      'owner',
+      options,
+    );
+
     return this.findById(record.id, options);
   }
 
@@ -92,13 +101,20 @@ class CasedRepository {
       options,
     );
 
+    await MongooseRepository.refreshTwoWayRelationManyToMany(
+      record,
+      'taxonomies',
+      Taxonomy,
+      'owner',
+      options,
+    );
+
     // await MongooseRepository.refreshTwoWayRelationManyToMany(
     //   record,
     //   'patients',
     //   Patient,
     //   'assignCase',
     //   options,
-    // );
 
     return record;
   }
@@ -135,6 +151,13 @@ class CasedRepository {
       'owner',
       options,
     );
+
+    await MongooseRepository.destroyRelationToMany(
+      id,
+      Taxonomy,
+      'owner',
+      options,
+    );
   }
 
   /**
@@ -160,7 +183,8 @@ class CasedRepository {
     return MongooseRepository.wrapWithSessionIfExists(
       Cased.findById(id)
         .populate('modules')
-        .populate('patients'),
+        .populate('patients')
+        .populate('taxonomies'),
       options,
     );
   }
@@ -309,7 +333,8 @@ class CasedRepository {
       .skip(skip)
       .limit(limitEscaped)
       .sort(sort)
-      .populate('modules');
+      .populate('modules')
+      .populate('taxonomies');
 
     const count = await Cased.countDocuments(criteria);
 

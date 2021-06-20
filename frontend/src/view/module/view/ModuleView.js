@@ -1,5 +1,5 @@
 import model from 'modules/module/moduleModel';
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Spinner from 'view/shared/Spinner';
 import ViewWrapper from 'view/shared/styles/ViewWrapper';
 import TextViewItem from 'view/shared/view/TextViewItem';
@@ -7,13 +7,14 @@ import ImagesViewItem from 'view/shared/view/ImagesViewItem';
 import CasedViewItem from 'view/cased/view/CasedViewItem';
 import TaskViewItem from 'view/task/view/TaskViewItem';
 import ModuleViewItem from 'view/module/view/ModuleViewItem';
+import TaxonomyViewItem from 'view/taxonomy/view/TaxonomyViewItem';
 import {Tabs} from "antd";
 
-const {fields} = model;
+const { fields } = model;
 
 class ModuleView extends Component {
   renderView() {
-    const {record} = this.props;
+    const { record } = this.props;
 
     return (
       <ViewWrapper>
@@ -52,6 +53,11 @@ class ModuleView extends Component {
               value={fields.tasks.forView(record.tasks)}
             />
 
+            <TaxonomyViewItem
+              label={fields.taxonomies.label}
+              value={fields.taxonomies.forView(record.taxonomies)}
+            />
+
             <ImagesViewItem
               label={fields.featuredImage.label}
               value={fields.featuredImage.forView(record.featuredImage)}
@@ -82,10 +88,10 @@ class ModuleView extends Component {
   }
 
   render() {
-    const {record, loading} = this.props;
+    const { record, loading } = this.props;
 
     if (loading || !record) {
-      return <Spinner/>;
+      return <Spinner />;
     }
 
     return this.renderView();

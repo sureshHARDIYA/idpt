@@ -61,6 +61,11 @@ const fields = {
     label('modules'),
     {},
   ),
+  taxonomies: new RelationToManyField(
+    'taxonomies',
+    label('taxonomies'),
+    {},
+  ),
   patients: new RelationToManyField(
     'patients',
     label('patients'),

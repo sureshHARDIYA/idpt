@@ -7,6 +7,7 @@ export default [
   fields.description,
   fields.status,
   fields.owner,
+  fields.taxonomies,
   fields.tags,
   fields.points,
   fields.completionRequired,

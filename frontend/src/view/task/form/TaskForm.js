@@ -7,10 +7,10 @@ import {
   Divider,
   Popconfirm,
 } from 'antd';
-import {Formik, FieldArray} from 'formik';
-import {i18n} from 'i18n';
+import { Formik, FieldArray } from 'formik';
+import { i18n } from 'i18n';
 import model from 'modules/task/taskModel';
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import ViewFormItem from 'view/shared/form/items/ViewFormItem';
 import Spinner from 'view/shared/Spinner';
 import FormWrapper, {
@@ -26,11 +26,11 @@ import SelectFormItem from 'view/shared/form/items/SelectFormItem';
 import TaskAutocompleteFormItem from 'view/task/autocomplete/TaskAutocompleteFormItem';
 import ModuleAutocompleteFormItem from 'view/module/autocomplete/ModuleAutocompleteFormItem';
 import AssignmentAutocompleteFormItem from 'view/assignments/autocomplete/AssignmentAutocompleteFormItem';
+import TaxonomyAutocompleteFormItem from 'view/taxonomy/autocomplete/TaxonomyAutocompleteFormItem';
 
 import _get from 'lodash/get';
-//import ImagesFormItem from "../../shared/form/items/ImagesFormItem";
 
-const {fields} = model;
+const { fields } = model;
 
 class TaskForm extends Component {
   schema = new FormSchema(fields.id, [
@@ -42,6 +42,7 @@ class TaskForm extends Component {
     fields.completionRequired,
     fields.complexityLevel,
     fields.owner,
+    fields.taxonomies,
     fields.prerequisite,
     fields.next,
     fields.documents,
@@ -51,7 +52,7 @@ class TaskForm extends Component {
   ]);
 
   handleSubmit = (values) => {
-    const {id, ...data} = this.schema.cast(values);
+    const { id, ...data } = this.schema.cast(values);
     this.props.onSubmit(id, data);
   };
 
@@ -61,7 +62,7 @@ class TaskForm extends Component {
   };
 
   renderForm() {
-    const {saveLoading, isEditing} = this.props;
+    const { saveLoading, isEditing } = this.props;
 
     return (
       <FormWrapper>
@@ -146,6 +147,14 @@ class TaskForm extends Component {
                       form={form}
                       mode="multiple"
                     />
+                    <TaxonomyAutocompleteFormItem
+                      name={fields.taxonomies.name}
+                      label={fields.taxonomies.label}
+                      required={fields.taxonomies.required}
+                      showCreate={!this.props.modal}
+                      form={form}
+                      mode="multiple"
+                    />
                   </Tabs.TabPane>
                   <Tabs.TabPane
                     key="2"
@@ -190,7 +199,7 @@ class TaskForm extends Component {
                               (item, index, items) => (
                                 <div
                                   key={item.id}
-                                  style={{marginBottom: 20}}
+                                  style={{ marginBottom: 20 }}
                                 >
                                   <Form.Item
                                     {...formItemLayout}
@@ -260,7 +269,7 @@ class TaskForm extends Component {
                                     {...formItemLayout}
                                     label="Evaluation criteria"
                                   >
-                                    (>=)
+                                    {`(>=)`}
                                   </Form.Item>
                                   <InputFormItem
                                     name={`documents.${index}.evaluation`}
@@ -273,7 +282,7 @@ class TaskForm extends Component {
                                         .evaluation.required
                                     }
                                   />
-                                  <Divider/>
+                                  <Divider />
                                 </div>
                               ),
                             );
@@ -317,7 +326,7 @@ class TaskForm extends Component {
                               (item, index, items) => (
                                 <div
                                   key={item.id}
-                                  style={{marginBottom: 20}}
+                                  style={{ marginBottom: 20 }}
                                 >
                                   <Form.Item
                                     {...formItemLayout}
@@ -387,7 +396,7 @@ class TaskForm extends Component {
                                     {...formItemLayout}
                                     label="Evaluation criteria"
                                   >
-                                    (>=)
+                                    {`(>=)`}
                                   </Form.Item>
                                   <InputFormItem
                                     name={`audios.${index}.evaluation`}
@@ -400,7 +409,7 @@ class TaskForm extends Component {
                                         .evaluation.required
                                     }
                                   />
-                                  <Divider/>
+                                  <Divider />
                                 </div>
                               ),
                             );
@@ -444,7 +453,7 @@ class TaskForm extends Component {
                               (item, index, items) => (
                                 <div
                                   key={item.id}
-                                  style={{marginBottom: 20}}
+                                  style={{ marginBottom: 20 }}
                                 >
                                   <Form.Item
                                     {...formItemLayout}
@@ -514,7 +523,7 @@ class TaskForm extends Component {
                                     {...formItemLayout}
                                     label="Evaluation criteria"
                                   >
-                                    (>=)
+                                    {`(>=)`}
                                   </Form.Item>
                                   <InputFormItem
                                     name={`videos.${index}.evaluation`}
@@ -527,7 +536,7 @@ class TaskForm extends Component {
                                         .evaluation.required
                                     }
                                   />
-                                  <Divider/>
+                                  <Divider />
                                 </div>
                               ),
                             );
@@ -597,14 +606,14 @@ class TaskForm extends Component {
   }
 
   render() {
-    const {isEditing, findLoading, record} = this.props;
+    const { isEditing, findLoading, record } = this.props;
 
     if (findLoading) {
-      return <Spinner/>;
+      return <Spinner />;
     }
 
     if (isEditing && !record) {
-      return <Spinner/>;
+      return <Spinner />;
     }
 
     return this.renderForm();

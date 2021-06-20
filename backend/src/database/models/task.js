@@ -39,6 +39,10 @@ const TaskSchema = new Schema(
         ref: 'module',
       },
     ],
+    taxonomies: [{
+      type: Schema.Types.ObjectId,
+      ref: 'taxonomy',
+    }],
     next: [
       {
         type: Schema.Types.ObjectId,

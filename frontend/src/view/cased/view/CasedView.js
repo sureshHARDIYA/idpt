@@ -1,17 +1,18 @@
 import model from 'modules/cased/casedModel';
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Spinner from 'view/shared/Spinner';
 import ViewWrapper from 'view/shared/styles/ViewWrapper';
 import TextViewItem from 'view/shared/view/TextViewItem';
 import ImagesViewItem from 'view/shared/view/ImagesViewItem';
 import ModuleViewItem from 'view/module/view/ModuleViewItem';
+import TaxonomyViewItem from 'view/taxonomy/view/TaxonomyViewItem';
 import {Tabs} from "antd";
 
-const {fields} = model;
+const { fields } = model;
 
 class CasedView extends Component {
   renderView() {
-    const {record} = this.props;
+    const { record } = this.props;
 
     return (
       <ViewWrapper>
@@ -50,6 +51,11 @@ class CasedView extends Component {
               value={fields.modules.forView(record.modules)}
             />
 
+            <TaxonomyViewItem
+              label={fields.taxonomies.label}
+              value={fields.taxonomies.forView(record.taxonomies)}
+            />
+
             <TextViewItem
               label={fields.availableFrom.label}
               value={fields.availableFrom.forView(record.availableFrom)}
@@ -77,10 +83,10 @@ class CasedView extends Component {
   }
 
   render() {
-    const {record, loading} = this.props;
+    const { record, loading } = this.props;
 
     if (loading || !record) {
-      return <Spinner/>;
+      return <Spinner />;
     }
 
     return this.renderView();
