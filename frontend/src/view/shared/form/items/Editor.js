@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Form } from 'antd';
-import _get from 'lodash/get';
+// import _get from 'lodash/get';
 import { FastField } from 'formik';
-import ReactQuill from 'react-quill';
+// import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import FormErrors from 'view/shared/form/formErrors';
 import { formItemLayout } from 'view/shared/styles/FormWrapper';
+import MainPageEditor from '../../editor/mainPage';
 
 const EditorFormItemNotFast = ({
   label,
@@ -20,11 +21,11 @@ const EditorFormItemNotFast = ({
   inputProps,
   ...props
 }) => {
-  const value = _get(
-    form.values,
-    name,
-    props.defaultValue || '',
-  );
+  // const value = _get(
+  //   form.values,
+  //   name,
+  //   props.defaultValue || '',
+  // );
 
   return (
     <Form.Item
@@ -45,7 +46,7 @@ const EditorFormItemNotFast = ({
         ) || hint
       }
     >
-      <ReactQuill
+      {/* <ReactQuill
         theme="snow"
         id={name}
         {...inputProps}
@@ -62,7 +63,8 @@ const EditorFormItemNotFast = ({
         modules={EditorFormItemNotFast.modules}
         formats={EditorFormItemNotFast.formats}
         value={value}
-      />
+      /> */}
+      <MainPageEditor form={form}/>
     </Form.Item>
   );
 };
