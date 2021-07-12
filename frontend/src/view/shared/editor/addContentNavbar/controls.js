@@ -31,4 +31,10 @@ export const controls = [
     addType: TYPES_OF_CONTENT.ASSIGNMENT.value,
     imgSrc: require('assets/images/assignmentAttach.svg'),
   },
+  {
+    key: 6,
+    title: "Container",
+    addType: TYPES_OF_CONTENT.CONTAINER.value,
+    imgSrc: require('assets/images/container.svg')
+  }
 ];

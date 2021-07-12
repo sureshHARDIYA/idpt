@@ -17,7 +17,10 @@ const styles = {
   rowStyle: {
     display: 'flex',
     alignItems: 'center',
-    marginLeft: 12,
+    margin: 12,
+  },
+  title: {
+    color: 'rgba(0,0,0,0.85)',
   },
 };
 
@@ -27,37 +30,48 @@ function ColorStyle(props) {
     sectionStyles,
     styleProp,
     title,
+    defaultValue,
   } = props;
-  const [colorValue, setColorValue] = useState('');
+  const [colorValue, setColorValue] = useState(
+    defaultValue,
+  );
   const colorRef = useRef(null);
+
+  useEffect(() => {
+    if (
+      sectionStyles &&
+      sectionStyles[styleProp] &&
+      sectionStyles[styleProp].length
+    ) {
+      setColorValue(sectionStyles[styleProp]);
+    } else {
+      setColorValue(defaultValue);
+    }
+  }, [sectionStyles]);
 
   useEffect(() => {
     clearTimeout(colorRef.current);
     colorRef.current = setTimeout(() => {
       onChange(styleProp, colorValue);
-    }, 200);
+    }, 100);
   }, [colorValue]);
 
   const handleChange = useCallback((e) => {
     setColorValue(e.target.value);
   }, []);
 
-  const defaultValue = useMemo(() => {
-    if (sectionStyles) {
-      return sectionStyles.backgroundColor || '#ffffff';
-    }
-    return '#ffffff';
-  }, [sectionStyles]);
-
   return (
     <Container>
       <Row style={styles.rowStyle}>
-        <Col span={5}>{title}</Col>
-        <Col span={5}>
+        <Col span={12} style={styles.title}>
+          {title}
+        </Col>
+        <Col span={12}>
           <Input
             type="color"
             onChange={handleChange}
             defaultValue={defaultValue}
+            value={colorValue}
           />
         </Col>
       </Row>
@@ -67,6 +81,7 @@ function ColorStyle(props) {
 
 ColorStyle.defaultProps = {
   sectionStyles: {},
+  defaultValue: '#ffffff',
 };
 
 ColorStyle.propTypes = {

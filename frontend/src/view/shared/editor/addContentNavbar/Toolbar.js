@@ -20,14 +20,12 @@ const ToolbarWrapper = styled.div`
   height: auto;
   overflow-y: hidden;
   display: flex;
-  padding: 10px 0
+  padding: 10px 0;
 `;
 
 const ContentTypeContainer = styled.div`
-  padding-left: 13px;
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
+  display: block;
+  margin: auto;
 `;
 
 const TopContent = styled.div`
@@ -37,7 +35,7 @@ const TopContent = styled.div`
 `;
 
 const BottomContent = styled.div`
-  margin-left: 10px;
+  margin-top: 10px;
   display: flex;
   flex-direction: column;
 `;
@@ -50,16 +48,19 @@ const AddColumnContainer = styled.div`
 
 const AddColumnButton = styled.div`
   padding: 0 10px 10px 10px;
-  display: flex;
   font-size: 1.2rem;
   cursor: pointer;
-  justify-content: center;
+  & p {
+    text-align: center;
+    font-size: 13px
+  }
 `;
 
 const Icon = styled.img`
-  margin-right: 5px;
   height: 25px;
   width: 25px;
+  display: block;
+  margin: auto
 `;
 
 const IconWrapper = styled.div`
@@ -67,6 +68,7 @@ const IconWrapper = styled.div`
   justify-content: center;
   align-items: center;
   margin-bottom: 10px;
+  text-align: center;
 `;
 
 const Toolbar = (props) => {
@@ -88,6 +90,7 @@ const Toolbar = (props) => {
                     src={require('assets/images/ic_one_col.svg')}
                     alt="one_column"
                   />
+                  <p>One column</p>
                 </AddColumnButton>
               </Tooltip>
               <Tooltip title="Two column" placement="right">
@@ -102,6 +105,7 @@ const Toolbar = (props) => {
                     src={require('assets/images/ic_two_col.svg')}
                     alt="two_column"
                   />
+                  <p>Two column</p>
                 </AddColumnButton>
               </Tooltip>
             </AddColumnContainer>

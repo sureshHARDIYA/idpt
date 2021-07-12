@@ -1,20 +1,24 @@
 import React from 'react';
-import { i18n } from 'i18n';
 import { v4 as uuidv4 } from 'uuid';
-import { Button, Col, Row, Modal } from 'antd';
+import {
+  Button,
+  Col,
+  Row,
+  Modal,
+  notification,
+} from 'antd';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import FilterWrapper from 'view/shared/styles/FilterWrapper';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import PropTypes from 'prop-types';
 
-import Section from '../section';
 import {
   COLUMN_TYPES,
   TWO_COLUMN_TYPES,
   TYPES_OF_CONTENT,
 } from '../constant';
 import Toolbar from '../addContentNavbar/Toolbar';
+import Sections from '../section';
 
 const { confirm } = Modal;
 
@@ -28,15 +32,18 @@ class MainPageEditor extends React.Component {
           id: uuidv4(),
           columnType: COLUMN_TYPES.ONE_COLUMN,
           value: null,
+          style: {},
         },
       ],
+      visible: true,
     };
+    this.toggleModal = this.toggleModal.bind(this);
   }
 
   onDeleteAllSection = () => {
     const { form } = this.props;
     this.setState({ listSection: [] });
-    form.setFieldValue("listSection", []);
+    form.setFieldValue('listSection', []);
   };
 
   onHandleAddColumn = (colType) => {
@@ -47,6 +54,7 @@ class MainPageEditor extends React.Component {
         id: uuidv4(),
         columnType: colType,
         value: null,
+        style: {},
       };
       listSection.push(section);
       this.setState({ listSection });
@@ -60,12 +68,14 @@ class MainPageEditor extends React.Component {
           value: null,
           type: TYPES_OF_CONTENT.EMPTY_LEFT_COLUMN.value,
           columnPosition: TWO_COLUMN_TYPES.LEFT,
+          style: {},
         },
         rightContent: {
           id: uuidv4(),
           value: null,
           type: TYPES_OF_CONTENT.EMPTY_RIGHT_COLUMN.value,
           columnPosition: TWO_COLUMN_TYPES.RIGHT,
+          style: {},
         },
       };
       listSection.push(section);
@@ -79,6 +89,14 @@ class MainPageEditor extends React.Component {
     subSectionId,
     columnType,
   ) => {
+    if (
+      columnType &&
+      subSectionId &&
+      type === TYPES_OF_CONTENT.CONTAINER.value
+    ) {
+      this.cannotUseContainerInColumnNotification();
+      return;
+    }
     const { listSection } = this.state;
     const index = listSection.findIndex(
       (section) => section.id === sectionId,
@@ -98,7 +116,28 @@ class MainPageEditor extends React.Component {
       } else {
         section = listSection[index];
       }
-      section.type = type;
+
+      if (type === TYPES_OF_CONTENT.CONTAINER.value) {
+        section.value = [];
+      }
+
+      if (
+        section.type === TYPES_OF_CONTENT.CONTAINER.value &&
+        section.type !== type
+      ) {
+        const subContent = {
+          type,
+          value: null,
+          style: {},
+          id: uuidv4(),
+          columnType: COLUMN_TYPES.ONE_COLUMN,
+        };
+        section.value.push(subContent);
+      } else if (section.type === type) {
+        this.cannotDragContainerNotification();
+      } else {
+        section.type = type;
+      }
       this.setState({ listSection });
     }
   };
@@ -106,7 +145,7 @@ class MainPageEditor extends React.Component {
   handleChangeSection = (listSection) => {
     const { form } = this.props;
     this.setState({ listSection });
-    form.setFieldValue("listSection", listSection);
+    form.setFieldValue('listSection', listSection);
   };
 
   showConfirmReset = () => {
@@ -126,57 +165,61 @@ class MainPageEditor extends React.Component {
     });
   };
 
+  cannotDragContainerNotification = () => {
+    notification.warning({
+      message: 'Cannot drag container into container',
+    });
+  };
+
+  cannotUseContainerInColumnNotification = () => {
+    notification.error({
+      message: 'Cannot use container in two column',
+    });
+  };
+
+  toggleModal = () => {
+    this.setState({ visible: !this.state.visible });
+  };
+
   render() {
     const { listSection } = this.state;
-    const { loading, form } = this.props;
+    const { form } = this.props;
     return (
-      <FilterWrapper>
-        <DndProvider backend={HTML5Backend}>
-          <Row gutter={24}>
-            <Col span={20}>
-              <Section
-                listSection={listSection}
-                onChange={this.handleChangeSection}
-                form={form}
-              />
-            </Col>
-            <Col span={4}>
-              <Toolbar
-                handleAddContent={this.onHandleAddContent}
-                handleAddColumn={this.onHandleAddColumn}
-              />
-            </Col>
-          </Row>
-        </DndProvider>
-        <Row gutter={24}>
-          <Col lg={12} md={12}>
-            <Button
-              loading={loading}
-              onClick={this.showConfirmReset}
-              icon="undo"
-            >
-              {i18n('common.reset')}
-            </Button>
-          </Col>
-          <Col lg={12} md={12}>
-            <Button
-              loading={loading}
-              icon="save"
-              type="primary"
-              htmlType="submit"
-            >
-              {i18n('common.save')}
-            </Button>
-          </Col>
-        </Row>
-      </FilterWrapper>
+      <>
+        <Button onClick={this.toggleModal}>
+          Edit description
+        </Button>
+        <Modal
+          width="95%"
+          visible={this.state.visible}
+          onCancel={this.toggleModal}
+        >
+          <DndProvider backend={HTML5Backend}>
+            <Row gutter={24}>
+              <Col span={2}>
+                <Toolbar
+                  handleAddContent={this.onHandleAddContent}
+                  handleAddColumn={this.onHandleAddColumn}
+                />
+              </Col>
+              <Col span={22}>
+                <Sections
+                  listSection={listSection}
+                  onChange={this.handleChangeSection}
+                  form={form}
+                />
+              </Col>
+            </Row>
+          </DndProvider>
+        </Modal>
+      </>
     );
   }
 }
 
 MainPageEditor.defaultProps = {
-  loading: false
-}
+  loading: false,
+};
 
 MainPageEditor.propTypes = {
   form: PropTypes.object.isRequired,

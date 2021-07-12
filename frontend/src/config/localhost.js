@@ -1,4 +1,4 @@
-const backendUrl = `http://localhost:8080/api`;
+const backendUrl = `https://idpt.herokuapp.com/api`;
 
 export default {
   backendUrl,

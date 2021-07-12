@@ -6,7 +6,7 @@ import React, {
 import ImagesUploader from 'view/shared/uploaders/ImagesUploader';
 import model from 'modules/module/moduleModel';
 import styled from 'styled-components';
-import { Col, Input, Button } from 'antd';
+import { Col, Input, Button, Row } from 'antd';
 import PropTypes from 'prop-types';
 
 const UploadImageContainer = styled.div`
@@ -34,12 +34,20 @@ const styles = {
   image: {
     width: '100%',
   },
+  btnSaveContainer: {
+    marginTop: 5,
+  },
 };
 
 const { fields } = model;
 
 function Image(props) {
-  const { section, onChange, parentId } = props;
+  const {
+    section,
+    onChange,
+    parentId,
+    isContainerContent,
+  } = props;
   const [url, setUrl] = useState('');
 
   const handleInputSource = useCallback((e) => {
@@ -76,7 +84,10 @@ function Image(props) {
       ) : (
         <UploadImageContainer
           style={{
-            flexDirection: parentId ? 'column' : 'row',
+            flexDirection:
+              parentId || isContainerContent
+                ? 'column'
+                : 'row',
           }}
         >
           <Col span={12} style={styles.input}>
@@ -91,19 +102,27 @@ function Image(props) {
             />
           </Col>
           <Col
-            span={parentId ? 24 : 12}
+            span={parentId || isContainerContent ? 24 : 12}
             style={styles.inputSource}
           >
-            <Input
-              placeholder="Input source"
-              onChange={handleInputSource}
-            />
-            <Button
-              style={styles.btnSave}
-              onClick={() => handleSave(url)}
-            >
-              Save
-            </Button>
+            <Row>
+              <Col span={isContainerContent ? 24 : 12}>
+                <Input
+                  placeholder="Input source"
+                  onChange={handleInputSource}
+                />
+              </Col>
+              <Button
+                style={
+                  isContainerContent
+                    ? styles.btnSaveContainer
+                    : styles.btnSave
+                }
+                onClick={() => handleSave(url)}
+              >
+                Save
+              </Button>
+            </Row>
           </Col>
         </UploadImageContainer>
       )}
@@ -111,10 +130,15 @@ function Image(props) {
   );
 }
 
+Image.defaultProps = {
+  isContainerContent: false,
+};
+
 Image.propTypes = {
   section: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
   parentId: PropTypes.string.isRequired,
+  isContainerContent: PropTypes.bool,
 };
 
 const renderImage = (props) => {

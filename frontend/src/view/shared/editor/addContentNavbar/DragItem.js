@@ -11,7 +11,7 @@ const DragItem = ({ title, imgSrc, connectDragSource }) => {
           src={imgSrc}
           alt={title}
         />
-        {/* <p>{title}</p> */}
+        <p>{title}</p>
       </IconContainer>
     </Tooltip>
   );

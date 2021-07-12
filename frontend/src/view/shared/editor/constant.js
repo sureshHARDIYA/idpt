@@ -34,6 +34,10 @@ export const TYPES_OF_CONTENT = {
   EMPTY_LEFT_COLUMN: {
     name: "Empty left column",
     value: 9
+  },
+  CONTAINER: {
+    name: "Container",
+    value: 10
   }
 };
 
@@ -46,3 +50,9 @@ export const TWO_COLUMN_TYPES = {
   LEFT:"LEFT",
   RIGHT:"RIGHT"
 }
+
+export const MAXIMUM_CONTENT_CONTAINER = 4;
+
+export const MAXIMUM_GRID_COL = 24;
+
+export const MAXIMUM_PERCENT = 100;

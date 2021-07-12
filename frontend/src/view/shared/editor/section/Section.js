@@ -2,11 +2,25 @@ import PropTypes from 'prop-types';
 import React, { useCallback } from 'react';
 import { TYPES_OF_CONTENT } from '../constant';
 import render from './renderSection';
-import PopoverChangeStyles from './PopoverChangeStyles';
 import ActionButton from './ActionButton';
 
 const Section = (props) => {
-  const { section } = props;
+  const {
+    section,
+    parentId,
+    onSelectSection,
+    isContainerContent,
+    selectedSection,
+  } = props;
+
+  const handleSelectedSection = (e) => {
+    e.stopPropagation();
+    onSelectSection(
+      section.id,
+      parentId,
+      isContainerContent,
+    );
+  };
 
   const renderSection = useCallback(() => {
     switch (section.type) {
@@ -35,6 +49,11 @@ const Section = (props) => {
           ...props,
         });
 
+      case TYPES_OF_CONTENT.CONTAINER.value:
+        return render.container({
+          ...props,
+        });
+
       case TYPES_OF_CONTENT.EMPTY_RIGHT_COLUMN.value:
       case TYPES_OF_CONTENT.EMPTY_LEFT_COLUMN.value:
       case TYPES_OF_CONTENT.EMPTY_ONE_COLUMN.value:
@@ -46,24 +65,43 @@ const Section = (props) => {
     }
   }, [props]);
 
+  const borderStyle = () => {
+    if (
+      selectedSection &&
+      selectedSection.id === section.id
+    ) {
+      return 'solid 1px #76affc';
+    }
+    return 'solid 1px transparent';
+  };
+
   return (
     <ActionButton {...props}>
-      <PopoverChangeStyles {...props}>
+      <div
+        style={{
+          border: borderStyle(),
+        }}
+        onClick={handleSelectedSection}
+      >
         {renderSection()}
-      </PopoverChangeStyles>
+      </div>
     </ActionButton>
   );
 };
 
 Section.defaultProps = {
   parentId: '',
+  isContainerContent: false,
+  selectedSection: {},
 };
 
 Section.propTypes = {
   section: PropTypes.object.isRequired,
-  onChange: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
   parentId: PropTypes.string,
+  onSelectSection: PropTypes.func.isRequired,
+  isContainerContent: PropTypes.bool,
+  selectedSection: PropTypes.object,
 };
 
 export default Section;

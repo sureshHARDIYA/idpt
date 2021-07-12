@@ -4,8 +4,8 @@ import React, {
   useState,
 } from 'react';
 import PropTypes from 'prop-types';
-import { Col, Upload, Button, Input } from 'antd';
-import { UploadOutlined } from '@ant-design/icons';
+import { Col, Upload, Button, Input, Row } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
 
 const UploadAudioContainer = styled.div`
@@ -14,8 +14,8 @@ const UploadAudioContainer = styled.div`
 `;
 
 const AudioPlayer = styled.audio`
-  max-width: 100%
-`
+  max-width: 100%;
+`;
 
 const styles = {
   inputSource: {
@@ -33,10 +33,36 @@ const styles = {
   audio: {
     width: '100%',
   },
+  button: {
+    width: 104,
+    height: 104,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+    backgroundColor: '#fafafa',
+    border: '1px dashed #d9d9d9',
+  },
+  text: {
+    color: '#666',
+    marginLeft: 0,
+  },
+  icon: {
+    fontSize: 32,
+    color: '#999',
+  },
+  btnSaveContainer: {
+    marginTop: 5,
+  },
 };
 
 function Audio(props) {
-  const { section, onChange, parentId } = props;
+  const {
+    section,
+    onChange,
+    parentId,
+    isContainerContent,
+  } = props;
   const [url, setUrl] = useState('');
 
   const handleInputSource = useCallback((e) => {
@@ -67,30 +93,42 @@ function Audio(props) {
       ) : (
         <UploadAudioContainer
           style={{
-            flexDirection: parentId ? 'column' : 'row',
+            flexDirection:
+              parentId || isContainerContent
+                ? 'column'
+                : 'row',
           }}
         >
           <Col span={12} style={styles.input}>
             <Upload accept="audio/*">
-              <Button icon={<UploadOutlined />}>
-                Upload audio
+              <Button style={styles.button}>
+                <PlusOutlined style={styles.icon} />
+                <span style={styles.text}>Upload</span>
               </Button>
             </Upload>
           </Col>
           <Col
-            span={parentId ? 24 : 12}
+            span={parentId || isContainerContent ? 24 : 12}
             style={styles.inputSource}
           >
-            <Input
-              placeholder="Input source"
-              onChange={handleInputSource}
-            />
-            <Button
-              style={styles.btnSave}
-              onClick={() => handleSave(url)}
-            >
-              Save
-            </Button>
+            <Row>
+              <Col span={isContainerContent ? 24 : 12}>
+                <Input
+                  placeholder="Input source"
+                  onChange={handleInputSource}
+                />
+              </Col>
+              <Button
+                style={
+                  isContainerContent
+                    ? styles.btnSaveContainer
+                    : styles.btnSave
+                }
+                onClick={() => handleSave(url)}
+              >
+                Save
+              </Button>
+            </Row>
           </Col>
         </UploadAudioContainer>
       )}
@@ -98,10 +136,15 @@ function Audio(props) {
   );
 }
 
+Audio.defaultProps = {
+  isContainerContent: false,
+};
+
 Audio.propTypes = {
   section: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
-  parentId: PropTypes.string.isRequired
+  parentId: PropTypes.string.isRequired,
+  isContainerContent: PropTypes.bool,
 };
 
 const renderAudio = (props) => {

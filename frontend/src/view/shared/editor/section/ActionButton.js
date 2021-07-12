@@ -8,6 +8,7 @@ import {
 import { Modal } from 'antd';
 import styled from 'styled-components';
 import { TYPES_OF_CONTENT } from '../constant';
+import cn from 'classnames';
 
 const { confirm } = Modal;
 
@@ -39,7 +40,13 @@ const DragHandle = sortableHandle(
 );
 
 function ActionButton(props) {
-  const { onDelete, children, section, parentId } = props;
+  const {
+    onDelete,
+    children,
+    section,
+    parentId,
+    isContainerContent,
+  } = props;
 
   const handleDelete = () => {
     onDelete(section.id, parentId, section.columnPosition);
@@ -78,7 +85,7 @@ function ActionButton(props) {
 
   return (
     <Container>
-      {parentId ? (
+      {parentId && !isContainerContent ? (
         <DragHandle
           className={
             checkIsShowActionButton() ? 'drag' : ''
@@ -86,18 +93,21 @@ function ActionButton(props) {
         >
           <DeleteOutlined
             onClick={showConfirmReset}
-            style={{ marginRight: 5 }}
+            style={{ marginRight: 5, color: 'white' }}
           />
         </DragHandle>
       ) : (
         <DragContainer
-          className={
-            checkIsShowActionButton() ? 'drag' : ''
-          }
+          className={cn(
+            checkIsShowActionButton() && !isContainerContent
+              ? 'drag'
+              : '',
+            isContainerContent ? 'sub-content' : '',
+          )}
         >
           <DeleteOutlined
             onClick={showConfirmReset}
-            style={{ marginRight: 5 }}
+            style={{ marginRight: 5, color: 'white' }}
           />
         </DragContainer>
       )}
@@ -106,11 +116,16 @@ function ActionButton(props) {
   );
 }
 
+ActionButton.defaultProps = {
+  isContainerContent: false,
+};
+
 ActionButton.propTypes = {
   section: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
   parentId: PropTypes.string.isRequired,
-  onDelete: PropTypes.func.isRequired
+  onDelete: PropTypes.func.isRequired,
+  isContainerContent: PropTypes.bool,
 };
 
 export default ActionButton;

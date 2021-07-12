@@ -4,6 +4,7 @@ import image from './renderImage'
 import assignment from './renderAssignment'
 import video from './renderVideo'
 import audio from './renderAudio'
+import container from './renderContainer'
 
 export default {
   empty,
@@ -11,5 +12,6 @@ export default {
   image,
   assignment,
   video,
-  audio
+  audio,
+  container
 };
