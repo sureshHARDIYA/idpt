@@ -16,7 +16,7 @@ const { confirm } = Modal;
 
 const DragContainer = styled.div`
   margin-bottom: 16px;
-  over-flow: hidden;
+  overflow: hidden;
   &.selected {
     border: solid 1px blue;
     border-radius: 4px;

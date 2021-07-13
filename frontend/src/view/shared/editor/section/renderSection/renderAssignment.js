@@ -17,6 +17,10 @@ function Assignment(props) {
         showCreate={false}
         mode="multiple"
         form={form}
+        layout={{
+          wrapperCol: { lg: { span: 24 } },
+          labelCol: { lg: { span: 0 } }
+        }}
       />
     </div>
   );

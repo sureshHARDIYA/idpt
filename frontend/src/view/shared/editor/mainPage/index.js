@@ -37,13 +37,27 @@ class MainPageEditor extends React.Component {
       ],
       visible: true,
     };
-    this.toggleModal = this.toggleModal.bind(this);
+    this.openModal = this.openModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+    this.handleSaveListSection = this.handleSaveListSection.bind(
+      this,
+    );
+  }
+
+  componentDidMount() {
+    const { form } = this.props;
+    if (form && form.value) {
+      const listSection = form.value.description;
+      if (listSection) {
+        this.setState({
+          listSection: JSON.parse(listSection),
+        });
+      }
+    }
   }
 
   onDeleteAllSection = () => {
-    const { form } = this.props;
     this.setState({ listSection: [] });
-    form.setFieldValue('listSection', []);
   };
 
   onHandleAddColumn = (colType) => {
@@ -143,9 +157,16 @@ class MainPageEditor extends React.Component {
   };
 
   handleChangeSection = (listSection) => {
-    const { form } = this.props;
     this.setState({ listSection });
-    form.setFieldValue('listSection', listSection);
+  };
+
+  handleSaveListSection = () => {
+    const { form } = this.props;
+    const { listSection } = this.state;
+    form.setFieldValue(
+      'description',
+      JSON.stringify(listSection),
+    );
   };
 
   showConfirmReset = () => {
@@ -177,8 +198,23 @@ class MainPageEditor extends React.Component {
     });
   };
 
-  toggleModal = () => {
-    this.setState({ visible: !this.state.visible });
+  openModal = () => {
+    this.setState({ visible: true });
+  };
+
+  closeModal = () => {
+    this.setState({
+      visible: false,
+      listSection: [
+        {
+          type: TYPES_OF_CONTENT.EMPTY_ONE_COLUMN.value,
+          id: uuidv4(),
+          columnType: COLUMN_TYPES.ONE_COLUMN,
+          value: null,
+          style: {},
+        },
+      ],
+    });
   };
 
   render() {
@@ -186,13 +222,14 @@ class MainPageEditor extends React.Component {
     const { form } = this.props;
     return (
       <>
-        <Button onClick={this.toggleModal}>
+        <Button onClick={this.openModal}>
           Edit description
         </Button>
         <Modal
           width="95%"
           visible={this.state.visible}
-          onCancel={this.toggleModal}
+          onCancel={this.closeModal}
+          onOk={this.handleSaveListSection}
         >
           <DndProvider backend={HTML5Backend}>
             <Row gutter={24}>

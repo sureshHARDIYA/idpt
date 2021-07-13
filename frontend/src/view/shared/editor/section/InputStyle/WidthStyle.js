@@ -1,8 +1,6 @@
 import React, {
   useCallback,
-  useEffect,
   useMemo,
-  useState,
 } from 'react';
 import PropTypes from 'prop-types';
 import { Slider, Row, Col } from 'antd';

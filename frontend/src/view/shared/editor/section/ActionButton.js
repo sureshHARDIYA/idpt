@@ -29,6 +29,9 @@ const Container = styled.div`
       visibility: visible;
     }
   }
+  .ant-select {
+    width: 100%;
+  }
 `;
 
 const DragHandle = sortableHandle(
