@@ -35,6 +35,7 @@ function Text(props) {
         onChange={handleChange}
         style={section.style}
         value={section.value}
+        placeholder="Input text"
       />
     </Container>
   );
