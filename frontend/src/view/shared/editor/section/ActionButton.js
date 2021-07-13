@@ -36,7 +36,7 @@ const Container = styled.div`
 
 const DragHandle = sortableHandle(
   ({ children, className }) => (
-    <DragContainer className={className}>
+    <DragContainer style={{ cursor: 'pointer' }} className={className}>
       {children}
     </DragContainer>
   ),

@@ -92,7 +92,7 @@ export const SortableItemTwoCol = sortableElement(
     const { children } = props;
 
     return (
-      <Col span={12} style={{ zIndex: '9999 !important' }}>
+      <Col span={12} style={{ zIndex: 9999 }}>
         {children}
       </Col>
     );

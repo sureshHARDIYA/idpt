@@ -33,7 +33,7 @@ const Sections = (props) => {
   );
 
   useEffect(() => {
-    if (selectedSection.id) {
+    if (selectedSection.id && listSection.length) {
       mapSelectedSection(
         selectedSection.id,
         selectedSection.parentId,
@@ -84,34 +84,43 @@ const Sections = (props) => {
       : cloneListSection.findIndex(
           (section) => section.id === id,
         );
-    const sectionEditing = cloneListSection[sectionIndex];
-    if (parentId) {
-      if (
-        sectionEditing.type ===
-        TYPES_OF_CONTENT.CONTAINER.value
-      ) {
-        sectionEditing.value.forEach((section) => {
-          if (section.id === id) {
-            section.parentId = sectionEditing.id;
-            section.isContainerContent = isContainerContent;
-            setSelectedSection(section);
+    if (sectionIndex >= 0) {
+      const sectionEditing = cloneListSection[sectionIndex];
+      if (parentId) {
+        if (
+          sectionEditing.type ===
+          TYPES_OF_CONTENT.CONTAINER.value
+        ) {
+          sectionEditing.value.forEach((section) => {
+            if (section.id === id) {
+              section.parentId = sectionEditing.id;
+              section.isContainerContent = isContainerContent;
+              setSelectedSection(section);
+            }
+          });
+        } else if (
+          sectionEditing.columnType ===
+          COLUMN_TYPES.TWO_COLUMNS
+        ) {
+          if (sectionEditing.leftContent.id === id) {
+            sectionEditing.leftContent.parentId =
+              sectionEditing.id;
+            sectionEditing.leftContent.isContainerContent = isContainerContent;
+            setSelectedSection(sectionEditing.leftContent);
+          } else if (
+            sectionEditing.rightContent.id === id
+          ) {
+            sectionEditing.rightContent.parentId =
+              sectionEditing.id;
+            sectionEditing.rightContent.isContainerContent = isContainerContent;
+            setSelectedSection(sectionEditing.rightContent);
           }
-        });
-      } else {
-        if (sectionEditing.leftContent.id === id) {
-          sectionEditing.leftContent.parentId =
-            sectionEditing.id;
-          sectionEditing.leftContent.isContainerContent = isContainerContent;
-          setSelectedSection(sectionEditing.leftContent);
-        } else if (sectionEditing.rightContent.id === id) {
-          sectionEditing.rightContent.parentId =
-            sectionEditing.id;
-          sectionEditing.rightContent.isContainerContent = isContainerContent;
-          setSelectedSection(sectionEditing.rightContent);
         }
+      } else {
+        setSelectedSection(sectionEditing);
       }
     } else {
-      setSelectedSection(sectionEditing);
+      setSelectedSection({});
     }
   };
 

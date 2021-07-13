@@ -108,7 +108,7 @@ function Image(props) {
             <Row>
               <Col span={isContainerContent ? 24 : 12}>
                 <Input
-                  placeholder="Input source"
+                  placeholder="Image source"
                   onChange={handleInputSource}
                 />
               </Col>

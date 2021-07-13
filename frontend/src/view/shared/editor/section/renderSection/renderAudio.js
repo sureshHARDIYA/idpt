@@ -109,12 +109,18 @@ function Audio(props) {
           </Col>
           <Col
             span={parentId || isContainerContent ? 24 : 12}
-            style={styles.inputSource}
+            style={{
+              ...styles.inputSource,
+              marginTop:
+                parentId || isContainerContent
+                  ? 5
+                  : 'unset',
+            }}
           >
             <Row>
               <Col span={isContainerContent ? 24 : 12}>
                 <Input
-                  placeholder="Input source"
+                  placeholder="Audio source"
                   onChange={handleInputSource}
                 />
               </Col>
