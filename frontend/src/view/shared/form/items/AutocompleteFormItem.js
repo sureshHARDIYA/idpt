@@ -120,10 +120,11 @@ class AutocompleteFormItemNotFast extends Component {
   };
 
   handleSelectMultiple = (values) => {
-    const { form, name, mapper } = this.props;
+    const { form, name, mapper, onChangeCustom } = this.props;
 
     if (!values) {
       form.setFieldValue(name, []);
+      onChangeCustom([]);
       return;
     }
 
@@ -131,17 +132,20 @@ class AutocompleteFormItemNotFast extends Component {
       name,
       values.map((value) => mapper.toValue(value)),
     );
+    onChangeCustom(values);
   };
 
   handleSelectOne = (value) => {
-    const { form, name, mapper } = this.props;
+    const { form, name, mapper, onChangeCustom } = this.props;
 
     if (!value) {
       form.setFieldValue(name, null);
+      onChangeCustom(null);
       return;
     }
 
     form.setFieldValue(name, mapper.toValue(value));
+    onChangeCustom(value);
   };
 
   handleSearch = async (value) => {

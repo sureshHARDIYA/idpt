@@ -1,9 +1,23 @@
 import React from 'react';
 import { Input } from 'antd';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
+
+const Container = styled.div`
+  textarea {
+    border: none;
+    resize: none;
+
+    &:focus {
+      border: unset;
+      resize: auto;
+    }
+  }
+`;
 
 function Text(props) {
   const { section, onChange, parentId } = props;
+
   const handleChange = (e) => {
     const { target } = e;
     onChange(
@@ -13,12 +27,16 @@ function Text(props) {
       section.columnPosition,
     );
   };
+
   return (
-    <Input.TextArea
-      autosize
-      onChange={handleChange}
-      style={section.style}
-    />
+    <Container>
+      <Input.TextArea
+        autosize
+        onChange={handleChange}
+        style={section.style}
+        value={section.value}
+      />
+    </Container>
   );
 }
 

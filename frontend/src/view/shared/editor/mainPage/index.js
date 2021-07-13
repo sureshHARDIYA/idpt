@@ -35,7 +35,7 @@ class MainPageEditor extends React.Component {
           style: {},
         },
       ],
-      visible: true,
+      visible: false,
     };
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);

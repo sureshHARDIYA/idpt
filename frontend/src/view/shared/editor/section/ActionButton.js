@@ -32,6 +32,9 @@ const Container = styled.div`
   .ant-select {
     width: 100%;
   }
+  .ant-form-item {
+    margin-bottom: 0px;
+  }
 `;
 
 const DragHandle = sortableHandle(

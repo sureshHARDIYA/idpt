@@ -40,7 +40,7 @@ export const FullColumnPlaceholder = DropTarget("full-column", fullColumnTarget,
 }))((props)=>{
   const { connectDropTarget, isDragging } = props;
   const xhtml = connectDropTarget(
-    <div style={{ height: 50, marginBottom: 10, opacity: isDragging ? 1 : 0.5 }}>
+    <div style={{ height: 50, opacity: isDragging ? 1 : 0.5 }}>
       <div style={borderStyle}><span>Drag & drop content here</span></div>
     </div>
   )
@@ -55,7 +55,7 @@ export const FullColumnPlaceholder = DropTarget("full-column", fullColumnTarget,
 }))((props)=>{
   const {connectDropTarget, isDragging } = props;
   const xhtml = connectDropTarget(
-    <div style={{ height: 50, marginBottom: 10, opacity: isDragging ? 1 : 0.5 }}>
+    <div style={{ height: 50, opacity: isDragging ? 1 : 0.5 }}>
       <div style={ borderStyle }><span>Drag & drop content here</span></div>
     </div>
   )
@@ -70,7 +70,7 @@ export const FullColumnPlaceholder = DropTarget("full-column", fullColumnTarget,
   const {connectDropTarget, isDragging} = props;
   
   const xhtml = connectDropTarget(
-    <div style={{ height: 50, marginBottom: 10, opacity: isDragging ? 1 : 0.5 }}>
+    <div style={{ height: 50, opacity: isDragging ? 1 : 0.5 }}>
       <div style={ borderStyle }><span>Drag & drop content here</span></div>
     </div>
   )

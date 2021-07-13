@@ -6,28 +6,50 @@ import model from 'modules/task/taskModel';
 const { fields } = model;
 
 function Assignment(props) {
-  const { form } = props;
-  
+  const { section, onChange, parentId } = props;
+
+  const handleChange = (values) => {
+    onChange(
+      section.id,
+      values,
+      parentId,
+      section.columnPosition,
+    );
+  };
+
+  const handleClear = () => {
+    onChange(
+      section.id,
+      [],
+      parentId,
+      section.columnPosition,
+    );
+  }
+
   return (
     <div>
       <AssignmentAutocompleteFormItem
         name={fields.assignments.name}
-        // label={fields.assignments.label}
         required={fields.assignments.required}
         showCreate={false}
         mode="multiple"
-        form={form}
+        onChangeCustom={handleChange}
         layout={{
           wrapperCol: { lg: { span: 24 } },
-          labelCol: { lg: { span: 0 } }
+          labelCol: { lg: { span: 0 } },
         }}
+        value={section.value || []}
+        onClear={handleClear}
+        style={section.style}
       />
     </div>
   );
 }
 
 Assignment.propTypes = {
-  form: PropTypes.object.isRequired
+  section: PropTypes.object.isRequired,
+  onChange: PropTypes.func.isRequired,
+  parentId: PropTypes.string.isRequired,
 };
 
 const renderAssignment = (props) => {
