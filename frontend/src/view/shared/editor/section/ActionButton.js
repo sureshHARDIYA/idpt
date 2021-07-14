@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { sortableHandle } from 'react-sortable-hoc';
 import {
@@ -39,7 +39,10 @@ const Container = styled.div`
 
 const DragHandle = sortableHandle(
   ({ children, className }) => (
-    <DragContainer style={{ cursor: 'pointer' }} className={className}>
+    <DragContainer
+      style={{ cursor: 'pointer' }}
+      className={className}
+    >
       {children}
     </DragContainer>
   ),
@@ -52,8 +55,31 @@ function ActionButton(props) {
     section,
     parentId,
     isContainerContent,
-    onSelectSection
+    onSelectSection,
   } = props;
+  const wrapperRef = useRef(null);
+
+  useEffect(() => {
+    window.addEventListener(
+      'mousedown',
+      handleClickOutside,
+    );
+
+    return () =>
+      window.removeEventListener(
+        'mousedown',
+        handleClickOutside,
+      );
+  }, []);
+
+  const handleClickOutside = (e) => {
+    if (
+      wrapperRef.current &&
+      !wrapperRef.current.contains(e.target)
+    ) {
+      onSelectSection();
+    }
+  };
 
   const handleDelete = () => {
     onDelete(section.id, parentId, section.columnPosition);
@@ -100,7 +126,10 @@ function ActionButton(props) {
   };
 
   return (
-    <Container onClick={handleSelectedSection}>
+    <Container
+      ref={wrapperRef}
+      onClick={handleSelectedSection}
+    >
       {parentId && !isContainerContent ? (
         <DragHandle
           className={

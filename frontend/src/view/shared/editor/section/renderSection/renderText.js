@@ -10,7 +10,7 @@ const Container = styled.div`
 
     &:focus {
       border: unset;
-      resize: auto;
+      resize: vertical;
     }
   }
 `;
