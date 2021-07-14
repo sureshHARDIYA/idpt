@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useRef } from 'react';
 import Container, { ContainerWrapper } from './Container';
 import Section from '../Section';
 import { Row, Col } from 'antd';
@@ -26,6 +26,8 @@ function ContainerContent(props) {
     onSelectSection,
     selectedSection,
   } = props;
+  const sectionRef = useRef(null);
+  sectionRef.current = section;
   const calculateWidth = useCallback((span) => {
     return (span * MAXIMUM_GRID_COL) / 100;
   }, []);
@@ -48,7 +50,7 @@ function ContainerContent(props) {
     __,
     additionalProps,
   ) => {
-    const cloneListSubContent = cloneDeep(section.value);
+    const cloneListSubContent = cloneDeep(sectionRef.current.value);
     const sectionIndex = cloneListSubContent.findIndex(
       (section) => section.id === id,
     );
@@ -88,6 +90,7 @@ function ContainerContent(props) {
           paddingTop: 10,
           display: 'flex',
           flexFlow: 'wrap',
+          ...section.style
         }}
       >
         {section.value.map((subContent, index) => (

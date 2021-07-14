@@ -15,6 +15,7 @@ const UploadVideoContainer = styled.div`
 
 const VideoPlayer = styled.iframe`
   max-width: 100%;
+  border: none;
 `;
 
 const styles = {

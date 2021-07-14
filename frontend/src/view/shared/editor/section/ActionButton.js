@@ -52,10 +52,20 @@ function ActionButton(props) {
     section,
     parentId,
     isContainerContent,
+    onSelectSection
   } = props;
 
   const handleDelete = () => {
     onDelete(section.id, parentId, section.columnPosition);
+  };
+
+  const handleSelectedSection = (e) => {
+    e.stopPropagation();
+    onSelectSection(
+      section.id,
+      parentId,
+      isContainerContent,
+    );
   };
 
   const checkIsShowActionButton = () => {
@@ -90,7 +100,7 @@ function ActionButton(props) {
   };
 
   return (
-    <Container>
+    <Container onClick={handleSelectedSection}>
       {parentId && !isContainerContent ? (
         <DragHandle
           className={
