@@ -40,7 +40,6 @@ const Container = DropTarget(
     <div
       style={{
         height: 100,
-        marginBottom: 10,
         opacity: isDragging ? 1 : 0.5,
       }}
     >

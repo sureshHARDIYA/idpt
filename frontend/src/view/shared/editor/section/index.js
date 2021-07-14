@@ -27,6 +27,7 @@ import PropTypes from 'prop-types';
 const Sections = (props) => {
   const { listSection, onChange, form } = props;
   const listSectionRef = useRef(null);
+  const styleRef = useRef(null);
   listSectionRef.current = listSection;
   const [selectedSection, setSelectedSection] = useState(
     {},
@@ -385,6 +386,7 @@ const Sections = (props) => {
                             handleSelectSection
                           }
                           selectedSection={selectedSection}
+                          styleRef={styleRef}
                         />
                       </SortableItem>
                     );
@@ -465,6 +467,7 @@ const Sections = (props) => {
           <Styles
             section={selectedSection}
             onChange={handleChangeStyle}
+            styleRef={styleRef}
           />
         </Col>
       </Row>

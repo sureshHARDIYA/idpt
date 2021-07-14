@@ -20,7 +20,7 @@ const MessageWrapper = styled.div`
 `;
 
 function Styles(props) {
-  const { onChange, section } = props;
+  const { onChange, section, styleRef } = props;
   const sectionRef = useRef(null);
   sectionRef.current = section;
 
@@ -47,7 +47,7 @@ function Styles(props) {
   }
 
   return (
-    <Container>
+    <Container ref={styleRef}>
       <SliderStyle
         styleProp="margin"
         title="Margin"

@@ -28,6 +28,9 @@ const Container = styled.div`
     .drag {
       visibility: visible;
     }
+    .display-border {
+      border: solid 1px #76affc !important;
+    }
   }
   .ant-select {
     width: 100%;
@@ -56,18 +59,16 @@ function ActionButton(props) {
     parentId,
     isContainerContent,
     onSelectSection,
+    styleRef,
   } = props;
   const wrapperRef = useRef(null);
 
   useEffect(() => {
-    window.addEventListener(
-      'mousedown',
-      handleClickOutside,
-    );
+    window.addEventListener('click', handleClickOutside);
 
     return () =>
       window.removeEventListener(
-        'mousedown',
+        'click',
         handleClickOutside,
       );
   }, []);
@@ -75,7 +76,9 @@ function ActionButton(props) {
   const handleClickOutside = (e) => {
     if (
       wrapperRef.current &&
-      !wrapperRef.current.contains(e.target)
+      !wrapperRef.current.contains(e.target) &&
+      styleRef.current &&
+      !styleRef.current.contains(e.target)
     ) {
       onSelectSection();
     }

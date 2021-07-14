@@ -82,6 +82,11 @@ const Section = (props) => {
           border: borderStyle(),
         }}
         onClick={handleSelectedSection}
+        className={
+          selectedSection.id !== section.id
+            ? 'display-border'
+            : ''
+        }
       >
         {renderSection()}
       </div>
