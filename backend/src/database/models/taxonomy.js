@@ -14,7 +14,7 @@ const TaxonomySchema = new Schema(
     parent: [
       {
         type: Schema.Types.ObjectId,
-        // ref: 'taxonomy',
+        ref: 'taxonomy',
       },
     ],
   }
