@@ -7,7 +7,7 @@ import {
 } from 'react-sortable-hoc';
 import {
   ExclamationCircleOutlined,
-  MenuOutlined,
+  DragOutlined,
   DeleteOutlined,
 } from '@ant-design/icons';
 import styled from 'styled-components';
@@ -76,11 +76,11 @@ export const SortableItem = sortableElement((props) => {
       }
     >
       <DragItem>
+        <DragHandle content={<DragOutlined />} />
         <DeleteOutlined
           onClick={showConfirmReset}
-          style={{ marginRight: 5 }}
+          style={{ marginLeft: 10 }}
         />
-        <DragHandle content={<MenuOutlined />} />
       </DragItem>
       <div>{children}</div>
     </DragContainer>

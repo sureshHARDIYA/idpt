@@ -6,10 +6,16 @@ const LayoutWrapper = styled(AntLayout)`
 
   .ant-layout {
     min-height: 100vh;
+    overflow-x: visible !important;
+    overflow-y: visible;
   }
 
   .ant-layout-content {
     margin: 24px;
+  }
+
+  .ant-tabs {
+    overflow: visible;
   }
 `;
 

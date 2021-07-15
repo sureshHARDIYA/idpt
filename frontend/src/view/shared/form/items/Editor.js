@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Form } from 'antd';
+// import { Form } from 'antd';
 // import _get from 'lodash/get';
 import { FastField } from 'formik';
 // import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import FormErrors from 'view/shared/form/formErrors';
+// import FormErrors from 'view/shared/form/formErrors';
 import { formItemLayout } from 'view/shared/styles/FormWrapper';
 import MainPageEditor from '../../editor/mainPage';
 
@@ -28,25 +28,26 @@ const EditorFormItemNotFast = ({
   // );
 
   return (
-    <Form.Item
-      {...layout}
-      label={label}
-      required={required}
-      {...formItemProps}
-      validateStatus={FormErrors.validateStatus(
-        form,
-        name,
-        errorMessage,
-      )}
-      help={
-        FormErrors.displayableError(
-          form,
-          name,
-          errorMessage,
-        ) || hint
-      }
-    >
-      {/* <ReactQuill
+    <MainPageEditor form={form}/>
+    // <Form.Item
+    //   {...layout}
+    //   label={label}
+    //   required={required}
+    //   {...formItemProps}
+    //   validateStatus={FormErrors.validateStatus(
+    //     form,
+    //     name,
+    //     errorMessage,
+    //   )}
+    //   help={
+    //     FormErrors.displayableError(
+    //       form,
+    //       name,
+    //       errorMessage,
+    //     ) || hint
+    //   }
+    // >
+      /* <ReactQuill
         theme="snow"
         id={name}
         {...inputProps}
@@ -63,9 +64,9 @@ const EditorFormItemNotFast = ({
         modules={EditorFormItemNotFast.modules}
         formats={EditorFormItemNotFast.formats}
         value={value}
-      /> */}
-      <MainPageEditor form={form}/>
-    </Form.Item>
+      /> */
+      
+    // </Form.Item>
   );
 };
 

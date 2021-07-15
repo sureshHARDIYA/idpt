@@ -1,15 +1,8 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import {
-  Button,
-  Col,
-  Row,
-  Modal,
-  notification,
-} from 'antd';
+import { Col, Row, notification } from 'antd';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import { ExclamationCircleOutlined } from '@ant-design/icons';
 import PropTypes from 'prop-types';
 
 import {
@@ -19,8 +12,6 @@ import {
 } from '../constant';
 import Toolbar from '../addContentNavbar/Toolbar';
 import Sections from '../section';
-
-const { confirm } = Modal;
 
 class MainPageEditor extends React.Component {
   constructor(props) {
@@ -35,10 +26,7 @@ class MainPageEditor extends React.Component {
           style: {},
         },
       ],
-      visible: false,
     };
-    this.openModal = this.openModal.bind(this);
-    this.closeModal = this.closeModal.bind(this);
     this.handleSaveListSection = this.handleSaveListSection.bind(
       this,
     );
@@ -55,10 +43,6 @@ class MainPageEditor extends React.Component {
       }
     }
   }
-
-  onDeleteAllSection = () => {
-    this.setState({ listSection: [] });
-  };
 
   onHandleAddColumn = (colType) => {
     const { listSection } = this.state;
@@ -152,7 +136,9 @@ class MainPageEditor extends React.Component {
       } else {
         section.type = type;
       }
-      this.setState({ listSection });
+      this.setState({ listSection }, () =>
+        this.onHandleAddColumn(COLUMN_TYPES.ONE_COLUMN),
+      );
     }
   };
 
@@ -169,23 +155,6 @@ class MainPageEditor extends React.Component {
     );
   };
 
-  showConfirmReset = () => {
-    confirm({
-      icon: <ExclamationCircleOutlined />,
-      content: (
-        <span>
-          Are you sure want to delete all sections
-        </span>
-      ),
-      onOk: () => {
-        this.onDeleteAllSection();
-      },
-      onCancel() {
-        console.log('Cancel');
-      },
-    });
-  };
-
   cannotDragContainerNotification = () => {
     notification.warning({
       message: 'Cannot drag container into container',
@@ -198,58 +167,29 @@ class MainPageEditor extends React.Component {
     });
   };
 
-  openModal = () => {
-    this.setState({ visible: true });
-  };
-
-  closeModal = () => {
-    this.setState({
-      visible: false,
-      listSection: [
-        {
-          type: TYPES_OF_CONTENT.EMPTY_ONE_COLUMN.value,
-          id: uuidv4(),
-          columnType: COLUMN_TYPES.ONE_COLUMN,
-          value: null,
-          style: {},
-        },
-      ],
-    });
-  };
-
   render() {
     const { listSection } = this.state;
     return (
       <>
-        <Button onClick={this.openModal}>
-          Edit description
-        </Button>
-        <Modal
-          width="95%"
-          visible={this.state.visible}
-          onCancel={this.closeModal}
-          onOk={this.handleSaveListSection}
-        >
-          <DndProvider backend={HTML5Backend}>
-            <Row gutter={24}>
-              <Col
-                span={2}
-                style={{ position: 'sticky', top: 0 }}
-              >
-                <Toolbar
-                  handleAddContent={this.onHandleAddContent}
-                  handleAddColumn={this.onHandleAddColumn}
-                />
-              </Col>
-              <Col span={22}>
-                <Sections
-                  listSection={listSection}
-                  onChange={this.handleChangeSection}
-                />
-              </Col>
-            </Row>
-          </DndProvider>
-        </Modal>
+        <DndProvider backend={HTML5Backend}>
+          <Row gutter={24} style={{ marginBottom: 20 }}>
+            <Col
+              span={3}
+              style={{ position: 'sticky', top: 0 }}
+            >
+              <Toolbar
+                handleAddContent={this.onHandleAddContent}
+                handleAddColumn={this.onHandleAddColumn}
+              />
+            </Col>
+            <Col span={21}>
+              <Sections
+                listSection={listSection}
+                onChange={this.handleChangeSection}
+              />
+            </Col>
+          </Row>
+        </DndProvider>
       </>
     );
   }

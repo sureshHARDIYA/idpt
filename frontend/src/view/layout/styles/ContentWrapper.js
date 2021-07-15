@@ -7,7 +7,7 @@ const ContentWrapper = styled.div`
   border-radius: 5px;
   background: #fff;
   border: 1px solid #e9e9e9;
-  overflow-y: hidden;
+  overflow-y: visible;
 `;
 
 export default ContentWrapper;
