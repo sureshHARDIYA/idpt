@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import ReactQuill from 'react-quill';
@@ -53,7 +53,8 @@ const formats = [
 
 function Text(props) {
   const { section, onChange, parentId } = props;
-
+  const [isEditing, setIsEditing] = useState(false);
+ 
   const handleChange = (content) => {
     onChange(
       section.id,
@@ -63,18 +64,52 @@ function Text(props) {
     );
   };
 
-  return (
-    <Container>
-      <ReactQuill
-        theme="snow"
-        onChange={handleChange}
-        modules={modules}
-        formats={formats}
-        value={section.value || ''}
-        style={section.style}
-      />
-    </Container>
-  );
+  const handleOpenEditor = () => {
+    setIsEditing(true);
+  };
+
+  const handleCloseEditor = () => {
+    setIsEditing(false);
+  };
+
+  const renderContent = () => {
+    if (isEditing) {
+      return (
+        <ReactQuill
+          theme="snow"
+          onChange={handleChange}
+          modules={modules}
+          formats={formats}
+          value={section.value || ''}
+          style={section.style}
+          onBlur={handleCloseEditor}
+        />
+      );
+    } else {
+      if (section.value) {
+        return (
+          <div
+            onClick={handleOpenEditor}
+            style={{ cursor: 'pointer', ...section.style }}
+            dangerouslySetInnerHTML={{
+              __html: section.value,
+            }}
+          />
+        );
+      } else {
+        return (
+          <div
+            onClick={handleOpenEditor}
+            style={{ cursor: 'pointer' }}
+          >
+            <p>Input content here</p>
+          </div>
+        );
+      }
+    }
+  };
+
+  return <Container>{renderContent()}</Container>;
 }
 
 Text.propTypes = {
