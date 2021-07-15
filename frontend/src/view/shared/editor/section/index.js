@@ -25,7 +25,7 @@ import Styles from './Styles';
 import PropTypes from 'prop-types';
 
 const Sections = (props) => {
-  const { listSection, onChange, form } = props;
+  const { listSection, onChange } = props;
   const listSectionRef = useRef(null);
   const styleRef = useRef(null);
   listSectionRef.current = listSection;
@@ -381,7 +381,6 @@ const Sections = (props) => {
                             handleChangeContentSection
                           }
                           onDelete={handleDeleteContent}
-                          form={form}
                           onSelectSection={
                             handleSelectSection
                           }
@@ -424,7 +423,6 @@ const Sections = (props) => {
                               }
                               parentId={section.id}
                               onDelete={handleDeleteContent}
-                              form={form}
                               onSelectSection={
                                 handleSelectSection
                               }
@@ -444,7 +442,6 @@ const Sections = (props) => {
                               }
                               parentId={section.id}
                               onDelete={handleDeleteContent}
-                              form={form}
                               onSelectSection={
                                 handleSelectSection
                               }
@@ -463,7 +460,10 @@ const Sections = (props) => {
               })}
           </SortableContainer>
         </Col>
-        <Col span={6}>
+        <Col
+          span={6}
+          style={{ position: 'sticky', top: 0 }}
+        >
           <Styles
             section={selectedSection}
             onChange={handleChangeStyle}
@@ -485,7 +485,6 @@ Sections.propTypes = {
     PropTypes.array,
   ]),
   onChange: PropTypes.func.isRequired,
-  form: PropTypes.object.isRequired,
 };
 
 export default Sections;

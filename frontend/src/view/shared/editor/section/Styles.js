@@ -9,7 +9,7 @@ const Container = styled.div`
   margin-top: 25px;
   border-radius: 4px;
   border: dashed 1px #cfcfcf;
-  min-height: 500px;
+  min-height: 450px;
 `;
 
 const MessageWrapper = styled.div`

@@ -219,7 +219,6 @@ class MainPageEditor extends React.Component {
 
   render() {
     const { listSection } = this.state;
-    const { form } = this.props;
     return (
       <>
         <Button onClick={this.openModal}>
@@ -233,7 +232,10 @@ class MainPageEditor extends React.Component {
         >
           <DndProvider backend={HTML5Backend}>
             <Row gutter={24}>
-              <Col span={2}>
+              <Col
+                span={2}
+                style={{ position: 'sticky', top: 0 }}
+              >
                 <Toolbar
                   handleAddContent={this.onHandleAddContent}
                   handleAddColumn={this.onHandleAddColumn}
@@ -243,7 +245,6 @@ class MainPageEditor extends React.Component {
                 <Sections
                   listSection={listSection}
                   onChange={this.handleChangeSection}
-                  form={form}
                 />
               </Col>
             </Row>
@@ -264,96 +265,3 @@ MainPageEditor.propTypes = {
 };
 
 export default MainPageEditor;
-
-// import React from 'react';
-// import { i18n } from 'i18n';
-// import { v4 as uuidv4 } from "uuid";
-// import { Button, Col, Row } from 'antd';
-// import { DndProvider } from "react-dnd";
-// import { HTML5Backend } from "react-dnd-html5-backend";
-// import FilterWrapper from 'view/shared/styles/FilterWrapper';
-
-// import Section from '../section';
-// import AddContentNavbar from '../addContentNavbar';
-// import { COLUMN_TYPES, TYPES_OF_CONTENT } from '../constanst';
-
-// const MainPageEditor = ({
-//   loading
-// }) => {
-//   const [listSection, setListSection] = React.useState([]);
-
-//   React.useEffect(() => {}, [listSection]);
-
-//   const onHandleAddContent = (type, columnType) => {
-//     console.log('columnType: ', columnType);
-//     const newListSection = listSection;
-//     let columnSection = null;
-//     if (columnType === COLUMN_TYPES.ONE_COLUMN) {
-//       columnSection = {
-//         id: uuidv4(),
-//         columnType,
-//         value: null,
-//         type,
-//       };
-//     }
-//     newListSection.push(columnSection);
-//     setListSection(newListSection);
-//   }
-
-//   console.log('xxxxxxlistSection: ', listSection);
-//   const renderListSection = React.useMemo(() => (
-//     <Section
-//       listSection={listSection}
-//     />
-//   ), [listSection]);
-
-//   return (
-//     <FilterWrapper>
-//       <DndProvider backend={HTML5Backend}>
-//         <Row gutter={24}>
-//           <Col lg={22} md={22}>
-//             {/* {renderListSection} */}
-//             <Section
-//               listSection={listSection}
-//             />
-//           </Col>
-//           <Col lg={2} md={2}>
-//             <AddContentNavbar
-//               handleDrag={() => {}}
-//               handleEndDrag={() => {}}
-//               handleAddContent={onHandleAddContent}
-//               setWrapperRefAddContent={() => {console.log('setWrapperRefAddContent');}}
-//             />
-//           </Col>
-//         </Row>
-//       </DndProvider>
-//       <Row gutter={24}>
-//         <Col lg={12} md={12}>
-//           <Button
-//             loading={loading}
-//             onClick={() => {}}
-//             icon="undo"
-//           >
-//             {i18n('common.reset')}
-//           </Button>
-//         </Col>
-//         <Col lg={12} md={12}>
-//           <Button
-//             loading={loading}
-//             icon="save"
-//             type="primary"
-//             htmlType="submit"
-//           >
-//             {i18n('common.save')}
-//           </Button>
-//         </Col>
-//       </Row>
-//     </FilterWrapper>
-//   );
-// };
-
-// MainPageEditor.defaultProps = {
-
-// };
-
-// export default MainPageEditor;
