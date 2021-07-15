@@ -30,7 +30,7 @@ function WidthStyle(props) {
   }, []);
 
   const defaultValue = useMemo(() => {
-    return sectionStyles.span || min;
+    return sectionStyles.span || max;
   }, [sectionStyles]);
 
   return (

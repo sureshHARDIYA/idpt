@@ -99,7 +99,7 @@ function ContainerContent(props) {
             span={
               subContent.style.span
                 ? calculateWidth(subContent.style.span)
-                : 6
+                : 24
             }
           >
             <Wrapper>
