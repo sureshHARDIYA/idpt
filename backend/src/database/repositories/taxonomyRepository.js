@@ -238,11 +238,24 @@ class TaxonomyRepository {
         };
       }
 
-      // TODO fix filtering on parent
       if (filter.parent) {
+        // Get the list of taxonomies
+        // that has a name that satisfies the parent filter
+        const parentTaxonomies = await Taxonomy.find({
+          name: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.parent,
+            ),
+            $options: 'i',
+          },
+        })
+        // Then extract the IDs of these taxonomies,
+        // and check if any taxonomies have these IDs
+        // in their parent lists
+        const parentIds = parentTaxonomies.map(item => item._id)
         criteria = {
           ...criteria,
-          parent: filter.parent,
+          parent: { $in: parentIds },
         };
       }
 
