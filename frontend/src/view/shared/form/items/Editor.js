@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-// import { Form } from 'antd';
+import { Form } from 'antd';
 // import _get from 'lodash/get';
 import { FastField } from 'formik';
 // import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-// import FormErrors from 'view/shared/form/formErrors';
+import FormErrors from 'view/shared/form/formErrors';
 import { formItemLayout } from 'view/shared/styles/FormWrapper';
 import MainPageEditor from '../../editor/mainPage';
 
@@ -27,46 +27,40 @@ const EditorFormItemNotFast = ({
   //   props.defaultValue || '',
   // );
 
+  const descriptionLayout = {
+    labelCol: {
+      md: {
+        span: 4,
+      },
+    },
+    wrapperCol: {
+      md: {
+        span: 24,
+      },
+    },
+  };
+
   return (
-    <MainPageEditor form={form}/>
-    // <Form.Item
-    //   {...layout}
-    //   label={label}
-    //   required={required}
-    //   {...formItemProps}
-    //   validateStatus={FormErrors.validateStatus(
-    //     form,
-    //     name,
-    //     errorMessage,
-    //   )}
-    //   help={
-    //     FormErrors.displayableError(
-    //       form,
-    //       name,
-    //       errorMessage,
-    //     ) || hint
-    //   }
-    // >
-      /* <ReactQuill
-        theme="snow"
-        id={name}
-        {...inputProps}
-        onBlur={() =>
-          form.setFieldTouched(field.name, true, true)
-        }
-        onChange={(content) =>
-          form.setFieldValue(
-            field.name,
-            content === '<p><br></p>' ? undefined : content,
-            true,
-          )
-        }
-        modules={EditorFormItemNotFast.modules}
-        formats={EditorFormItemNotFast.formats}
-        value={value}
-      /> */
-      
-    // </Form.Item>
+    <Form.Item
+      {...descriptionLayout}
+      label={label}
+      required={required}
+      {...formItemProps}
+      validateStatus={FormErrors.validateStatus(
+        form,
+        name,
+        errorMessage,
+      )}
+      help={
+        FormErrors.displayableError(
+          form,
+          name,
+          errorMessage,
+        ) || hint
+      }
+    >
+      <MainPageEditor form={form} />
+    </Form.Item>
   );
 };
 

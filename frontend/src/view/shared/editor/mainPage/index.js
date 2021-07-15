@@ -12,6 +12,12 @@ import {
 } from '../constant';
 import Toolbar from '../addContentNavbar/Toolbar';
 import Sections from '../section';
+import styled from 'styled-components';
+
+const Container = styled.div`
+  border: solid 1px #e3e3e3;
+  border-radius: 4px;
+`
 
 class MainPageEditor extends React.Component {
   constructor(props) {
@@ -170,7 +176,7 @@ class MainPageEditor extends React.Component {
   render() {
     const { listSection } = this.state;
     return (
-      <>
+      <Container>
         <DndProvider backend={HTML5Backend}>
           <Row gutter={24} style={{ marginBottom: 20 }}>
             <Col
@@ -190,7 +196,7 @@ class MainPageEditor extends React.Component {
             </Col>
           </Row>
         </DndProvider>
-      </>
+      </Container>
     );
   }
 }
