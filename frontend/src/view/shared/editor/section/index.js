@@ -366,6 +366,23 @@ const Sections = (props) => {
               listSection.map((section, index) => {
                 switch (section.columnType) {
                   case COLUMN_TYPES.ONE_COLUMN:
+                    if (!section.canDelete) {
+                      return (
+                        <Section
+                          key={section.id}
+                          section={section}
+                          onChange={
+                            handleChangeContentSection
+                          }
+                          onDelete={handleDeleteContent}
+                          onSelectSection={
+                            handleSelectSection
+                          }
+                          selectedSection={selectedSection}
+                          styleRef={styleRef}
+                        />
+                      );
+                    }
                     return (
                       <SortableItem
                         id={section.id}
@@ -374,6 +391,7 @@ const Sections = (props) => {
                           handleDeleteSection
                         }
                         index={index}
+                        canDelete={section.canDelete}
                       >
                         <Section
                           section={section}
@@ -399,6 +417,7 @@ const Sections = (props) => {
                           handleDeleteSection
                         }
                         index={index}
+                        canDelete={section.canDelete}
                       >
                         <SortableContainerTwoCol
                           axis="x"

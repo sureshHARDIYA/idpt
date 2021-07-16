@@ -3,16 +3,9 @@ import React, {
   useMemo,
   useState,
 } from 'react';
-import ImagesUploader from 'view/shared/uploaders/ImagesUploader';
-import model from 'modules/module/moduleModel';
 import styled from 'styled-components';
-import { Col, Input, Button, Row } from 'antd';
+import { Col, Input, Button, Row, Upload } from 'antd';
 import PropTypes from 'prop-types';
-
-const UploadImageContainer = styled.div`
-  display: flex;
-  align-items: center;
-`;
 
 const Img = styled.img`
   max-width: 100%;
@@ -37,9 +30,21 @@ const styles = {
   btnSaveContainer: {
     marginTop: 5,
   },
+  button: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+    margin: 'auto',
+  },
+  text: {
+    color: '#666',
+    marginLeft: 0,
+  },
+  btnWidth: {
+    width: 200,
+  },
 };
-
-const { fields } = model;
 
 function Image(props) {
   const {
@@ -49,19 +54,11 @@ function Image(props) {
     isContainerContent,
   } = props;
   const [url, setUrl] = useState('');
+  const [isInputUrl, setIsInputUrl] = useState(false);
 
   const handleInputSource = useCallback((e) => {
     const { target } = e;
     setUrl(target.value);
-  }, []);
-
-  const handleChange = useCallback((value) => {
-    onChange(
-      section.id,
-      value.publicUrl,
-      parentId,
-      section.columnPosition,
-    );
   }, []);
 
   const handleSave = useCallback((url) => {
@@ -77,54 +74,73 @@ function Image(props) {
     return section.value;
   }, [section]);
 
+  const renderInput = () => {
+    if (isInputUrl) {
+      return (
+        <Row>
+          <Col
+            style={{
+              display:
+                !isContainerContent || !parentId
+                  ? 'flex'
+                  : '',
+            }}
+            span={parentId ? 24 : 12}
+            offset={parentId ? 0 : 6}
+          >
+            <Input
+              placeholder="Image source"
+              onChange={handleInputSource}
+            />
+            <Button
+              style={
+                isContainerContent
+                  ? styles.btnSaveContainer
+                  : styles.btnSave
+              }
+              onClick={() => handleSave(url)}
+            >
+              Save
+            </Button>
+          </Col>
+        </Row>
+      );
+    } else {
+      return (
+        <div>
+          <Row justify="center">
+            <Col span={24} style={styles.button}>
+              <Upload accept="image/*">
+                <Button style={styles.btnWidth}>
+                  <span style={styles.text}>
+                    Upload image
+                  </span>
+                </Button>
+              </Upload>
+            </Col>
+          </Row>
+          <Row>
+            <Button
+              style={{
+                ...styles.button,
+                ...styles.btnWidth,
+              }}
+              onClick={() => setIsInputUrl(true)}
+            >
+              <span style={styles.text}>Just add url</span>
+            </Button>
+          </Row>
+        </div>
+      );
+    }
+  };
+
   return (
     <div>
       {source ? (
         <Img src={source} alt="img" style={section.style} />
       ) : (
-        <UploadImageContainer
-          style={{
-            flexDirection:
-              parentId || isContainerContent
-                ? 'column'
-                : 'row',
-          }}
-        >
-          <Col span={12} style={styles.input}>
-            <ImagesUploader
-              path={fields.featuredImage.path}
-              schema={{
-                size: fields.featuredImage.size,
-              }}
-              value={section.value}
-              onChange={(value) => handleChange(value[0])}
-              max={1}
-            />
-          </Col>
-          <Col
-            span={parentId || isContainerContent ? 24 : 12}
-            style={styles.inputSource}
-          >
-            <Row>
-              <Col span={isContainerContent ? 24 : 12}>
-                <Input
-                  placeholder="Image source"
-                  onChange={handleInputSource}
-                />
-              </Col>
-              <Button
-                style={
-                  isContainerContent
-                    ? styles.btnSaveContainer
-                    : styles.btnSave
-                }
-                onClick={() => handleSave(url)}
-              >
-                Save
-              </Button>
-            </Row>
-          </Col>
-        </UploadImageContainer>
+        renderInput()
       )}
     </div>
   );

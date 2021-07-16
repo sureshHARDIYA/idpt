@@ -47,7 +47,7 @@ const AddColumnContainer = styled.div`
 `;
 
 const AddColumnButton = styled.div`
-  padding: 0 10px 10px 10px;
+  padding: 0 10px;
   font-size: 1.2rem;
   cursor: pointer;
   & p {
@@ -67,7 +67,6 @@ const IconWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 10px;
   text-align: center;
 `;
 

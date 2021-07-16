@@ -5,13 +5,7 @@ import React, {
 } from 'react';
 import PropTypes from 'prop-types';
 import { Col, Upload, Button, Input, Row } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
-
-const UploadAudioContainer = styled.div`
-  display: flex;
-  align-items: center;
-`;
 
 const AudioPlayer = styled.audio`
   max-width: 100%;
@@ -34,14 +28,11 @@ const styles = {
     width: '100%',
   },
   button: {
-    width: 104,
-    height: 104,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
-    backgroundColor: '#fafafa',
-    border: '1px dashed #d9d9d9',
+    margin: 'auto',
   },
   text: {
     color: '#666',
@@ -54,6 +45,9 @@ const styles = {
   btnSaveContainer: {
     marginTop: 5,
   },
+  btnWidth: {
+    width: 200,
+  },
 };
 
 function Audio(props) {
@@ -64,6 +58,7 @@ function Audio(props) {
     isContainerContent,
   } = props;
   const [url, setUrl] = useState('');
+  const [isInputUrl, setIsInputUrl] = useState(false);
 
   const handleInputSource = useCallback((e) => {
     const { target } = e;
@@ -83,6 +78,67 @@ function Audio(props) {
     return section.value;
   }, [section]);
 
+  const renderInput = () => {
+    if (isInputUrl) {
+      return (
+        <Row>
+          <Col
+            style={{
+              display:
+                !isContainerContent || !parentId
+                  ? 'flex'
+                  : '',
+            }}
+            span={parentId ? 24 : 12}
+            offset={parentId ? 0 : 6}
+          >
+            <Input
+              placeholder="Audio source"
+              onChange={handleInputSource}
+            />
+            <Button
+              style={
+                isContainerContent
+                  ? styles.btnSaveContainer
+                  : styles.btnSave
+              }
+              onClick={() => handleSave(url)}
+            >
+              Save
+            </Button>
+          </Col>
+        </Row>
+      );
+    } else {
+      return (
+        <div>
+          <Row justify="center">
+            <Col span={24} style={styles.button}>
+              <Upload accept="audio/*">
+                <Button style={styles.btnWidth}>
+                  <span style={styles.text}>
+                    Upload audio
+                  </span>
+                </Button>
+              </Upload>
+            </Col>
+          </Row>
+          <Row>
+            <Button
+              style={{
+                ...styles.button,
+                ...styles.btnWidth,
+              }}
+              onClick={() => setIsInputUrl(true)}
+            >
+              <span style={styles.text}>Just add url</span>
+            </Button>
+          </Row>
+        </div>
+      );
+    }
+  };
+
   return (
     <div>
       {source ? (
@@ -91,52 +147,7 @@ function Audio(props) {
           <source src={source} type="audio/mpeg" />
         </AudioPlayer>
       ) : (
-        <UploadAudioContainer
-          style={{
-            flexDirection:
-              parentId || isContainerContent
-                ? 'column'
-                : 'row',
-          }}
-        >
-          <Col span={12} style={styles.input}>
-            <Upload accept="audio/*">
-              <Button style={styles.button}>
-                <PlusOutlined style={styles.icon} />
-                <span style={styles.text}>Upload</span>
-              </Button>
-            </Upload>
-          </Col>
-          <Col
-            span={parentId || isContainerContent ? 24 : 12}
-            style={{
-              ...styles.inputSource,
-              marginTop:
-                parentId || isContainerContent
-                  ? 5
-                  : 'unset',
-            }}
-          >
-            <Row>
-              <Col span={isContainerContent ? 24 : 12}>
-                <Input
-                  placeholder="Audio source"
-                  onChange={handleInputSource}
-                />
-              </Col>
-              <Button
-                style={
-                  isContainerContent
-                    ? styles.btnSaveContainer
-                    : styles.btnSave
-                }
-                onClick={() => handleSave(url)}
-              >
-                Save
-              </Button>
-            </Row>
-          </Col>
-        </UploadAudioContainer>
+        renderInput()
       )}
     </div>
   );

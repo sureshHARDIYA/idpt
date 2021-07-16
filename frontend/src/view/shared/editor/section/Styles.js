@@ -62,7 +62,7 @@ function Styles(props) {
       />
       <ColorStyle
         sectionStyles={sectionRef.current.style}
-        title="Background color"
+        title="Background"
         styleProp="backgroundColor"
         onChange={handleChange}
         defaultValue="#ffffff"

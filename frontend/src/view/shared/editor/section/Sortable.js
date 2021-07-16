@@ -46,6 +46,7 @@ export const SortableItem = sortableElement((props) => {
     onDeleteSection,
     id,
     isSelected,
+    canDelete,
   } = props;
 
   const handleDeleteSection = () => {
@@ -75,7 +76,9 @@ export const SortableItem = sortableElement((props) => {
         (isSelected ? 'selected' : '', 'sortableHelper ')
       }
     >
-      <DragItem>
+      <DragItem
+        style={{ display: !canDelete ? 'none' : '' }}
+      >
         <DragHandle content={<DragOutlined />} />
         <DeleteOutlined
           onClick={showConfirmReset}

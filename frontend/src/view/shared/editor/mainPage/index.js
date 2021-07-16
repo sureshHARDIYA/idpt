@@ -1,23 +1,45 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { Col, Row, notification } from 'antd';
+import {
+  Col,
+  Row,
+  notification,
+  Button,
+  Modal,
+} from 'antd';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import PropTypes from 'prop-types';
 
 import {
   COLUMN_TYPES,
+  EMPTY_TYPE,
   TWO_COLUMN_TYPES,
   TYPES_OF_CONTENT,
 } from '../constant';
 import Toolbar from '../addContentNavbar/Toolbar';
 import Sections from '../section';
 import styled from 'styled-components';
+import { cloneDeep } from 'lodash';
+
+const { confirm } = Modal;
 
 const Container = styled.div`
   border: solid 1px #e3e3e3;
   border-radius: 4px;
-`
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin: 20px;
+
+  button {
+    &:last-child {
+      margin-left: 8px;
+    }
+  }
+`;
 
 class MainPageEditor extends React.Component {
   constructor(props) {
@@ -30,10 +52,14 @@ class MainPageEditor extends React.Component {
           columnType: COLUMN_TYPES.ONE_COLUMN,
           value: null,
           style: {},
+          canDelete: false,
         },
       ],
     };
     this.handleSaveListSection = this.handleSaveListSection.bind(
+      this,
+    );
+    this.showConfirmReset = this.showConfirmReset.bind(
       this,
     );
   }
@@ -50,7 +76,7 @@ class MainPageEditor extends React.Component {
     }
   }
 
-  onHandleAddColumn = (colType) => {
+  onHandleAddColumn = (colType, canDelete = true) => {
     const { listSection } = this.state;
     if (colType === COLUMN_TYPES.ONE_COLUMN) {
       const section = {
@@ -59,6 +85,7 @@ class MainPageEditor extends React.Component {
         columnType: colType,
         value: null,
         style: {},
+        canDelete,
       };
       listSection.push(section);
       this.setState({ listSection });
@@ -67,6 +94,7 @@ class MainPageEditor extends React.Component {
         id: uuidv4(),
         columnType: COLUMN_TYPES.TWO_COLUMNS,
         type: TYPES_OF_CONTENT.EMPTY_TWO_COLUMN.value,
+        canDelete,
         leftContent: {
           id: uuidv4(),
           value: null,
@@ -141,10 +169,21 @@ class MainPageEditor extends React.Component {
         this.cannotDragContainerNotification();
       } else {
         section.type = type;
+        section.canDelete = true;
       }
-      this.setState({ listSection }, () =>
-        this.onHandleAddColumn(COLUMN_TYPES.ONE_COLUMN),
-      );
+      this.setState({ listSection }, () => {
+        const lastSection =
+          listSection[listSection.length - 1];
+        if (
+          lastSection.type !==
+          TYPES_OF_CONTENT.EMPTY_ONE_COLUMN.value
+        ) {
+          this.onHandleAddColumn(
+            COLUMN_TYPES.ONE_COLUMN,
+            false,
+          );
+        }
+      });
     }
   };
 
@@ -152,14 +191,57 @@ class MainPageEditor extends React.Component {
     this.setState({ listSection });
   };
 
+  handleDeleteEmptySection = () => {
+    const { listSection } = this.state;
+    const _listSection = cloneDeep(listSection);
+    const result = [];
+    _listSection.forEach((section) => {
+      if (section.columnType === COLUMN_TYPES.ONE_COLUMN) {
+        if (!EMPTY_TYPE.includes(section.type)) {
+          result.push(section);
+        }
+      } else {
+        if (
+          !EMPTY_TYPE.includes(section.rightContent.type) ||
+          !EMPTY_TYPE.includes(section.leftContent.type)
+        ) {
+          result.push(section);
+        }
+      }
+    });
+    return result;
+  };
+
   handleSaveListSection = () => {
     const { form } = this.props;
-    const { listSection } = this.state;
+    const listSection = this.handleDeleteEmptySection();
     form.setFieldValue(
       'description',
       JSON.stringify(listSection),
     );
   };
+
+  handleReset = () => {
+    this.setState({
+      listSection: [
+        {
+          type: TYPES_OF_CONTENT.EMPTY_ONE_COLUMN.value,
+          id: uuidv4(),
+          columnType: COLUMN_TYPES.ONE_COLUMN,
+          value: null,
+          style: {},
+          canDelete: false,
+        },
+      ],
+    });
+  };
+
+  showConfirmReset() {
+    confirm({
+      title: 'Do you Want to reset all sections?',
+      onOk: () => this.handleReset(),
+    });
+  }
 
   cannotDragContainerNotification = () => {
     notification.warning({
@@ -196,6 +278,17 @@ class MainPageEditor extends React.Component {
             </Col>
           </Row>
         </DndProvider>
+        <ButtonContainer>
+          <Button onClick={this.showConfirmReset}>
+            Reset
+          </Button>
+          <Button
+            type="primary"
+            onClick={this.handleSaveListSection}
+          >
+            Save
+          </Button>
+        </ButtonContainer>
       </Container>
     );
   }
