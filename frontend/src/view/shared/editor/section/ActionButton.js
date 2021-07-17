@@ -28,9 +28,7 @@ const Container = styled.div`
     .drag {
       visibility: visible;
     }
-    .display-border {
-      border: solid 1px #76affc !important;
-    }
+    
   }
   .ant-select {
     width: 100%;
@@ -38,12 +36,15 @@ const Container = styled.div`
   .ant-form-item {
     margin-bottom: 0px;
   }
+  .container {
+    padding: 5px;
+  }
 `;
 
 const DragHandle = sortableHandle(
   ({ children, className }) => (
     <DragContainer
-      style={{ cursor: 'pointer' }}
+      style={{ cursor: 'move' }}
       className={className}
     >
       {children}
@@ -59,7 +60,6 @@ function ActionButton(props) {
     parentId,
     isContainerContent,
     onSelectSection,
-    styleRef,
   } = props;
   const wrapperRef = useRef(null);
 
@@ -74,11 +74,12 @@ function ActionButton(props) {
   }, []);
 
   const handleClickOutside = (e) => {
+    const styles = document.querySelector(".style-component");
     if (
       wrapperRef.current &&
       !wrapperRef.current.contains(e.target) &&
-      styleRef.current &&
-      !styleRef.current.contains(e.target)
+      styles &&
+      !styles.contains(e.target)
     ) {
       onSelectSection();
     }

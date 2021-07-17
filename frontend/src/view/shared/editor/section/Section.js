@@ -70,9 +70,9 @@ const Section = (props) => {
       selectedSection &&
       selectedSection.id === section.id
     ) {
-      return 'solid 1px #76affc';
+      return 'solid 1px red';
     }
-    return 'solid 1px transparent';
+    return 'solid 1px #76affc';
   };
 
   return (
@@ -83,8 +83,8 @@ const Section = (props) => {
         }}
         onClick={handleSelectedSection}
         className={
-          selectedSection.id !== section.id
-            ? 'display-border'
+          section.type === TYPES_OF_CONTENT.CONTAINER.value
+            ? 'container'
             : ''
         }
       >

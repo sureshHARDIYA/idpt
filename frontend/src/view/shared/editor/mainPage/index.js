@@ -87,6 +87,7 @@ class MainPageEditor extends React.Component {
         style: {},
         canDelete,
       };
+      listSection[listSection.length - 1].canDelete = true;
       listSection.push(section);
       this.setState({ listSection });
     } else {
@@ -110,6 +111,7 @@ class MainPageEditor extends React.Component {
           style: {},
         },
       };
+      listSection[listSection.length - 1].canDelete = true;
       listSection.push(section);
       this.setState({ listSection });
     }
@@ -197,7 +199,17 @@ class MainPageEditor extends React.Component {
     const result = [];
     _listSection.forEach((section) => {
       if (section.columnType === COLUMN_TYPES.ONE_COLUMN) {
-        if (!EMPTY_TYPE.includes(section.type)) {
+        if (
+          !EMPTY_TYPE.includes(section.type) &&
+          section.type !== TYPES_OF_CONTENT.CONTAINER.value
+        ) {
+          result.push(section);
+        } else if (
+          section.type ===
+            TYPES_OF_CONTENT.CONTAINER.value &&
+          section.value &&
+          section.value.length
+        ) {
           result.push(section);
         }
       } else {

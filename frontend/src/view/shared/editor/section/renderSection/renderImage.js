@@ -42,7 +42,7 @@ const styles = {
     marginLeft: 0,
   },
   btnWidth: {
-    width: 200,
+    width: 130,
   },
 };
 
@@ -119,7 +119,7 @@ function Image(props) {
               </Upload>
             </Col>
           </Row>
-          <Row>
+          <Row style={{ paddingBottom: 5 }}>
             <Button
               style={{
                 ...styles.button,

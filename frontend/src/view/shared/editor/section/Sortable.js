@@ -17,13 +17,6 @@ const { confirm } = Modal;
 const DragContainer = styled.div`
   margin-bottom: 16px;
   overflow: hidden;
-  &.selected {
-    border: solid 1px blue;
-    border-radius: 4px;
-  }
-  &.sortableHelper {
-    z-index: 9999 !important;
-  }
 `;
 
 const DragItem = styled.div`
@@ -45,7 +38,6 @@ export const SortableItem = sortableElement((props) => {
     children,
     onDeleteSection,
     id,
-    isSelected,
     canDelete,
   } = props;
 
@@ -71,11 +63,7 @@ export const SortableItem = sortableElement((props) => {
   };
 
   return (
-    <DragContainer
-      className={
-        (isSelected ? 'selected' : '', 'sortableHelper ')
-      }
-    >
+    <DragContainer>
       <DragItem
         style={{ display: !canDelete ? 'none' : '' }}
       >
@@ -94,11 +82,7 @@ export const SortableItemTwoCol = sortableElement(
   (props) => {
     const { children } = props;
 
-    return (
-      <Col span={12} style={{ zIndex: 9999 }}>
-        {children}
-      </Col>
-    );
+    return <Col span={12}>{children}</Col>;
   },
 );
 

@@ -1,19 +1,14 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import ReactQuill from 'react-quill';
+import styled from "styled-components";
 
-const Container = styled.div`
-  textarea {
-    border: none;
-    resize: none;
-
-    &:focus {
-      border: unset;
-      resize: vertical;
-    }
+const TextContainer = styled.div`
+  p {
+    margin-bottom: 0;
+    padding: 5px;
   }
-`;
+`
 
 const modules = {
   toolbar: [
@@ -54,7 +49,7 @@ const formats = [
 function Text(props) {
   const { section, onChange, parentId } = props;
   const [isEditing, setIsEditing] = useState(false);
- 
+
   const handleChange = (content) => {
     onChange(
       section.id,
@@ -88,19 +83,24 @@ function Text(props) {
     } else {
       if (section.value) {
         return (
-          <div
-            onClick={handleOpenEditor}
-            style={{ cursor: 'pointer', ...section.style }}
-            dangerouslySetInnerHTML={{
-              __html: section.value,
-            }}
-          />
+          <div>
+            <TextContainer
+              onClick={handleOpenEditor}
+              style={{
+                cursor: 'pointer',
+                ...section.style,
+              }}
+              dangerouslySetInnerHTML={{
+                __html: section.value,
+              }}
+            />
+          </div>
         );
       } else {
         return (
           <div
             onClick={handleOpenEditor}
-            style={{ cursor: 'pointer' }}
+            style={{ cursor: 'pointer', padding: 5 }}
           >
             <p>Input content here</p>
           </div>
@@ -109,7 +109,7 @@ function Text(props) {
     }
   };
 
-  return <Container>{renderContent()}</Container>;
+  return <div>{renderContent()}</div>;
 }
 
 Text.propTypes = {

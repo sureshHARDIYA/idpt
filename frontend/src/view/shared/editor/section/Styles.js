@@ -17,10 +17,14 @@ const MessageWrapper = styled.div`
   display: flex;
   min-height: inherit;
   justify-content: center;
+
+  & p {
+    text-align: center;
+  }
 `;
 
 function Styles(props) {
-  const { onChange, section, styleRef } = props;
+  const { onChange, section } = props;
   const sectionRef = useRef(null);
   sectionRef.current = section;
 
@@ -40,14 +44,14 @@ function Styles(props) {
     return (
       <Container>
         <MessageWrapper>
-          Select a component to start styling
+          <p>Select a component to start styling</p>
         </MessageWrapper>
       </Container>
     );
   }
 
   return (
-    <Container ref={styleRef}>
+    <Container className="style-component">
       <SliderStyle
         styleProp="margin"
         title="Margin"

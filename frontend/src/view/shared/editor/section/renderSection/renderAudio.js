@@ -46,7 +46,7 @@ const styles = {
     marginTop: 5,
   },
   btnWidth: {
-    width: 200,
+    width: 130,
   },
 };
 
@@ -123,7 +123,7 @@ function Audio(props) {
               </Upload>
             </Col>
           </Row>
-          <Row>
+          <Row style={{ paddingBottom: 5 }}>
             <Button
               style={{
                 ...styles.button,
