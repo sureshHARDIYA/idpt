@@ -17,7 +17,6 @@ const { fields } = model;
 
 const schema = new FormFilterSchema([
   fields.name,
-  // fields.status,
   fields.parent,
 ]);
 
@@ -35,9 +34,8 @@ class TaxonomyListFilter extends Component {
   };
 
   handleSubmit = (values) => {
-    const valuesToSubmit = schema.cast(values);
     const { dispatch } = this.props;
-    dispatch(actions.doFetch(valuesToSubmit));
+    dispatch(actions.doFetch(values));
   };
 
   handleReset = (form) => {
