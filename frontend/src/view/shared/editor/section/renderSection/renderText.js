@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import ReactQuill from 'react-quill';
 import styled from 'styled-components';
@@ -53,6 +53,26 @@ const formats = [
 function Text(props) {
   const { section, onChange, parentId } = props;
   const [isEditing, setIsEditing] = useState(false);
+  const editorRef = useRef(null);
+
+  useEffect(() => {
+    window.addEventListener('click', handleClickOutside);
+
+    return () =>
+      window.removeEventListener(
+        'click',
+        handleClickOutside,
+      );
+  }, []);
+
+  const handleClickOutside = (e) => {
+    if (
+      editorRef.current &&
+      !editorRef.current.contains(e.target)
+    ) {
+      handleCloseEditor();
+    }
+  };
 
   const handleChange = (content) => {
     onChange(
@@ -74,15 +94,17 @@ function Text(props) {
   const renderContent = () => {
     if (isEditing) {
       return (
-        <ReactQuill
-          theme="snow"
-          onChange={handleChange}
-          modules={modules}
-          formats={formats}
-          value={section.value || ''}
-          style={section.style}
-          onBlur={handleCloseEditor}
-        />
+        <div ref={editorRef}>
+          <ReactQuill
+            theme="snow"
+            onChange={handleChange}
+            modules={modules}
+            formats={formats}
+            value={section.value || ''}
+            style={section.style}
+            onBlur={handleCloseEditor}
+          />
+        </div>
       );
     } else {
       if (

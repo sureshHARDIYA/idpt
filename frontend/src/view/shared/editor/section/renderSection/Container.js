@@ -11,7 +11,7 @@ const ContainerStyle = styled.div`
   justify-content: center;
   align-items: center;
   height: 100%;
-  background-color: #e3e3e3
+  background-color: #92c2ec
 `;
 
 const fullColumnTarget = {
@@ -62,7 +62,7 @@ export const ContainerWrapper = DropTarget(
   }),
 )((props) => {
   const { connectDropTarget, children } = props;
-  const xhtml = connectDropTarget(<div style={{ backgroundColor: "#e3e3e3" }}>{children}</div>);
+  const xhtml = connectDropTarget(<div style={{ backgroundColor: "#92c2ec" }}>{children}</div>);
   return xhtml;
 });
 

@@ -105,6 +105,12 @@ function Video(props) {
             >
               Save
             </Button>
+            <Button
+              style={{ marginLeft: 5 }}
+              onClick={() => setIsInputUrl(false)}
+            >
+              Cancel
+            </Button>
           </Col>
         </Row>
       );

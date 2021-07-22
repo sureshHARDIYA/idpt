@@ -65,14 +65,32 @@ class MainPageEditor extends React.Component {
     );
   }
 
-  componentDidMount() {
-    const { form } = this.props;
-    if (form && form.value) {
-      const listSection = form.value.description;
-      if (listSection) {
-        this.setState({
-          listSection: JSON.parse(listSection),
-        });
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.listSection !== this.state.listSection) {
+      const { listSection } = this.state;
+      if (listSection.length === 0) {
+        this.onHandleAddColumn(COLUMN_TYPES.ONE_COLUMN, false)
+      } else {
+        const lastSection = listSection[listSection.length - 1];
+        if (lastSection.type === TYPES_OF_CONTENT.EMPTY_TWO_COLUMN.value) {
+          this.onHandleAddColumn(COLUMN_TYPES.ONE_COLUMN, false);
+        }
+        if (lastSection.canDelete && lastSection.type === TYPES_OF_CONTENT.EMPTY_ONE_COLUMN.value) {
+          lastSection.canDelete = false;
+          this.setState({ listSection });
+        }
+      }
+    }
+
+    if (prevProps.form !== this.props.form) {
+      const { form } = this.props;
+      if (form && form.value) {
+        const listSection = form.value.description;
+        if (listSection) {
+          this.setState({
+            listSection: JSON.parse(listSection),
+          });
+        }
       }
     }
   }
@@ -157,7 +175,7 @@ class MainPageEditor extends React.Component {
 
       if (type === TYPES_OF_CONTENT.CONTAINER.value) {
         section.value = [];
-        section.style = { backgroundColor: "#e3e3e3" }
+        section.style = { backgroundColor: '#92c2ec' };
       }
 
       if (
@@ -175,6 +193,7 @@ class MainPageEditor extends React.Component {
         section.value.push(subContent);
       } else if (section.type === type) {
         this.cannotDragContainerNotification();
+        return;
       } else {
         section.type = type;
         section.canDelete = true;
