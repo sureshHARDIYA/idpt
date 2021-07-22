@@ -19,8 +19,10 @@ const DragContainer = styled.div`
   visibility: hidden;
   margin-bottom: 0;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
+  padding: 0 5px;
+  color: white;
 `;
 
 const Container = styled.div`
@@ -35,9 +37,6 @@ const Container = styled.div`
   }
   .ant-form-item {
     margin-bottom: 0px;
-  }
-  .container {
-    padding: 5px;
   }
 `;
 
@@ -140,6 +139,7 @@ function ActionButton(props) {
             checkIsShowActionButton() ? 'drag' : ''
           }
         >
+          <span>{section.name}</span>
           <DeleteOutlined
             onClick={showConfirmReset}
             style={{ marginRight: 5, color: 'white' }}
@@ -154,6 +154,7 @@ function ActionButton(props) {
             isContainerContent ? 'sub-content' : '',
           )}
         >
+          <span>{section.name}</span>
           <DeleteOutlined
             onClick={showConfirmReset}
             style={{ marginRight: 5, color: 'white' }}

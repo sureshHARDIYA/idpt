@@ -50,7 +50,9 @@ function ContainerContent(props) {
     __,
     additionalProps,
   ) => {
-    const cloneListSubContent = cloneDeep(sectionRef.current.value);
+    const cloneListSubContent = cloneDeep(
+      sectionRef.current.value,
+    );
     const sectionIndex = cloneListSubContent.findIndex(
       (section) => section.id === id,
     );
@@ -84,40 +86,49 @@ function ContainerContent(props) {
       sectionId={section.id}
       columnType={section.columnType}
     >
-      <Row
-        gutter={8}
+      <div
         style={{
-          paddingTop: 10,
-          display: 'flex',
-          flexFlow: 'wrap',
-          ...section.style
+          // paddingBottom: 25,
+          backgroundColor: section.style.backgroundColor,
         }}
       >
-        {section.value.map((subContent, index) => (
-          <Col
-            key={subContent.id}
-            span={
-              subContent.style.span
-                ? calculateWidth(subContent.style.span)
-                : 24
-            }
-          >
-            <Wrapper>
-              <Section
-                parentId={section.id}
-                section={subContent}
-                isContainerContent
-                onDelete={() =>
-                  handleDeleteSubContent(index)
-                }
-                onChange={handleChangeSubContentValue}
-                onSelectSection={onSelectSection}
-                selectedSection={selectedSection}
-              />
-            </Wrapper>
-          </Col>
-        ))}
-      </Row>
+        <Row
+          gutter={8}
+          style={{
+            display: 'flex',
+            flexFlow: 'wrap',
+            marginLeft: 0,
+            marginRight: 0,
+            ...section.style,
+          }}
+        >
+          {section.value.map((subContent, index) => (
+            <Col
+              key={subContent.id}
+              style={{ paddingBottom: 25 }}
+              span={
+                subContent.style.span
+                  ? calculateWidth(subContent.style.span)
+                  : 24
+              }
+            >
+              <Wrapper>
+                <Section
+                  parentId={section.id}
+                  section={subContent}
+                  isContainerContent
+                  onDelete={() =>
+                    handleDeleteSubContent(index)
+                  }
+                  onChange={handleChangeSubContentValue}
+                  onSelectSection={onSelectSection}
+                  selectedSection={selectedSection}
+                />
+              </Wrapper>
+            </Col>
+          ))}
+        </Row>
+      </div>
     </ContainerWrapper>
   );
 }

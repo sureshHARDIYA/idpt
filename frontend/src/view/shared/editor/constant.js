@@ -20,11 +20,11 @@ export const TYPES_OF_CONTENT = {
     value: 5,
   },
   EMPTY_ONE_COLUMN: {
-    name: 'Empty_one_column',
+    name: 'One column',
     value: 6,
   },
   EMPTY_TWO_COLUMN: {
-    name: 'Empty_two_column',
+    name: 'Two columns',
     value: 7,
   },
   EMPTY_RIGHT_COLUMN: {

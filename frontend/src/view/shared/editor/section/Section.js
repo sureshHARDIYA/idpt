@@ -70,9 +70,11 @@ const Section = (props) => {
       selectedSection &&
       selectedSection.id === section.id
     ) {
-      return 'solid 1px red';
+      return 'solid 1px #76affc';
     }
-    return 'solid 1px #76affc';
+    return section.type !== TYPES_OF_CONTENT.CONTAINER.value
+      ? 'solid 1px #e3e3e3'
+      : 'solid 1px transparent';
   };
 
   return (

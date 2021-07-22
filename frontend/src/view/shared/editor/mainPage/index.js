@@ -26,7 +26,8 @@ const { confirm } = Modal;
 
 const Container = styled.div`
   border: solid 1px #e3e3e3;
-  border-radius: 4px;
+  border-radius: 5px;
+  padding: 0 10px;
 `;
 
 const ButtonContainer = styled.div`
@@ -51,7 +52,7 @@ class MainPageEditor extends React.Component {
           id: uuidv4(),
           columnType: COLUMN_TYPES.ONE_COLUMN,
           value: null,
-          style: {},
+          style: { backgroundColor: '#ffffff' },
           canDelete: false,
         },
       ],
@@ -84,7 +85,7 @@ class MainPageEditor extends React.Component {
         id: uuidv4(),
         columnType: colType,
         value: null,
-        style: {},
+        style: { backgroundColor: '#ffffff' },
         canDelete,
       };
       listSection[listSection.length - 1].canDelete = true;
@@ -101,14 +102,14 @@ class MainPageEditor extends React.Component {
           value: null,
           type: TYPES_OF_CONTENT.EMPTY_LEFT_COLUMN.value,
           columnPosition: TWO_COLUMN_TYPES.LEFT,
-          style: {},
+          style: { backgroundColor: '#ffffff' },
         },
         rightContent: {
           id: uuidv4(),
           value: null,
           type: TYPES_OF_CONTENT.EMPTY_RIGHT_COLUMN.value,
           columnPosition: TWO_COLUMN_TYPES.RIGHT,
-          style: {},
+          style: { backgroundColor: '#ffffff' },
         },
       };
       listSection[listSection.length - 1].canDelete = true;
@@ -132,6 +133,7 @@ class MainPageEditor extends React.Component {
       return;
     }
     const { listSection } = this.state;
+    const name = this.getObjectByType(type).name;
     const index = listSection.findIndex(
       (section) => section.id === sectionId,
     );
@@ -142,17 +144,20 @@ class MainPageEditor extends React.Component {
         columnType === TWO_COLUMN_TYPES.LEFT
       ) {
         section = listSection[index].leftContent;
+        section.name = name;
       } else if (
         subSectionId &&
         columnType === TWO_COLUMN_TYPES.RIGHT
       ) {
         section = listSection[index].rightContent;
+        section.name = name;
       } else {
         section = listSection[index];
       }
 
       if (type === TYPES_OF_CONTENT.CONTAINER.value) {
         section.value = [];
+        section.style = { backgroundColor: "#e3e3e3" }
       }
 
       if (
@@ -162,9 +167,10 @@ class MainPageEditor extends React.Component {
         const subContent = {
           type,
           value: null,
-          style: {},
+          style: { backgroundColor: '#ffffff' },
           id: uuidv4(),
           columnType: COLUMN_TYPES.ONE_COLUMN,
+          name,
         };
         section.value.push(subContent);
       } else if (section.type === type) {
@@ -172,6 +178,7 @@ class MainPageEditor extends React.Component {
       } else {
         section.type = type;
         section.canDelete = true;
+        section.name = name;
       }
       this.setState({ listSection }, () => {
         const lastSection =
@@ -222,6 +229,13 @@ class MainPageEditor extends React.Component {
       }
     });
     return result;
+  };
+
+  getObjectByType = (type) => {
+    const foundKey = Object.keys(TYPES_OF_CONTENT).find(
+      (key) => TYPES_OF_CONTENT[key].value === type,
+    );
+    return TYPES_OF_CONTENT[foundKey];
   };
 
   handleSaveListSection = () => {

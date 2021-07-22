@@ -25,9 +25,7 @@ const rightColumnTarget = {
 };
 
 const borderStyle = {
-  border: "1px dashed",
   height: 50,
-  borderColor: "gray",
   display: "flex",
   justifyContent:"center",
   alignItems: "center"

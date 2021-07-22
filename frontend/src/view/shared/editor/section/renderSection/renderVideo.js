@@ -110,7 +110,7 @@ function Video(props) {
       );
     } else {
       return (
-        <div>
+        <div style={{ backgroundColor: 'white' }}>
           <Row justify="center">
             <Col span={24} style={styles.button}>
               <Upload accept="video/*">

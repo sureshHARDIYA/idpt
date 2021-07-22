@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import ReactQuill from 'react-quill';
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const TextContainer = styled.div`
   p {
     margin-bottom: 0;
     padding: 5px;
   }
-`
+`;
+
+const PlaceHolder = styled.div`
+  margin-bottom: 0;
+`;
 
 const modules = {
   toolbar: [
@@ -81,7 +85,10 @@ function Text(props) {
         />
       );
     } else {
-      if (section.value) {
+      if (
+        section.value &&
+        section.value.split('<p><br></p>')[0]
+      ) {
         return (
           <div>
             <TextContainer
@@ -100,9 +107,13 @@ function Text(props) {
         return (
           <div
             onClick={handleOpenEditor}
-            style={{ cursor: 'pointer', padding: 5 }}
+            style={{
+              cursor: 'pointer',
+              padding: 5,
+              backgroundColor: 'white',
+            }}
           >
-            <p>Input content here</p>
+            <PlaceHolder>Input content here</PlaceHolder>
           </div>
         );
       }
