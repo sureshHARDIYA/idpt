@@ -11,10 +11,8 @@ const Wrapper = styled.div`
   .ant-upload.ant-upload-select.ant-upload-select-picture-card {
     margin-right: 0px;
   }
-  &:hover {
-    .sub-content {
-      visibility: visible;
-    }
+  .sub-content {
+    visibility: visible;
   }
 `;
 

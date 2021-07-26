@@ -7,16 +7,15 @@ import {
 } from '@ant-design/icons';
 import { Modal } from 'antd';
 import styled from 'styled-components';
-import { TYPES_OF_CONTENT } from '../constant';
+import { EMPTY_TYPE } from '../constant';
 import cn from 'classnames';
 
 const { confirm } = Modal;
 
 const DragContainer = styled.div`
   background-color: gray;
-  opacity: 0.7;
+  opacity: 1;
   height: 25px;
-  visibility: hidden;
   margin-bottom: 0;
   display: flex;
   justify-content: space-between;
@@ -26,12 +25,10 @@ const DragContainer = styled.div`
 `;
 
 const Container = styled.div`
-  &:hover {
-    .drag {
-      visibility: visible;
-    }
-    
+  .drag {
+    visibility: visible;
   }
+
   .ant-select {
     width: 100%;
   }
@@ -73,7 +70,9 @@ function ActionButton(props) {
   }, []);
 
   const handleClickOutside = (e) => {
-    const styles = document.querySelector(".style-component");
+    const styles = document.querySelector(
+      '.style-component',
+    );
     if (
       wrapperRef.current &&
       !wrapperRef.current.contains(e.target) &&
@@ -98,17 +97,7 @@ function ActionButton(props) {
   };
 
   const checkIsShowActionButton = () => {
-    return (
-      parentId ||
-      (section.type !==
-        TYPES_OF_CONTENT.EMPTY_ONE_COLUMN.value &&
-        section.type !==
-          TYPES_OF_CONTENT.EMPTY_TWO_COLUMN.value &&
-        section.type !==
-          TYPES_OF_CONTENT.EMPTY_LEFT_COLUMN.value &&
-        section.type !==
-          TYPES_OF_CONTENT.EMPTY_RIGHT_COLUMN.value)
-    );
+    return parentId || !EMPTY_TYPE.includes(section.type);
   };
 
   const showConfirmReset = () => {
@@ -132,6 +121,7 @@ function ActionButton(props) {
     <Container
       ref={wrapperRef}
       onClick={handleSelectedSection}
+      type={section.type}
     >
       {parentId && !isContainerContent ? (
         <DragHandle
@@ -139,7 +129,7 @@ function ActionButton(props) {
             checkIsShowActionButton() ? 'drag' : ''
           }
         >
-          <span>{section.name}</span>
+          <span>{section.name || ''}</span>
           <DeleteOutlined
             onClick={showConfirmReset}
             style={{ marginRight: 5, color: 'white' }}
@@ -154,10 +144,16 @@ function ActionButton(props) {
             isContainerContent ? 'sub-content' : '',
           )}
         >
-          <span>{section.name}</span>
+          <span>{section.name || ''}</span>
           <DeleteOutlined
             onClick={showConfirmReset}
-            style={{ marginRight: 5, color: 'white' }}
+            style={{
+              marginRight: 5,
+              color: 'white',
+              display: EMPTY_TYPE.includes(section.type)
+                ? 'none'
+                : 'initial',
+            }}
           />
         </DragContainer>
       )}

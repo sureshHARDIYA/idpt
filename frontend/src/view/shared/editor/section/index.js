@@ -218,6 +218,7 @@ const Sections = (props) => {
               index
             ].rightContent.value = null;
             cloneListSection[index].rightContent.style = {};
+            cloneListSection[index].rightContent.name = "";
           }
 
           if (columnPosition === TWO_COLUMN_TYPES.LEFT) {
@@ -227,6 +228,7 @@ const Sections = (props) => {
               index
             ].leftContent.value = null;
             cloneListSection[index].leftContent.style = {};
+            cloneListSection[index].leftContent.name = "";
           }
         }
       } else {
@@ -238,6 +240,7 @@ const Sections = (props) => {
             TYPES_OF_CONTENT.EMPTY_ONE_COLUMN.value;
           cloneListSection[index].value = null;
           cloneListSection[index].style = {};
+          cloneListSection[index].name = "";
         }
       }
 
