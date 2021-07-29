@@ -3,13 +3,13 @@ import SliderStyle from './InputStyle/SliderStyle';
 import ColorStyle from './InputStyle/ColorStyle';
 import WidthStyle from './InputStyle/WidthStyle';
 import styled from 'styled-components';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 
 const Container = styled.div`
   margin-top: 25px;
   border-radius: 4px;
   border: dashed 1px #cfcfcf;
-  min-height: 450px;
+  min-height: 400px;
 `;
 
 const MessageWrapper = styled.div`
@@ -92,12 +92,12 @@ function Styles(props) {
 }
 
 Styles.defaultProps = {
-  section: {}
-}
+  section: {},
+};
 
 Styles.propTypes = {
   section: PropTypes.object,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
 };
 
 export default Styles;

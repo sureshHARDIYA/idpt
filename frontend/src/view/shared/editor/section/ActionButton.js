@@ -17,7 +17,7 @@ const DragContainer = styled.div`
   opacity: 1;
   height: 25px;
   margin-bottom: 0;
-  display: flex;
+  display: ${(props) => (props.isEmpty ? 'none' : 'flex')};
   justify-content: space-between;
   align-items: center;
   padding: 0 5px;
@@ -38,10 +38,11 @@ const Container = styled.div`
 `;
 
 const DragHandle = sortableHandle(
-  ({ children, className }) => (
+  ({ children, className, isEmpty }) => (
     <DragContainer
       style={{ cursor: 'move' }}
       className={className}
+      isEmpty={isEmpty}
     >
       {children}
     </DragContainer>
@@ -128,6 +129,7 @@ function ActionButton(props) {
           className={
             checkIsShowActionButton() ? 'drag' : ''
           }
+          isEmpty={EMPTY_TYPE.includes(section.type)}
         >
           <span>{section.name || ''}</span>
           <DeleteOutlined
@@ -143,6 +145,7 @@ function ActionButton(props) {
               : '',
             isContainerContent ? 'sub-content' : '',
           )}
+          isEmpty={EMPTY_TYPE.includes(section.type)}
         >
           <span>{section.name || ''}</span>
           <DeleteOutlined

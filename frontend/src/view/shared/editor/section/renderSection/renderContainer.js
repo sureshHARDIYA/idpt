@@ -86,12 +86,13 @@ function ContainerContent(props) {
     >
       <div
         style={{
-          // paddingBottom: 25,
           backgroundColor: section.style.backgroundColor,
+          padding: 5,
+          paddingBottom: 0,
         }}
       >
         <Row
-          gutter={8}
+          gutter={10}
           style={{
             display: 'flex',
             flexFlow: 'wrap',
@@ -103,7 +104,7 @@ function ContainerContent(props) {
           {section.value.map((subContent, index) => (
             <Col
               key={subContent.id}
-              style={{ paddingBottom: 25 }}
+              style={{ paddingBottom: 10 }}
               span={
                 subContent.style.span
                   ? calculateWidth(subContent.style.span)
