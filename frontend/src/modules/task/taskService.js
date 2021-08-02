@@ -209,7 +209,6 @@ export default class TaskService {
               completionRequired
               next {
                 id
-                name
               }
             }
           }

@@ -22,13 +22,7 @@ class ModuleGraph extends Component {
     },
     edges: {width: 1},
     interaction: {hover: true},
-    physics: {
-      enabled: true,
-      stabilization: {
-        enabled: true,
-        iterations: 5000,
-      }
-    },
+    physics: {enabled: false},
   };
 
   events = {
@@ -43,7 +37,6 @@ class ModuleGraph extends Component {
       const {moduleNetwork} = this.state;
 
       if (!!moduleNetwork) {
-        moduleNetwork.setOptions({physics: {enabled: false}});
         moduleNetwork.fit();
       }
     }
@@ -53,7 +46,7 @@ class ModuleGraph extends Component {
     const {moduleRows} = this.props;
 
     let data = {nodes: [], edges: []};
-    let counters = {edgeId: 0, xValue: -100, yValue: -100};
+    let counters = {edgeId: 0, xValue: -200, yValue: 50};
 
     moduleRows.forEach(row => {
       const rowId = fields.id.forView(row.id);
@@ -62,14 +55,14 @@ class ModuleGraph extends Component {
         id: rowId,
         label: fields.name.forView(row.name),
         color: graphStatusColor[fields.status.forView(row.status) || 'DEFAULT'],
-        x: (counters.xValue += 100) % 300,
-        y: counters.yValue += 100,
+        x: counters.xValue = (counters.xValue += 200) % 600,
+        y: counters.yValue -= 50,
       });
 
       const prereq = fields.prerequisite.forView(row.prerequisite);
       prereq.forEach(pre =>
         data.edges.push({
-          id: counters.edgeId++,
+          id: 'moduleEdge' + counters.edgeId++,
           from: fields.id.forView(pre.id),
           to: rowId
         })

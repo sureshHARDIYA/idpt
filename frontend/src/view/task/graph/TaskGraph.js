@@ -22,13 +22,7 @@ class TaskGraph extends Component {
     },
     edges: {width: 1},
     interaction: {hover: true},
-    physics: {
-      enabled: true,
-      stabilization: {
-        enabled: true,
-        iterations: 5000
-      }
-    },
+    physics: {enabled: false},
   };
 
   events = {
@@ -43,7 +37,6 @@ class TaskGraph extends Component {
       const {taskNetwork} = this.state;
 
       if (!!taskNetwork) {
-        taskNetwork.setOptions({physics: {enabled: false}});
         taskNetwork.fit();
       }
     }
@@ -53,7 +46,7 @@ class TaskGraph extends Component {
     const {taskRows} = this.props;
 
     let data = {nodes: [], edges: []};
-    let counters = {edgeId: 0, xValue: -100, yValue: -100};
+    let counters = {edgeId: 0, xValue: -200, yValue: 50};
 
     taskRows.forEach(row => {
       const rowId = fields.id.forView(row.id);
@@ -64,14 +57,14 @@ class TaskGraph extends Component {
         label: fields.name.forView(row.name),
         color: graphStatusColor[fields.status.forView(row.status) || 'DEFAULT'],
         shapeProperties: completionRequired === "No" ? {borderDashes: [5, 5]} : null,
-        x: (counters.xValue += 100) % 300,
-        y: counters.yValue += 100,
+        x: counters.xValue = (counters.xValue + 200) % 600,
+        y: counters.yValue -= 50,
       });
 
       const nextTask = fields.next.forView(row.next);
       nextTask.forEach(next =>
         data.edges.push({
-          id: counters.edgeId++,
+          id: 'taskEdge' + counters.edgeId++,
           from: rowId,
           to: fields.id.forView(next.id)
         })

@@ -34,7 +34,6 @@ class CasedGraph extends Component {
       const {casedNetwork} = this.state;
 
       if (!!casedNetwork) {
-        casedNetwork.setOptions({physics: {enabled: false}});
         casedNetwork.fit();
       }
     }
@@ -44,7 +43,7 @@ class CasedGraph extends Component {
     const {casedRows} = this.props;
 
     let data = {nodes: [], edges: []};
-    let yValue = -50;
+    let yValue = 50;
 
     casedRows.forEach(row => {
       data.nodes.push({
@@ -52,7 +51,7 @@ class CasedGraph extends Component {
         label: fields.name.forView(row.name),
         color: graphStatusColor[fields.status.forView(row.status) || 'DEFAULT'],
         x: 0,
-        y: yValue += 50,
+        y: yValue -= 50,
       });
     });
 
