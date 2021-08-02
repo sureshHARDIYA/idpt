@@ -961,12 +961,12 @@ const en = {
       tasks: 'Task overview',
     },
     instructions: {
-      header: 'Click here to se instructions for the overview graphs',
+      header: 'Click here to see instructions for the overview graphs',
       select: 'Select a node by clicking on said node, and deselect by clicking on the graph background.',
-      activate: 'A node selection activates the corresponding element-information on the right, and the corresponding subgraph below.',
+      activate: 'A node selection activates the corresponding element-information on the right, and the corresponding sub-graph below.',
       drag: 'Nodes can be dragged around to enhance the view experience, and the complete graph can be moved by dragging the graph background.',
       left: 'Select a node in the graph on the left to show the corresponding information.',
-      above: 'Select a node in the above graph to show the corresponding subgraph.',
+      above: 'Select a node in the above graph to show the corresponding sub-graph.',
     },
   },
   errors: {
