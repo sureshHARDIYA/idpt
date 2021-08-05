@@ -10,6 +10,9 @@ import PropTypes from 'prop-types';
 const Img = styled.img`
   max-width: 100%;
 `;
+const PlaceHolder = styled.div`
+  margin-bottom: 0;
+`;
 
 const styles = {
   inputSource: {
@@ -44,6 +47,11 @@ const styles = {
   btnWidth: {
     width: 130,
   },
+  placeholder: {
+    cursor: 'pointer',
+    padding: 5,
+    backgroundColor: 'white',
+  },
 };
 
 function Image(props) {
@@ -52,6 +60,7 @@ function Image(props) {
     onChange,
     parentId,
     isContainerContent,
+    editMode,
   } = props;
   const [url, setUrl] = useState('');
   const [isInputUrl, setIsInputUrl] = useState(false);
@@ -75,15 +84,22 @@ function Image(props) {
   }, [section]);
 
   const renderInput = () => {
+    if (!editMode) {
+      return source ? (
+        <Img src={source} alt="img" style={section.style} />
+      ) : (
+        <div style={styles.placeholder}>
+          <PlaceHolder>Click to edit</PlaceHolder>
+        </div>
+      );
+    }
     if (isInputUrl) {
       return (
         <Row>
           <Col
             style={{
-              display:
-                !isContainerContent || !parentId
-                  ? 'flex'
-                  : '',
+              display: 'flex',
+              paddingBottom: 5,
             }}
             span={parentId ? 24 : 12}
             offset={parentId ? 0 : 6}
@@ -91,6 +107,7 @@ function Image(props) {
             <Input
               placeholder="Image source"
               onChange={handleInputSource}
+              autoFocus
             />
             <Button
               style={
@@ -125,7 +142,7 @@ function Image(props) {
               </Upload>
             </Col>
           </Row>
-          <Row style={{ paddingBottom: 5 }}>
+          <Row style={{ padding: '5px 0' }}>
             <Button
               style={{
                 ...styles.button,
@@ -144,7 +161,9 @@ function Image(props) {
   return (
     <div>
       {source ? (
-        <Img src={source} alt="img" style={section.style} />
+        <div style={section.style}>
+          <Img src={source} alt="img" />
+        </div>
       ) : (
         renderInput()
       )}
@@ -161,6 +180,7 @@ Image.propTypes = {
   onChange: PropTypes.func.isRequired,
   parentId: PropTypes.string.isRequired,
   isContainerContent: PropTypes.bool,
+  editMode: PropTypes.bool.isRequired,
 };
 
 const renderImage = (props) => {

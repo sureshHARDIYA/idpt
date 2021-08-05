@@ -11,6 +11,10 @@ const AudioPlayer = styled.audio`
   max-width: 100%;
 `;
 
+const PlaceHolder = styled.div`
+  margin-bottom: 0;
+`;
+
 const styles = {
   inputSource: {
     display: 'flex',
@@ -48,6 +52,11 @@ const styles = {
   btnWidth: {
     width: 130,
   },
+  placeholder: {
+    cursor: 'pointer',
+    padding: 5,
+    backgroundColor: 'white',
+  },
 };
 
 function Audio(props) {
@@ -56,6 +65,7 @@ function Audio(props) {
     onChange,
     parentId,
     isContainerContent,
+    editMode,
   } = props;
   const [url, setUrl] = useState('');
   const [isInputUrl, setIsInputUrl] = useState(false);
@@ -79,15 +89,27 @@ function Audio(props) {
   }, [section]);
 
   const renderInput = () => {
+    if (!editMode) {
+      return source ? (
+        <div style={section.style}>
+          <AudioPlayer controls>
+            <source src={source} type="audio/ogg" />
+            <source src={source} type="audio/mpeg" />
+          </AudioPlayer>
+        </div>
+      ) : (
+        <div style={styles.placeholder}>
+          <PlaceHolder>Click to edit</PlaceHolder>
+        </div>
+      );
+    }
     if (isInputUrl) {
       return (
         <Row>
           <Col
             style={{
-              display:
-                !isContainerContent || !parentId
-                  ? 'flex'
-                  : '',
+              display: 'flex',
+              paddingBottom: 5,
             }}
             span={parentId ? 24 : 12}
             offset={parentId ? 0 : 6}
@@ -95,6 +117,7 @@ function Audio(props) {
             <Input
               placeholder="Audio source"
               onChange={handleInputSource}
+              autoFocus
             />
             <Button
               style={
@@ -106,7 +129,10 @@ function Audio(props) {
             >
               Save
             </Button>
-            <Button style={{ marginLeft: 5 }} onClick={() => setIsInputUrl(false)}>
+            <Button
+              style={{ marginLeft: 5 }}
+              onClick={() => setIsInputUrl(false)}
+            >
               Cancel
             </Button>
           </Col>
@@ -126,7 +152,7 @@ function Audio(props) {
               </Upload>
             </Col>
           </Row>
-          <Row style={{ paddingBottom: 5 }}>
+          <Row style={{ padding: '5px 0' }}>
             <Button
               style={{
                 ...styles.button,
@@ -145,10 +171,15 @@ function Audio(props) {
   return (
     <div>
       {source ? (
-        <AudioPlayer controls style={section.style}>
-          <source src={source} type="audio/ogg" />
-          <source src={source} type="audio/mpeg" />
-        </AudioPlayer>
+        <div style={section.style}>
+          <AudioPlayer
+            controls
+            style={{ verticalAlign: 'middle' }}
+          >
+            <source src={source} type="audio/ogg" />
+            <source src={source} type="audio/mpeg" />
+          </AudioPlayer>
+        </div>
       ) : (
         renderInput()
       )}

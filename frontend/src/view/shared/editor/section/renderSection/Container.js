@@ -11,7 +11,7 @@ const ContainerStyle = styled.div`
   justify-content: center;
   align-items: center;
   height: 100%;
-  background-color: #92c2ec
+  background-color: #bdeaff;
 `;
 
 const fullColumnTarget = {
@@ -36,12 +36,12 @@ const Container = DropTarget(
     canDrop: monitor.canDrop(),
   }),
 )((props) => {
-  const { connectDropTarget, isDragging } = props;
+  const { connectDropTarget } = props;
   const xhtml = connectDropTarget(
     <div
       style={{
         height: 100,
-        opacity: isDragging ? 1 : 0.5,
+        padding: 5,
       }}
     >
       <ContainerStyle>
@@ -62,7 +62,9 @@ export const ContainerWrapper = DropTarget(
   }),
 )((props) => {
   const { connectDropTarget, children } = props;
-  const xhtml = connectDropTarget(<div style={{ backgroundColor: "#92c2ec" }}>{children}</div>);
+  const xhtml = connectDropTarget(
+    <div style={{ padding: 5 }}>{children}</div>,
+  );
   return xhtml;
 });
 

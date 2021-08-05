@@ -1,11 +1,10 @@
-import React from 'react';
+import { Col, Row } from 'antd';
 import PropTypes from 'prop-types';
+import React from 'react';
 import styled from 'styled-components';
-import { Tooltip } from 'antd';
-
-import DragItem from './DragItem';
-import { controls } from './controls';
 import { COLUMN_TYPES } from '../constant';
+import { controls } from './controls';
+import DragItem from './DragItem';
 
 const ToolbarContainer = styled.div`
   background-color: white;
@@ -19,48 +18,47 @@ const ToolbarWrapper = styled.div`
   background-color: white;
   height: auto;
   overflow-y: hidden;
-  display: flex;
+  display: block;
   padding: 10px 0;
 `;
 
 const ContentTypeContainer = styled.div`
-  display: block;
   margin: auto;
+  display: block;
 `;
 
 const TopContent = styled.div`
+  margin-top: 10px;
   display: flex;
-  border-bottom: solid 1px gray;
-  flex-direction: column;
+  justify-content: center;
 `;
 
 const BottomContent = styled.div`
   margin-top: 10px;
   display: flex;
-  flex-direction: column;
+  justify-content: space-around;
 `;
 
 const AddColumnContainer = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
+  text-align: center;
 `;
 
 const AddColumnButton = styled.div`
   padding: 0 10px;
   font-size: 1.2rem;
   cursor: pointer;
+  display: flex;
+  align-items: center;
   & p {
     text-align: center;
-    font-size: 13px
+    font-size: 13px;
+    margin: 0;
   }
 `;
 
 const Icon = styled.img`
   height: 25px;
   width: 25px;
-  display: block;
-  margin: auto
 `;
 
 const IconWrapper = styled.div`
@@ -77,22 +75,23 @@ const Toolbar = (props) => {
     <ToolbarContainer>
       <ToolbarWrapper>
         <ContentTypeContainer>
-          <TopContent>
-            <AddColumnContainer>
-              <Tooltip title="One column" placement="right">
+          <Row justify="space-between">
+            <Col span={9}>
+              <TopContent>
                 <AddColumnButton
                   onClick={() =>
                     handleAddColumn(COLUMN_TYPES.ONE_COLUMN)
                   }
                 >
-                  <Icon
-                    src={require('assets/images/ic_one_col.svg')}
-                    alt="one_column"
-                  />
-                  <p>One column</p>
+                  <AddColumnContainer>
+                    <Icon
+                      src={require('assets/images/ic_one_col.svg')}
+                      alt="one_column"
+                    />
+                    <p>One column</p>
+                  </AddColumnContainer>
                 </AddColumnButton>
-              </Tooltip>
-              <Tooltip title="Two column" placement="right">
+
                 <AddColumnButton
                   onClick={() =>
                     handleAddColumn(
@@ -100,26 +99,30 @@ const Toolbar = (props) => {
                     )
                   }
                 >
-                  <Icon
-                    src={require('assets/images/ic_two_col.svg')}
-                    alt="two_column"
-                  />
-                  <p>Two column</p>
+                  <AddColumnContainer>
+                    <Icon
+                      src={require('assets/images/ic_two_col.svg')}
+                      alt="two_column"
+                    />
+                    <p>Two column</p>
+                  </AddColumnContainer>
                 </AddColumnButton>
-              </Tooltip>
-            </AddColumnContainer>
-          </TopContent>
-          <BottomContent>
-            {controls.map((control) => (
-              <IconWrapper key={control.key}>
-                <DragItem
-                  {...control}
-                  title={control.title}
-                  handleAddContent={handleAddContent}
-                />
-              </IconWrapper>
-            ))}
-          </BottomContent>
+              </TopContent>
+            </Col>
+            <Col span={15}>
+              <BottomContent>
+                {controls.map((control) => (
+                  <IconWrapper key={control.key}>
+                    <DragItem
+                      {...control}
+                      title={control.title}
+                      handleAddContent={handleAddContent}
+                    />
+                  </IconWrapper>
+                ))}
+              </BottomContent>
+            </Col>
+          </Row>
         </ContentTypeContainer>
       </ToolbarWrapper>
     </ToolbarContainer>

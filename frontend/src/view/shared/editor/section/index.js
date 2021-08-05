@@ -1,48 +1,34 @@
+import { Col, Row } from 'antd';
+import { cloneDeep } from 'lodash';
+import PropTypes from 'prop-types';
 import React, {
   useCallback,
-  useEffect,
   useMemo,
   useRef,
   useState,
 } from 'react';
-import { cloneDeep } from 'lodash';
 import styled from 'styled-components';
-import { Row, Col } from 'antd';
-
-import Section from './Section';
-import {
-  SortableContainer,
-  SortableItem,
-  SortableItemTwoCol,
-  SortableContainerTwoCol,
-} from './Sortable';
 import {
   COLUMN_TYPES,
   TWO_COLUMN_TYPES,
   TYPES_OF_CONTENT,
 } from '../constant';
-import Styles from './Styles';
-import PropTypes from 'prop-types';
+import EditingModal from './EditingModal';
+import Section from './Section';
+import {
+  SortableContainer,
+  SortableContainerTwoCol,
+  SortableItem,
+  SortableItemTwoCol,
+} from './Sortable';
 
 const Sections = (props) => {
-  const { listSection, onChange } = props;
+  const { listSection, onChange, form } = props;
   const listSectionRef = useRef(null);
   listSectionRef.current = listSection;
   const [selectedSection, setSelectedSection] = useState(
     {},
   );
-
-  useEffect(() => {
-    if (selectedSection.id && listSection.length) {
-      mapSelectedSection(
-        selectedSection.id,
-        selectedSection.parentId,
-        selectedSection.isContainerContent,
-      );
-    } else {
-      setSelectedSection({});
-    }
-  }, [listSection]);
 
   const colIndex = useMemo(() => {
     return {
@@ -218,7 +204,7 @@ const Sections = (props) => {
               index
             ].rightContent.value = null;
             cloneListSection[index].rightContent.style = {};
-            cloneListSection[index].rightContent.name = "";
+            cloneListSection[index].rightContent.name = '';
           }
 
           if (columnPosition === TWO_COLUMN_TYPES.LEFT) {
@@ -228,7 +214,7 @@ const Sections = (props) => {
               index
             ].leftContent.value = null;
             cloneListSection[index].leftContent.style = {};
-            cloneListSection[index].leftContent.name = "";
+            cloneListSection[index].leftContent.name = '';
           }
         }
       } else {
@@ -240,7 +226,7 @@ const Sections = (props) => {
             TYPES_OF_CONTENT.EMPTY_ONE_COLUMN.value;
           cloneListSection[index].value = null;
           cloneListSection[index].style = {};
-          cloneListSection[index].name = "";
+          cloneListSection[index].name = '';
         }
       }
 
@@ -256,6 +242,7 @@ const Sections = (props) => {
       parentId,
       columnPosition,
       additionalProps,
+      isContainerContent,
     ) => {
       const cloneListSection = cloneDeep(listSection);
       const sectionIndex = parentId
@@ -293,9 +280,30 @@ const Sections = (props) => {
           }
         } else {
           //one column
-          sectionEditing.value = value;
-          if (additionalProps) {
-            Object.assign(sectionEditing, additionalProps);
+          if (
+            sectionEditing.type ===
+              TYPES_OF_CONTENT.CONTAINER.value &&
+            isContainerContent
+          ) {
+            sectionEditing.value.forEach((subContent) => {
+              if (subContent.id === sectionId) {
+                subContent.value = value;
+                if (additionalProps) {
+                  Object.assign(
+                    subContent,
+                    additionalProps,
+                  );
+                }
+              }
+            });
+          } else {
+            sectionEditing.value = value;
+            if (additionalProps) {
+              Object.assign(
+                sectionEditing,
+                additionalProps,
+              );
+            }
           }
         }
       }
@@ -305,59 +313,10 @@ const Sections = (props) => {
     [listSection],
   );
 
-  const handleChangeStyle = useCallback(
-    (sectionId, parentId, prop, value) => {
-      if (sectionId) {
-        const cloneListSection = cloneDeep(
-          listSectionRef.current,
-        );
-        const sectionIndex = parentId
-          ? cloneListSection.findIndex(
-              (section) => section.id === parentId,
-            )
-          : cloneListSection.findIndex(
-              (section) => section.id === sectionId,
-            );
-        const sectionEditing =
-          cloneListSection[sectionIndex];
-        if (parentId) {
-          if (
-            sectionEditing.type ===
-            TYPES_OF_CONTENT.CONTAINER.value
-          ) {
-            sectionEditing.value.forEach((section) => {
-              if (section.id === sectionId) {
-                section.style[prop] = value;
-              }
-            });
-          } else {
-            if (
-              sectionEditing.leftContent.id === sectionId
-            ) {
-              sectionEditing.leftContent.style[
-                prop
-              ] = value;
-            } else if (
-              sectionEditing.rightContent.id === sectionId
-            ) {
-              sectionEditing.rightContent.style[
-                prop
-              ] = value;
-            }
-          }
-        } else {
-          sectionEditing.style[prop] = value;
-        }
-        onChange(cloneListSection);
-      }
-    },
-    [listSection],
-  );
-
   return (
     <SectionContainer>
       <Row gutter={20}>
-        <Col span={18}>
+        <Col span={24}>
           <SortableContainer
             axis="y"
             useDragHandle
@@ -403,7 +362,7 @@ const Sections = (props) => {
                           onSelectSection={
                             handleSelectSection
                           }
-                          selectedSection={selectedSection}
+                          editMode={false}
                         />
                       </SortableItem>
                     );
@@ -445,9 +404,7 @@ const Sections = (props) => {
                               onSelectSection={
                                 handleSelectSection
                               }
-                              selectedSection={
-                                selectedSection
-                              }
+                              editMode={false}
                             />
                           </SortableItemTwoCol>
                           <SortableItemTwoCol
@@ -464,9 +421,7 @@ const Sections = (props) => {
                               onSelectSection={
                                 handleSelectSection
                               }
-                              selectedSection={
-                                selectedSection
-                              }
+                              editMode={false}
                             />
                           </SortableItemTwoCol>
                         </SortableContainerTwoCol>
@@ -479,15 +434,13 @@ const Sections = (props) => {
               })}
           </SortableContainer>
         </Col>
-        <Col
-          span={6}
-          style={{ position: 'sticky', top: 0 }}
-        >
-          <Styles
-            section={selectedSection}
-            onChange={handleChangeStyle}
-          />
-        </Col>
+        <EditingModal
+          section={selectedSection}
+          visible={!!selectedSection.id}
+          handleSelectSection={handleSelectSection}
+          onChange={handleChangeContentSection}
+          form={form}
+        />
       </Row>
     </SectionContainer>
   );

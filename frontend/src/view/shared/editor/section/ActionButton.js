@@ -1,19 +1,18 @@
-import React, { useEffect, useRef } from 'react';
-import PropTypes from 'prop-types';
-import { sortableHandle } from 'react-sortable-hoc';
 import {
-  ExclamationCircleOutlined,
   DeleteOutlined,
+  ExclamationCircleOutlined,
 } from '@ant-design/icons';
 import { Modal } from 'antd';
-import styled from 'styled-components';
-import { EMPTY_TYPE } from '../constant';
 import cn from 'classnames';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { sortableHandle } from 'react-sortable-hoc';
+import styled from 'styled-components';
+import { EMPTY_TYPE, TYPES_OF_CONTENT } from '../constant';
 
 const { confirm } = Modal;
 
 const DragContainer = styled.div`
-  background-color: gray;
   opacity: 1;
   height: 25px;
   margin-bottom: 0;
@@ -21,12 +20,29 @@ const DragContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 0 5px;
-  color: white;
+  background-color: white;
+  & span {
+    font-weight: bold;
+  }
+  .icon-delete {
+    visibility: hidden;
+  }
+  .sub-icon-delete {
+    visibility: hidden;
+  }
 `;
 
 const Container = styled.div`
-  .drag {
-    visibility: visible;
+  &:hover {
+    .icon-delete {
+      visibility: visible;
+    }
+  }
+
+  .sub-content:hover {
+    .sub-icon-delete {
+      visibility: visible;
+    }
   }
 
   .ant-select {
@@ -57,51 +73,31 @@ function ActionButton(props) {
     parentId,
     isContainerContent,
     onSelectSection,
+    selectedSection,
+    editMode,
   } = props;
-  const wrapperRef = useRef(null);
-
-  useEffect(() => {
-    window.addEventListener('click', handleClickOutside);
-
-    return () =>
-      window.removeEventListener(
-        'click',
-        handleClickOutside,
-      );
-  }, []);
-
-  const handleClickOutside = (e) => {
-    const styles = document.querySelector(
-      '.style-component',
-    );
-    if (
-      wrapperRef.current &&
-      !wrapperRef.current.contains(e.target) &&
-      styles &&
-      !styles.contains(e.target)
-    ) {
-      onSelectSection();
-    }
-  };
 
   const handleDelete = () => {
     onDelete(section.id, parentId, section.columnPosition);
   };
 
   const handleSelectedSection = (e) => {
-    e.stopPropagation();
-    onSelectSection(
-      section.id,
-      parentId,
-      isContainerContent,
-    );
+    if (!EMPTY_TYPE.includes(section.type)) {
+      e.stopPropagation();
+      onSelectSection(
+        section.id,
+        parentId,
+        isContainerContent,
+      );
+    }
   };
 
   const checkIsShowActionButton = () => {
     return parentId || !EMPTY_TYPE.includes(section.type);
   };
 
-  const showConfirmReset = () => {
+  const showConfirmReset = (e) => {
+    e.stopPropagation();
     confirm({
       icon: <ExclamationCircleOutlined />,
       content: (
@@ -118,11 +114,39 @@ function ActionButton(props) {
     });
   };
 
+  const borderStyle = () => {
+    if (
+      selectedSection &&
+      selectedSection.id === section.id
+    ) {
+      return 'solid 1px blue';
+    }
+    return 'solid 1px #e3e3e3';
+  };
+
+  const isDisplayDeleteButton = () => {
+    if (!editMode) {
+      return true;
+    } else if (isContainerContent) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   return (
     <Container
-      ref={wrapperRef}
       onClick={handleSelectedSection}
       type={section.type}
+      style={{
+        border: borderStyle(),
+      }}
+      className={cn(
+        section.type === TYPES_OF_CONTENT.CONTAINER.value
+          ? 'container'
+          : '',
+        isContainerContent ? 'sub-content' : '',
+      )}
     >
       {parentId && !isContainerContent ? (
         <DragHandle
@@ -132,9 +156,16 @@ function ActionButton(props) {
           isEmpty={EMPTY_TYPE.includes(section.type)}
         >
           <span>{section.name || ''}</span>
+
           <DeleteOutlined
             onClick={showConfirmReset}
-            style={{ marginRight: 5, color: 'white' }}
+            style={{
+              marginRight: 5,
+              display: isDisplayDeleteButton()
+                ? 'initial'
+                : 'none',
+            }}
+            className="icon-delete"
           />
         </DragHandle>
       ) : (
@@ -143,20 +174,24 @@ function ActionButton(props) {
             checkIsShowActionButton() && !isContainerContent
               ? 'drag'
               : '',
-            isContainerContent ? 'sub-content' : '',
           )}
           isEmpty={EMPTY_TYPE.includes(section.type)}
         >
           <span>{section.name || ''}</span>
+
           <DeleteOutlined
             onClick={showConfirmReset}
             style={{
               marginRight: 5,
-              color: 'white',
-              display: EMPTY_TYPE.includes(section.type)
-                ? 'none'
-                : 'initial',
+              display: isDisplayDeleteButton()
+                ? 'initial'
+                : 'none',
             }}
+            className={
+              isContainerContent
+                ? 'sub-icon-delete'
+                : 'icon-delete'
+            }
           />
         </DragContainer>
       )}
@@ -167,6 +202,7 @@ function ActionButton(props) {
 
 ActionButton.defaultProps = {
   isContainerContent: false,
+  onSelectSection: () => {},
 };
 
 ActionButton.propTypes = {

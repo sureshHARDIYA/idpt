@@ -1,18 +1,15 @@
-import React, { useCallback, useRef } from 'react';
-import Container, { ContainerWrapper } from './Container';
-import Section from '../Section';
-import { Row, Col } from 'antd';
-import { MAXIMUM_GRID_COL } from '../../constant';
+import { Col, Row } from 'antd';
 import { cloneDeep } from 'lodash';
-import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import React, { useCallback, useRef } from 'react';
+import styled from 'styled-components';
+import { MAXIMUM_GRID_COL } from '../../constant';
+import Section from '../Section';
+import Container, { ContainerWrapper } from './Container';
 
 const Wrapper = styled.div`
   .ant-upload.ant-upload-select.ant-upload-select-picture-card {
     margin-right: 0px;
-  }
-  .sub-content {
-    visibility: visible;
   }
 `;
 
@@ -23,6 +20,7 @@ function ContainerContent(props) {
     onChange,
     onSelectSection,
     selectedSection,
+    editMode,
   } = props;
   const sectionRef = useRef(null);
   sectionRef.current = section;
@@ -89,6 +87,8 @@ function ContainerContent(props) {
           backgroundColor: section.style.backgroundColor,
           padding: 5,
           paddingBottom: 0,
+          paddingTop: 10,
+          borderRadius: 5,
         }}
       >
         <Row
@@ -122,6 +122,7 @@ function ContainerContent(props) {
                   onChange={handleChangeSubContentValue}
                   onSelectSection={onSelectSection}
                   selectedSection={selectedSection}
+                  editMode={editMode}
                 />
               </Wrapper>
             </Col>
@@ -135,6 +136,7 @@ function ContainerContent(props) {
 ContainerContent.defaultProps = {
   parentId: '',
   selectedSection: {},
+  editMode: false,
 };
 
 ContainerContent.propTypes = {
@@ -143,6 +145,7 @@ ContainerContent.propTypes = {
   onChange: PropTypes.func.isRequired,
   onSelectSection: PropTypes.func.isRequired,
   selectedSection: PropTypes.object,
+  editMode: PropTypes.bool,
 };
 
 const renderContainer = (props) => {

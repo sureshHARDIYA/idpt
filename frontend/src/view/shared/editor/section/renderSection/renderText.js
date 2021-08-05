@@ -1,10 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
+import React, { useEffect, useRef, useState } from 'react';
 import ReactQuill from 'react-quill';
 import styled from 'styled-components';
 
 const TextContainer = styled.div`
-  p {
+  & * {
     margin-bottom: 0;
     padding: 5px;
   }
@@ -51,7 +51,7 @@ const formats = [
 ];
 
 function Text(props) {
-  const { section, onChange, parentId } = props;
+  const { section, onChange, parentId, editMode } = props;
   const [isEditing, setIsEditing] = useState(false);
   const editorRef = useRef(null);
 
@@ -92,6 +92,39 @@ function Text(props) {
   };
 
   const renderContent = () => {
+    if (!editMode) {
+      if (
+        section.value &&
+        section.value.split('<p><br></p>')[0]
+      ) {
+        return (
+          <div>
+            <TextContainer
+              style={{
+                cursor: 'pointer',
+                wordBreak: 'break-word',
+                ...section.style,
+              }}
+              dangerouslySetInnerHTML={{
+                __html: section.value,
+              }}
+            />
+          </div>
+        );
+      } else {
+        return (
+          <div
+            style={{
+              cursor: 'pointer',
+              padding: 5,
+              backgroundColor: 'white',
+            }}
+          >
+            <PlaceHolder>Click to edit</PlaceHolder>
+          </div>
+        );
+      }
+    }
     if (isEditing) {
       return (
         <div ref={editorRef}>
@@ -149,6 +182,7 @@ Text.propTypes = {
   section: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
   parentId: PropTypes.string.isRequired,
+  editMode: PropTypes.bool.isRequired,
 };
 
 const renderText = (props) => {

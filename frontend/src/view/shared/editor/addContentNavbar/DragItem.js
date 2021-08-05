@@ -1,19 +1,13 @@
 import React from 'react';
 import { DragSource } from 'react-dnd';
 import styled from 'styled-components';
-import { Tooltip } from 'antd';
 
 const DragItem = ({ title, imgSrc, connectDragSource }) => {
   return (
-    <Tooltip title={title} placement="right">
-      <IconContainer ref={connectDragSource}>
-        <img
-          src={imgSrc}
-          alt={title}
-        />
-        <p>{title}</p>
-      </IconContainer>
-    </Tooltip>
+    <IconContainer ref={connectDragSource}>
+      <img src={imgSrc} alt={title} />
+      <p>{title}</p>
+    </IconContainer>
   );
 };
 

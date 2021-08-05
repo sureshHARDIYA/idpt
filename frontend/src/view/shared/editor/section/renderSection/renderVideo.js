@@ -12,6 +12,10 @@ const VideoPlayer = styled.iframe`
   border: none;
 `;
 
+const PlaceHolder = styled.div`
+  margin-bottom: 0;
+`;
+
 const styles = {
   inputSource: {
     display: 'flex',
@@ -47,6 +51,11 @@ const styles = {
   btnWidth: {
     width: 130,
   },
+  placeholder: {
+    cursor: 'pointer',
+    padding: 5,
+    backgroundColor: 'white',
+  },
 };
 
 function Video(props) {
@@ -55,6 +64,7 @@ function Video(props) {
     onChange,
     parentId,
     isContainerContent,
+    editMode,
   } = props;
   const [url, setUrl] = useState('');
   const [isInputUrl, setIsInputUrl] = useState(false);
@@ -78,15 +88,26 @@ function Video(props) {
   }, [section]);
 
   const renderInput = () => {
+    if (!editMode) {
+      return source ? (
+        <VideoPlayer
+          src={source}
+          title="video"
+          style={section.style}
+        />
+      ) : (
+        <div style={styles.placeholder}>
+          <PlaceHolder>Click to edit</PlaceHolder>
+        </div>
+      );
+    }
     if (isInputUrl) {
       return (
         <Row>
           <Col
             style={{
-              display:
-                !isContainerContent || !parentId
-                  ? 'flex'
-                  : '',
+              display: 'flex',
+              paddingBottom: 5,
             }}
             span={parentId ? 24 : 12}
             offset={parentId ? 0 : 6}
@@ -94,6 +115,7 @@ function Video(props) {
             <Input
               placeholder="Video source"
               onChange={handleInputSource}
+              autoFocus
             />
             <Button
               style={
@@ -128,7 +150,7 @@ function Video(props) {
               </Upload>
             </Col>
           </Row>
-          <Row style={{ paddingBottom: 5 }}>
+          <Row style={{ padding: '5px 0' }}>
             <Button
               style={{
                 ...styles.button,
@@ -147,11 +169,13 @@ function Video(props) {
   return (
     <div>
       {source ? (
-        <VideoPlayer
-          src={source}
-          title="video"
-          style={section.style}
-        />
+        <div style={section.style}>
+          <VideoPlayer
+            src={source}
+            title="video"
+            style={{ verticalAlign: 'middle' }}
+          />
+        </div>
       ) : (
         renderInput()
       )}

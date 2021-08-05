@@ -1,26 +1,11 @@
 import PropTypes from 'prop-types';
 import React, { useCallback } from 'react';
 import { TYPES_OF_CONTENT } from '../constant';
-import render from './renderSection';
 import ActionButton from './ActionButton';
+import render from './renderSection';
 
 const Section = (props) => {
-  const {
-    section,
-    parentId,
-    onSelectSection,
-    isContainerContent,
-    selectedSection,
-  } = props;
-
-  const handleSelectedSection = (e) => {
-    e.stopPropagation();
-    onSelectSection(
-      section.id,
-      parentId,
-      isContainerContent,
-    );
-  };
+  const { section } = props;
 
   const renderSection = useCallback(() => {
     switch (section.type) {
@@ -65,33 +50,9 @@ const Section = (props) => {
     }
   }, [props]);
 
-  const borderStyle = () => {
-    if (
-      selectedSection &&
-      selectedSection.id === section.id
-    ) {
-      return 'solid 1px blue';
-    }
-    return section.type !== TYPES_OF_CONTENT.CONTAINER.value
-      ? 'solid 1px #e3e3e3'
-      : 'solid 1px transparent';
-  };
-
   return (
     <ActionButton {...props}>
-      <div
-        style={{
-          border: borderStyle(),
-        }}
-        onClick={handleSelectedSection}
-        className={
-          section.type === TYPES_OF_CONTENT.CONTAINER.value
-            ? 'container'
-            : ''
-        }
-      >
-        {renderSection()}
-      </div>
+      {renderSection()}
     </ActionButton>
   );
 };
@@ -109,6 +70,7 @@ Section.propTypes = {
   onSelectSection: PropTypes.func.isRequired,
   isContainerContent: PropTypes.bool,
   selectedSection: PropTypes.object,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default Section;

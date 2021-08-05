@@ -7,6 +7,7 @@ import React, {
 import PropTypes from 'prop-types';
 import { Row, Col, Input } from 'antd';
 import styled from 'styled-components';
+import { cloneDeep } from 'lodash';
 
 const Container = styled.div`
   margin-bottom: 15px;
@@ -42,7 +43,7 @@ function ColorStyle(props) {
       sectionStyles[styleProp] &&
       sectionStyles[styleProp].length
     ) {
-      setColorValue(sectionStyles[styleProp]);
+      setColorValue(cloneDeep(sectionStyles[styleProp]));
     } else {
       setColorValue(defaultValue);
     }

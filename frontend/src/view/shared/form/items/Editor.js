@@ -35,7 +35,10 @@ const EditorFormItemNotFast = ({
     },
     wrapperCol: {
       md: {
-        span: 24,
+        span: 18,
+      },
+      lg: {
+        span: 12,
       },
     },
   };

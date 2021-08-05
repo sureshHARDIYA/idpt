@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useRef } from 'react';
 import SliderStyle from './InputStyle/SliderStyle';
 import ColorStyle from './InputStyle/ColorStyle';
 import WidthStyle from './InputStyle/WidthStyle';
@@ -28,19 +28,22 @@ function Styles(props) {
   const sectionRef = useRef(null);
   sectionRef.current = section;
 
-  const handleChange = useCallback(
-    (prop, value) => {
-      onChange(
-        sectionRef.current.id,
-        sectionRef.current.parentId,
-        prop,
-        value,
-      );
-    },
-    [section, onChange],
-  );
+  const handleChange = (prop, value) => {
+    const style = {
+      ...sectionRef.current.style,
+      [prop]: value,
+    };
+    onChange(
+      sectionRef.current.id,
+      sectionRef.current.value,
+      sectionRef.current.parentId,
+      sectionRef.current.columnPosition,
+      style,
+      !!sectionRef.current.isContainerContent,
+    );
+  };
 
-  if (!section.id) {
+  if (!sectionRef.current.id) {
     return (
       <Container>
         <MessageWrapper>
