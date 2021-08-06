@@ -101,7 +101,6 @@ function Text(props) {
           <div>
             <TextContainer
               style={{
-                cursor: 'pointer',
                 wordBreak: 'break-word',
                 ...section.style,
               }}

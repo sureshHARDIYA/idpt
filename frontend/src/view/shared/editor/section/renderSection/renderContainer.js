@@ -88,7 +88,6 @@ function ContainerContent(props) {
           padding: 5,
           paddingBottom: 0,
           paddingTop: 10,
-          borderRadius: 5,
         }}
       >
         <Row

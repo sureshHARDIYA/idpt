@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import { Prompt } from 'react-router';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
 import Toolbar from '../addContentNavbar/Toolbar';
@@ -317,6 +318,10 @@ class MainPageEditor extends React.Component {
             </Col>
           </Row>
         </DndProvider>
+        <Prompt
+          message="There are unsaved changes, do you wish to discard them"
+          when={this.handleDeleteEmptySection().length}
+        />
       </Container>
     );
   }

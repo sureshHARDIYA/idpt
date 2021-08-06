@@ -4,7 +4,6 @@ import styled from 'styled-components';
 
 const ContainerStyle = styled.div`
   border: 1px solid;
-  border-radius: 5px;
   min-height: 50;
   border-color: gray;
   display: flex;

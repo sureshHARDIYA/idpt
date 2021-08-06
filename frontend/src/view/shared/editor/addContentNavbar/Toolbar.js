@@ -76,7 +76,7 @@ const Toolbar = (props) => {
       <ToolbarWrapper>
         <ContentTypeContainer>
           <Row justify="space-between">
-            <Col span={9}>
+            <Col span={4}>
               <TopContent>
                 <AddColumnButton
                   onClick={() =>
@@ -88,28 +88,12 @@ const Toolbar = (props) => {
                       src={require('assets/images/ic_one_col.svg')}
                       alt="one_column"
                     />
-                    <p>One column</p>
-                  </AddColumnContainer>
-                </AddColumnButton>
-
-                <AddColumnButton
-                  onClick={() =>
-                    handleAddColumn(
-                      COLUMN_TYPES.TWO_COLUMNS,
-                    )
-                  }
-                >
-                  <AddColumnContainer>
-                    <Icon
-                      src={require('assets/images/ic_two_col.svg')}
-                      alt="two_column"
-                    />
-                    <p>Two column</p>
+                    <p>Add column</p>
                   </AddColumnContainer>
                 </AddColumnButton>
               </TopContent>
             </Col>
-            <Col span={15}>
+            <Col span={20}>
               <BottomContent>
                 {controls.map((control) => (
                   <IconWrapper key={control.key}>

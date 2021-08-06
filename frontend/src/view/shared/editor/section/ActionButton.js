@@ -1,12 +1,8 @@
-import {
-  DeleteOutlined,
-  ExclamationCircleOutlined,
-} from '@ant-design/icons';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { Modal } from 'antd';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { sortableHandle } from 'react-sortable-hoc';
 import styled from 'styled-components';
 import { EMPTY_TYPE, TYPES_OF_CONTENT } from '../constant';
 
@@ -51,19 +47,25 @@ const Container = styled.div`
   .ant-form-item {
     margin-bottom: 0px;
   }
+
+  .hidden {
+    visibility: hidden;
+  }
 `;
 
-const DragHandle = sortableHandle(
-  ({ children, className, isEmpty }) => (
-    <DragContainer
-      style={{ cursor: 'move' }}
-      className={className}
-      isEmpty={isEmpty}
-    >
-      {children}
-    </DragContainer>
-  ),
-);
+const Delete = styled.span`
+  margin-right: 5px;
+  display: inline-block;
+  cursor: pointer;
+  color: #ff4d4f;
+`;
+
+const Edit = styled.span`
+  margin-right: 15px;
+  display: inline-block;
+  cursor: pointer;
+  color: #1890ff;
+`;
 
 function ActionButton(props) {
   const {
@@ -89,6 +91,12 @@ function ActionButton(props) {
         parentId,
         isContainerContent,
       );
+    }
+  };
+
+  const handleClickSection = (e) => {
+    if (!section.value || editMode) {
+      handleSelectedSection(e);
     }
   };
 
@@ -124,19 +132,32 @@ function ActionButton(props) {
     return 'solid 1px #e3e3e3';
   };
 
-  const isDisplayDeleteButton = () => {
-    if (!editMode) {
+  const checkDisplayDeleteButton = () => {
+    if (!editMode || isContainerContent) {
       return true;
-    } else if (isContainerContent) {
-      return true;
-    } else {
+    }
+    return false;
+  };
+
+  const checkDisplayEditButton = () => {
+    if (editMode) {
       return false;
     }
+    return true;
+  };
+
+  const getEditClassName = () => {
+    if (section.value !== null) {
+      return isContainerContent
+        ? 'sub-icon-delete'
+        : 'icon-delete';
+    }
+    return 'hidden';
   };
 
   return (
     <Container
-      onClick={handleSelectedSection}
+      onClick={handleClickSection}
       type={section.type}
       style={{
         border: borderStyle(),
@@ -148,42 +169,31 @@ function ActionButton(props) {
         isContainerContent ? 'sub-content' : '',
       )}
     >
-      {parentId && !isContainerContent ? (
-        <DragHandle
-          className={
-            checkIsShowActionButton() ? 'drag' : ''
-          }
-          isEmpty={EMPTY_TYPE.includes(section.type)}
-        >
-          <span>{section.name || ''}</span>
-
-          <DeleteOutlined
-            onClick={showConfirmReset}
+      <DragContainer
+        className={cn(
+          checkIsShowActionButton() && !isContainerContent
+            ? 'drag'
+            : '',
+        )}
+        isEmpty={EMPTY_TYPE.includes(section.type)}
+      >
+        <span>{section.name || ''}</span>
+        <div>
+          <Edit
+            onClick={handleSelectedSection}
             style={{
-              marginRight: 5,
-              display: isDisplayDeleteButton()
+              display: checkDisplayEditButton()
                 ? 'initial'
                 : 'none',
             }}
-            className="icon-delete"
-          />
-        </DragHandle>
-      ) : (
-        <DragContainer
-          className={cn(
-            checkIsShowActionButton() && !isContainerContent
-              ? 'drag'
-              : '',
-          )}
-          isEmpty={EMPTY_TYPE.includes(section.type)}
-        >
-          <span>{section.name || ''}</span>
-
-          <DeleteOutlined
+            className={getEditClassName()}
+          >
+            Edit
+          </Edit>
+          <Delete
             onClick={showConfirmReset}
             style={{
-              marginRight: 5,
-              display: isDisplayDeleteButton()
+              display: checkDisplayDeleteButton()
                 ? 'initial'
                 : 'none',
             }}
@@ -192,9 +202,11 @@ function ActionButton(props) {
                 ? 'sub-icon-delete'
                 : 'icon-delete'
             }
-          />
-        </DragContainer>
-      )}
+          >
+            Delete
+          </Delete>
+        </div>
+      </DragContainer>
       {children}
     </Container>
   );
