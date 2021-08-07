@@ -1,4 +1,8 @@
-import { ExclamationCircleOutlined } from '@ant-design/icons';
+import {
+  DeleteOutlined,
+  EditOutlined,
+  ExclamationCircleOutlined,
+} from '@ant-design/icons';
 import { Modal } from 'antd';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
@@ -155,6 +159,12 @@ function ActionButton(props) {
     return 'hidden';
   };
 
+  const checkMinimumSpan = () => {
+    return (
+      section && section.style && section.style.span === 25
+    );
+  };
+
   return (
     <Container
       onClick={handleClickSection}
@@ -188,7 +198,7 @@ function ActionButton(props) {
             }}
             className={getEditClassName()}
           >
-            Edit
+            {checkMinimumSpan() ? <EditOutlined /> : 'Edit'}
           </Edit>
           <Delete
             onClick={showConfirmReset}
@@ -203,7 +213,11 @@ function ActionButton(props) {
                 : 'icon-delete'
             }
           >
-            Delete
+            {checkMinimumSpan() ? (
+              <DeleteOutlined />
+            ) : (
+              'Delete'
+            )}
           </Delete>
         </div>
       </DragContainer>

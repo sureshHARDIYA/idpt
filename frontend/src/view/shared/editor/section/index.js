@@ -23,7 +23,7 @@ import {
 } from './Sortable';
 
 const Sections = (props) => {
-  const { listSection, onChange, form } = props;
+  const { listSection, onChange } = props;
   const listSectionRef = useRef(null);
   listSectionRef.current = listSection;
   const [selectedSection, setSelectedSection] = useState(
@@ -439,7 +439,6 @@ const Sections = (props) => {
           visible={!!selectedSection.id}
           handleSelectSection={handleSelectSection}
           onChange={handleChangeContentSection}
-          form={form}
         />
       </Row>
     </SectionContainer>

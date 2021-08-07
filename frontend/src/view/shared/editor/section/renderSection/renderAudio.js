@@ -1,6 +1,7 @@
 import React, {
   useCallback,
   useMemo,
+  useRef,
   useState,
 } from 'react';
 import PropTypes from 'prop-types';
@@ -13,6 +14,18 @@ const AudioPlayer = styled.audio`
 
 const PlaceHolder = styled.div`
   margin-bottom: 0;
+`;
+
+const Source = styled.p`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 0;
+  padding: 5px;
+`;
+
+const Container = styled.div`
+  background: white;
 `;
 
 const styles = {
@@ -46,9 +59,6 @@ const styles = {
     fontSize: 32,
     color: '#999',
   },
-  btnSaveContainer: {
-    marginTop: 5,
-  },
   btnWidth: {
     width: 130,
   },
@@ -60,33 +70,41 @@ const styles = {
 };
 
 function Audio(props) {
-  const {
-    section,
-    onChange,
-    parentId,
-    isContainerContent,
-    editMode,
-  } = props;
+  const { section, onChange, parentId, editMode } = props;
   const [url, setUrl] = useState('');
   const [isInputUrl, setIsInputUrl] = useState(false);
+  const containerRef = useRef(null);
 
   const handleInputSource = useCallback((e) => {
     const { target } = e;
     setUrl(target.value);
   }, []);
 
-  const handleSave = useCallback((url) => {
-    onChange(
-      section.id,
-      url,
-      parentId,
-      section.columnPosition,
-    );
-  }, []);
+  const handleSave = useCallback(
+    (url) => {
+      onChange(
+        section.id,
+        url,
+        parentId,
+        section.columnPosition,
+      );
+      resetData();
+    },
+    [url, isInputUrl],
+  );
 
   const source = useMemo(() => {
     return section.value;
   }, [section]);
+
+  const resetData = () => {
+    if (isInputUrl) {
+      setIsInputUrl(false);
+    }
+    if (url) {
+      setUrl('');
+    }
+  };
 
   const renderInput = () => {
     if (!editMode) {
@@ -111,8 +129,8 @@ function Audio(props) {
               display: 'flex',
               paddingBottom: 5,
             }}
-            span={parentId ? 24 : 12}
-            offset={parentId ? 0 : 6}
+            span={12}
+            offset={6}
           >
             <Input
               placeholder="Audio source"
@@ -120,11 +138,7 @@ function Audio(props) {
               autoFocus
             />
             <Button
-              style={
-                isContainerContent
-                  ? styles.btnSaveContainer
-                  : styles.btnSave
-              }
+              style={styles.btnSave}
               onClick={() => handleSave(url)}
             >
               Save
@@ -168,22 +182,42 @@ function Audio(props) {
     }
   };
 
-  return (
-    <div>
-      {source ? (
-        <div style={section.style}>
-          <AudioPlayer
-            controls
-            style={{ verticalAlign: 'middle' }}
-          >
-            <source src={source} type="audio/ogg" />
-            <source src={source} type="audio/mpeg" />
-          </AudioPlayer>
+  const renderAudio = () => {
+    if (!editMode) {
+      return (
+        <Source
+          style={{
+            maxWidth: containerRef.current
+              ? containerRef.current.offsetWidth
+              : 'unset',
+          }}
+        >
+          {source}
+        </Source>
+      );
+    } else {
+      return (
+        <div>
+          <div style={section.style}>
+            <AudioPlayer
+              controls
+              style={{ verticalAlign: 'middle' }}
+            >
+              <source src={source} type="audio/ogg" />
+              <source src={source} type="audio/mpeg" />
+            </AudioPlayer>
+          </div>
+          <hr style={{ border: 'solid 1px #e3e3e3' }} />
+          {renderInput()}
         </div>
-      ) : (
-        renderInput()
-      )}
-    </div>
+      );
+    }
+  };
+
+  return (
+    <Container ref={containerRef}>
+      {source ? renderAudio() : renderInput()}
+    </Container>
   );
 }
 

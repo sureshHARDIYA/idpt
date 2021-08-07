@@ -6,12 +6,7 @@ import Section from './Section';
 import Styles from './Styles';
 
 function EditingModal(props) {
-  const {
-    visible,
-    handleSelectSection,
-    onChange,
-    form,
-  } = props;
+  const { visible, handleSelectSection, onChange } = props;
   const [section, setSection] = useState({});
   const [selectedSection, setSelectedSection] = useState(
     {},
@@ -20,16 +15,6 @@ function EditingModal(props) {
 
   useEffect(() => {
     setSection(cloneDeep(props.section));
-    if (
-      props.section.type ===
-        TYPES_OF_CONTENT.ASSIGNMENT.value &&
-      form
-    ) {
-      form.setFieldValue(
-        'assignmentCache',
-        props.section.value || [],
-      );
-    }
   }, [props.section]);
 
   useEffect(() => {
@@ -133,7 +118,10 @@ function EditingModal(props) {
             />
           </div>
         </Col>
-        <Col span={6}>
+        <Col
+          span={6}
+          style={{ position: 'sticky', top: 0 }}
+        >
           <Styles
             section={
               selectedSection.id ? selectedSection : section

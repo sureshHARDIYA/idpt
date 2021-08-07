@@ -4,9 +4,11 @@ import ReactQuill from 'react-quill';
 import styled from 'styled-components';
 
 const TextContainer = styled.div`
+  padding: 5px;
+  background: white;
+  line-height: 26px;
   & * {
     margin-bottom: 0;
-    padding: 5px;
   }
 `;
 
@@ -99,15 +101,9 @@ function Text(props) {
       ) {
         return (
           <div>
-            <TextContainer
-              style={{
-                wordBreak: 'break-word',
-                ...section.style,
-              }}
-              dangerouslySetInnerHTML={{
-                __html: section.value,
-              }}
-            />
+            <TextContainer>
+              Click edit to custom your html code
+            </TextContainer>
           </div>
         );
       } else {

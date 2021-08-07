@@ -1,13 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import AssignmentAutocompleteFormItem from 'view/assignments/autocomplete/AssignmentAutocompleteFormItem';
-import model from 'modules/task/taskModel';
 import styled from 'styled-components';
-
-const { fields } = model;
 
 const PlaceHolder = styled.div`
   margin-bottom: 0;
+`;
+
+const TextContainer = styled.div`
+  padding: 5px;
+  background: white;
+  line-height: 26px;
 `;
 
 const styles = {
@@ -28,9 +31,10 @@ function Assignment(props) {
   const { section, onChange, parentId, editMode } = props;
 
   const handleChange = (values) => {
+    const value = values.length ? values : null;
     onChange(
       section.id,
-      values,
+      value,
       parentId,
       section.columnPosition,
     );
@@ -39,7 +43,7 @@ function Assignment(props) {
   const handleClear = () => {
     onChange(
       section.id,
-      [],
+      null,
       parentId,
       section.columnPosition,
     );
@@ -47,24 +51,9 @@ function Assignment(props) {
 
   if (!editMode) {
     return section.value && section.value.length ? (
-      <div
-        style={{
-          ...styles.displayData,
-          background:
-            section.style.backgroundColor || 'white',
-        }}
-      >
-        <div style={section.style}>
-          {section.value.map((item) => (
-            <span
-              key={item.key}
-              style={{ marginRight: 10 }}
-            >
-              {item.label}
-            </span>
-          ))}
-        </div>
-      </div>
+      <TextContainer>
+        Click edit to change your assignment
+      </TextContainer>
     ) : (
       <div style={styles.placeholder}>
         <PlaceHolder>Click to edit</PlaceHolder>
@@ -75,8 +64,7 @@ function Assignment(props) {
   return (
     <div>
       <AssignmentAutocompleteFormItem
-        name="assignmentCache"
-        required={fields.assignments.required}
+        name="descriptionAssignment"
         showCreate={false}
         mode="multiple"
         onChangeCustom={handleChange}
@@ -86,6 +74,7 @@ function Assignment(props) {
         }}
         onClear={handleClear}
         style={section.style}
+        inputProps={{ value: section.value || [] }}
       />
     </div>
   );

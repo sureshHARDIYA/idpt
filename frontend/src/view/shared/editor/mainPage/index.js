@@ -291,7 +291,6 @@ class MainPageEditor extends React.Component {
 
   render() {
     const { listSection } = this.state;
-    const { form } = this.props;
     return (
       <Container>
         <DndProvider backend={HTML5Backend}>
@@ -313,14 +312,13 @@ class MainPageEditor extends React.Component {
               <Sections
                 listSection={listSection}
                 onChange={this.handleChangeSection}
-                form={form}
               />
             </Col>
           </Row>
         </DndProvider>
         <Prompt
           message="There are unsaved changes, do you wish to discard them"
-          when={this.handleDeleteEmptySection().length}
+          when={this.handleDeleteEmptySection().length > 0}
         />
       </Container>
     );
