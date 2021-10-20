@@ -2,7 +2,7 @@ const schema = `
   input TaxonomyFilterInput {
     id: String
     name: String
-    parent: [String!]
+    parent: String
     status: TaxonomyStatusEnum
     createdAtRange: [ DateTime ]
   }
