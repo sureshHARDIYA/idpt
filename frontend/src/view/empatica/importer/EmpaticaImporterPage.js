@@ -4,17 +4,17 @@ import PageTitle from 'view/shared/styles/PageTitle';
 import Breadcrumb from 'view/shared/Breadcrumb';
 import { i18n } from 'i18n';
 import importerHoc from 'view/shared/importer/Importer';
-import selectors from 'modules/task/importer/taskImporterSelectors';
-import actions from 'modules/task/importer/taskImporterActions';
-import fields from 'modules/task/importer/taskImporterFields';
+import selectors from 'modules/empatica/importer/empaticaImporterSelectors';
+import actions from 'modules/empatica/importer/empaticaImporterActions';
+import fields from 'modules/empatica/importer/empaticaImporterFields';
 
-class TaskImportPage extends Component {
+class EmpaticaImportPage extends Component {
   render() {
     const Importer = importerHoc(
       selectors,
       actions,
       fields,
-      i18n('entities.task.importer.hint'),
+      i18n('entities.empatica.importer.hint'),
     );
 
     return (
@@ -23,12 +23,12 @@ class TaskImportPage extends Component {
           items={[
             [i18n('home.menu'), '/'],
             [
-              i18n('entities.task.menu'),
-              '/task',
+              i18n('entities.empatica.menu'),
+              '/empatica',
             ],
             [
               i18n(
-                'entities.task.importer.title',
+                'entities.empatica.importer.title',
               ),
             ],
           ]}
@@ -37,7 +37,7 @@ class TaskImportPage extends Component {
         <ContentWrapper>
           <PageTitle>
             {i18n(
-              'entities.task.importer.title',
+              'entities.empatica.importer.title',
             )}
           </PageTitle>
 
@@ -48,4 +48,4 @@ class TaskImportPage extends Component {
   }
 }
 
-export default TaskImportPage;
+export default EmpaticaImportPage;

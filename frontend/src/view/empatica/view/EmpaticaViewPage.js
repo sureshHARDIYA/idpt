@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import ContentWrapper from 'view/layout/styles/ContentWrapper';
 import PageTitle from 'view/shared/styles/PageTitle';
 import Breadcrumb from 'view/shared/Breadcrumb';
-import TaskView from 'view/task/view/TaskView';
+import EmpaticaView from 'view/empatica/view/EmpaticaView';
 import { i18n } from 'i18n';
-import actions from 'modules/task/view/taskViewActions';
+import actions from 'modules/empatica/view/empaticaViewActions';
 import { connect } from 'react-redux';
-import selectors from 'modules/task/view/taskViewSelectors';
-import TaskViewToolbar from 'view/task/view/TaskViewToolbar';
+import selectors from 'modules/empatica/view/empaticaViewSelectors';
+import EmpaticaViewToolbar from 'view/empatica/view/EmpaticaViewToolbar';
 
-class TaskPage extends Component {
+class EmpaticaPage extends Component {
   componentDidMount() {
     const { dispatch, match } = this.props;
     dispatch(actions.doFind(match.params.id));
@@ -21,19 +21,19 @@ class TaskPage extends Component {
         <Breadcrumb
           items={[
             [i18n('home.menu'), '/'],
-            [i18n('entities.task.menu'), '/task'],
-            [i18n('entities.task.view.title')],
+            [i18n('entities.empatica.menu'), '/empatica'],
+            [i18n('entities.empatica.view.title')],
           ]}
         />
 
         <ContentWrapper>
           <PageTitle>
-            {i18n('entities.task.view.title')}
+            {i18n('entities.empatica.view.title')}
           </PageTitle>
 
-          <TaskViewToolbar match={this.props.match} />
+          <EmpaticaViewToolbar match={this.props.match} />
 
-          <TaskView
+          <EmpaticaView
             loading={this.props.loading}
             record={this.props.record}
           />
@@ -50,4 +50,4 @@ function select(state) {
   };
 }
 
-export default connect(select)(TaskPage);
+export default connect(select)(EmpaticaPage);

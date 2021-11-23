@@ -1,19 +1,19 @@
-const TaskService = require('../../../services/taskService');
+const EmpaticaService = require('../../../services/empaticaService');
 const PermissionChecker = require('../../../services/iam/permissionChecker');
 const permissions = require('../../../security/permissions')
   .values;
 const graphqlSelectRequestedAttributes = require('../../shared/utils/graphqlSelectRequestedAttributes');
 
 const schema = `
-  taskList(filter: TaskFilterInput, limit: Int, offset: Int, orderBy: TaskOrderByEnum): TaskPage!
+  empaticaList(filter: EmpaticaFilterInput, limit: Int, offset: Int, orderBy: EmpaticaOrderByEnum): EmpaticaPage!
 `;
 
 const resolver = {
-  taskList: async (root, args, context, info) => {
+  empaticaList: async (root, args, context, info) => {
     new PermissionChecker(context)
-      .validateHas(permissions.taskRead);
+      .validateHas(permissions.empaticaRead);
 
-    return new TaskService(context).findAndCountAll({
+    return new EmpaticaService(context).findAndCountAll({
       ...args,
       requestedAttributes: graphqlSelectRequestedAttributes(
         info,

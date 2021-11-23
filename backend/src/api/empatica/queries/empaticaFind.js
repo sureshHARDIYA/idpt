@@ -1,22 +1,18 @@
-const TaskService = require('../../../services/taskService');
+const EmpaticaService = require('../../../services/empaticaService');
 const PermissionChecker = require('../../../services/iam/permissionChecker');
 const permissions = require('../../../security/permissions')
   .values;
 
 const schema = `
-  taskDestroy(ids: [String!]!): Boolean
+  empaticaFind(id: String!): Empatica!
 `;
 
 const resolver = {
-  taskDestroy: async (root, args, context) => {
+  empaticaFind: async (root, args, context) => {
     new PermissionChecker(context)
-      .validateHas(permissions.taskDestroy);
+      .validateHas(permissions.empaticaRead);
 
-    await new TaskService(context).destroyAll(
-      args.ids
-    );
-
-    return true;
+    return new EmpaticaService(context).findById(args.id);
   },
 };
 

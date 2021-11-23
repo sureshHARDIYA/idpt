@@ -1,6 +1,6 @@
 module.exports = [
-  require('./taskCreate'),
-  require('./taskDestroy'),
-  require('./taskUpdate'),
-  require('./taskImport'),
+  require('./empaticaCreate'),
+  require('./empaticaDestroy'),
+  require('./empaticaUpdate'),
+  require('./empaticaImport'),
 ];

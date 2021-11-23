@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import AutocompleteFormItem from 'view/shared/form/items/AutocompleteFormItem';
-import TaskService from 'modules/task/taskService';
-import TaskFormModal from 'view/task/form/TaskFormModal';
+import EmpaticaService from 'modules/empatica/empaticaService';
+import EmpaticaFormModal from 'view/empatica/form/EmpaticaFormModal';
 import { connect } from 'react-redux';
-import selectors from 'modules/task/taskSelectors';
+import selectors from 'modules/empatica/empaticaSelectors';
 
-class TaskAutocompleteFormItem extends Component {
+class EmpaticaAutocompleteFormItem extends Component {
   state = {
     modalVisible: false,
   };
@@ -38,7 +38,7 @@ class TaskAutocompleteFormItem extends Component {
   };
 
   fetchFn = (value, limit) => {
-    return TaskService.listAutocomplete(value, limit);
+    return EmpaticaService.listAutocomplete(value, limit);
   };
 
   mapper = {
@@ -84,7 +84,7 @@ class TaskAutocompleteFormItem extends Component {
           onOpenModal={this.doOpenModal}
         />
 
-        <TaskFormModal
+        <EmpaticaFormModal
           visible={this.state.modalVisible}
           onCancel={this.doCloseModal}
           onSuccess={this.doCreateSuccess}
@@ -100,4 +100,4 @@ const select = (state) => ({
   ),
 });
 
-export default connect(select)(TaskAutocompleteFormItem);
+export default connect(select)(EmpaticaAutocompleteFormItem);

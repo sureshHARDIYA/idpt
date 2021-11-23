@@ -1,22 +1,21 @@
 import { Table, Popconfirm } from 'antd';
 import { i18n } from 'i18n';
-import actions from 'modules/task/list/taskListActions';
-import destroyActions from 'modules/task/destroy/taskDestroyActions';
-import selectors from 'modules/task/list/taskListSelectors';
-import destroySelectors from 'modules/task/destroy/taskDestroySelectors';
-import model from 'modules/task/taskModel';
-import taskSelectors from 'modules/task/taskSelectors';
+import actions from 'modules/empatica/list/empaticaListActions';
+import destroyActions from 'modules/empatica/destroy/empaticaDestroyActions';
+import selectors from 'modules/empatica/list/empaticaListSelectors';
+import destroySelectors from 'modules/empatica/destroy/empaticaDestroySelectors';
+import model from 'modules/empatica/empaticaModel';
+import empaticaSelectors from 'modules/empatica/empaticaSelectors';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import TableWrapper from 'view/shared/styles/TableWrapper';
 import ButtonLink from 'view/shared/styles/ButtonLink';
 import ModuleListItem from 'view/module/list/ModuleListItem';
-import TaxonomyListItem from 'view/taxonomy/list/TaxonomyListItem';
 
 const { fields } = model;
 
-class TaskListTable extends Component {
+class EmpaticaListTable extends Component {
   handleTableChange = (pagination, filters, sorter) => {
     const { dispatch } = this.props;
 
@@ -33,15 +32,8 @@ class TaskListTable extends Component {
   columns = [
     fields.name.forTable(),
     fields.status.forTable(),
-    fields.tags.forTable(),
-    fields.points.forTable(),
-    fields.completionRequired.forTable(),
-    fields.complexityLevel.forTable(),
     fields.owner.forTable({
       render: (value) => <ModuleListItem value={value} />,
-    }),
-    fields.taxonomies.forTable({
-      render: (value) => <TaxonomyListItem value={value} />,
     }),
     {
       title: '',
@@ -49,11 +41,11 @@ class TaskListTable extends Component {
       width: '160px',
       render: (_, record) => (
         <div className="table-actions">
-          <Link to={`/task/${record.id}`}>
+          <Link to={`/empatica/${record.id}`}>
             {i18n('common.view')}
           </Link>
           {this.props.hasPermissionToEdit && (
-            <Link to={`/task/${record.id}/edit`}>
+            <Link to={`/empatica/${record.id}/edit`}>
               {i18n('common.edit')}
             </Link>
           )}
@@ -113,13 +105,13 @@ function select(state) {
     pagination: selectors.selectPagination(state),
     filter: selectors.selectFilter(state),
     selectedKeys: selectors.selectSelectedKeys(state),
-    hasPermissionToEdit: taskSelectors.selectPermissionToEdit(
+    hasPermissionToEdit: empaticaSelectors.selectPermissionToEdit(
       state,
     ),
-    hasPermissionToDestroy: taskSelectors.selectPermissionToDestroy(
+    hasPermissionToDestroy: empaticaSelectors.selectPermissionToDestroy(
       state,
     ),
   };
 }
 
-export default connect(select)(TaskListTable);
+export default connect(select)(EmpaticaListTable);

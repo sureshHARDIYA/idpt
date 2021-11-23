@@ -1,18 +1,18 @@
 const PermissionChecker = require('../../../services/iam/permissionChecker');
 const permissions = require('../../../security/permissions')
   .values;
-const TaskService = require('../../../services/taskService');
+const EmpaticaService = require('../../../services/empaticaService');
 
 const schema = `
-  taskAutocomplete(query: String, limit: Int): [AutocompleteOption!]!
+  empaticaAutocomplete(query: String, limit: Int): [AutocompleteOption!]!
 `;
 
 const resolver = {
-  taskAutocomplete: async (root, args, context, info) => {
+  empaticaAutocomplete: async (root, args, context, info) => {
     new PermissionChecker(context)
-      .validateHas(permissions.taskAutocomplete);
+      .validateHas(permissions.empaticaAutocomplete);
 
-    return new TaskService(context).findAllAutocomplete(
+    return new EmpaticaService(context).findAllAutocomplete(
       args.query,
       args.limit,
     );

@@ -1,18 +1,18 @@
-const TaskService = require('../../../services/taskService');
+const EmpaticaService = require('../../../services/empaticaService');
 const PermissionChecker = require('../../../services/iam/permissionChecker');
 const permissions = require('../../../security/permissions')
   .values;
 
 const schema = `
-  taskUpdate(id: String!, data: TaskInput!): Task!
+  empaticaUpdate(id: String!, data: EmpaticaInput!): Empatica!
 `;
 
 const resolver = {
-  taskUpdate: async (root, args, context) => {
+  empaticaUpdate: async (root, args, context) => {
     new PermissionChecker(context)
-      .validateHas(permissions.taskEdit);
+      .validateHas(permissions.empaticaEdit);
 
-    return new TaskService(context).update(
+    return new EmpaticaService(context).update(
       args.id,
       args.data
     );

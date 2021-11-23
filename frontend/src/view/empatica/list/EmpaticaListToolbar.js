@@ -2,16 +2,16 @@ import React, { Component } from 'react';
 import Toolbar from 'view/shared/styles/Toolbar';
 import { Button, Tooltip, Popconfirm } from 'antd';
 import { connect } from 'react-redux';
-import taskSelectors from 'modules/task/taskSelectors';
-import selectors from 'modules/task/list/taskListSelectors';
+import empaticaSelectors from 'modules/empatica/empaticaSelectors';
+import selectors from 'modules/empatica/list/empaticaListSelectors';
 import auditLogSelectors from 'modules/auditLog/auditLogSelectors';
-import actions from 'modules/task/list/taskListActions';
-import destroyActions from 'modules/task/destroy/taskDestroyActions';
+import actions from 'modules/empatica/list/empaticaListActions';
+import destroyActions from 'modules/empatica/destroy/empaticaDestroyActions';
 import { Link } from 'react-router-dom';
 import { i18n } from 'i18n';
-import destroySelectors from 'modules/task/destroy/taskDestroySelectors';
+import destroySelectors from 'modules/empatica/destroy/empaticaDestroySelectors';
 
-class TaskToolbar extends Component {
+class EmpaticaToolbar extends Component {
   doExport = () => {
     const { dispatch } = this.props;
     dispatch(actions.doExport());
@@ -104,7 +104,7 @@ class TaskToolbar extends Component {
     return (
       <Toolbar>
         {this.props.hasPermissionToCreate && (
-          <Link to="/task/new">
+          <Link to="/empatica/new">
             <Button type="primary" icon="plus" size="large">
               {i18n('common.new')}
             </Button>
@@ -112,7 +112,7 @@ class TaskToolbar extends Component {
         )}
 
         {this.props.hasPermissionToImport && (
-          <Link to="/task/importer">
+          <Link to="/empatica/importer">
             <Button type="primary" icon="upload" size="large">
               {i18n('common.import')}
             </Button>
@@ -122,7 +122,7 @@ class TaskToolbar extends Component {
         {this.renderDestroyButton()}
 
         {this.props.hasPermissionToAuditLogs && (
-          <Link to="/audit-logs?entityNames=task">
+          <Link to="/audit-logs?entityNames=empatica">
             <Button icon="file-search" size="large">
               {i18n('auditLog.menu')}
             </Button>
@@ -145,19 +145,19 @@ function select(state) {
     hasPermissionToAuditLogs: auditLogSelectors.selectPermissionToRead(
       state,
     ),
-    hasPermissionToEdit: taskSelectors.selectPermissionToEdit(
+    hasPermissionToEdit: empaticaSelectors.selectPermissionToEdit(
       state,
     ),
-    hasPermissionToDestroy: taskSelectors.selectPermissionToDestroy(
+    hasPermissionToDestroy: empaticaSelectors.selectPermissionToDestroy(
       state,
     ),
-    hasPermissionToCreate: taskSelectors.selectPermissionToCreate(
+    hasPermissionToCreate: empaticaSelectors.selectPermissionToCreate(
       state,
     ),
-    hasPermissionToImport: taskSelectors.selectPermissionToImport(
+    hasPermissionToImport: empaticaSelectors.selectPermissionToImport(
       state,
     ),
   };
 }
 
-export default connect(select)(TaskToolbar);
+export default connect(select)(EmpaticaToolbar);

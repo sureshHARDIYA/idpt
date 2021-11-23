@@ -1,5 +1,5 @@
 module.exports = [
-  require('./taskFind'),
-  require('./taskList'),
-  require('./taskAutocomplete'),
+  require('./empaticaFind'),
+  require('./empaticaList'),
+  require('./empaticaAutocomplete'),
 ];

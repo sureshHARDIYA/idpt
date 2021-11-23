@@ -1,9 +1,9 @@
 import { Button, Col, Form, Row } from 'antd';
 import { Formik } from 'formik';
 import { i18n } from 'i18n';
-import actions from 'modules/task/list/taskListActions';
-import selectors from 'modules/task/list/taskListSelectors';
-import model from 'modules/task/taskModel';
+import actions from 'modules/empatica/list/empaticaListActions';
+import selectors from 'modules/empatica/list/empaticaListSelectors';
+import model from 'modules/empatica/empaticaModel';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -19,15 +19,9 @@ const { fields } = model;
 
 const schema = new FormFilterSchema([
   fields.name,
-  fields.description,
-  fields.status,
-  fields.tags,
-  fields.pointsRange,
-  fields.completionRequired,
-  fields.complexityLevelRange,
 ]);
 
-class TaskListFilter extends Component {
+class EmpaticaListFilter extends Component {
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch(actions.doFetch(this.initialFilter()));
@@ -73,13 +67,6 @@ class TaskListFilter extends Component {
                     />
                   </Col>
                   <Col md={24} lg={12}>
-                    <InputFormItem
-                      name={fields.description.name}
-                      label={fields.description.label}
-                      layout={formItemLayout}
-                    />
-                  </Col>
-                  <Col md={24} lg={12}>
                     <SelectFormItem
                       name={fields.status.name}
                       label={fields.status.label}
@@ -89,52 +76,6 @@ class TaskListFilter extends Component {
                           label: item.label,
                         }),
                       )}
-                      layout={formItemLayout}
-                    />
-                  </Col>
-                  <Col md={24} lg={12}>
-                    <InputFormItem
-                      name={fields.tags.name}
-                      label={fields.tags.label}
-                      layout={formItemLayout}
-                    />
-                  </Col>
-                  <Col md={24} lg={12}>
-                    <InputNumberRangeFormItem
-                      name={
-                        fields.pointsRange.name
-                      }
-                      label={
-                        fields.pointsRange.label
-                      }
-                      layout={formItemLayout}
-                    />
-                  </Col>
-                  <Col md={24} lg={12}>
-                    <SelectFormItem
-                      name={fields.completionRequired.name}
-                      label={fields.completionRequired.label}
-                      options={[
-                        {
-                          value: 'true',
-                          label: fields.completionRequired.yesLabel,
-                        },
-                        {
-                          value: 'false',
-                          label: fields.completionRequired.noLabel,
-                        },
-                      ]}
-                      layout={formItemLayout}
-                    />
-                  </Col>
-                  <Col md={24} lg={12}>
-                    <InputNumberRangeFormItem
-                      name={
-                        fields.complexityLevelRange.name
-                      }
-                      label={
-                        fields.complexityLevelRange.label
-                      }
                       layout={formItemLayout}
                     />
                   </Col>
@@ -173,4 +114,4 @@ function select(state) {
   };
 }
 
-export default withRouter(connect(select)(TaskListFilter));
+export default withRouter(connect(select)(EmpaticaListFilter));

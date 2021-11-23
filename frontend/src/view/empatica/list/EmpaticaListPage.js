@@ -1,35 +1,35 @@
 import React, { Component } from 'react';
-import TaskListFilter from 'view/task/list/TaskListFilter';
-import TaskListTable from 'view/task/list/TaskListTable';
-import TaskListToolbar from 'view/task/list/TaskListToolbar';
+import EmpaticaListFilter from 'view/empatica/list/EmpaticaListFilter';
+import EmpaticaListTable from 'view/empatica/list/EmpaticaListTable';
+import EmpaticaListToolbar from 'view/empatica/list/EmpaticaListToolbar';
 import ContentWrapper from 'view/layout/styles/ContentWrapper';
 import PageTitle from 'view/shared/styles/PageTitle';
 import Breadcrumb from 'view/shared/Breadcrumb';
 import { i18n } from 'i18n';
 
-class TaskListPage extends Component {
+class EmpaticaListPage extends Component {
   render() {
     return (
       <React.Fragment>
         <Breadcrumb
           items={[
             [i18n('home.menu'), '/'],
-            [i18n('entities.task.menu')],
+            [i18n('entities.empatica.menu')],
           ]}
         />
 
         <ContentWrapper>
           <PageTitle>
-            {i18n('entities.task.list.title')}
+            {i18n('entities.empatica.list.title')}
           </PageTitle>
 
-          <TaskListToolbar />
-          <TaskListFilter />
-          <TaskListTable />
+          <EmpaticaListToolbar />
+          <EmpaticaListFilter />
+          <EmpaticaListTable />
         </ContentWrapper>
       </React.Fragment>
     );
   }
 }
 
-export default TaskListPage;
+export default EmpaticaListPage;

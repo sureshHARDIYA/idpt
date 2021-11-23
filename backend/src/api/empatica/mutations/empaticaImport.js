@@ -1,18 +1,18 @@
-const TaskService = require('../../../services/taskService');
+const EmpaticaService = require('../../../services/empaticaService');
 const PermissionChecker = require('../../../services/iam/permissionChecker');
 const permissions = require('../../../security/permissions')
   .values;
 
 const schema = `
-  taskImport(data: TaskInput!, importHash: String!): Boolean
+  empaticaImport(data: EmpaticaInput!, importHash: String!): Boolean
 `;
 
 const resolver = {
-  taskImport: async (root, args, context) => {
+  empaticaImport: async (root, args, context) => {
     new PermissionChecker(context)
-      .validateHas(permissions.taskImport);
+      .validateHas(permissions.empaticaImport);
 
-    await new TaskService(context).import(
+    await new EmpaticaService(context).import(
       args.data,
       args.importHash
     );

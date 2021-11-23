@@ -1,12 +1,10 @@
-import { Form } from 'antd';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { viewItemLayout } from 'view/shared/styles/ViewWrapper';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import selectors from 'modules/task/taskSelectors';
+import selectors from 'modules/empatica/empaticaSelectors';
 
-class TaskViewItem extends Component {
+class EmpaticaListItem extends Component {
   valueAsArray = () => {
     const { value } = this.props;
 
@@ -25,7 +23,7 @@ class TaskViewItem extends Component {
     if (this.props.hasPermissionToRead) {
       return (
         <div key={record.id}>
-          <Link to={`/task/${record.id}`}>
+          <Link to={`/empatica/${record.id}`}>
             {record['name']}
           </Link>
         </div>
@@ -44,21 +42,13 @@ class TaskViewItem extends Component {
       return null;
     }
 
-    return (
-      <Form.Item
-        {...viewItemLayout}
-        label={this.props.label}
-      >
-        {this.valueAsArray().map((value) =>
-          this.displayableRecord(value),
-        )}
-      </Form.Item>
+    return this.valueAsArray().map((value) =>
+      this.displayableRecord(value),
     );
   }
 }
 
-TaskViewItem.propTypes = {
-  label: PropTypes.string,
+EmpaticaListItem.propTypes = {
   value: PropTypes.any,
 };
 
@@ -68,4 +58,4 @@ const select = (state) => ({
   ),
 });
 
-export default connect(select)(TaskViewItem);
+export default connect(select)(EmpaticaListItem);

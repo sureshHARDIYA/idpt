@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
 import iam from 'modules/iam/iamReducers'
 import task from 'modules/task/taskReducers'
+import empatica from 'modules/empatica/empaticaReducers'
 import auth from 'modules/auth/authReducers'
 import epic from 'modules/epic/epicReducers'
 import audio from 'modules/audio/audioReducers'
@@ -32,6 +33,7 @@ export default history =>
     cased,
     module,
     task,
+    empatica,
     audio,
     video,
     record,

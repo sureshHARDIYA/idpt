@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import ContentWrapper from 'view/layout/styles/ContentWrapper';
 import Breadcrumb from 'view/shared/Breadcrumb';
-import TaskForm from 'view/task/form/TaskForm';
+import EmpaticaForm from 'view/empatica/form/EmpaticaForm';
 import { i18n } from 'i18n';
 import { getHistory } from 'modules/store';
-import actions from 'modules/task/form/taskFormActions';
-import selectors from 'modules/task/form/taskFormSelectors';
+import actions from 'modules/empatica/form/empaticaFormActions';
+import selectors from 'modules/empatica/form/empaticaFormSelectors';
 import { connect } from 'react-redux';
 
-class TaskFormPage extends Component {
+class EmpaticaFormPage extends Component {
   state = {
     dispatched: false,
   };
@@ -41,8 +41,8 @@ class TaskFormPage extends Component {
 
   title = () => {
     return this.isEditing()
-      ? i18n('entities.task.edit.title')
-      : i18n('entities.task.new.title');
+      ? i18n('entities.empatica.edit.title')
+      : i18n('entities.empatica.new.title');
   };
 
   render() {
@@ -51,20 +51,20 @@ class TaskFormPage extends Component {
         <Breadcrumb
           items={[
             [i18n('home.menu'), '/'],
-            [i18n('entities.task.menu'), '/task'],
+            [i18n('entities.empatica.menu'), '/empatica'],
             [this.title()],
           ]}
         />
 
         <ContentWrapper>
           {this.state.dispatched && (
-            <TaskForm
+            <EmpaticaForm
               saveLoading={this.props.saveLoading}
               findLoading={this.props.findLoading}
               record={this.props.record}
               isEditing={this.isEditing()}
               onSubmit={this.doSubmit}
-              onCancel={() => getHistory().push('/task')}
+              onCancel={() => getHistory().push('/empatica')}
             />
           )}
         </ContentWrapper>
@@ -81,4 +81,4 @@ function select(state) {
   };
 }
 
-export default connect(select)(TaskFormPage);
+export default connect(select)(EmpaticaFormPage);

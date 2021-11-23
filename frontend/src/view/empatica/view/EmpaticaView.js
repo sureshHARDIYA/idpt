@@ -1,4 +1,4 @@
-import model from 'modules/task/taskModel';
+import model from 'modules/empatica/empaticaModel';
 import React, { Component } from 'react';
 import Spinner from 'view/shared/Spinner';
 import ViewWrapper from 'view/shared/styles/ViewWrapper';
@@ -8,7 +8,7 @@ import TaxonomyViewItem from 'view/taxonomy/view/TaxonomyViewItem';
 
 const { fields } = model;
 
-class TaskView extends Component {
+class EmpaticaView extends Component {
   renderView() {
     const { record } = this.props;
 
@@ -25,43 +25,13 @@ class TaskView extends Component {
         />
 
         <TextViewItem
-          label={fields.description.label}
-          value={fields.description.forView(record.description)}
-        />
-
-        <TextViewItem
           label={fields.status.label}
           value={fields.status.forView(record.status)}
-        />
-
-        <TextViewItem
-          label={fields.tags.label}
-          value={fields.tags.forView(record.tags)}
-        />
-
-        <TextViewItem
-          label={fields.points.label}
-          value={fields.points.forView(record.points)}
-        />
-
-        <TextViewItem
-          label={fields.completionRequired.label}
-          value={fields.completionRequired.forView(record.completionRequired)}
-        />
-
-        <TextViewItem
-          label={fields.complexityLevel.label}
-          value={fields.complexityLevel.forView(record.complexityLevel)}
         />
 
         <ModuleViewItem
           label={fields.owner.label}
           value={fields.owner.forView(record.owner)}
-        />
-
-        <TaxonomyViewItem
-          label={fields.taxonomies.label}
-          value={fields.taxonomies.forView(record.taxonomies)}
         />
 
         <TextViewItem
@@ -88,4 +58,4 @@ class TaskView extends Component {
   }
 }
 
-export default TaskView;
+export default EmpaticaView;

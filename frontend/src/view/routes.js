@@ -309,6 +309,46 @@ const privateRoutes = [
     permissionRequired: permissions.taskRead,
     exact: true,
   },
+
+  {
+    path: '/empatica',
+    loader: () => import('view/empatica/list/EmpaticaListPage'),
+    permissionRequired: permissions.empaticaRead,
+    exact: true,
+    icon: 'carry-out',
+    label: i18n('entities.empatica.menu'),
+    menu: true,
+  },
+  {
+    path: '/empatica/new',
+    loader: () => import('view/empatica/form/EmpaticaFormPage'),
+    menu: false,
+    permissionRequired: permissions.empaticaCreate,
+    exact: true,
+  },
+  {
+    path: '/empatica/importer',
+    loader: () =>
+      import('view/empatica/importer/EmpaticaImporterPage'),
+    menu: false,
+    permissionRequired: permissions.empaticaImport,
+    exact: true,
+  },
+  {
+    path: '/empatica/:id/edit',
+    loader: () => import('view/empatica/form/EmpaticaFormPage'),
+    menu: false,
+    permissionRequired: permissions.empaticaEdit,
+    exact: true,
+  },
+  {
+    path: '/empatica/:id',
+    loader: () => import('view/empatica/view/EmpaticaViewPage'),
+    menu: false,
+    permissionRequired: permissions.empaticaRead,
+    exact: true,
+  },
+
   {
     path: '/record',
     loader: () => import('view/record/list/RecordListPage'),

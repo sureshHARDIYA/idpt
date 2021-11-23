@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Modal } from 'antd';
 import { i18n } from 'i18n';
-import TaskForm from 'view/task/form/TaskForm';
-import TaskService from 'modules/task/taskService';
+import EmpaticaForm from 'view/empatica/form/EmpaticaForm';
+import EmpaticaService from 'modules/empatica/empaticaService';
 import Errors from 'modules/shared/error/errors';
 
-class TaskFormModal extends Component {
+class EmpaticaFormModal extends Component {
   state = {
     saveLoading: false,
   };
@@ -15,8 +15,8 @@ class TaskFormModal extends Component {
       this.setState({
         saveLoading: true,
       });
-      const { id } = await TaskService.create(data);
-      const record = await TaskService.find(id);
+      const { id } = await EmpaticaService.create(data);
+      const record = await EmpaticaService.find(id);
       this.props.onSuccess(record);
     } catch (error) {
       Errors.handle(error);
@@ -34,13 +34,13 @@ class TaskFormModal extends Component {
 
     return (
       <Modal
-        title={i18n('entities.task.new.title')}
+        title={i18n('entities.empatica.new.title')}
         visible={this.props.visible}
         onCancel={() => this.props.onCancel()}
         footer={false}
         width="80%"
       >
-        <TaskForm
+        <EmpaticaForm
           saveLoading={this.state.saveLoading}
           onSubmit={this.doSubmit}
           onCancel={this.props.onCancel}
@@ -51,4 +51,4 @@ class TaskFormModal extends Component {
   }
 }
 
-export default TaskFormModal;
+export default EmpaticaFormModal;
