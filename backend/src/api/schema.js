@@ -40,6 +40,10 @@ const taskTypes = require('./task/types')
 const taskQueries = require('./task/queries')
 const taskMutations = require('./task/mutations')
 
+const empaticaTypes = require('./empatica/types')
+const empaticaQueries = require('./empatica/queries')
+const empaticaMutations = require('./empatica/mutations')
+
 const recordTypes = require('./record/types')
 const recordQueries = require('./record/queries')
 const recordMutations = require('./record/mutations')
@@ -74,6 +78,7 @@ const types = [
   ...casedTypes,
   ...moduleTypes,
   ...taskTypes,
+  ...empaticaTypes,
   ...recordTypes,
   ...roadmapTypes,
   ...epicTypes,
@@ -91,6 +96,7 @@ const mutations = [
   ...casedMutations,
   ...moduleMutations,
   ...taskMutations,
+  ...empaticaMutations,
   ...recordMutations,
   ...roadmapMutations,
   ...epicMutations,
@@ -109,6 +115,7 @@ const queries = [
   ...casedQueries,
   ...moduleQueries,
   ...taskQueries,
+  ...empaticaQueries,
   ...recordQueries,
   ...roadmapQueries,
   ...epicQueries,
