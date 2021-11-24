@@ -11,7 +11,6 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import TableWrapper from 'view/shared/styles/TableWrapper';
 import ButtonLink from 'view/shared/styles/ButtonLink';
-import ModuleListItem from 'view/module/list/ModuleListItem';
 
 const { fields } = model;
 
@@ -31,10 +30,7 @@ class EmpaticaListTable extends Component {
 
   columns = [
     fields.name.forTable(),
-    fields.status.forTable(),
-    fields.owner.forTable({
-      render: (value) => <ModuleListItem value={value} />,
-    }),
+    // fields.status.forTable(),
     {
       title: '',
       dataIndex: '',

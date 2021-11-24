@@ -1,9 +1,8 @@
 import { i18n } from 'i18n';
 import IdField from 'modules/shared/fields/idField';
+import StringField from 'modules/shared/fields/stringField';
 import DateTimeField from 'modules/shared/fields/dateTimeField';
 import DateTimeRangeField from 'modules/shared/fields/dateTimeRangeField';
-import StringField from 'modules/shared/fields/stringField';
-import RelationToManyField from 'modules/shared/fields/relationToManyField';
 
 function label(name) {
   return i18n(`entities.empatica.fields.${name}`);
@@ -14,10 +13,30 @@ const fields = {
   name: new StringField('name', label('name'), {
     required: true,
   }),
-  owner: new RelationToManyField(
-    'owner',
-    label('owner'),
+  /*
+  status: new EnumeratorField(
+    'status',
+    label('status'),
+    [
+      {
+        id: 'ACTIVE',
+        label: enumeratorLabel('status', 'ACTIVE'),
+      },
+      {
+        id: 'INACTIVE',
+        label: enumeratorLabel('status', 'INACTIVE'),
+      },
+      {
+        id: 'DRAFT',
+        label: enumeratorLabel('status', 'DRAFT'),
+      },
+    ],
     {},
+  ),
+  */
+  createdAt: new DateTimeField(
+    'createdAt',
+    label('createdAt'),
   ),
   updatedAt: new DateTimeField(
     'updatedAt',

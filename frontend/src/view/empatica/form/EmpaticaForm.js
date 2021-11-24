@@ -1,42 +1,21 @@
-import {
-  Button,
-  Form,
-  Tabs,
-  Row,
-  Col,
-  Divider,
-  Popconfirm,
-} from 'antd';
-import { Formik, FieldArray } from 'formik';
+import { Button, Form, Tabs } from 'antd';
+import { Formik } from 'formik';
 import { i18n } from 'i18n';
 import model from 'modules/empatica/empaticaModel';
 import React, { Component } from 'react';
 import ViewFormItem from 'view/shared/form/items/ViewFormItem';
 import Spinner from 'view/shared/Spinner';
 import FormWrapper, {
-  formItemLayout,
   tailFormItemLayout,
 } from 'view/shared/styles/FormWrapper';
-import Editor from 'view/shared/form/items/Editor';
 import FormSchema from 'view/shared/form/formSchema';
 import InputFormItem from 'view/shared/form/items/InputFormItem';
-import InputNumberFormItem from 'view/shared/form/items/InputNumberFormItem';
-import SwitchFormItem from 'view/shared/form/items/SwitchFormItem';
-import SelectFormItem from 'view/shared/form/items/SelectFormItem';
-import EmpaticaAutocompleteFormItem from 'view/empatica/autocomplete/EmpaticaAutocompleteFormItem';
-import ModuleAutocompleteFormItem from 'view/module/autocomplete/ModuleAutocompleteFormItem';
-import AssignmentAutocompleteFormItem from 'view/assignments/autocomplete/AssignmentAutocompleteFormItem';
-import TaxonomyAutocompleteFormItem from 'view/taxonomy/autocomplete/TaxonomyAutocompleteFormItem';
-
-import _get from 'lodash/get';
-
 const { fields } = model;
 
 class EmpaticaForm extends Component {
   schema = new FormSchema(fields.id, [
     fields.name,
-    fields.status,
-    fields.owner,
+    //fields.status,
   ]);
 
   handleSubmit = (values) => {
@@ -79,7 +58,7 @@ class EmpaticaForm extends Component {
                       required={fields.name.required}
                       autoFocus
                     />
-                    <SelectFormItem
+                    {/* <SelectFormItem
                       name={fields.status.name}
                       label={fields.status.label}
                       options={fields.status.options.map(
@@ -89,18 +68,10 @@ class EmpaticaForm extends Component {
                         }),
                       )}
                       required={fields.status.required}
-                    />
-                    <ModuleAutocompleteFormItem
-                      name={fields.owner.name}
-                      label={fields.owner.label}
-                      required={fields.owner.required}
-                      showCreate={!this.props.modal}
-                      form={form}
-                      mode="multiple"
-                    />
+                    /> */}
                   </Tabs.TabPane>
                 </Tabs>
-                
+
                 <Form.Item
                   className="form-buttons"
                   {...tailFormItemLayout}

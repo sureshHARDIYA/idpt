@@ -1,8 +1,6 @@
 const schema = `
   input EmpaticaInput {
     name: String!
-    status: EmpaticaStatusEnum
-    owner: [String!]
   }
 `;
 

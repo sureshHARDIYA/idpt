@@ -416,6 +416,7 @@ const privateRoutes = [
     exact: true,
     permissionRequired: permissions.recordRead,
   },
+  
   {
     path: '/taxonomy',
     loader: () =>
@@ -458,6 +459,7 @@ const privateRoutes = [
     permissionRequired: permissions.taxonomyRead,
     exact: true,
   },
+
   {
     path: '/settings',
     icon: 'setting',

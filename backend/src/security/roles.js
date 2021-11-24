@@ -19,6 +19,8 @@ class Roles {
       moduleViewer: 'moduleViewer',
       taskEditor: 'taskEditor',
       taskViewer: 'taskViewer',
+      empaticaEditor: 'empaticaEditor',
+      empaticaViewer: 'empaticaViewer',
       recordEditor: 'recordEditor',
       recordViewer: 'recordViewer',
       audioEditor: 'audioEditor',

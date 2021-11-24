@@ -56,7 +56,7 @@ const actions = {
         type: actions.CREATE_STARTED,
       });
 
-      await empaticaService.create(values);
+      await EmpaticaService.create(values);
 
       dispatch({
         type: actions.CREATE_SUCCESS,

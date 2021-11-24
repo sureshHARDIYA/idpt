@@ -3,8 +3,6 @@ import React, { Component } from 'react';
 import Spinner from 'view/shared/Spinner';
 import ViewWrapper from 'view/shared/styles/ViewWrapper';
 import TextViewItem from 'view/shared/view/TextViewItem';
-import ModuleViewItem from 'view/module/view/ModuleViewItem';
-import TaxonomyViewItem from 'view/taxonomy/view/TaxonomyViewItem';
 
 const { fields } = model;
 
@@ -24,15 +22,6 @@ class EmpaticaView extends Component {
           value={fields.name.forView(record.name)}
         />
 
-        <TextViewItem
-          label={fields.status.label}
-          value={fields.status.forView(record.status)}
-        />
-
-        <ModuleViewItem
-          label={fields.owner.label}
-          value={fields.owner.forView(record.owner)}
-        />
 
         <TextViewItem
           label={fields.createdAt.label}
@@ -43,6 +32,7 @@ class EmpaticaView extends Component {
           label={fields.updatedAt.label}
           value={fields.updatedAt.forView(record.updatedAt)}
         />
+
       </ViewWrapper>
     );
   }

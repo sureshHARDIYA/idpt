@@ -6,7 +6,7 @@ import { getHistory } from 'modules/store';
 import Message from 'view/shared/message';
 
 const prefix =
-  'Empatica_DESTROY';
+  'EMPATICA_DESTROY';
 
 const actions = {
   DESTROY_STARTED: `${prefix}_DESTROY_STARTED`,

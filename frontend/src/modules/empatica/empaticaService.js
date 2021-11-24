@@ -85,10 +85,6 @@ export default class EmpaticaService {
           empaticaFind(id: $id) {
             id
             name
-            owner {
-              id
-              name
-            }
             createdAt
             updatedAt
           }
@@ -122,10 +118,6 @@ export default class EmpaticaService {
             rows {
               id
               name
-              owner {
-                id
-                name
-              }
               updatedAt
               createdAt
             }

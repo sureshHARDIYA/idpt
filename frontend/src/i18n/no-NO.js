@@ -631,7 +631,7 @@ const no = {
         success: 'Sletting av Taxonomy vellykket',
       },
       destroyAll: {
-        success: 'Sletting av Taxonomies vellykked',
+        success: 'Sletting av Taxonomies vellykket',
       },
       edit: {
         title: 'Rediger Taxonomy',
@@ -661,6 +661,60 @@ const no = {
       importer: {
         title: 'Importer Taxonomies',
         fileName: 'taxonomy_import_template',
+        hint:
+          'Fil/bildekolonner må være filenes URLer separert med mellomrom.',
+      },
+    },
+
+    empatica: {
+      name: 'empatica',
+      label: 'Empaticas',
+      menu: 'Empaticas',
+      single: 'Empatica',
+      exporterFileName: 'empatica_export',
+      list: {
+        menu: 'Empaticas',
+        title: 'Empaticas',
+      },
+      create: {
+        success: 'Oppretting av Empatica vellykket',
+      },
+      update: {
+        success: 'Lagring av Empatica vellykket',
+      },
+      destroy: {
+        success: 'Sletting av Empatica vellykket',
+      },
+      destroyAll: {
+        success: 'Sletting av Empaticas vellykket',
+      },
+      edit: {
+        title: 'Rediger Empatica',
+      },
+      fields: {
+        id: 'Id',
+        name: 'Navn',
+        status: 'Status',
+        createdAt: 'Opprettet',
+        updatedAt: 'Oppdatert',
+        createdAtRange: 'Opprettet',
+      },
+      enumerators: {
+        status: {
+          ACTIVE: 'ACTIVE',
+          INACTIVE: 'INACTIVE',
+          DRAFT: 'DRAFT',
+        },
+      },
+      new: {
+        title: 'Ny Empatica',
+      },
+      view: {
+        title: 'Se Empatica',
+      },
+      importer: {
+        title: 'Importer Empaticas',
+        fileName: 'empatica_import_template',
         hint:
           'Fil/bildekolonner må være filenes URLer separert med mellomrom.',
       },

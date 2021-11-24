@@ -671,6 +671,62 @@ const en = {
           'Files/Images columns must be the URLs of the files separated by space.',
       },
     },
+
+    empatica: {
+      name: 'empatica',
+      label: 'Empaticas',
+      menu: 'Empaticas',
+      single: 'Empatica',
+      exporterFileName: 'empatica_export',
+      list: {
+        menu: 'Empaticas',
+        title: 'Empaticas',
+      },
+      create: {
+        success: 'Empatica saved successfully',
+      },
+      update: {
+        success: 'Empatica saved successfully',
+      },
+      destroy: {
+        success: 'Empatica deleted successfully',
+      },
+      destroyAll: {
+        success: 'Empaticas deleted successfully',
+      },
+      edit: {
+        title: 'Edit Empatica',
+      },
+      fields: {
+        id: 'Id',
+        parent: 'Parent',
+        name: 'Name',
+        status: 'Status',
+        createdAt: 'Created at',
+        updatedAt: 'Updated at',
+        createdAtRange: 'Created at',
+      },
+      enumerators: {
+        status: {
+          ACTIVE: 'ACTIVE',
+          INACTIVE: 'INACTIVE',
+          DRAFT: 'DRAFT',
+        },
+      },
+      new: {
+        title: 'New Empatica',
+      },
+      view: {
+        title: 'View Empatica',
+      },
+      importer: {
+        title: 'Import Empaticas',
+        fileName: 'empatica_import_template',
+        hint:
+          'Files/Images columns must be the URLs of the files separated by space.',
+      },
+    },
+
   },
 
   auth: {
@@ -775,6 +831,14 @@ const en = {
     taskViewer: {
       label: 'Task Viewer',
       description: 'View access to Tasks',
+    },
+    empaticaEditor: {
+      label: 'Empatica Editor',
+      description: 'Edit access to Empaticas',
+    },
+    empaticaViewer: {
+      label: 'Empatica Viewer',
+      description: 'View access to Empatica',
     },
     audioEditor: {
       label: 'Audio Editor',

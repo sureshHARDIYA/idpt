@@ -12,8 +12,6 @@ import FilterWrapper, {
 } from 'view/shared/styles/FilterWrapper';
 import FormFilterSchema from 'view/shared/form/formFilterSchema';
 import InputFormItem from 'view/shared/form/items/InputFormItem';
-import InputNumberRangeFormItem from 'view/shared/form/items/InputNumberRangeFormItem';
-import SelectFormItem from 'view/shared/form/items/SelectFormItem';
 
 const { fields } = model;
 
@@ -35,9 +33,8 @@ class EmpaticaListFilter extends Component {
   };
 
   handleSubmit = (values) => {
-    const valuesToSubmit = schema.cast(values);
     const { dispatch } = this.props;
-    dispatch(actions.doFetch(valuesToSubmit));
+    dispatch(actions.doFetch(values));
   };
 
   handleReset = (form) => {
@@ -66,7 +63,7 @@ class EmpaticaListFilter extends Component {
                       layout={formItemLayout}
                     />
                   </Col>
-                  <Col md={24} lg={12}>
+                  {/* <Col md={24} lg={12}>
                     <SelectFormItem
                       name={fields.status.name}
                       label={fields.status.label}
@@ -78,7 +75,7 @@ class EmpaticaListFilter extends Component {
                       )}
                       layout={formItemLayout}
                     />
-                  </Col>
+                  </Col> */}
                 </Row>
                 <Row>
                   <Col className="filter-buttons" span={24}>
@@ -114,4 +111,6 @@ function select(state) {
   };
 }
 
-export default withRouter(connect(select)(EmpaticaListFilter));
+export default withRouter(
+  connect(select)(EmpaticaListFilter),
+);

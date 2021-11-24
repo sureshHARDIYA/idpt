@@ -294,6 +294,69 @@ class Permissions {
           roles.moduleViewer
         ]
       },
+      empaticaImport: {
+        id: 'empaticaImport',
+        allowedRoles: [
+          roles.owner,
+          roles.editor,
+          roles.entityEditor,
+          roles.empaticaEditor
+        ]
+      },
+      empaticaCreate: {
+        id: 'empaticaCreate',
+        allowedRoles: [
+          roles.owner,
+          roles.editor,
+          roles.entityEditor,
+          roles.empaticaEditor
+        ],
+        allowedStorageFolders: [ 'empatica' ]
+      },
+      empaticaEdit: {
+        id: 'empaticaEdit',
+        allowedRoles: [
+          roles.owner,
+          roles.editor,
+          roles.entityEditor,
+          roles.empaticaEditor
+        ],
+        allowedStorageFolders: [ 'empatica' ]
+      },
+      empaticaDestroy: {
+        id: 'empaticaDestroy',
+        allowedRoles: [
+          roles.owner,
+          roles.editor,
+          roles.entityEditor,
+          roles.empaticaEditor
+        ],
+        allowedStorageFolders: [ 'empatica' ]
+      },
+      empaticaRead: {
+        id: 'empaticaRead',
+        allowedRoles: [
+          roles.owner,
+          roles.editor,
+          roles.viewer,
+          roles.entityEditor,
+          roles.empaticaEditor,
+          roles.empaticaViewer
+        ]
+      },
+      empaticaAutocomplete: {
+        id: 'empaticaAutocomplete',
+        allowedRoles: [
+          roles.owner,
+          roles.editor,
+          roles.viewer,
+          roles.entityEditor,
+          roles.empaticaEditor,
+          roles.empaticaViewer,
+          roles.moduleEditor,
+          roles.moduleViewer
+        ]
+      },
       taxonomyImport: {
         id: 'taxonomyImport',
         allowedRoles: [

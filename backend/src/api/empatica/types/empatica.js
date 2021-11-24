@@ -3,8 +3,7 @@ const EmpaticaService = require('../../../services/empaticaService');
 const schema = `
   type Empatica {
     id: String!
-    name: String
-    owner: [ Module! ]
+    name: String!
     createdAt: DateTime
     updatedAt: DateTime
   }
