@@ -13,27 +13,6 @@ const fields = {
   name: new StringField('name', label('name'), {
     required: true,
   }),
-  /*
-  status: new EnumeratorField(
-    'status',
-    label('status'),
-    [
-      {
-        id: 'ACTIVE',
-        label: enumeratorLabel('status', 'ACTIVE'),
-      },
-      {
-        id: 'INACTIVE',
-        label: enumeratorLabel('status', 'INACTIVE'),
-      },
-      {
-        id: 'DRAFT',
-        label: enumeratorLabel('status', 'DRAFT'),
-      },
-    ],
-    {},
-  ),
-  */
   createdAt: new DateTimeField(
     'createdAt',
     label('createdAt'),

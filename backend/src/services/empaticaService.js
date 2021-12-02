@@ -13,7 +13,7 @@ module.exports = class EmpaticaService {
   }
 
   /**
-   * Creates a Empatica.
+   * Creates an Empatica.
    *
    * @param {*} data
    */
@@ -36,7 +36,7 @@ module.exports = class EmpaticaService {
   }
 
   /**
-   * Updates a Empatica.
+   * Updates an Empatica.
    *
    * @param {*} id
    * @param {*} data
