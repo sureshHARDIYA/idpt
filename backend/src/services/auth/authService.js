@@ -97,7 +97,7 @@ class AuthService {
       { id: newUser.id },
       config.authJwtSecret,
     );
-
+    
     return token;
   }
 

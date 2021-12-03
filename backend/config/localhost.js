@@ -57,7 +57,7 @@ module.exports = {
    * When this email is set, all requests will automatically authenticate using this email.
    * Useful for testing purposes.
    */
-  userAutoAuthenticatedEmailForTests: null,
+  userAutoAuthenticatedEmailForTests: 'hei', //TODO
 
   /**
    * Enables GraphiQL
