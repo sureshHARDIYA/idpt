@@ -5,11 +5,13 @@ import EmpaticaService from 'modules/empatica/empaticaService';
 class EmpaticaImportPage extends Component {
 
   handleOnDrop = (data) => {
-    console.log('---------------------------')
-    console.log(data)
-    console.log('---------------------------')
-
-    EmpaticaService.create({ name: JSON.stringify(data)});
+    const dataArray = [];
+    
+    for (const line of data) {
+      dataArray.push(line.data[0])
+    }
+    
+    EmpaticaService.create({ name: JSON.stringify(dataArray)});
   }
 
   handleOnError = (err, file, inputElem, reason) => {
@@ -29,8 +31,6 @@ class EmpaticaImportPage extends Component {
       addRemoveButton
       removeButtonColor='#659cef'
       onRemoveFile={this.handleOnRemoveFile}
-      config={{ delimiter: "\r",
-                newline:   ","}}
     >
       <span>Drop CSV file here or click to upload.</span>
     </CSVReader>);
