@@ -1,8 +1,10 @@
 const schema = `
   input EmpaticaFilterInput {
     id: String
-    name: String
-    status: EmpaticaStatusEnum
+    type: String!
+    frequency: Int!
+    timestamp: Int!
+    patient: User!
     createdAtRange: [ DateTime ]
   }
 `;

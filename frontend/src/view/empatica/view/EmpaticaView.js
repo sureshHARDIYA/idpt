@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import Spinner from 'view/shared/Spinner';
 import ViewWrapper from 'view/shared/styles/ViewWrapper';
 import TextViewItem from 'view/shared/view/TextViewItem';
+import PatientViewItem from 'view/patient/view/PatientViewItem';
 
 const { fields } = model;
 
@@ -18,10 +19,29 @@ class EmpaticaView extends Component {
         />
 
         <TextViewItem
-          label={fields.name.label}
-          value={fields.name.forView(record.name)}
+          label={fields.type.label}
+          value={fields.type.forView(record.type)}
         />
 
+        <TextViewItem
+          label={fields.frequency.label}
+          value={fields.frequency.forView(record.frequency)}
+        />
+
+        <TextViewItem
+          label={fields.timestamp.label}
+          value={fields.timestamp.forView(record.timestamp)}
+        />
+
+        <PatientViewItem
+          label={fields.patient.label}
+          value={fields.patient.forView(record.patient)}
+        />
+
+        <TextViewItem
+          label={fields.data.label}
+          value={fields.data.forView(record.data)}
+        />
 
         <TextViewItem
           label={fields.createdAt.label}

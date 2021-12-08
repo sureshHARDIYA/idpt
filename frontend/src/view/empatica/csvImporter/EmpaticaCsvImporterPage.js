@@ -6,12 +6,17 @@ class EmpaticaImportPage extends Component {
 
   handleOnDrop = (data) => {
     const dataArray = [];
-    
+  
     for (const line of data) {
       dataArray.push(line.data[0])
     }
-    
-    EmpaticaService.create({ name: JSON.stringify(dataArray)});
+
+    //EmpaticaService.create({ name: JSON.stringify(dataArray)});
+    EmpaticaService.create({ type: "EDA",
+                            frequency: 4,
+                            timestamp: 745256456,
+                            patient: { user: "hei" },
+                            data: ["1", "2" , "3"]});
   }
 
   handleOnError = (err, file, inputElem, reason) => {

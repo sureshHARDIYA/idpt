@@ -1,6 +1,10 @@
 const schema = `
   input EmpaticaInput {
-    name: String!
+    type: String!
+    frequency: Int!
+    timestamp: Int!
+    patient: User!
+    data: [String!]
   }
 `;
 

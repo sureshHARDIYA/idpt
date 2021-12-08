@@ -58,24 +58,11 @@ class EmpaticaListFilter extends Component {
                 <Row gutter={24}>
                   <Col md={24} lg={12}>
                     <InputFormItem
-                      name={fields.name.name}
-                      label={fields.name.label}
+                      name={fields.data.name}
+                      label={fields.data.label}
                       layout={formItemLayout}
                     />
                   </Col>
-                  {/* <Col md={24} lg={12}>
-                    <SelectFormItem
-                      name={fields.status.name}
-                      label={fields.status.label}
-                      options={fields.status.options.map(
-                        (item) => ({
-                          value: item.id,
-                          label: item.label,
-                        }),
-                      )}
-                      layout={formItemLayout}
-                    />
-                  </Col> */}
                 </Row>
                 <Row>
                   <Col className="filter-buttons" span={24}>

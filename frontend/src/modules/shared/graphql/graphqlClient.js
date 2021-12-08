@@ -34,6 +34,9 @@ const defaultOptions = {
     fetchPolicy: 'no-cache',
     errorPolicy: 'all',
   },
+  mutate: {
+    errorPolicy: 'all',
+  },
 };
 
 const graphqlClient = new ApolloClient({

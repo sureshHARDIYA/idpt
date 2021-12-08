@@ -24,6 +24,8 @@ class RecordForm extends Component {
 
   handleSubmit = (values) => {
     const { id, ...data } = this.schema.cast(values);
+    // TODO
+    console.log(values);
     this.props.onSubmit(id, data);
   };
 

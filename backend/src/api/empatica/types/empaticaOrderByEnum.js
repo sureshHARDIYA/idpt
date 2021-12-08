@@ -2,8 +2,14 @@ const schema = `
   enum EmpaticaOrderByEnum {
     id_ASC
     id_DESC
-    name_ASC
-    name_DESC
+    type_ASC
+    type_DESC
+    frequency_ASC
+    frequency_DESC
+    timestamp_ASC
+    timestamp_DESC
+    patient_ASC
+    patient_DESC
     status_ASC
     status_DESC
     createdAt_ASC

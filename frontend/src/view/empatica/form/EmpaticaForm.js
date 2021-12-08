@@ -10,12 +10,16 @@ import FormWrapper, {
 } from 'view/shared/styles/FormWrapper';
 import FormSchema from 'view/shared/form/formSchema';
 import InputFormItem from 'view/shared/form/items/InputFormItem';
+import PatientAutocompleteFormItem from 'view/patient/autocomplete/PatientAutocompleteFormItem';
 const { fields } = model;
 
 class EmpaticaForm extends Component {
   schema = new FormSchema(fields.id, [
-    fields.name,
-    //fields.status,
+    fields.type,
+    fields.frequency,
+    fields.timestamp,
+    fields.patient,
+    fields.data,
   ]);
 
   handleSubmit = (values) => {
@@ -53,10 +57,16 @@ class EmpaticaForm extends Component {
                     tab="Generate Information"
                   >
                     <InputFormItem
-                      name={fields.name.name}
-                      label={fields.name.label}
-                      required={fields.name.required}
+                      name={fields.data.name}
+                      label={fields.data.label}
+                      required={fields.data.required}
                       autoFocus
+                    />
+                    <PatientAutocompleteFormItem
+                    name={fields.patient.name}
+                    label={fields.patient.label}
+                    required={fields.patient.required}
+                    form={form}
                     />
                     {/* <SelectFormItem
                       name={fields.status.name}

@@ -7,14 +7,26 @@ const Schema = database.Schema;
  */
 const EmpaticaSchema = new Schema(
   {
-    name: {
+    type: {
       type: String,
       required: true,
     },
-    parent: [
+    frequency: {
+      type: Number,
+      required: true,
+    },
+    timestamp: {
+      type: Number,
+      required: true,
+    },
+    patient: {
+      type: Schema.Types.ObjectId,
+      ref: 'user',
+    },
+    data: [
       {
-        type: Schema.Types.ObjectId,
-        ref: 'empatica',
+        type: String,
+        required: true,
       },
     ],
   }

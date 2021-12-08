@@ -168,22 +168,15 @@ class EmpaticaRepository {
         };
       }
 
-      if (filter.name) {
+      if (filter.type) {
         criteria = {
           ...criteria,
-          name: {
+          type: {
             $regex: MongooseQueryUtils.escapeRegExp(
-              filter.name,
+              filter.type,
             ),
             $options: 'i',
           },
-        };
-      }
-
-      if (filter.status) {
-        criteria = {
-          ...criteria,
-          status: filter.status,
         };
       }
 

@@ -53,7 +53,7 @@ export default class EmpaticaService {
       variables: {
         data,
       },
-    });
+    }).catch((error) => { console.log(JSON.stringify(error, null, 2)); });
 
     return response.data.empaticaCreate;
   }
@@ -84,7 +84,14 @@ export default class EmpaticaService {
         query EMPATICA_FIND($id: String!) {
           empaticaFind(id: $id) {
             id
-            name
+            type
+            frequency
+            timestamp
+            patient {
+              id
+              fullName
+            }
+            data
             createdAt
             updatedAt
           }

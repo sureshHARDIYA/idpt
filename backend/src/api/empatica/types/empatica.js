@@ -3,7 +3,11 @@ const EmpaticaService = require('../../../services/empaticaService');
 const schema = `
   type Empatica {
     id: String!
-    name: String!
+    type: String!
+    frequency: Int!
+    timestamp: Int!
+    patient: User!
+    data: [String!]
     createdAt: DateTime
     updatedAt: DateTime
   }

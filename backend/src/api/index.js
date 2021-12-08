@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const graphqlHTTP = require('express-graphql');
+const bodyParser = require('body-parser');
 const schema = require('./schema');
 
 const fs = require('fs');
@@ -72,6 +73,9 @@ app.get(
   authMiddleware,
   download,
 );
+
+// Sets a higher limit for HTTP bodies
+app.use(bodyParser({ limit: '4mb' }));
 
 // Sets up the GraphQL endpoint
 app.use(
