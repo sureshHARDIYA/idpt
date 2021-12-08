@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "add": "^2.0.6",
-    "axios": "^0.24.0",
     "bcrypt": "5.0.0",
     "cloudinary": "1.21.0",
     "cors": "2.8.5",

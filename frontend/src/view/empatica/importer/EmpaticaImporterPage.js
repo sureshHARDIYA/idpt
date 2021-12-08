@@ -9,6 +9,7 @@ import actions from 'modules/empatica/importer/empaticaImporterActions';
 import fields from 'modules/empatica/importer/empaticaImporterFields';
 
 class EmpaticaImportPage extends Component {
+  
   render() {
     const Importer = importerHoc(
       selectors,

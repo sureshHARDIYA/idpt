@@ -119,6 +119,15 @@ class EmpaticaToolbar extends Component {
           </Link>
         )}
 
+        {/* TODO */}
+        {this.props.hasPermissionToImport && (
+          <Link to="/empatica/csvImporter">
+            <Button type="primary" icon="upload" size="large">
+              {i18n('common.CSV')}
+            </Button>
+          </Link>
+        )}
+
         {this.renderDestroyButton()}
 
         {this.props.hasPermissionToAuditLogs && (
