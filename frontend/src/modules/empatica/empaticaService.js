@@ -87,10 +87,6 @@ export default class EmpaticaService {
             type
             frequency
             timestamp
-            patient {
-              id
-              fullName
-            }
             data
             createdAt
             updatedAt
@@ -124,7 +120,7 @@ export default class EmpaticaService {
             count
             rows {
               id
-              name
+              type
               updatedAt
               createdAt
             }

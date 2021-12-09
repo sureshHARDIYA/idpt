@@ -95,6 +95,12 @@ class EmpaticaRepository {
       options,
     );
 
+    await MongooseRepository.destroyRelationToOne(
+      id,
+      Empatica,
+      'patient',
+      options,
+    );
   }
 
   /**
@@ -131,7 +137,7 @@ class EmpaticaRepository {
    */
   async findByIds(ids, options) {
     return MongooseRepository.wrapWithSessionIfExists(
-      Empatica.find({ _id: { $in: ids } }),
+      Empatica.find({ _id: { $in: ids } }).populate('patient'),
       options,
     );
   }
@@ -223,7 +229,8 @@ class EmpaticaRepository {
     const rows = await Empatica.find(criteria)
       .skip(skip)
       .limit(limitEscaped)
-      .sort(sort);
+      .sort(sort)
+      .populate('patient');
 
     const count = await Empatica.countDocuments(criteria);
 

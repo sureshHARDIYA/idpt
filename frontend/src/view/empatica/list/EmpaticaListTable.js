@@ -29,8 +29,11 @@ class EmpaticaListTable extends Component {
   };
 
   columns = [
-    fields.name.forTable(),
-    // fields.status.forTable(),
+    fields.type.forTable(),
+    fields.frequency.forTable(),
+    fields.timestamp.forTable(),
+    fields.patient.forTable(),
+    fields.data.forTable(),
     {
       title: '',
       dataIndex: '',

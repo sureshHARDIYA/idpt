@@ -8,8 +8,6 @@ const schema = `
     frequency_DESC
     timestamp_ASC
     timestamp_DESC
-    patient_ASC
-    patient_DESC
     status_ASC
     status_DESC
     createdAt_ASC

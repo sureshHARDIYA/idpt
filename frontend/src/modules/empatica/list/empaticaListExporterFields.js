@@ -4,8 +4,11 @@ const { fields } = model;
 
 export default [
   fields.id,
-  // fields.status,
-  fields.name,
+  fields.type,
+  fields.frequency,
+  fields.timestamp,
+  fields.patient,
+  fields.data,
   fields.createdAt,
   fields.updatedAt
 ];

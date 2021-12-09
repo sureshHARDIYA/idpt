@@ -33,7 +33,7 @@ class EmpaticaView extends Component {
           value={fields.timestamp.forView(record.timestamp)}
         />
 
-        <PatientViewItem
+        <TextViewItem
           label={fields.patient.label}
           value={fields.patient.forView(record.patient)}
         />

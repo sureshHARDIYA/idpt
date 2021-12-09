@@ -12,21 +12,19 @@ const EmpaticaSchema = new Schema(
       required: true,
     },
     frequency: {
-      type: Number,
+      type: String,
       required: true,
     },
     timestamp: {
-      type: Number,
+      type: String,
       required: true,
     },
     patient: {
-      type: Schema.Types.ObjectId,
-      ref: 'user',
+      type: String,
     },
     data: [
       {
         type: String,
-        required: true,
       },
     ],
   }

@@ -13,21 +13,20 @@ function label(name) {
 
 const fields = {
   id: new IdField('id', label('id')),
+
   type: new StringField('type', label('type'), {
     required: true,
   }),
-  frequency: new IntegerField('frequency', label('frequency'), {
+  frequency: new StringField('frequency', label('frequency'), {
     required: true,
   }),
-  timestamp: new IntegerField('timestamp', label('timestamp'), {
+  timestamp: new StringField('timestamp', label('timestamp'), {
     required: true,
   }),
-  patient: new RelationToOneField('patient', label('patient'), {
-    required: true,
-  }),
-  data: new StringArrayField('data', label('data'), {
-    required: true,
-  }),
+  patient: new StringField('patient', label('patient')),
+  
+  data: new StringArrayField('data', label('data')),
+  
   createdAt: new DateTimeField(
     'createdAt',
     label('createdAt'),

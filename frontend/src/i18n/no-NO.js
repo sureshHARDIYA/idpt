@@ -669,13 +669,13 @@ const no = {
 
     empatica: {
       name: 'empatica',
-      label: 'Empaticas',
-      menu: 'Empaticas',
+      label: 'Empatica',
+      menu: 'Empatica',
       single: 'Empatica',
       exporterFileName: 'empatica_export',
       list: {
-        menu: 'Empaticas',
-        title: 'Empaticas',
+        menu: 'Empatica',
+        title: 'Empatica',
       },
       create: {
         success: 'Oppretting av Empatica vellykket',
@@ -694,7 +694,11 @@ const no = {
       },
       fields: {
         id: 'Id',
-        name: 'Navn',
+        type: 'Type',
+        frequency: 'Frekvens',
+        timestamp: 'Timestamp',
+        patient: 'Pasient',
+        data: 'Data',
         status: 'Status',
         createdAt: 'Opprettet',
         updatedAt: 'Oppdatert',

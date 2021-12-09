@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { CSVReader } from 'react-papaparse';
 import EmpaticaService from 'modules/empatica/empaticaService';
 
-class EmpaticaImportPage extends Component {
+class EmpaticaCsvImportPage extends Component {
 
   handleOnDrop = (data) => {
     const dataArray = [];
@@ -12,11 +12,10 @@ class EmpaticaImportPage extends Component {
     }
 
     //EmpaticaService.create({ name: JSON.stringify(dataArray)});
-    EmpaticaService.create({ type: "EDA",
-                            frequency: 4,
-                            timestamp: 745256456,
-                            patient: { user: "hei" },
-                            data: ["1", "2" , "3"]});
+    EmpaticaService.create({ type: "HRV",
+                             frequency: "2",
+                             timestamp: "87345670",
+                             data: ["5", "5", "5", "6"]});
   }
 
   handleOnError = (err, file, inputElem, reason) => {
@@ -42,4 +41,4 @@ class EmpaticaImportPage extends Component {
   }
 }
 
-export default EmpaticaImportPage;
+export default EmpaticaCsvImportPage;

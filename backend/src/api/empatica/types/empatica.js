@@ -4,10 +4,10 @@ const schema = `
   type Empatica {
     id: String!
     type: String!
-    frequency: Int!
-    timestamp: Int!
-    patient: User!
-    data: [String!]
+    frequency: String!
+    timestamp: String!
+    patient: String
+    data: [String]
     createdAt: DateTime
     updatedAt: DateTime
   }

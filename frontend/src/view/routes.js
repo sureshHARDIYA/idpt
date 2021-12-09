@@ -339,7 +339,7 @@ const privateRoutes = [
     loader: () =>
       import('view/empatica/csvImporter/EmpaticaCsvImporterPage'),
     menu: false,
-    permissionRequired: permissions.empaticaImport,
+    permissionRequired: permissions.empaticaCreate,
     exact: true,
   },
   {

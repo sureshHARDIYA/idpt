@@ -16,7 +16,8 @@ import InputFormItem from 'view/shared/form/items/InputFormItem';
 const { fields } = model;
 
 const schema = new FormFilterSchema([
-  fields.name,
+  fields.type,
+  fields.frequency
 ]);
 
 class EmpaticaListFilter extends Component {
@@ -58,8 +59,15 @@ class EmpaticaListFilter extends Component {
                 <Row gutter={24}>
                   <Col md={24} lg={12}>
                     <InputFormItem
-                      name={fields.data.name}
-                      label={fields.data.label}
+                      name={fields.type.name}
+                      label={fields.type.label}
+                      layout={formItemLayout}
+                    />
+                  </Col>
+                  <Col md={24} lg={12}>
+                    <InputFormItem
+                      name={fields.frequency.name}
+                      label={fields.frequency.label}
                       layout={formItemLayout}
                     />
                   </Col>

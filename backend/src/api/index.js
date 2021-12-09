@@ -75,7 +75,7 @@ app.get(
 );
 
 // Sets a higher limit for HTTP bodies
-app.use(bodyParser({ limit: '4mb' }));
+// app.use(bodyParser({ limit: '4mb' }));
 
 // Sets up the GraphQL endpoint
 app.use(
