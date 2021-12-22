@@ -57,10 +57,22 @@ class EmpaticaForm extends Component {
                     tab="Generate Information"
                   >
                     <InputFormItem
-                      name={fields.data.name}
-                      label={fields.data.label}
-                      required={fields.data.required}
+                      name={fields.type.name}
+                      label={fields.type.label}
+                      required={fields.type.required}
                       autoFocus
+                    />
+                    <InputFormItem
+                      name={fields.frequency.name}
+                      label={fields.frequency.label}
+                      required={fields.frequency.required}
+                      
+                    />
+                    <InputFormItem
+                      name={fields.timestamp.name}
+                      label={fields.timestamp.label}
+                      required={fields.timestamp.required}
+                      
                     />
                     <PatientAutocompleteFormItem
                     name={fields.patient.name}

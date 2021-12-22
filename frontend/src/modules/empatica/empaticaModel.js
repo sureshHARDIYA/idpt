@@ -4,8 +4,12 @@ import StringField from 'modules/shared/fields/stringField';
 import DateTimeField from 'modules/shared/fields/dateTimeField';
 import DateTimeRangeField from 'modules/shared/fields/dateTimeRangeField';
 import StringArrayField from 'modules/shared/fields/stringArrayField';
-import IntegerField from 'modules/shared/fields/integerField';
-import RelationToOneField from 'modules/shared/fields/relationToOneField';
+
+class DataField extends StringArrayField {
+  forView(value) {
+    return value.toString();
+  }
+}
 
 function label(name) {
   return i18n(`entities.empatica.fields.${name}`);
@@ -25,7 +29,7 @@ const fields = {
   }),
   patient: new StringField('patient', label('patient')),
   
-  data: new StringArrayField('data', label('data')),
+  data: new DataField('data', label('data')),
   
   createdAt: new DateTimeField(
     'createdAt',

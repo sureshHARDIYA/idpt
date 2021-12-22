@@ -121,6 +121,9 @@ export default class EmpaticaService {
             rows {
               id
               type
+              timestamp
+              patient
+              frequency
               updatedAt
               createdAt
             }

@@ -74,8 +74,8 @@ app.get(
   download,
 );
 
-// Sets a higher limit for HTTP bodies
-// app.use(bodyParser({ limit: '4mb' }));
+// Sets a higher limit for HTTP bodies. (The data we are sending exceeds the defaut body size)
+app.use(bodyParser({ limit: '4mb' }));
 
 // Sets up the GraphQL endpoint
 app.use(
