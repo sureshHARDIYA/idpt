@@ -4,10 +4,11 @@ const schema = `
   type BioAnalyzed {
     id: String!
     type: String!
-    timeStart: DateTime!
-    timeEnd: DateTime!
+    score: Float!
+    timeStart: String!
+    timeEnd: String!
     patient: String
-    dataId: String
+    dataId: String!
     createdAt: DateTime
     updatedAt: DateTime
   }

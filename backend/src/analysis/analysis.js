@@ -15,8 +15,8 @@ const analyze = (data) => {
   const score = calculateScore(data.data, duration, data.frequency);
 
   return {type: data.type,
-      timeStart: new Date(timeStart * 1000),
-      timeEnd: new Date(timeEnd * 1000),
+      timeStart: dateFormater(new Date(timeStart * 1000)),
+      timeEnd: dateFormater(new Date(timeEnd * 1000)),
       patient: data.patient,
       score: score,
       dataId: data._id}
@@ -226,6 +226,13 @@ const frequency_limiter = (scores) => {
     j = j * 10;
   }
   return scores;
+}
+
+const dateFormater = (date) => {
+  const year = date.getFullYear();
+  const month = date.getMonth();
+  const day = date.getDate();
+  return year + '-' + month + '-' + day;
 }
 
 exports.analyze = analyze;

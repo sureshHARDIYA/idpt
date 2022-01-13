@@ -19,7 +19,7 @@ const en = {
     view: 'View',
     destroy: 'Delete',
     mustSelectARow: 'Must select a row',
-    CSV: 'Import CSV',
+    bioData: 'Import biodata',
   },
 
   app: {
@@ -673,38 +673,39 @@ const en = {
       },
     },
 
-    empatica: {
-      name: 'empatica',
-      label: 'Empatica',
-      menu: 'Empatica',
-      single: 'Empatica',
-      exporterFileName: 'empatica_export',
+    bioAnalyzed: {
+      name: 'bioAnalyzed',
+      label: 'BioAnalyzed',
+      menu: 'BioAnalyzed',
+      single: 'BioAnalyzed',
+      exporterFileName: 'bioAnalyzed_export',
       list: {
-        menu: 'Empatica',
-        title: 'Empatica',
+        menu: 'BioAnalyzed',
+        title: 'BioAnalyzed',
       },
       create: {
-        success: 'Empatica saved successfully',
+        success: 'BioAnalyzed saved successfully',
       },
       update: {
-        success: 'Empatica saved successfully',
+        success: 'BioAnalyzed saved successfully',
       },
       destroy: {
-        success: 'Empatica deleted successfully',
+        success: 'BioAnalyzed deleted successfully',
       },
       destroyAll: {
-        success: 'Empaticas deleted successfully',
+        success: 'BioAnalyzeds deleted successfully',
       },
       edit: {
-        title: 'Edit Empatica',
+        title: 'Edit BioAnalyzed',
       },
       fields: {
         id: 'Id',
         type: 'Type',
-        frequency: 'Frequency',
-        timestamp: 'Timestamp',
+        score: 'Score',
+        timeStart: 'Time start',
+        timeEnd: 'Time end',
         patient: 'Patient',
-        data: 'Data',
+        dataId: 'Data ID',
         status: 'Status',
         createdAt: 'Created at',
         updatedAt: 'Updated at',
@@ -718,14 +719,14 @@ const en = {
         },
       },
       new: {
-        title: 'New Empatica',
+        title: 'New BioAnalyzed',
       },
       view: {
-        title: 'View Empatica',
+        title: 'View BioAnalyzed',
       },
       importer: {
-        title: 'Import Empaticas',
-        fileName: 'empatica_import_template',
+        title: 'Import BioAnalyzeds',
+        fileName: 'bioAnalyzed_import_template',
         hint:
           'Files/Images columns must be the URLs of the files separated by space.',
       },
@@ -836,13 +837,13 @@ const en = {
       label: 'Task Viewer',
       description: 'View access to Tasks',
     },
-    empaticaEditor: {
-      label: 'Empatica Editor',
-      description: 'Edit access to Empaticas',
+    bioAnalyzedEditor: {
+      label: 'BioAnalyzed Editor',
+      description: 'Edit access to BioAnalyzeds',
     },
-    empaticaViewer: {
-      label: 'Empatica Viewer',
-      description: 'View access to Empatica',
+    bioAnalyzedViewer: {
+      label: 'BioAnalyzed Viewer',
+      description: 'View access to BioAnalyzed',
     },
     audioEditor: {
       label: 'Audio Editor',

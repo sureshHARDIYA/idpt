@@ -19,7 +19,7 @@ const no = {
     view: 'Se',
     destroy: 'Slett',
     mustSelectARow: 'Må velge en rad',
-    CSV: 'Importer CSV',
+    bioData: 'Importer biodata',
   },
 
   app: {
@@ -667,38 +667,39 @@ const no = {
       },
     },
 
-    empatica: {
-      name: 'empatica',
-      label: 'Empatica',
-      menu: 'Empatica',
-      single: 'Empatica',
-      exporterFileName: 'empatica_export',
+    bioAnalyzed: {
+      name: 'bioAnalyzed',
+      label: 'BioAnalyzed',
+      menu: 'BioAnalyzed',
+      single: 'BioAnalyzed',
+      exporterFileName: 'bioAnalyzed_export',
       list: {
-        menu: 'Empatica',
-        title: 'Empatica',
+        menu: 'BioAnalyzed',
+        title: 'BioAnalyzed',
       },
       create: {
-        success: 'Oppretting av Empatica vellykket',
+        success: 'Oppretting av BioAnalyzed vellykket',
       },
       update: {
-        success: 'Lagring av Empatica vellykket',
+        success: 'Lagring av BioAnalyzed vellykket',
       },
       destroy: {
-        success: 'Sletting av Empatica vellykket',
+        success: 'Sletting av BioAnalyzed vellykket',
       },
       destroyAll: {
-        success: 'Sletting av Empaticas vellykket',
+        success: 'Sletting av BioAnalyzeder vellykket',
       },
       edit: {
-        title: 'Rediger Empatica',
+        title: 'Rediger BioAnalyzed',
       },
       fields: {
         id: 'Id',
         type: 'Type',
-        frequency: 'Frekvens',
-        timestamp: 'Timestamp',
+        score: 'Score',
+        timeStart: 'Start tid',
+        timeEnd: 'Slutt tid',
         patient: 'Pasient',
-        data: 'Data',
+        dataId: 'Data ID',
         status: 'Status',
         createdAt: 'Opprettet',
         updatedAt: 'Oppdatert',
@@ -712,14 +713,14 @@ const no = {
         },
       },
       new: {
-        title: 'Ny Empatica',
+        title: 'Ny BioAnalyzed',
       },
       view: {
-        title: 'Se Empatica',
+        title: 'Se BioAnalyzed',
       },
       importer: {
-        title: 'Importer Empaticas',
-        fileName: 'empatica_import_template',
+        title: 'Importer BioAnalyzeds',
+        fileName: 'bioAnalyzed_import_template',
         hint:
           'Fil/bildekolonner må være filenes URLer separert med mellomrom.',
       },

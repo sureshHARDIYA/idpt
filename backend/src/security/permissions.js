@@ -357,6 +357,69 @@ class Permissions {
           roles.moduleViewer
         ]
       },
+      bioAnalyzedImport: {
+        id: 'bioAnalyzedImport',
+        allowedRoles: [
+          roles.owner,
+          roles.editor,
+          roles.entityEditor,
+          roles.bioAnalyzedEditor
+        ]
+      },
+      bioAnalyzedCreate: {
+        id: 'bioAnalyzedCreate',
+        allowedRoles: [
+          roles.owner,
+          roles.editor,
+          roles.entityEditor,
+          roles.bioAnalyzedEditor
+        ],
+        allowedStorageFolders: [ 'bioAnalyzed' ]
+      },
+      bioAnalyzedEdit: {
+        id: 'bioAnalyzedEdit',
+        allowedRoles: [
+          roles.owner,
+          roles.editor,
+          roles.entityEditor,
+          roles.bioAnalyzedEditor
+        ],
+        allowedStorageFolders: [ 'bioAnalyzed' ]
+      },
+      bioAnalyzedDestroy: {
+        id: 'bioAnalyzedDestroy',
+        allowedRoles: [
+          roles.owner,
+          roles.editor,
+          roles.entityEditor,
+          roles.bioAnalyzedEditor
+        ],
+        allowedStorageFolders: [ 'bioAnalyzed' ]
+      },
+      bioAnalyzedRead: {
+        id: 'bioAnalyzedRead',
+        allowedRoles: [
+          roles.owner,
+          roles.editor,
+          roles.viewer,
+          roles.entityEditor,
+          roles.bioAnalyzedEditor,
+          roles.bioAnalyzedViewer
+        ]
+      },
+      bioAnalyzedAutocomplete: {
+        id: 'bioAnalyzedAutocomplete',
+        allowedRoles: [
+          roles.owner,
+          roles.editor,
+          roles.viewer,
+          roles.entityEditor,
+          roles.bioAnalyzedEditor,
+          roles.bioAnalyzedViewer,
+          roles.moduleEditor,
+          roles.moduleViewer
+        ]
+      },
       taxonomyImport: {
         id: 'taxonomyImport',
         allowedRoles: [

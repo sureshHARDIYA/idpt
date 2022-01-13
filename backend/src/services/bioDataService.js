@@ -13,7 +13,7 @@ module.exports = class BioDataService {
   }
 
   /**
-   * Creates an BioData.
+   * Creates a BioData.
    *
    * @param {*} data
    */

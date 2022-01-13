@@ -508,65 +508,65 @@ class Permissions {
         ],
       },
 
-      empaticaImport: {
-        id: 'empaticaImport',
+      bioAnalyzedImport: {
+        id: 'bioAnalyzedImport',
         allowedRoles: [
           roles.owner,
           roles.editor,
           roles.entityEditor,
-          roles.empaticaEditor,
+          roles.bioAnalyzedEditor,
         ],
       },
-      empaticaCreate: {
-        id: 'empaticaCreate',
+      bioAnalyzedCreate: {
+        id: 'bioAnalyzedCreate',
         allowedRoles: [
           roles.owner,
           roles.editor,
           roles.entityEditor,
-          roles.empaticaEditor,
+          roles.bioAnalyzedEditor,
         ],
-        allowedStorageFolders: ['empatica'],
+        allowedStorageFolders: ['bioAnalyzed'],
       },
-      empaticaEdit: {
-        id: 'empaticaEdit',
+      bioAnalyzedEdit: {
+        id: 'bioAnalyzedEdit',
         allowedRoles: [
           roles.owner,
           roles.editor,
           roles.entityEditor,
-          roles.empaticaEditor,
+          roles.bioAnalyzedEditor,
         ],
-        allowedStorageFolders: ['empatica'],
+        allowedStorageFolders: ['bioAnalyzed'],
       },
-      empaticaDestroy: {
-        id: 'empaticaDestroy',
+      bioAnalyzedDestroy: {
+        id: 'bioAnalyzedDestroy',
         allowedRoles: [
           roles.owner,
           roles.editor,
           roles.entityEditor,
-          roles.empaticaEditor,
+          roles.bioAnalyzedEditor,
         ],
-        allowedStorageFolders: ['empatica'],
+        allowedStorageFolders: ['bioAnalyzed'],
       },
-      empaticaRead: {
-        id: 'empaticaRead',
+      bioAnalyzedRead: {
+        id: 'bioAnalyzedRead',
         allowedRoles: [
           roles.owner,
           roles.editor,
           roles.viewer,
           roles.entityEditor,
-          roles.empaticaEditor,
-          roles.empaticaViewer,
+          roles.bioAnalyzedEditor,
+          roles.bioAnalyzedViewer,
         ],
       },
-      empaticaAutocomplete: {
-        id: 'empaticaAutocomplete',
+      bioAnalyzedAutocomplete: {
+        id: 'bioAnalyzedAutocomplete',
         allowedRoles: [
           roles.owner,
           roles.editor,
           roles.viewer,
           roles.entityEditor,
-          roles.empaticaEditor,
-          roles.empaticaViewer,
+          roles.bioAnalyzedEditor,
+          roles.bioAnalyzedViewer,
           roles.moduleEditor,
           roles.moduleViewer,
         ],

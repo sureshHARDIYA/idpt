@@ -4,6 +4,8 @@ const schema = `
     id_DESC
     type_ASC
     type_DESC
+    score_ASC
+    score_DESC
     timeStart_ASC
     timeStart_DESC
     timeEnd_ASC

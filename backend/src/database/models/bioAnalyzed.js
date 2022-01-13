@@ -11,6 +11,10 @@ const BioAnalyzedSchema = new Schema(
       type: String,
       required: true,
     },
+    score: {
+      type: Number,
+      min: 0,
+    },
     timeStart: {
       type: String,
       required: true,
@@ -21,11 +25,6 @@ const BioAnalyzedSchema = new Schema(
     },
     patient: {
       type: String,
-    },
-    score: {
-      type: Number,
-      min: 0,
-      max: 100
     },
     dataId: {
       type: String,
