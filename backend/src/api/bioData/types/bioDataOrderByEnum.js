@@ -1,5 +1,5 @@
 const schema = `
-  enum EmpaticaOrderByEnum {
+  enum BioDataOrderByEnum {
     id_ASC
     id_DESC
     type_ASC

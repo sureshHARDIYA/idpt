@@ -1,18 +1,18 @@
-const EmpaticaService = require('../../../services/empaticaService');
+const BioDataService = require('../../../services/bioDataService');
 const PermissionChecker = require('../../../services/iam/permissionChecker');
 const permissions = require('../../../security/permissions')
   .values;
 
 const schema = `
-  empaticaFind(id: String!): Empatica!
+  bioDataFind(id: String!): BioData!
 `;
 
 const resolver = {
-  empaticaFind: async (root, args, context) => {
+  bioDataFind: async (root, args, context) => {
     new PermissionChecker(context)
-      .validateHas(permissions.empaticaRead);
+      .validateHas(permissions.bioDataRead);
 
-    return new EmpaticaService(context).findById(args.id);
+    return new BioDataService(context).findById(args.id);
   },
 };
 

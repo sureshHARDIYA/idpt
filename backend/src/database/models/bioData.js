@@ -2,10 +2,10 @@ const database = require('../database');
 const Schema = database.Schema;
 
 /**
- * Empatica database schema.
+ * BioData database schema.
  * See https://mongoosejs.com/docs/models.html to learn how to customize it.
  */
-const EmpaticaSchema = new Schema(
+const BioDataSchema = new Schema(
   {
     type: {
       type: String,
@@ -30,13 +30,13 @@ const EmpaticaSchema = new Schema(
   }
 );
 
-EmpaticaSchema.virtual('id').get(function() {
+BioDataSchema.virtual('id').get(function() {
   return this._id.toHexString();
 });
 
-const Empatica = database.model(
-  'empatica',
-  EmpaticaSchema,
+const BioData = database.model(
+  'bioData',
+  BioDataSchema,
 );
 
-module.exports = Empatica;
+module.exports = BioData;

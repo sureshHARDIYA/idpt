@@ -1,18 +1,18 @@
-const EmpaticaService = require('../../../services/empaticaService');
+const BioDataService = require('../../../services/bioDataService');
 const PermissionChecker = require('../../../services/iam/permissionChecker');
 const permissions = require('../../../security/permissions')
   .values;
 
 const schema = `
-  empaticaDestroy(ids: [String!]!): Boolean
+  bioDataDestroy(ids: [String!]!): Boolean
 `;
 
 const resolver = {
-  empaticaDestroy: async (root, args, context) => {
+  bioDataDestroy: async (root, args, context) => {
     new PermissionChecker(context)
-      .validateHas(permissions.empaticaDestroy);
+      .validateHas(permissions.bioDataDestroy);
 
-    await new EmpaticaService(context).destroyAll(
+    await new BioDataService(context).destroyAll(
       args.ids
     );
 

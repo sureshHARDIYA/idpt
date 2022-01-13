@@ -294,65 +294,65 @@ class Permissions {
           roles.moduleViewer
         ]
       },
-      empaticaImport: {
-        id: 'empaticaImport',
+      bioDataImport: {
+        id: 'bioDataImport',
         allowedRoles: [
           roles.owner,
           roles.editor,
           roles.entityEditor,
-          roles.empaticaEditor
+          roles.bioDataEditor
         ]
       },
-      empaticaCreate: {
-        id: 'empaticaCreate',
+      bioDataCreate: {
+        id: 'bioDataCreate',
         allowedRoles: [
           roles.owner,
           roles.editor,
           roles.entityEditor,
-          roles.empaticaEditor
+          roles.bioDataEditor
         ],
-        allowedStorageFolders: [ 'empatica' ]
+        allowedStorageFolders: [ 'bioData' ]
       },
-      empaticaEdit: {
-        id: 'empaticaEdit',
+      bioDataEdit: {
+        id: 'bioDataEdit',
         allowedRoles: [
           roles.owner,
           roles.editor,
           roles.entityEditor,
-          roles.empaticaEditor
+          roles.bioDataEditor
         ],
-        allowedStorageFolders: [ 'empatica' ]
+        allowedStorageFolders: [ 'bioData' ]
       },
-      empaticaDestroy: {
-        id: 'empaticaDestroy',
+      bioDataDestroy: {
+        id: 'bioDataDestroy',
         allowedRoles: [
           roles.owner,
           roles.editor,
           roles.entityEditor,
-          roles.empaticaEditor
+          roles.bioDataEditor
         ],
-        allowedStorageFolders: [ 'empatica' ]
+        allowedStorageFolders: [ 'bioData' ]
       },
-      empaticaRead: {
-        id: 'empaticaRead',
+      bioDataRead: {
+        id: 'bioDataRead',
         allowedRoles: [
           roles.owner,
           roles.editor,
           roles.viewer,
           roles.entityEditor,
-          roles.empaticaEditor,
-          roles.empaticaViewer
+          roles.bioDataEditor,
+          roles.bioDataViewer
         ]
       },
-      empaticaAutocomplete: {
-        id: 'empaticaAutocomplete',
+      bioDataAutocomplete: {
+        id: 'bioDataAutocomplete',
         allowedRoles: [
           roles.owner,
           roles.editor,
           roles.viewer,
           roles.entityEditor,
-          roles.empaticaEditor,
-          roles.empaticaViewer,
+          roles.bioDataEditor,
+          roles.bioDataViewer,
           roles.moduleEditor,
           roles.moduleViewer
         ]

@@ -1,5 +1,5 @@
 const schema = `
-  input EmpaticaFilterInput {
+  input BioDataFilterInput {
     id: String
     type: String
     frequency: String

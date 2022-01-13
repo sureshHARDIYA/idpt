@@ -1,5 +1,5 @@
 const schema = `
-  enum EmpaticaStatusEnum {
+  enum BioDataStatusEnum {
     ACTIVE
     INACTIVE
     DRAFT

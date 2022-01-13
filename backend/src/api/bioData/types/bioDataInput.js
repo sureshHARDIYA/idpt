@@ -1,15 +1,10 @@
-const EmpaticaService = require('../../../services/empaticaService');
-
 const schema = `
-  type Empatica {
-    id: String!
+  input BioDataInput {
     type: String!
     frequency: String!
     timestamp: String!
     patient: String
     data: [String]
-    createdAt: DateTime
-    updatedAt: DateTime
   }
 `;
 

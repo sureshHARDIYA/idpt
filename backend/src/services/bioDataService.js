@@ -1,19 +1,19 @@
-const EmpaticaRepository = require('../database/repositories/empaticaRepository');
+const BioDataRepository = require('../database/repositories/bioDataRepository');
 const ValidationError = require('../errors/validationError');
 const MongooseRepository = require('../database/repositories/mongooseRepository');
 
 /**
- * Handles Empatica operations
+ * Handles BioData operations
  */
-module.exports = class EmpaticaService {
+module.exports = class BioDataService {
   constructor({ currentUser, language }) {
-    this.repository = new EmpaticaRepository();
+    this.repository = new BioDataRepository();
     this.currentUser = currentUser;
     this.language = language;
   }
 
   /**
-   * Creates an Empatica.
+   * Creates an BioData.
    *
    * @param {*} data
    */
@@ -36,7 +36,7 @@ module.exports = class EmpaticaService {
   }
 
   /**
-   * Updates an Empatica.
+   * Updates an BioData.
    *
    * @param {*} id
    * @param {*} data
@@ -64,7 +64,7 @@ module.exports = class EmpaticaService {
   }
 
   /**
-   * Destroy all Empaticas with those ids.
+   * Destroy all BioDatas with those ids.
    *
    * @param {*} ids
    */
@@ -87,7 +87,7 @@ module.exports = class EmpaticaService {
   }
 
   /**
-   * Finds the Empatica by Id.
+   * Finds the BioData by Id.
    *
    * @param {*} id
    */
@@ -96,7 +96,7 @@ module.exports = class EmpaticaService {
   }
 
   /**
-   * Finds the Empatica by Ids.
+   * Finds the BioData by Ids.
    *
    * @param {*} Ids
    */
@@ -105,7 +105,7 @@ module.exports = class EmpaticaService {
   }
 
   /**
-   * Finds Empaticas for Autocomplete.
+   * Finds BioDatas for Autocomplete.
    *
    * @param {*} search
    * @param {*} limit
@@ -118,7 +118,7 @@ module.exports = class EmpaticaService {
   }
 
   /**
-   * Finds Empaticas based on the query.
+   * Finds BioDatas based on the query.
    *
    * @param {*} args
    */
@@ -127,7 +127,7 @@ module.exports = class EmpaticaService {
   }
 
   /**
-   * Imports a list of Empaticas.
+   * Imports a list of BioDatas.
    *
    * @param {*} data
    * @param {*} importHash

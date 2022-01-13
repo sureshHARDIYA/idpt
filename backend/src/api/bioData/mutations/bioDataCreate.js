@@ -1,4 +1,4 @@
-const EmpaticaService = require('../../../services/empaticaService');
+const BioDataService = require('../../../services/bioDataService');
 const BioAnalyzedService = require('../../../services/bioAnalyzedService');
 const Analysis = require('../../../analysis/analysis');
 const PermissionChecker = require('../../../services/iam/permissionChecker');
@@ -6,16 +6,16 @@ const permissions = require('../../../security/permissions')
   .values;
 
 const schema = `
-  empaticaCreate(data: EmpaticaInput!): Empatica!
+  bioDataCreate(data: BioDataInput!): BioData!
 `;
 
 const resolver = {
-  empaticaCreate: async (root, args, context) => {
+  bioDataCreate: async (root, args, context) => {
     new PermissionChecker(context)
-      .validateHas(permissions.empaticaCreate);
+      .validateHas(permissions.bioDataCreate);
 
     
-    const storedData = await new EmpaticaService(context).create(
+    const storedData = await new BioDataService(context).create(
       args.data
     );
 

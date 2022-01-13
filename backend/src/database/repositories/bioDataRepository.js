@@ -1,29 +1,29 @@
 const MongooseRepository = require('./mongooseRepository');
 const MongooseQueryUtils = require('../utils/mongooseQueryUtils');
 const AuditLogRepository = require('./auditLogRepository');
-const Empatica = require('../models/empatica');
+const BioData = require('../models/bioData');
 
 /**
- * Handles database operations for the Empatica.
+ * Handles database operations for the BioData.
  * See https://mongoosejs.com/docs/index.html to learn how to customize it.
  */
-class EmpaticaRepository {
+class BioDataRepository {
   /**
-   * Creates the Empatica.
+   * Creates the BioData.
    *
    * @param {Object} data
    * @param {Object} [options]
    */
   async create(data, options) {
     if (MongooseRepository.getSession(options)) {
-      await Empatica.createCollection();
+      await BioData.createCollection();
     }
 
     const currentUser = MongooseRepository.getCurrentUser(
       options,
     );
 
-    const [record] = await Empatica.create(
+    const [record] = await BioData.create(
       [
         {
           ...data,
@@ -45,14 +45,14 @@ class EmpaticaRepository {
   }
 
   /**
-   * Updates the Empatica.
+   * Updates the BioData.
    *
    * @param {Object} data
    * @param {Object} [options]
    */
   async update(id, data, options) {
     await MongooseRepository.wrapWithSessionIfExists(
-      Empatica.updateOne(
+      BioData.updateOne(
         { _id: id },
         {
           ...data,
@@ -77,14 +77,14 @@ class EmpaticaRepository {
   }
 
   /**
-   * Deletes the Empatica.
+   * Deletes the BioData.
    *
    * @param {string} id
    * @param {Object} [options]
    */
   async destroy(id, options) {
     await MongooseRepository.wrapWithSessionIfExists(
-      Empatica.deleteOne({ _id: id }),
+      BioData.deleteOne({ _id: id }),
       options,
     );
 
@@ -97,53 +97,53 @@ class EmpaticaRepository {
 
     await MongooseRepository.destroyRelationToOne(
       id,
-      Empatica,
+      BioData,
       'patient',
       options,
     );
   }
 
   /**
-   * Counts the number of Empaticas based on the filter.
+   * Counts the number of BioDatas based on the filter.
    *
    * @param {Object} filter
    * @param {Object} [options]
    */
   async count(filter, options) {
     return MongooseRepository.wrapWithSessionIfExists(
-      Empatica.countDocuments(filter),
+      BioData.countDocuments(filter),
       options,
     );
   }
 
   /**
-   * Finds the Empatica and its relations.
+   * Finds the BioData and its relations.
    *
    * @param {string} id
    * @param {Object} [options]
    */
   async findById(id, options) {
     return MongooseRepository.wrapWithSessionIfExists(
-      Empatica.findById(id),
+      BioData.findById(id),
       options,
     );
   }
 
   /**
-   * Finds the Empatica and its relations.
+   * Finds the BioData and its relations.
    *
    * @param {string} ids
    * @param {Object} [options]
    */
   async findByIds(ids, options) {
     return MongooseRepository.wrapWithSessionIfExists(
-      Empatica.find({ _id: { $in: ids } }).populate('patient'),
+      BioData.find({ _id: { $in: ids } }).populate('patient'),
       options,
     );
   }
 
   /**
-   * Finds the Empaticas based on the query.
+   * Finds the BioDatas based on the query.
    * See https://mongoosejs.com/docs/queries.html to learn how
    * to customize the queries.
    *
@@ -226,19 +226,19 @@ class EmpaticaRepository {
     const skip = Number(offset || 0) || undefined;
     const limitEscaped = Number(limit || 0) || undefined;
 
-    const rows = await Empatica.find(criteria)
+    const rows = await BioData.find(criteria)
       .skip(skip)
       .limit(limitEscaped)
       .sort(sort)
       .populate('patient');
 
-    const count = await Empatica.countDocuments(criteria);
+    const count = await BioData.countDocuments(criteria);
 
     return { rows, count };
   }
 
   /**
-   * Lists the Empaticas to populate the autocomplete.
+   * Lists the BioDatas to populate the autocomplete.
    * See https://mongoosejs.com/docs/queries.html to learn how to
    * customize the query.
    *
@@ -267,7 +267,7 @@ class EmpaticaRepository {
     const sort = MongooseQueryUtils.sort('name_ASC');
     const limitEscaped = Number(limit || 0) || undefined;
 
-    const records = await Empatica.find(criteria)
+    const records = await BioData.find(criteria)
       .limit(limitEscaped)
       .sort(sort);
 
@@ -288,7 +288,7 @@ class EmpaticaRepository {
   async _createAuditLog(action, id, data, options) {
     await AuditLogRepository.log(
       {
-        entityName: Empatica.modelName,
+        entityName: BioData.modelName,
         entityId: id,
         action,
         values: data,
@@ -298,4 +298,4 @@ class EmpaticaRepository {
   }
 }
 
-module.exports = EmpaticaRepository;
+module.exports = BioDataRepository;

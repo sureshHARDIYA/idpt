@@ -1,6 +1,6 @@
 const schema = `
-  type EmpaticaPage {
-    rows: [Empatica!]!
+  type BioDataPage {
+    rows: [BioData!]!
     count: Int!
   }
 `;

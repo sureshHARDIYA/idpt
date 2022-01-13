@@ -1,19 +1,19 @@
-const EmpaticaService = require('../../../services/empaticaService');
+const BioDataService = require('../../../services/bioDataService');
 const PermissionChecker = require('../../../services/iam/permissionChecker');
 const permissions = require('../../../security/permissions')
   .values;
 const graphqlSelectRequestedAttributes = require('../../shared/utils/graphqlSelectRequestedAttributes');
 
 const schema = `
-  empaticaList(filter: EmpaticaFilterInput, limit: Int, offset: Int, orderBy: EmpaticaOrderByEnum): EmpaticaPage!
+  bioDataList(filter: BioDataFilterInput, limit: Int, offset: Int, orderBy: BioDataOrderByEnum): BioDataPage!
 `;
 
 const resolver = {
-  empaticaList: async (root, args, context, info) => {
+  bioDataList: async (root, args, context, info) => {
     new PermissionChecker(context)
-      .validateHas(permissions.empaticaRead);
+      .validateHas(permissions.bioDataRead);
 
-    return new EmpaticaService(context).findAndCountAll({
+    return new BioDataService(context).findAndCountAll({
       ...args,
       requestedAttributes: graphqlSelectRequestedAttributes(
         info,
