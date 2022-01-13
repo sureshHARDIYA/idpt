@@ -335,9 +335,9 @@ const privateRoutes = [
     exact: true,
   },
   {
-    path: '/empatica/csvImporter',
+    path: '/empatica/bioDataImporter',
     loader: () =>
-      import('view/empatica/csvImporter/EmpaticaCsvImporterPage'),
+      import('view/empatica/bioDataImporter/BioDataImporterPage'),
     menu: false,
     permissionRequired: permissions.empaticaCreate,
     exact: true,
