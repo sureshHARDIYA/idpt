@@ -103,6 +103,10 @@ class BioAnalyzedToolbar extends Component {
   render() {
     return (
       <Toolbar>
+
+        {/*
+        Analyzed data should not be manually created
+
         {this.props.hasPermissionToCreate && (
           <Link to="/bioAnalyzed/new">
             <Button type="primary" icon="plus" size="large">
@@ -110,7 +114,8 @@ class BioAnalyzedToolbar extends Component {
             </Button>
           </Link>
         )}
-
+        */}
+        
         {this.props.hasPermissionToImport && (
           <Link to="/bioAnalyzed/importer">
             <Button type="primary" icon="upload" size="large">

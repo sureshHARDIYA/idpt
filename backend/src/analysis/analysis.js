@@ -18,7 +18,7 @@ const analyze = (data) => {
       timeStart: dateFormater(new Date(timeStart * 1000)),
       timeEnd: dateFormater(new Date(timeEnd * 1000)),
       patient: data.patient,
-      score: score,
+      score: parseFloat(score.toFixed(2)),
       dataId: data._id}
 };
 
@@ -232,7 +232,9 @@ const dateFormater = (date) => {
   const year = date.getFullYear();
   const month = date.getMonth();
   const day = date.getDate();
-  return year + '-' + month + '-' + day;
+  const hour = date.getHours();
+  const minute = date.getMinutes();
+  return year + '-' + month + '-' + day + ' ' + hour + ':' + minute;
 }
 
 exports.analyze = analyze;

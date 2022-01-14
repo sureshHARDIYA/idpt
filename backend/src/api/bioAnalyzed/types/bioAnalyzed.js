@@ -8,7 +8,7 @@ const schema = `
     timeStart: String!
     timeEnd: String!
     patient: String
-    dataId: String!
+    dataId: String
     createdAt: DateTime
     updatedAt: DateTime
   }

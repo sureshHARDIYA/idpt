@@ -1,6 +1,7 @@
 import { i18n } from 'i18n';
 import IdField from 'modules/shared/fields/idField';
 import StringField from 'modules/shared/fields/stringField';
+import DecimalField from 'modules/shared/fields/decimalField';
 import DateField from 'modules/shared/fields/dateField';
 import DateTimeField from 'modules/shared/fields/dateTimeField';
 import DateTimeRangeField from 'modules/shared/fields/dateTimeRangeField';
@@ -15,7 +16,7 @@ const fields = {
   type: new StringField('type', label('type'), {
     required: true,
   }),
-  score: new StringField('score', label('score'), {
+  score: new DecimalField('score', label('score'), {
     required: true,
   }),
   timeStart: new DateField('timeStart', label('timeStart'), {

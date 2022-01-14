@@ -10,6 +10,7 @@ import FormWrapper, {
 } from 'view/shared/styles/FormWrapper';
 import FormSchema from 'view/shared/form/formSchema';
 import InputFormItem from 'view/shared/form/items/InputFormItem';
+import InputNumberFormItem from 'view/shared/form/items/InputNumberFormItem';
 import DatePickerFormItem from 'view/shared/form/items/DatePickerFormItem';
 import PatientAutocompleteFormItem from 'view/patient/autocomplete/PatientAutocompleteFormItem';
 const { fields } = model;
@@ -64,7 +65,7 @@ class BioAnalyzedForm extends Component {
                       required={fields.type.required}
                       autoFocus
                     />
-                    <InputFormItem
+                    <InputNumberFormItem
                       name={fields.score.name}
                       label={fields.score.label}
                       required={fields.score.required}
