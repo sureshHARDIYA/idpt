@@ -724,6 +724,12 @@ const no = {
         hint:
           'Fil/bildekolonner må være filenes URLer separert med mellomrom.',
       },
+      bioDataImporter: {
+        title: 'Importer BioData',
+        fileName: 'bioData_import_template',
+        hint:
+          'Dra CSV fil eller klikk for å laste opp',
+      },
     },
   },
 

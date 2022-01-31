@@ -1,42 +1,41 @@
 import React, { Component } from 'react';
-import { CSVReader } from 'react-papaparse';
-import BioDataService from 'modules/bioData/bioDataService';
+import ContentWrapper from 'view/layout/styles/ContentWrapper';
+import PageTitle from 'view/shared/styles/PageTitle';
+import Breadcrumb from 'view/shared/Breadcrumb';
+import { i18n } from 'i18n';
+import BioDataImporter from 'view/shared/bioDataImporter/bioDataImporter';
 
 class BioDataImportPage extends Component {
-  
-  handleOnDrop = (data, file) => {
-    const dataArray = [];
-    
-    for (const line of data) {
-      dataArray.push(line.data[0])
-    }
-  
-    BioDataService.create({ type: file.name.substr(0, file.name.indexOf('.')),
-                             frequency: Math.round(dataArray[1]).toString(),
-                             timestamp: Math.round(dataArray[0]).toString(),
-                             data: dataArray.slice(2)});
-  }
-
-  handleOnError = (err, file, inputElem, reason) => {
-    console.log(err)
-  }
-
-  handleOnRemoveFile = (data) => {
-    console.log('---------------------------')
-    console.log(data)
-    console.log('---------------------------')
-  }
-
   render() {
-    return (<CSVReader
-      onDrop={this.handleOnDrop}
-      onError={this.handleOnError}
-      addRemoveButton={true}
-      removeButtonColor='#659cef'
-      onRemoveFile={this.handleOnRemoveFile}
-    >
-      <span>Drop CSV file here or click to upload.</span>
-    </CSVReader>);
+    const Importer = BioDataImporter();
+    return (
+      <React.Fragment>
+        <Breadcrumb
+          items={[
+            [i18n('home.menu'), '/'],
+            [
+              i18n('entities.bioAnalyzed.menu'),
+              '/bioAnalyzed',
+            ],
+            [
+              i18n(
+                'entities.bioAnalyzed.bioDataImporter.title',
+              ),
+            ],
+          ]}
+        />
+
+        <ContentWrapper>
+          <PageTitle>
+            {i18n(
+              'entities.bioAnalyzed.bioDataImporter.title',
+            )}
+          </PageTitle>
+
+          <Importer />
+        </ContentWrapper>
+      </React.Fragment>
+    );
   }
 }
 

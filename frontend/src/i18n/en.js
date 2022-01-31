@@ -730,6 +730,12 @@ const en = {
         hint:
           'Files/Images columns must be the URLs of the files separated by space.',
       },
+      bioDataImporter: {
+        title: 'Import BioData',
+        fileName: 'bioData_import_template',
+        hint:
+          'Drop CSV file or click to upload',
+      },
     },
 
   },

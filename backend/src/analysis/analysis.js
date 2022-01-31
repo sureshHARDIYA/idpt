@@ -5,7 +5,7 @@ var Fili = require('fili');
 
 const DEBUG = false;
 const DEBUG_FREQUENCY = 4;
-const THRESHOLD = 2.0;
+const THRESHOLD = 3.0;
 
 const analyze = (data) => {
   const timeStart = data.timestamp;
@@ -69,7 +69,7 @@ const calculateScore = (data, duration, frequency) => {
     sum += data[i];
 
     if ((i + 1) % frequency == 0) {
-      sum = sum/frequency
+      sum = sum/frequency;
       // TODO: Remove value caps
       if (sum > 0.4)
         downsampled.push(0.4);
@@ -207,6 +207,7 @@ const response_slope = (y, extrema) => {
 
 const frequency_limiter = (scores) => {
   const n = scores.length;
+  scores = scores.map(n => n + 1); // Add 1 to all, then later we subtract where needed
   const max_score = Math.max(...scores) * 10;
 
   for (let j = max_score; j > 5; j -= 5) {
@@ -217,7 +218,7 @@ const frequency_limiter = (scores) => {
 
         while (pointer - i <= 10 && pointer < n) {
           if (scores[pointer] <= j) {
-            scores[pointer] = 0;
+            scores[pointer] =  Math.max(0, scores[pointer] - 1); // Prevents negative scores
           }
           pointer += 1;
         }

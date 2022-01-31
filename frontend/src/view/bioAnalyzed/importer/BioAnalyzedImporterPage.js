@@ -9,7 +9,7 @@ import actions from 'modules/bioAnalyzed/importer/bioAnalyzedImporterActions';
 import fields from 'modules/bioAnalyzed/importer/bioAnalyzedImporterFields';
 
 class BioAnalyzedImportPage extends Component {
-  
+
   render() {
     const Importer = importerHoc(
       selectors,
