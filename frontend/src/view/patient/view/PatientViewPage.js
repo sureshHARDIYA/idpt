@@ -8,6 +8,8 @@ import actions from 'modules/patient/view/patientViewActions';
 import { connect } from 'react-redux';
 import selectors from 'modules/patient/view/patientViewSelectors';
 import authSelectors from 'modules/auth/authSelectors';
+import { Link } from 'react-router-dom';
+import { Button } from 'antd';
 
 class PatientPage extends Component {
   componentDidMount() {
@@ -40,6 +42,13 @@ class PatientPage extends Component {
               </code>
             </span>
           </PageTitle>
+
+          <Link to="/bioAnalyzed/bioDataImporter">
+            <Button type="primary" icon="upload" size="large">
+              {i18n('common.bioData')}
+            </Button>
+          </Link>
+
           <PatientView
             loading={this.props.loading}
             record={this.props.record}

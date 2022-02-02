@@ -14,7 +14,6 @@ const resolver = {
     new PermissionChecker(context)
       .validateHas(permissions.bioDataCreate);
 
-    
     const storedData = await new BioDataService(context).create(
       args.data
     );

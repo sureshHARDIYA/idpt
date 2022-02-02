@@ -3,6 +3,15 @@ import { i18n } from 'i18n';
 const permissions = Permissions.values;
 
 const patientsRoutes = [
+  /* TODO */
+  {
+    path: '/bioAnalyzed/bioDataImporter',
+    loader: () =>
+      import('view/bioAnalyzed/bioDataImporter/BioDataImporterPage'),
+    menu: false,
+    permissionRequired: null,
+    exact: true,
+  },
   {
     path: '/',
     icon: 'home',

@@ -6,6 +6,7 @@ import { i18n } from 'i18n';
 import BioDataImporter from 'view/shared/bioDataImporter/bioDataImporter';
 
 class BioDataImportPage extends Component {
+  
   render() {
     const Importer = BioDataImporter();
     return (

@@ -307,6 +307,7 @@ class Permissions {
         id: 'bioDataCreate',
         allowedRoles: [
           roles.owner,
+          roles.patient,
           roles.editor,
           roles.entityEditor,
           roles.bioDataEditor
