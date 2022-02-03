@@ -20,6 +20,7 @@ const schema = new FormFilterSchema([
   fields.score,
   fields.timeStart,
   fields.timeEnd,
+  fields.patient,
 ]);
 
 class BioAnalyzedListFilter extends Component {
@@ -84,6 +85,13 @@ class BioAnalyzedListFilter extends Component {
                     <InputFormItem
                       name={fields.timeEnd.name}
                       label={fields.timeEnd.label}
+                      layout={formItemLayout}
+                    />
+                  </Col>
+                  <Col md={24} lg={12}>
+                    <InputFormItem
+                      name={fields.patient.name}
+                      label={fields.patient.label}
                       layout={formItemLayout}
                     />
                   </Col>

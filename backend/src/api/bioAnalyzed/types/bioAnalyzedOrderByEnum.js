@@ -10,6 +10,8 @@ const schema = `
     timeStart_DESC
     timeEnd_ASC
     timeEnd_DESC
+    patient_ASC
+    patient_DESC
     status_ASC
     status_DESC
     createdAt_ASC

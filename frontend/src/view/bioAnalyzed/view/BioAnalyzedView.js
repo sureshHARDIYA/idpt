@@ -9,6 +9,7 @@ const { fields } = model;
 class BioAnalyzedView extends Component {
   renderView() {
     const { record } = this.props;
+    console.log(record);
 
     return (
       <ViewWrapper>

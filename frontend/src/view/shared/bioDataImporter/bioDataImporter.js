@@ -4,6 +4,7 @@ import BioDataService from 'modules/bioData/bioDataService';
 
 export default () => {
     class BioDataImporter extends Component {
+        
         render() {
             return (
                 <CSVReader
@@ -19,18 +20,23 @@ export default () => {
         }
 
         handleOnDrop = (data, file) => {
-            console.log(this.props);
-            return;
             const dataArray = [];
             
             for (const line of data) {
             dataArray.push(line.data[0])
             }
 
+            console.log({ type: file.name.substr(0, file.name.indexOf('.')),
+            frequency: Math.round(dataArray[1]).toString(),
+            timestamp: Math.round(dataArray[0]).toString(),
+            data: dataArray.slice(2)
+        })
+
             BioDataService.create({ type: file.name.substr(0, file.name.indexOf('.')),
                                     frequency: Math.round(dataArray[1]).toString(),
                                     timestamp: Math.round(dataArray[0]).toString(),
-                                    data: dataArray.slice(2)});
+                                    data: dataArray.slice(2)
+                                });
         }
 
         handleOnError = (err, file, inputElem, reason) => {

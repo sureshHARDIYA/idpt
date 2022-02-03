@@ -29,7 +29,15 @@ const BioAnalyzedSchema = new Schema(
     dataId: {
       type: String,
       required: true,
-    }
+    },
+    createdBy: {
+      type: Schema.Types.ObjectId,
+      ref: 'user',
+    },
+    updatedBy: {
+      type: Schema.Types.ObjectId,
+      ref: 'user',
+    },
   }
 );
 

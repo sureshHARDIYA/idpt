@@ -12,7 +12,6 @@ import FormSchema from 'view/shared/form/formSchema';
 import InputFormItem from 'view/shared/form/items/InputFormItem';
 import InputNumberFormItem from 'view/shared/form/items/InputNumberFormItem';
 import DatePickerFormItem from 'view/shared/form/items/DatePickerFormItem';
-import PatientAutocompleteFormItem from 'view/patient/autocomplete/PatientAutocompleteFormItem';
 const { fields } = model;
 
 class BioAnalyzedForm extends Component {
@@ -81,7 +80,7 @@ class BioAnalyzedForm extends Component {
                       label={fields.timeEnd.label}
                       required={fields.timeEnd.required}
                     />
-                    <PatientAutocompleteFormItem
+                    <InputFormItem
                     name={fields.patient.name}
                     label={fields.patient.label}
                     required={fields.patient.required}

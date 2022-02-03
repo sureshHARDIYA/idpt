@@ -25,7 +25,9 @@ const fields = {
   timeEnd: new DateField('timeEnd', label('timeEnd'), {
     required: true,
   }),
-  patient: new StringField('patient', label('patient')),
+  patient: new StringField('patient', label('patient'), {
+    required: true,
+  }), 
   
   dataId: new StringField('dataId', label('dataId')),
   

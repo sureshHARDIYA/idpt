@@ -88,6 +88,7 @@ export default class BioDataService {
             frequency
             timestamp
             data
+            patient
             createdAt
             updatedAt
           }

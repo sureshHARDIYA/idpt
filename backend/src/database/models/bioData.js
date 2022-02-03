@@ -27,6 +27,14 @@ const BioDataSchema = new Schema(
         type: String,
       },
     ],
+    createdBy: {
+      type: Schema.Types.ObjectId,
+      ref: 'user',
+    },
+    updatedBy: {
+      type: Schema.Types.ObjectId,
+      ref: 'user',
+    },
   }
 );
 

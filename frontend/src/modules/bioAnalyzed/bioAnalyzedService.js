@@ -88,6 +88,7 @@ export default class BioAnalyzedService {
             score
             timeStart
             timeEnd
+            patient
             createdAt
             updatedAt
           }

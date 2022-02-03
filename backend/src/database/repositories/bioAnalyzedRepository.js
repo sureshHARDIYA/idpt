@@ -29,6 +29,7 @@ class BioAnalyzedRepository {
           ...data,
           createdBy: currentUser.id,
           updatedBy: currentUser.id,
+          patient: currentUser.fullName
         },
       ],
       MongooseRepository.getSessionOptionsIfExists(options),
@@ -94,13 +95,6 @@ class BioAnalyzedRepository {
       null,
       options,
     );
-
-    await MongooseRepository.destroyRelationToOne(
-      id,
-      BioAnalyzed,
-      'patient',
-      options,
-    );
   }
 
   /**
@@ -137,7 +131,7 @@ class BioAnalyzedRepository {
    */
   async findByIds(ids, options) {
     return MongooseRepository.wrapWithSessionIfExists(
-      BioAnalyzed.find({ _id: { $in: ids } }).populate('patient'),
+      BioAnalyzed.find({ _id: { $in: ids } }),
       options,
     );
   }
@@ -229,8 +223,7 @@ class BioAnalyzedRepository {
     const rows = await BioAnalyzed.find(criteria)
       .skip(skip)
       .limit(limitEscaped)
-      .sort(sort)
-      .populate('patient');
+      .sort(sort);
 
     const count = await BioAnalyzed.countDocuments(criteria);
 
