@@ -9,24 +9,29 @@ import FormWrapper, {
   tailFormItemLayout,
 } from 'view/shared/styles/FormWrapper';
 import FormSchema from 'view/shared/form/formSchema';
-import TextAreaFormItem from 'view/shared/form/items/TextAreaFormItem';
-import CasedAutocompleteFormItem from 'view/cased/autocomplete/CasedAutocompleteFormItem';
+import { Link } from 'react-router-dom';
 import PatientAutocompleteFormItem from 'view/patient/autocomplete/PatientAutocompleteFormItem';
+import RelationToOneField from 'modules/shared/fields/relationToOneField';
 
-const { fields } = model;
+//const { fields } = model;
+const fields = {
+  patient: new RelationToOneField('patient', 'Patient', {
+    required: true
+  }),
+}
+
+var formValues;
 
 class BioGraphForm extends Component {
   schema = new FormSchema(fields.id, [
-    fields.host,
-    fields.owner,
-    fields.description
+    fields.patient,
   ]);
 
   handleSubmit = (values) => {
     const { id, ...data } = this.schema.cast(values);
-    // TODO
-    console.log(values);
-    this.props.onSubmit(id, data);
+    console.log(values.patient);
+    console.log("YOOOO");
+    formValues = values.patient;
   };
 
   initialValues = () => {
@@ -36,7 +41,6 @@ class BioGraphForm extends Component {
 
   renderForm() {
     const { saveLoading, isEditing } = this.props;
-
     return (
       <FormWrapper>
         <Formik
@@ -52,53 +56,53 @@ class BioGraphForm extends Component {
                     label={fields.id.label}
                   />
                 )}
-                <CasedAutocompleteFormItem
-                  name={fields.host.name}
-                  label={fields.host.label}
-                  required={fields.host.required}
-                  form={form}
-                />
                 <PatientAutocompleteFormItem
-                  name={fields.owner.name}
-                  label={fields.owner.label}
-                  required={fields.owner.required}
+                  name={fields.patient.name}
+                  label={fields.patient.label}
+                  required={fields.patient.required}
                   form={form}
-                />
-                <TextAreaFormItem
-                  name={fields.description.name}
-                  label={fields.description.label}
-                  required={fields.description.required}
                 />
                 <Form.Item
                   className="form-buttons"
                   {...tailFormItemLayout}
                 >
+                
+                <Button
+                  loading={saveLoading}
+                  type="primary"
+                  onClick={form.handleSubmit}
+                  icon="save"
+                >
+                  {i18n('common.save')}
+                </Button>
+                
+                <Link to = {{pathname: '/bioAnalyzed/bioGraph', state: {patient: this.formValues }}}>
                   <Button
-                    loading={saveLoading}
                     type="primary"
-                    onClick={form.handleSubmit}
-                    icon="save"
+                    icon="upload"
                   >
-                    {i18n('common.save')}
+                    {i18n('common.bioGraph')}
                   </Button>
+                </Link>
+                
 
+                <Button
+                  disabled={saveLoading}
+                  onClick={form.handleReset}
+                  icon="undo"
+                >
+                  {i18n('common.reset')}
+                </Button>
+
+                {this.props.onCancel ? (
                   <Button
                     disabled={saveLoading}
-                    onClick={form.handleReset}
-                    icon="undo"
+                    onClick={() => this.props.onCancel()}
+                    icon="close"
                   >
-                    {i18n('common.reset')}
+                    {i18n('common.cancel')}
                   </Button>
-
-                  {this.props.onCancel ? (
-                    <Button
-                      disabled={saveLoading}
-                      onClick={() => this.props.onCancel()}
-                      icon="close"
-                    >
-                      {i18n('common.cancel')}
-                    </Button>
-                  ) : null}
+                ) : null}
                 </Form.Item>
               </Form>
             );
@@ -123,4 +127,4 @@ class BioGraphForm extends Component {
   }
 }
 
-export default RecordForm;
+export default BioGraphForm;

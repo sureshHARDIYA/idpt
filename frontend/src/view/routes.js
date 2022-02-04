@@ -352,6 +352,22 @@ const privateRoutes = [
     exact: true,
   },
   {
+    path: '/bioAnalyzed/bioGraphForm',
+    loader: () =>
+      import('view/bioAnalyzed/bioGraphForm/BioGraphFormPage'),
+    menu: false,
+    permissionRequired: null,
+    exact: true,
+  },
+  {
+    path: '/bioAnalyzed/bioGraph',
+    loader: () =>
+      import('view/bioAnalyzed/bioGraph/BioGraphPage'),
+    menu: false,
+    permissionRequired: null,
+    exact: true,
+  },
+  {
     path: '/bioAnalyzed/:id/edit',
     loader: () => import('view/bioAnalyzed/form/BioAnalyzedFormPage'),
     menu: false,

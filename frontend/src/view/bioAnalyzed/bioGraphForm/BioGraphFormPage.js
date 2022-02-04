@@ -42,8 +42,8 @@ class BioGraphFormPage extends Component {
 
   title = () => {
     return this.isEditing()
-      ? i18n('entities.record.edit.title')
-      : i18n('entities.record.new.title');
+      ? i18n('entities.bioAnalyzed.edit.title')
+      : i18n('entities.bioAnalyzed.new.title');
   };
 
   render() {
@@ -52,7 +52,7 @@ class BioGraphFormPage extends Component {
         <Breadcrumb
           items={[
             [i18n('home.menu'), '/'],
-            [i18n('entities.record.menu'), '/record'],
+            [i18n('entities.bioAnalyzed.menu'), '/bioAnalyzed'],
             [this.title()],
           ]}
         />

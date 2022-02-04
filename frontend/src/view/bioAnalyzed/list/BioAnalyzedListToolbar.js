@@ -132,6 +132,14 @@ class BioAnalyzedToolbar extends Component {
           </Link>
         )}
 
+        {this.props.hasPermissionToImport && (
+          <Link to="/bioAnalyzed/bioGraphForm">
+            <Button type="primary" icon="upload" size="large">
+              {i18n('common.bioGraph')}
+            </Button>
+          </Link>
+        )}
+
         {this.renderDestroyButton()}
 
         {this.props.hasPermissionToAuditLogs && (

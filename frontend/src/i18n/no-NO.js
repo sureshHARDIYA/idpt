@@ -20,6 +20,7 @@ const no = {
     destroy: 'Slett',
     mustSelectARow: 'Må velge en rad',
     bioData: 'Importer biodata',
+    bioGraph: 'BioGraph',
   },
 
   app: {

@@ -20,6 +20,7 @@ const en = {
     destroy: 'Delete',
     mustSelectARow: 'Must select a row',
     bioData: 'Import biodata',
+    bioGraph: 'BioGraph',
   },
 
   app: {

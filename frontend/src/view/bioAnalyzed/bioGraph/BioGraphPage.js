@@ -3,14 +3,14 @@ import ContentWrapper from 'view/layout/styles/ContentWrapper';
 import PageTitle from 'view/shared/styles/PageTitle';
 import Breadcrumb from 'view/shared/Breadcrumb';
 import { i18n } from 'i18n';
-import BioDataImporter from 'view/shared/bioDataImporter/bioDataImporter';
+import BioGraph from 'view/shared/bioGraph/bioGraph';
 
-class BioDataImportPage extends Component {
+class BioGraphPage extends Component {
   
   
   render() {
-    console.log(this.props.location);
-    const Importer = BioDataImporter();
+    console.log(this.props.location.state);
+    const Graph = BioGraph();
     return (
       <React.Fragment>
         <Breadcrumb
@@ -22,7 +22,7 @@ class BioDataImportPage extends Component {
             ],
             [
               i18n(
-                'entities.bioAnalyzed.bioDataImporter.title',
+                'entities.bioAnalyzed.bioGraph.title',
               ),
             ],
           ]}
@@ -31,15 +31,15 @@ class BioDataImportPage extends Component {
         <ContentWrapper>
           <PageTitle>
             {i18n(
-              'entities.bioAnalyzed.bioDataImporter.title',
+              'entities.bioAnalyzed.bioGraph.title',
             )}
           </PageTitle>
 
-          <Importer />
+          <Graph />
         </ContentWrapper>
       </React.Fragment>
     );
   }
 }
 
-export default BioDataImportPage;
+export default BioGraphPage;
