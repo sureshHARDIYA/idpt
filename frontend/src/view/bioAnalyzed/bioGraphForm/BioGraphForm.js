@@ -9,7 +9,7 @@ import FormWrapper, {
   tailFormItemLayout,
 } from 'view/shared/styles/FormWrapper';
 import FormSchema from 'view/shared/form/formSchema';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import PatientAutocompleteFormItem from 'view/patient/autocomplete/PatientAutocompleteFormItem';
 import RelationToOneField from 'modules/shared/fields/relationToOneField';
 
@@ -21,6 +21,7 @@ const fields = {
 }
 
 var formValues;
+const history = useHistory();
 
 class BioGraphForm extends Component {
   schema = new FormSchema(fields.id, [
@@ -29,9 +30,12 @@ class BioGraphForm extends Component {
 
   handleSubmit = (values) => {
     const { id, ...data } = this.schema.cast(values);
-    console.log(values.patient);
+    this.formValues = values.patient;
+    console.log(this.formValues);
     console.log("YOOOO");
-    formValues = values.patient;
+    history.push('/bioAnalyzed/bioGraph', {state: { hei: "yo", 
+                                                    patient: this.formValues }, 
+                                           replace: false});
   };
 
   initialValues = () => {
@@ -49,7 +53,7 @@ class BioGraphForm extends Component {
           onSubmit={this.handleSubmit}
           render={(form) => {
             return (
-              <Form onSubmit={form.handleSubmit}>
+              <Form onSubmit={ form.handleSubmit }>
                 {isEditing && (
                   <ViewFormItem
                     name={fields.id.name}
@@ -76,7 +80,8 @@ class BioGraphForm extends Component {
                   {i18n('common.save')}
                 </Button>
                 
-                <Link to = {{pathname: '/bioAnalyzed/bioGraph', state: {patient: this.formValues }}}>
+                <Link to = {{pathname: '/bioAnalyzed/bioGraph', state: { hei: "yo", 
+                                                                         patient: this.formValues }}}>
                   <Button
                     type="primary"
                     icon="upload"
