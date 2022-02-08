@@ -720,7 +720,7 @@ const en = {
         },
       },
       new: {
-        title: 'New BioAnalyzed',
+        title: 'Find graph',
       },
       view: {
         title: 'View BioAnalyzed',

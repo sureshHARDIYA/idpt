@@ -30,15 +30,17 @@ class BioGraphPage extends Component {
 
         <ContentWrapper>
           <PageTitle>
-            {i18n(
-              'entities.bioAnalyzed.bioGraph.title',
-            )}
+              {this.getPatientsName()}
           </PageTitle>
 
           <Graph />
         </ContentWrapper>
       </React.Fragment>
     );
+  }
+
+  getPatientsName(){
+    return this.props.location.state['patient']['label'] + "'s graph";
   }
 }
 
