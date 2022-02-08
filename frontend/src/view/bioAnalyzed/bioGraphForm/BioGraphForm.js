@@ -9,7 +9,7 @@ import FormWrapper, {
   tailFormItemLayout,
 } from 'view/shared/styles/FormWrapper';
 import FormSchema from 'view/shared/form/formSchema';
-import { Redirect, Link, useNavigate } from 'react-router-dom';
+import { Redirect, Link, useNavigate, Route } from 'react-router-dom';
 import PatientAutocompleteFormItem from 'view/patient/autocomplete/PatientAutocompleteFormItem';
 import RelationToOneField from 'modules/shared/fields/relationToOneField';
 
@@ -29,12 +29,26 @@ class BioGraphForm extends Component {
     fields.patient,
   ]);
 
+  constructor() {    
+    this.state = {      
+      fififi: null,      
+      pappaBolle: false    
+    }; 
+  }
+
   handleSubmit = (values) => {
     const { id, ...data } = this.schema.cast(values);
-    this.formValues = values.patient;
-    console.log(this.formValues);
+    formValues = values.patient;
+    //this.fififi = values.patient;
+    this.setState({fififi : values.patient,
+                   pappaBolle : true }, () => { this.forceUpdate(); });
+    console.log(this.state.fififi);
     console.log("YOOOO");
-    this.papabool = true;
+    papabool = true;
+    //this.pappaBolle = true;
+    console.log("3 " + papabool);
+    console.log("4 " + this.state.pappaBolle);
+    
     /*history.push('/bioAnalyzed/bioGraph', {state: { hei: "yo", 
                                                     patient: this.formValues }, 
                                            replace: false});*/
@@ -45,25 +59,23 @@ class BioGraphForm extends Component {
     return this.schema.initialValues(record || {});
   };
 
-  renderForm() {
+  damn = () => {
     const { saveLoading, isEditing } = this.props;
-    return (
-      <React.Fragment>
-        <Route
-        render={(props) => {
-        if (false) {
-          return(
-          <Redirect
-            to={{
-              pathname: '/bioAnalyzed/bioGraph',
-              state: { hei: "yo", 
-                      patient: this.formValues },
-            }}
-          />
-          );
-        }
-      }}
-      />;
+    console.log("1 " + papabool);
+    console.log("2 " + this.state.pappaBolle);
+    if (this.state.pappaBolle) {
+      console.log("HEEEI");
+      return(
+      <Redirect
+        to={{
+          pathname: '/bioAnalyzed/bioGraph',
+          state: { hei: "yo", 
+                   patient: this.state.fififi },
+        }}
+      />
+      );
+    } else {
+      return(
       <FormWrapper>
         <Formik
           initialValues={this.initialValues()}
@@ -99,7 +111,7 @@ class BioGraphForm extends Component {
                 </Button>
                 
                 <Link to = {{pathname: '/bioAnalyzed/bioGraph', state: { hei: "yo", 
-                                                                         patient: this.formValues }}}>
+                                                                         patient: this.fififi }}}>
                   <Button
                     type="primary"
                     icon="upload"
@@ -132,7 +144,14 @@ class BioGraphForm extends Component {
           }}
         />
       </FormWrapper>
-      </React.Fragment>
+      );
+    }
+  };
+
+  renderForm() {
+    const { saveLoading, isEditing } = this.props;
+    return (
+      this.damn()
     );
   }
 
