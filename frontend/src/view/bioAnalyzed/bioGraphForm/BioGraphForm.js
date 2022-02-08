@@ -9,7 +9,7 @@ import FormWrapper, {
   tailFormItemLayout,
 } from 'view/shared/styles/FormWrapper';
 import FormSchema from 'view/shared/form/formSchema';
-import { Link, useHistory } from 'react-router-dom';
+import { Redirect, Link, useNavigate } from 'react-router-dom';
 import PatientAutocompleteFormItem from 'view/patient/autocomplete/PatientAutocompleteFormItem';
 import RelationToOneField from 'modules/shared/fields/relationToOneField';
 
@@ -20,8 +20,9 @@ const fields = {
   }),
 }
 
+var papabool = false;
 var formValues;
-const history = useHistory();
+//const navigate = useNavigate();
 
 class BioGraphForm extends Component {
   schema = new FormSchema(fields.id, [
@@ -33,9 +34,10 @@ class BioGraphForm extends Component {
     this.formValues = values.patient;
     console.log(this.formValues);
     console.log("YOOOO");
-    history.push('/bioAnalyzed/bioGraph', {state: { hei: "yo", 
+    this.papabool = true;
+    /*history.push('/bioAnalyzed/bioGraph', {state: { hei: "yo", 
                                                     patient: this.formValues }, 
-                                           replace: false});
+                                           replace: false});*/
   };
 
   initialValues = () => {
@@ -46,6 +48,22 @@ class BioGraphForm extends Component {
   renderForm() {
     const { saveLoading, isEditing } = this.props;
     return (
+      <React.Fragment>
+        <Route
+        render={(props) => {
+        if (false) {
+          return(
+          <Redirect
+            to={{
+              pathname: '/bioAnalyzed/bioGraph',
+              state: { hei: "yo", 
+                      patient: this.formValues },
+            }}
+          />
+          );
+        }
+      }}
+      />;
       <FormWrapper>
         <Formik
           initialValues={this.initialValues()}
@@ -114,6 +132,7 @@ class BioGraphForm extends Component {
           }}
         />
       </FormWrapper>
+      </React.Fragment>
     );
   }
 
