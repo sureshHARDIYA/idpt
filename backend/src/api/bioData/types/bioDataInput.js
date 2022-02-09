@@ -1,9 +1,10 @@
 const schema = `
   input BioDataInput {
-    type: String!
+    dataType: String!
     frequency: String!
     timestamp: String!
-    patient: String
+    patientName: String
+    patientId: String
     data: [String]
   }
 `;

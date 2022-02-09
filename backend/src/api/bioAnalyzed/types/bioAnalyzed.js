@@ -3,11 +3,12 @@ const BioAnalyzedService = require('../../../services/bioAnalyzedService');
 const schema = `
   type BioAnalyzed {
     id: String!
-    type: String!
+    dataType: String!
     score: Float!
     timeStart: String!
     timeEnd: String!
-    patient: String
+    patientName: String
+    patientId: String
     dataId: String
     createdAt: DateTime
     updatedAt: DateTime

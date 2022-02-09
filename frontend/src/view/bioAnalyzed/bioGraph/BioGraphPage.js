@@ -6,11 +6,10 @@ import { i18n } from 'i18n';
 import BioGraph from 'view/shared/bioGraph/bioGraph';
 
 class BioGraphPage extends Component {
-  
-  
+  patient = this.props.location.state.patient;
+
   render() {
-    console.log(this.props.location.state);
-    const Graph = BioGraph();
+    const Graph = BioGraph(this.patient.id);
     return (
       <React.Fragment>
         <Breadcrumb
@@ -40,7 +39,7 @@ class BioGraphPage extends Component {
   }
 
   getPatientsName(){
-    return this.props.location.state['patient']['label'] + "'s graph";
+    return this.patient.fullName + "'s graph";
   }
 }
 

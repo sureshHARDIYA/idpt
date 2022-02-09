@@ -2,12 +2,16 @@ const schema = `
   enum BioDataOrderByEnum {
     id_ASC
     id_DESC
-    type_ASC
-    type_DESC
+    dataType_ASC
+    dataType_DESC
     frequency_ASC
     frequency_DESC
     timestamp_ASC
     timestamp_DESC
+    patientName_ASC
+    patientName_DESC
+    patientId_ASC
+    patientId_DESC
     status_ASC
     status_DESC
     createdAt_ASC

@@ -34,9 +34,13 @@ class BioGraphForm extends Component {
   
   handleSubmit = (values) => {
     const { id, ...data } = this.schema.cast(values);
+    console.log(values.patient);
     this.setState({ 
       toRedirect : true,
-      patientInfo: values.patient 
+      patientInfo: {
+        id: values.patient['id'],
+        fullName: values.patient['label'].split(' ')[0]
+      }
     });
   };
     

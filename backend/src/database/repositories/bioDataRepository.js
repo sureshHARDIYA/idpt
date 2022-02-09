@@ -29,7 +29,8 @@ class BioDataRepository {
           ...data,
           createdBy: currentUser.id,
           updatedBy: currentUser.id,
-          patient: currentUser.fullName
+          patientName: currentUser.fullName,
+          patientId: currentUser._id,
         },
       ],
       MongooseRepository.getSessionOptionsIfExists(options),
@@ -169,12 +170,36 @@ class BioDataRepository {
         };
       }
 
-      if (filter.type) {
+      if (filter.dataType) {
         criteria = {
           ...criteria,
-          type: {
+          dataType: {
             $regex: MongooseQueryUtils.escapeRegExp(
-              filter.type,
+              filter.dataType,
+            ),
+            $options: 'i',
+          },
+        };
+      }
+
+      if (filter.patientName) {
+        criteria = {
+          ...criteria,
+          patientName: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.patientName,
+            ),
+            $options: 'i',
+          },
+        };
+      }
+
+      if (filter.patientId) {
+        criteria = {
+          ...criteria,
+          patientId: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.patientId,
             ),
             $options: 'i',
           },

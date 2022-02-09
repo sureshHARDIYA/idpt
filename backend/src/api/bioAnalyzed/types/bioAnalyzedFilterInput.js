@@ -1,11 +1,12 @@
 const schema = `
   input BioAnalyzedFilterInput {
     id: String
-    type: String
+    dataType: String
     score: Float
     timeStart: String
     timeEnd: String
-    patient: String
+    patientName: String
+    patientId: String
     createdAtRange: [ DateTime ]
   }
 `;

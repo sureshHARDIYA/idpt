@@ -29,11 +29,12 @@ class BioAnalyzedListTable extends Component {
   };
 
   columns = [
-    fields.type.forTable(),
+    fields.dataType.forTable(),
     fields.score.forTable(),
     fields.timeStart.forTable(),
     fields.timeEnd.forTable(),
-    fields.patient.forTable(),
+    fields.patientName.forTable(),
+    fields.patientId.forTable(),
     {
       title: '',
       dataIndex: '',

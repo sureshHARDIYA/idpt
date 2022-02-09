@@ -5,6 +5,14 @@ const permissions = Permissions.values;
 const patientsRoutes = [
   /* TODO */
   {
+    path: '/bioAnalyzed/bioGraph',
+    loader: () =>
+      import('view/bioAnalyzed/bioGraph/BioGraphPage'),
+    menu: false,
+    permissionRequired: null,
+    exact: true,
+  },
+  {
     path: '/bioAnalyzed/bioDataImporter',
     loader: () =>
       import('view/bioAnalyzed/bioDataImporter/BioDataImporterPage'),

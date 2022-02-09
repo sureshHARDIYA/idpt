@@ -19,8 +19,8 @@ class BioAnalyzedView extends Component {
         />
 
         <TextViewItem
-          label={fields.type.label}
-          value={fields.type.forView(record.type)}
+          label={fields.dataType.label}
+          value={fields.dataType.forView(record.type)}
         />
 
         <TextViewItem
@@ -39,8 +39,13 @@ class BioAnalyzedView extends Component {
         />
 
         <TextViewItem
-          label={fields.patient.label}
-          value={fields.patient.forView(record.patient)}
+          label={fields.patientName.label}
+          value={fields.patientName.forView(record.patient)}
+        />
+
+        <TextViewItem
+          label={fields.patientId.label}
+          value={fields.patientId.forView(record.patient)}
         />
 
         <TextViewItem

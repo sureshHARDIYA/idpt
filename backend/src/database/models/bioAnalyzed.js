@@ -7,7 +7,7 @@ const Schema = database.Schema;
  */
 const BioAnalyzedSchema = new Schema(
   {
-    type: {
+    dataType: {
       type: String,
       required: true,
     },
@@ -23,7 +23,10 @@ const BioAnalyzedSchema = new Schema(
       type: String,
       required: true,
     },
-    patient: {
+    patientName: {
+      type: String,
+    },
+    patientId: {
       type: String,
     },
     dataId: {

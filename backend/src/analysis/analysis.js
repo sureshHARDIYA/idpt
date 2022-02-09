@@ -14,10 +14,11 @@ const analyze = (data) => {
 
   const score = calculateScore(data.data, duration, data.frequency);
 
-  return {type: data.type,
+  return {dataType: data.dataType,
       timeStart: dateFormater(new Date(timeStart * 1000)),
       timeEnd: dateFormater(new Date(timeEnd * 1000)),
-      patient: data.patient,
+      patientName: data.patientName,
+      patientId: data.patientId,
       score: parseFloat(score.toFixed(2)),
       dataId: data._id}
 };

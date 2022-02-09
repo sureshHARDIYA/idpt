@@ -3,10 +3,11 @@ const BioDataService = require('../../../services/bioDataService');
 const schema = `
   type BioData {
     id: String!
-    type: String!
+    dataType: String!
     frequency: String!
     timestamp: String!
-    patient: String
+    patientName: String
+    patientId: String
     data: [String]
     createdAt: DateTime
     updatedAt: DateTime

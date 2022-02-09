@@ -26,13 +26,13 @@ export default () => {
             dataArray.push(line.data[0])
             }
 
-            console.log({ type: file.name.substr(0, file.name.indexOf('.')),
+            console.log({ dataType: file.name.substr(0, file.name.indexOf('.')),
             frequency: Math.round(dataArray[1]).toString(),
             timestamp: Math.round(dataArray[0]).toString(),
             data: dataArray.slice(2)
         })
 
-            BioDataService.create({ type: file.name.substr(0, file.name.indexOf('.')),
+            BioDataService.create({ dataType: file.name.substr(0, file.name.indexOf('.')),
                                     frequency: Math.round(dataArray[1]).toString(),
                                     timestamp: Math.round(dataArray[0]).toString(),
                                     data: dataArray.slice(2)

@@ -168,12 +168,48 @@ class BioAnalyzedRepository {
         };
       }
 
-      if (filter.type) {
+      if (filter.dataType) {
         criteria = {
           ...criteria,
-          type: {
+          dataType: {
             $regex: MongooseQueryUtils.escapeRegExp(
-              filter.type,
+              filter.dataType,
+            ),
+            $options: 'i',
+          },
+        };
+      }
+
+      if (filter.patientName) {
+        criteria = {
+          ...criteria,
+          patientName: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.patientName,
+            ),
+            $options: 'i',
+          },
+        };
+      }
+
+      if (filter.patientId) {
+        criteria = {
+          ...criteria,
+          patientId: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.patientId,
+            ),
+            $options: 'i',
+          },
+        };
+      }
+
+      if (filter.score) {
+        criteria = {
+          ...criteria,
+          score: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.score,
             ),
             $options: 'i',
           },

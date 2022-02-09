@@ -701,11 +701,12 @@ const en = {
       },
       fields: {
         id: 'Id',
-        type: 'Type',
+        dataType: 'Data type',
         score: 'Score',
         timeStart: 'Time start',
         timeEnd: 'Time end',
-        patient: 'Patient',
+        patientName: 'Patient name',
+        patientId: 'Patient ID',
         dataId: 'Data ID',
         status: 'Status',
         createdAt: 'Created at',
@@ -730,6 +731,9 @@ const en = {
         fileName: 'bioAnalyzed_import_template',
         hint:
           'Files/Images columns must be the URLs of the files separated by space.',
+      },
+      bioGraph : {
+        title: 'BioGraph'
       },
       bioDataImporter: {
         title: 'Import BioData',

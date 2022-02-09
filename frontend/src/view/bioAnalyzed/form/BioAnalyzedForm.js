@@ -16,11 +16,12 @@ const { fields } = model;
 
 class BioAnalyzedForm extends Component {
   schema = new FormSchema(fields.id, [
-    fields.type,
+    fields.dataType,
     fields.score,
     fields.timeStart,
     fields.timeEnd,
-    fields.patient,
+    fields.patientName,
+    fields.patientId,
     fields.dataId,
   ]);
 
@@ -59,9 +60,9 @@ class BioAnalyzedForm extends Component {
                     tab="Generate Information"
                   >
                     <InputFormItem
-                      name={fields.type.name}
-                      label={fields.type.label}
-                      required={fields.type.required}
+                      name={fields.dataType.name}
+                      label={fields.dataType.label}
+                      required={fields.dataType.required}
                       autoFocus
                     />
                     <InputNumberFormItem
@@ -81,9 +82,15 @@ class BioAnalyzedForm extends Component {
                       required={fields.timeEnd.required}
                     />
                     <InputFormItem
-                    name={fields.patient.name}
-                    label={fields.patient.label}
-                    required={fields.patient.required}
+                    name={fields.patientName.name}
+                    label={fields.patientName.label}
+                    required={fields.patientName.required}
+                    form={form}
+                    />
+                    <InputFormItem
+                    name={fields.patientId.name}
+                    label={fields.patientId.label}
+                    required={fields.patientId.required}
                     form={form}
                     />
                     {/* <SelectFormItem

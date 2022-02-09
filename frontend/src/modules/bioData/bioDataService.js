@@ -84,11 +84,12 @@ export default class BioDataService {
         query BIODATA_FIND($id: String!) {
           bioDataFind(id: $id) {
             id
-            type
+            dataType
             frequency
             timestamp
             data
-            patient
+            patientName
+            patientId
             createdAt
             updatedAt
           }
@@ -121,9 +122,10 @@ export default class BioDataService {
             count
             rows {
               id
-              type
+              dataType
               timestamp
-              patient
+              patientName
+              patientId
               frequency
               updatedAt
               createdAt

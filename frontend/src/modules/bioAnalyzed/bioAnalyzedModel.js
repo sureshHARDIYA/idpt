@@ -13,7 +13,7 @@ function label(name) {
 const fields = {
   id: new IdField('id', label('id')),
 
-  type: new StringField('type', label('type'), {
+  dataType: new StringField('dataType', label('dataType'), {
     required: true,
   }),
   score: new DecimalField('score', label('score'), {
@@ -25,10 +25,12 @@ const fields = {
   timeEnd: new DateField('timeEnd', label('timeEnd'), {
     required: true,
   }),
-  patient: new StringField('patient', label('patient'), {
+  patientName: new StringField('patientName', label('patientName'), {
     required: true,
   }), 
-  
+  patientId: new StringField('patientId', label('patientId'), {
+    required: true,
+  }), 
   dataId: new StringField('dataId', label('dataId')),
   
   createdAt: new DateTimeField(

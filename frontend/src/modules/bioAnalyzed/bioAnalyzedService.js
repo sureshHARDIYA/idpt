@@ -84,11 +84,12 @@ export default class BioAnalyzedService {
         query BIOANALYZED_FIND($id: String!) {
           bioAnalyzedFind(id: $id) {
             id
-            type
+            dataType
             score
             timeStart
             timeEnd
-            patient
+            patientName
+            patientId
             createdAt
             updatedAt
           }
@@ -104,6 +105,8 @@ export default class BioAnalyzedService {
   }
 
   static async list(filter, orderBy, limit, offset) {
+    console.log("LLLLLL");
+    console.log(filter);
     const response = await graphqlClient.query({
       query: gql`
         query BIOANALYZED_LIST(
@@ -121,11 +124,12 @@ export default class BioAnalyzedService {
             count
             rows {
               id
-              type
+              dataType
               score
               timeStart
               timeEnd
-              patient
+              patientName
+              patientId
               updatedAt
               createdAt
             }

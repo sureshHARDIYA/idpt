@@ -12,15 +12,17 @@ import FilterWrapper, {
 } from 'view/shared/styles/FilterWrapper';
 import FormFilterSchema from 'view/shared/form/formFilterSchema';
 import InputFormItem from 'view/shared/form/items/InputFormItem';
+import InputNumberFormItem from 'view/shared/form/items/InputNumberFormItem';
 
 const { fields } = model;
 
 const schema = new FormFilterSchema([
-  fields.type,
+  fields.dataType,
   fields.score,
   fields.timeStart,
   fields.timeEnd,
-  fields.patient,
+  fields.patientName,
+  fields.patientId,
 ]);
 
 class BioAnalyzedListFilter extends Component {
@@ -62,13 +64,13 @@ class BioAnalyzedListFilter extends Component {
                 <Row gutter={24}>
                   <Col md={24} lg={12}>
                     <InputFormItem
-                      name={fields.type.name}
-                      label={fields.type.label}
+                      name={fields.dataType.name}
+                      label={fields.dataType.label}
                       layout={formItemLayout}
                     />
                   </Col>
                   <Col md={24} lg={12}>
-                    <InputFormItem
+                    <InputNumberFormItem
                       name={fields.score.name}
                       label={fields.score.label}
                       layout={formItemLayout}
@@ -90,8 +92,15 @@ class BioAnalyzedListFilter extends Component {
                   </Col>
                   <Col md={24} lg={12}>
                     <InputFormItem
-                      name={fields.patient.name}
-                      label={fields.patient.label}
+                      name={fields.patientName.name}
+                      label={fields.patientName.label}
+                      layout={formItemLayout}
+                    />
+                  </Col>
+                  <Col md={24} lg={12}>
+                    <InputFormItem
+                      name={fields.patientId.name}
+                      label={fields.patientId.label}
                       layout={formItemLayout}
                     />
                   </Col>

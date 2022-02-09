@@ -400,6 +400,7 @@ class Permissions {
       bioAnalyzedRead: {
         id: 'bioAnalyzedRead',
         allowedRoles: [
+          roles.patient,
           roles.owner,
           roles.editor,
           roles.viewer,
