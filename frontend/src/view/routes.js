@@ -5,7 +5,7 @@ const permissions = Permissions.values;
 const patientsRoutes = [
   /* TODO */
   {
-    path: '/bioAnalyzed/bioGraph',
+    path: '/bioGraph',
     loader: () =>
       import('view/bioAnalyzed/bioGraph/BioGraphPage'),
     menu: false,
@@ -372,7 +372,7 @@ const privateRoutes = [
     loader: () =>
       import('view/bioAnalyzed/bioGraph/BioGraphPage'),
     menu: false,
-    permissionRequired: null,
+    permissionRequired: permissions.bioAnalyzedRead,
     exact: true,
   },
   {

@@ -53,36 +53,38 @@ class PatientPage extends Component {
           </Link>
           
           <Link to={{
-            pathname: '/bioAnalyzed/bioGraph',
+            pathname: '/bioGraph',
             state: { 
               patient: {
                 id: this.props.currentUser['id'], 
-                fullName: this.props.currentUser['fullName']
-              }},
-            }}>
-            <Button type="primary" icon="line" size="large">
-              Graph
-            </Button>
-            </Link>
-            </Toolbar>
-            
-            <PatientView
-            loading={this.props.loading}
-            record={this.props.record}
-            />
-            </ContentWrapper>
-            </React.Fragment>
-            );
-          }
+                fullName: this.props.currentUser['fullName'],
+              }, 
+              userIsPatient: true,
+            },
+          }}>
+          <Button type="primary" icon="line" size="large">
+          Graph
+          </Button>
+          </Link>
+          </Toolbar>
+          
+          <PatientView
+          loading={this.props.loading}
+          record={this.props.record}
+          />
+          </ContentWrapper>
+          </React.Fragment>
+          );
         }
-        
-        function select(state) {
-          return {
-            currentUser: authSelectors.selectCurrentUser(state),
-            loading: selectors.selectLoading(state),
-            record: selectors.selectRecord(state),
-          };
-        }
-        
-        export default connect(select)(PatientPage);
-        
+      }
+      
+      function select(state) {
+        return {
+          currentUser: authSelectors.selectCurrentUser(state),
+          loading: selectors.selectLoading(state),
+          record: selectors.selectRecord(state),
+        };
+      }
+      
+      export default connect(select)(PatientPage);
+      

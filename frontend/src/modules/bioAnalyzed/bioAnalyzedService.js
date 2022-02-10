@@ -105,8 +105,6 @@ export default class BioAnalyzedService {
   }
 
   static async list(filter, orderBy, limit, offset) {
-    console.log("LLLLLL");
-    console.log(filter);
     const response = await graphqlClient.query({
       query: gql`
         query BIOANALYZED_LIST(

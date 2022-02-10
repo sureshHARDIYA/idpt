@@ -34,7 +34,6 @@ class BioGraphForm extends Component {
   
   handleSubmit = (values) => {
     const { id, ...data } = this.schema.cast(values);
-    console.log(values.patient);
     this.setState({ 
       toRedirect : true,
       patientInfo: {
@@ -43,109 +42,111 @@ class BioGraphForm extends Component {
       }
     });
   };
-    
-    initialValues = () => {
-      const record = this.props.record;
-      return this.schema.initialValues(record || {});
+  
+  initialValues = () => {
+    const record = this.props.record;
+    return this.schema.initialValues(record || {});
+  };
+  
+  redirectToGraph = () => {
+    const { saveLoading, isEditing } = this.props;
+    return(
+      <Redirect
+      to={{
+        pathname: '/bioAnalyzed/bioGraph',
+        state: { 
+          patient: this.state.patientInfo,
+          userIsPatient: false,
+        },
+      }}
+      />
+      );
     };
     
-    redirectToGraph = () => {
+    renderForm() {
       const { saveLoading, isEditing } = this.props;
-      return(
-        <Redirect
-        to={{
-          pathname: '/bioAnalyzed/bioGraph',
-          state: { 
-            patient: this.state.patientInfo },
-          }}
-          />
+      if (this.state.toRedirect) {
+        return(
+          this.redirectToGraph()
           );
-        };
-        
-        renderForm() {
-          const { saveLoading, isEditing } = this.props;
-          if (this.state.toRedirect) {
-            return(
-              this.redirectToGraph()
-              );
-            }
-            else {
-              return(
-                <FormWrapper>
-                <Formik
-                initialValues={this.initialValues()}
-                validationSchema={this.schema.schema}
-                onSubmit={this.handleSubmit}
-                render={(form) => {
-                  return (
-                    <Form onSubmit={ form.handleSubmit }>
-                    {isEditing && (
-                      <ViewFormItem
-                      name={fields.id.name}
-                      label={fields.id.label}
-                      />
-                      )}
-                      <PatientAutocompleteFormItem
-                      name={fields.patient.name}
-                      label={fields.patient.label}
-                      required={fields.patient.required}
-                      form={form}
-                      />
-                      <Form.Item
-                      className="form-buttons"
-                      {...tailFormItemLayout}
-                      >
-                      
-                      <Button
-                      loading={saveLoading}
-                      type="primary"
-                      onClick={form.handleSubmit}
-                      icon="search"
-                      >
-                      {i18n('common.search')}
-                      </Button>
-                      
-                      <Button
-                      disabled={saveLoading}
-                      onClick={form.handleReset}
-                      icon="undo"
-                      >
-                      {i18n('common.reset')}
-                      </Button>
-                      
-                      {this.props.onCancel ? (
-                        <Button
-                        disabled={saveLoading}
-                        onClick={() => this.props.onCancel()}
-                        icon="close"
-                        >
-                        {i18n('common.cancel')}
-                        </Button>
-                        ) : null}
-                        </Form.Item>
-                        </Form>
-                        );
-                      }}
-                      />
-                      </FormWrapper>
-                      );
-                    }
-                  }
+        }
+        else {
+          return(
+            <FormWrapper>
+            <Formik
+            initialValues={this.initialValues()}
+            validationSchema={this.schema.schema}
+            onSubmit={this.handleSubmit}
+            render={(form) => {
+              return (
+                <Form onSubmit={ form.handleSubmit }>
+                {isEditing && (
+                  <ViewFormItem
+                  name={fields.id.name}
+                  label={fields.id.label}
+                  />
+                  )}
+                  <PatientAutocompleteFormItem
+                  name={fields.patient.name}
+                  label={fields.patient.label}
+                  required={fields.patient.required}
+                  form={form}
+                  />
+                  <Form.Item
+                  className="form-buttons"
+                  {...tailFormItemLayout}
+                  >
                   
-                  render() {
-                    const { isEditing, findLoading, record } = this.props;
-                    
-                    if (findLoading) {
-                      return <Spinner />;
-                    }
-                    
-                    if (isEditing && !record) {
-                      return <Spinner />;
-                    }
-                    
-                    return this.renderForm();
-                  }
+                  <Button
+                  loading={saveLoading}
+                  type="primary"
+                  onClick={form.handleSubmit}
+                  icon="search"
+                  >
+                  {i18n('common.search')}
+                  </Button>
+                  
+                  <Button
+                  disabled={saveLoading}
+                  onClick={form.handleReset}
+                  icon="undo"
+                  >
+                  {i18n('common.reset')}
+                  </Button>
+                  
+                  {this.props.onCancel ? (
+                    <Button
+                    disabled={saveLoading}
+                    onClick={() => this.props.onCancel()}
+                    icon="close"
+                    >
+                    {i18n('common.cancel')}
+                    </Button>
+                    ) : null}
+                    </Form.Item>
+                    </Form>
+                    );
+                  }}
+                  />
+                  </FormWrapper>
+                  );
+                }
+              }
+              
+              render() {
+                const { isEditing, findLoading, record } = this.props;
+                
+                if (findLoading) {
+                  return <Spinner />;
                 }
                 
-                export default BioGraphForm;
+                if (isEditing && !record) {
+                  return <Spinner />;
+                }
                 
+                return this.renderForm();
+              }
+            }
+            
+            export default BioGraphForm;
+            
