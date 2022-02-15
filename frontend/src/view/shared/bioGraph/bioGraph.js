@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import HomeLineChart from '../../home/HomeLineChart';
 import BioAnalyzedService from 'modules/bioAnalyzed/bioAnalyzedService';
 import { Line } from 'react-chartjs-2';
 
@@ -10,16 +9,40 @@ export default (userId) => {
             super(props);
             this.state = {
                 data: null,
+                options: {
+                    scales: {
+                      xAxes: [
+                        {
+                          display: false,
+                        },
+                        {
+                            ticks: {
+                                callback: function(value, index, values) {
+                                    // Display only date of startTime on the x-axis
+                                    var tempLabel = value.split(' ');
+                                    return tempLabel[0];
+                                }
+                            }
+                        }
+                      ],
+                      yAxes: [
+                        {
+                          display: true,
+                        },
+                      ],
+                    },
+                }
             };
             this.createGraph(userId);
         }
         
         render() {
+
             if (this.state.data){
-                return <Line data={this.state.data}/>
+                return <Line options={this.state.options} data={this.state.data}/>
             }
             else {
-                return <Line data={{}}/>
+                return <Line options={this.state.options} data={{}}/>
             }
         }
         

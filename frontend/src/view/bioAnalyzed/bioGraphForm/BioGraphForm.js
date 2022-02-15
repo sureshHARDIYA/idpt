@@ -8,10 +8,9 @@ import FormWrapper, {
   tailFormItemLayout,
 } from 'view/shared/styles/FormWrapper';
 import FormSchema from 'view/shared/form/formSchema';
-import { Redirect, Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import PatientAutocompleteFormItem from 'view/patient/autocomplete/PatientAutocompleteFormItem';
 import RelationToOneField from 'modules/shared/fields/relationToOneField';
-import { ConsoleSqlOutlined } from '@ant-design/icons';
 
 const fields = {
   patient: new RelationToOneField('patient', 'Patient', {
