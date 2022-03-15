@@ -14,15 +14,18 @@ const resolver = {
     new PermissionChecker(context)
       .validateHas(permissions.bioDataCreate);
 
-    const storedData = await new BioDataService(context).create(
+    console.log(args.data[0].dataType);
+    console.log(args.data[1].dataType);
+
+    /*const storedData = await new BioDataService(context).create(
       args.data
     );
 
-    // Anlysis and database storing of the raw wearable data
+    // Analysis and database storing of the raw wearable data
     const analyzedData = Analysis.analyze(storedData);
     new BioAnalyzedService(context).create(analyzedData);
 
-    return storedData;
+    return storedData;*/
   },
 };
 
