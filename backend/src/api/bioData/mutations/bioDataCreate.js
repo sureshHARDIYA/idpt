@@ -26,6 +26,16 @@ const resolver = {
     new BioAnalyzedService(context).create(analyzedData);
 
     return storedData;*/
+
+    // Analysis of the raw wearable data
+    const analyzedData = Analysis.analyze(storedData);
+    new BioAnalyzedService(context).create(analyzedData);
+
+    // TODO
+    //new BioAnalyzedService(context).createFromBioData(storedData);
+
+    return storedData;
+
   },
 };
 

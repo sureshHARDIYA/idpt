@@ -1,4 +1,5 @@
 const BioAnalyzedRepository = require('../database/repositories/bioAnalyzedRepository');
+const Analysis = require('../../../analysis/analysis');
 const ValidationError = require('../errors/validationError');
 const MongooseRepository = require('../database/repositories/mongooseRepository');
 
@@ -13,7 +14,31 @@ module.exports = class BioAnalyzedService {
   }
 
   /**
-   * Creates an BioAnalyzed.
+   * Creates a BioAnalyzed.
+   * TODO
+   * @param {*} data
+   */
+   async createFromBioData(data) {
+    const session = await MongooseRepository.createSession();
+    const analyzedData = Analysis.analyze(data);
+
+    try {
+      const record = await this.repository.create(analyzedData, {
+        session: session,
+        currentUser: this.currentUser,
+      });
+
+      await MongooseRepository.commitTransaction(session);
+
+      return record;
+    } catch (error) {
+      await MongooseRepository.abortTransaction(session);
+      throw error;
+    }
+  }
+
+  /**
+   * Creates a BioAnalyzed.
    *
    * @param {*} data
    */

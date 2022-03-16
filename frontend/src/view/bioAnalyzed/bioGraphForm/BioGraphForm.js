@@ -48,7 +48,6 @@ class BioGraphForm extends Component {
   };
   
   redirectToGraph = () => {
-    const { saveLoading, isEditing } = this.props;
     return(
       <Redirect
       to={{
@@ -61,7 +60,7 @@ class BioGraphForm extends Component {
       />
       );
     };
-    
+
     renderForm() {
       const { saveLoading, isEditing } = this.props;
       if (this.state.toRedirect) {

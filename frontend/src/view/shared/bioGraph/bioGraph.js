@@ -25,11 +25,6 @@ export default (userId) => {
                             }
                         }
                       ],
-                      yAxes: [
-                        {
-                          display: true,
-                        },
-                      ],
                     },
                 }
             };
@@ -42,14 +37,22 @@ export default (userId) => {
                 return <Line options={this.state.options} data={this.state.data}/>
             }
             else {
-                return <Line options={this.state.options} data={{}}/>
+                return <Line data={{}}/>
             }
         }
         
         async getDataFromPatient(id){
             const filter = {patientId: id}
             var data = await BioAnalyzedService.list(filter);
-            data = data.rows; 
+            data = data.rows;
+
+            data.sort((a, b) => {  
+                if(a['timeStart'] > b['timeStart'])  
+                   return 1;
+                if(a['timeStart'] < b['timeStart'])  
+                   return -1;
+                return 0;  
+            });
             
             const x = [];
             const y = [];
@@ -65,8 +68,6 @@ export default (userId) => {
             const result = await this.getDataFromPatient(userId);
             const x = result[0]
             const y = result[1]
-            
-            console.log(x, y);
             
             const data = {
                 labels: x,
