@@ -48,7 +48,6 @@ export default () => {
                 dataArray.push(line.data[0])
             }
 
-            console.log("........``");
             var data_type = file.name.substr(0, file.name.indexOf('.'));
             
             var data = { dataType: data_type,
@@ -59,7 +58,7 @@ export default () => {
             this.validCheck(data);
         }
 
-        validCheck(data){
+        validCheck(data) {
             var data_type = data.dataType;
             
             if (data_type == "EDA"){
@@ -67,7 +66,6 @@ export default () => {
                     EDA_uploaded: true,
                     EDA_data: data
                 });
-                console.log(data_type);
             }
 
             if (data_type == "TEMP"){
@@ -75,15 +73,14 @@ export default () => {
                     TEMP_uploaded: true,
                     TEMP_data: data
                 });
-                console.log(data_type);
             }
-            console.log(this.state.EDA_uploaded);
+
             if (this.state.EDA_uploaded && this.state.TEMP_uploaded){
-                console.log(this.state.TEMP_data.timestamp);
                 if (this.state.EDA_data.timestamp == this.state.TEMP_data.timestamp){
                     var datas = [];
                     datas.push(this.state.EDA_data);
                     datas.push(this.state.TEMP_data);
+                    console.log(datas);
                     BioDataService.create({datas: datas});
                 }
             }

@@ -1,5 +1,3 @@
-const BioDataService = require('../../../services/bioDataService');
-
 const schema = `
   type BioData {
     id: String!

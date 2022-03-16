@@ -1,5 +1,5 @@
 const BioAnalyzedRepository = require('../database/repositories/bioAnalyzedRepository');
-const Analysis = require('../../../analysis/analysis');
+const Analysis = require('../analysis/analysis');
 const ValidationError = require('../errors/validationError');
 const MongooseRepository = require('../database/repositories/mongooseRepository');
 

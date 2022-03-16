@@ -1,13 +1,6 @@
 const schema = `
   input MultipleBioDataInput {
-      datas: [
-        dataType: String!
-        frequency: String!
-        timestamp: String!
-        patientName: String
-        patientId: String
-        data: [String]
-      ]
+    datas: [BioDataInput]
   }
 `;
 

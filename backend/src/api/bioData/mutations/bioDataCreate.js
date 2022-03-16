@@ -6,7 +6,7 @@ const permissions = require('../../../security/permissions')
   .values;
 
 const schema = `
-  bioDataCreate(data: BioDataInput!): BioData!
+  bioDataCreate(data: MultipleBioDataInput!): [BioData!]
 `;
 
 const resolver = {
@@ -14,27 +14,29 @@ const resolver = {
     new PermissionChecker(context)
       .validateHas(permissions.bioDataCreate);
 
-    console.log(args.data[0].dataType);
-    console.log(args.data[1].dataType);
+    const storedBioDatas = [];
 
-    /*const storedData = await new BioDataService(context).create(
-      args.data
-    );
+    for (const bioData of args.data.datas) {
+      storedBioDatas.push(await new BioDataService(context).create(bioData));
+    }
 
     // Analysis and database storing of the raw wearable data
-    const analyzedData = Analysis.analyze(storedData);
+    const analyzedData = Analysis.analyze(storedBioDatas);
     new BioAnalyzedService(context).create(analyzedData);
 
-    return storedData;*/
+    return storedBioDatas;
+
+    /*
+    TODO: Using a separate function for creating bot raw and analyzed data
 
     // Analysis of the raw wearable data
     const analyzedData = Analysis.analyze(storedData);
     new BioAnalyzedService(context).create(analyzedData);
 
-    // TODO
     //new BioAnalyzedService(context).createFromBioData(storedData);
 
     return storedData;
+    */
 
   },
 };

@@ -40,10 +40,11 @@ export default class BioDataService {
     return response.data.bioDataDestroy;
   }
 
+  // Takes a list of BioDatas
   static async create(data) {
     const response = await graphqlClient.mutate({
       mutation: gql`
-        mutation BIODATA_CREATE($data: BioDataInput!) {
+        mutation BIODATA_CREATE($data: MultipleBioDataInput!) {
           bioDataCreate(data: $data) {
             id
           }

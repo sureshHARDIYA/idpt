@@ -7,20 +7,25 @@ const DEBUG = false;
 const DEBUG_FREQUENCY = 4;
 const THRESHOLD = 3.0;
 
-const analyze = (data) => {
-  const timeStart = data.timestamp;
-  const duration = parseInt(data.data.length / data.frequency);
+const analyze = (datas) => {
+  const EDAdata = datas[0];
+  const TEMPdata = datas[1];
+
+  const timeStart = EDAdata.timestamp;
+  const frequency = EDAdata.frequency;
+  const duration = parseInt(EDAdata.data.length / frequency);
   const timeEnd = parseInt(timeStart) + duration;
+  const dataType = "Stress";
 
-  const score = calculateScore(data.data, duration, data.frequency);
+  const score = calculateScore(datas, duration, frequency);
 
-  return {dataType: data.dataType,
+  return {dataType: dataType,
       timeStart: dateFormater(new Date(timeStart * 1000)),
       timeEnd: dateFormater(new Date(timeEnd * 1000)),
-      patientName: data.patientName,
-      patientId: data.patientId,
+      patientName: EDAdata.patientName,
+      patientId: EDAdata.patientId,
       score: parseFloat(score.toFixed(2)),
-      dataId: data._id}
+      dataId: EDAdata._id}
 };
 
 if (DEBUG) {
@@ -32,7 +37,7 @@ if (DEBUG) {
       .on('end', () => calculateScore([].concat.apply([], csvData), csvData.length / DEBUG_FREQUENCY, DEBUG_FREQUENCY));
 }
 
-const calculateScore = (data, duration, frequency) => {
+const preProcessEDA = (data, frequency) => {
   data = data.map((i) => parseFloat(i));
 
   //  Instance of a filter coefficient calculator
@@ -73,30 +78,62 @@ const calculateScore = (data, duration, frequency) => {
       sum = sum/frequency;
       // TODO: Remove value caps
       if (sum > 0.4)
-        downsampled.push(0.4);
+      downsampled.push(0.4);
       else if (sum < -0.4)
-        downsampled.push(-0.4);
+      downsampled.push(-0.4);
       else
-        downsampled.push(sum);
+      downsampled.push(sum);
       sum = 0;
     }
   }
 
+  return downsampled;
+}
+
+const preProcessTEMP = (data, frequency) => {
+  downsampled = [];
+  sum = 0;
+  for (let i = 0; i < data.length; i++) {
+    sum += data[i];
+
+    if ((i + 1) % frequency == 0) {
+      sum = sum/frequency;
+      // TODO: Remove value caps
+      if (sum > 0.4)
+      downsampled.push(0.4);
+      else if (sum < -0.4)
+      downsampled.push(-0.4);
+      else
+      downsampled.push(sum);
+      sum = 0;
+    }
+  }
+
+  return downsampled;
+}
+
+const calculateScore = (datas, duration, frequency) => {
+  const EDAdata = datas[0].data;
+  const preProcessedEDA = preProcessEDA(EDAdata, frequency);
+
+  const TEMPdata = datas[1].data;
+  const preProcessedTEMP = preProcessTEMP(TEMPdata, frequency);
+
   // Calculating scores per second
-  const amplitude_scores = amplitude_increase(downsampled);
-  const extrema = find_extrema(downsampled);
-  const rising_scores = rising_time(downsampled, extrema);
-  const response_scores = response_slope(downsampled, extrema);
+  const amplitude_scores = amplitude_increase(preProcessedEDA);
+  const extrema = find_extrema(preProcessedEDA);
+  const rising_scores = rising_time(preProcessedEDA, extrema);
+  const response_scores = response_slope(preProcessedEDA, extrema);
 
   var scores = [];
-  for (let i = 0; i < downsampled.length; i++)
+  for (let i = 0; i < preProcessedEDA.length; i++)
     scores.push(amplitude_scores[i] + rising_scores[i] + response_scores[i]);
 
   scores = frequency_limiter(scores);
   
   // Calculating final score
   var mos = 0;
-  for (let i = 0; i < downsampled.length; i++)
+  for (let i = 0; i < preProcessedEDA.length; i++)
     if (scores[i] >= THRESHOLD)
       mos += 1;
 
@@ -108,8 +145,8 @@ const calculateScore = (data, duration, frequency) => {
     // Plotting
     const daft = [
         {
-          x: [...Array(downsampled.length).keys()],
-          y: downsampled, // downsampled or scores
+          x: [...Array(preProcessedEDA.length).keys()],
+          y: preProcessedEDA, // preProcessedEDA or scores
           type: 'line',
         },
       ];
