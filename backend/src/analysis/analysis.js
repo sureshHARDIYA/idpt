@@ -5,7 +5,7 @@ var Fili = require('fili');
 
 const DEBUG = false;
 const DEBUG_FREQUENCY = 4;
-const THRESHOLD = 3.0;
+const THRESHOLD = 3.75;
 
 const analyze = (datas) => {
   const EDAdata = datas[0];
@@ -37,7 +37,7 @@ if (DEBUG) {
       .on('end', () => calculateScore([].concat.apply([], csvData), csvData.length / DEBUG_FREQUENCY, DEBUG_FREQUENCY));
 }
 
-const preProcessEDA = (data, frequency) => {
+const preProcess = (data, frequency, order, low_cutoff_freq, high_cutoff_freq) => {
   data = data.map((i) => parseFloat(i));
 
   //  Instance of a filter coefficient calculator
@@ -45,10 +45,10 @@ const preProcessEDA = (data, frequency) => {
 
   // calculate filter coefficients
   var LPFilterCoeffs = iirCalculator.lowpass({
-    order: 1,
+    order: order,
     characteristic: 'butterworth',
     Fs: frequency, // sampling frequency
-    Fc: 5, // cutoff frequency
+    Fc: low_cutoff_freq, // cutoff frequency
     gain: 0,
     preGain: false
   });
@@ -57,40 +57,17 @@ const preProcessEDA = (data, frequency) => {
   var LPfilter = new Fili.IirFilter(LPFilterCoeffs);
 
   var HPFilterCoeffs = iirCalculator.highpass({
-    order: 1,
+    order: order,
     characteristic: 'butterworth',
     Fs: frequency, // sampling frequency
-    Fc: 0.05, // cutoff frequency
+    Fc: high_cutoff_freq, // cutoff frequency
     gain: 0,
     preGain: false
   });
   var HPfilter = new Fili.IirFilter(HPFilterCoeffs);
 
-  data = LPfilter.multiStep(HPfilter.multiStep(data));
+  data = HPfilter.multiStep(LPfilter.multiStep(data));
 
-  // Downsampling to 1 Hz
-  downsampled = [];
-  sum = 0;
-  for (let i = 0; i < data.length; i++) {
-    sum += data[i];
-
-    if ((i + 1) % frequency == 0) {
-      sum = sum/frequency;
-      // TODO: Remove value caps
-      if (sum > 0.4)
-      downsampled.push(0.4);
-      else if (sum < -0.4)
-      downsampled.push(-0.4);
-      else
-      downsampled.push(sum);
-      sum = 0;
-    }
-  }
-
-  return downsampled;
-}
-
-const preProcessTEMP = (data, frequency) => {
   downsampled = [];
   sum = 0;
   for (let i = 0; i < data.length; i++) {
@@ -114,20 +91,26 @@ const preProcessTEMP = (data, frequency) => {
 
 const calculateScore = (datas, duration, frequency) => {
   const EDAdata = datas[0].data;
-  const preProcessedEDA = preProcessEDA(EDAdata, frequency);
+  const preProcessedEDA = preProcess(EDAdata, frequency, 1, 5, 0.05);
 
   const TEMPdata = datas[1].data;
-  const preProcessedTEMP = preProcessTEMP(TEMPdata, frequency);
+  const preProcessedTEMP = preProcess(TEMPdata, frequency, 2, 1, 0.1);
 
-  // Calculating scores per second
-  const amplitude_scores = amplitude_increase(preProcessedEDA);
+  // Calculating scores per second for EDA
   const extrema = find_extrema(preProcessedEDA);
+  const amplitude_scores = amplitude_increase(preProcessedEDA);
   const rising_scores = rising_time(preProcessedEDA, extrema);
   const response_scores = response_slope(preProcessedEDA, extrema);
 
+  // Calculating scores per second for TEMP
+  const temperature_decrease_scores = temperature_decrease(preProcessedTEMP, extrema);
+
+  
+
   var scores = [];
   for (let i = 0; i < preProcessedEDA.length; i++)
-    scores.push(amplitude_scores[i] + rising_scores[i] + response_scores[i]);
+    scores.push(amplitude_scores[i] + rising_scores[i] + response_scores[i] + 
+      temperature_decrease_scores[i]);
 
   scores = frequency_limiter(scores);
   
@@ -241,6 +224,32 @@ const response_slope = (y, extrema) => {
     }
   }
   return scores;
+}
+
+const temperature_decrease = (y, extrema) => {
+  n = y.length;
+  scores = Array(n).fill(0);
+
+  for (let i = 0; i < n; i++) {
+    if (extrema[i] == -1) {
+      var pointer = i;
+
+      while (pointer - i <= 6 && pointer < n - 2) {
+        if (y[pointer] > y[pointer + 1] > y[pointer + 2]){
+          if (pointer - i < 3){
+            scores[i] = 1.0;
+          }
+          else {
+            scores[i] = 0.5;
+          }
+          break;
+        }
+        pointer += 1;
+      }
+    }
+  }
+
+  return scores
 }
 
 const frequency_limiter = (scores) => {
