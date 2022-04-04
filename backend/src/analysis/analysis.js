@@ -232,10 +232,10 @@ const temperature_decrease = (y, extrema) => {
 
   for (let i = 0; i < n; i++) {
     if (extrema[i] == -1) {
-      var pointer = i;
+      var pointer = i + 2;
 
       while (pointer - i <= 6 && pointer < n - 2) {
-        if (y[pointer] > y[pointer + 1] > y[pointer + 2]){
+        if (y[pointer] > y[pointer + 1] > y[pointer + 2]) {
           if (pointer - i < 3){
             scores[i] = 1.0;
           }
