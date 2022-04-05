@@ -74,18 +74,11 @@ const preProcess = (data, frequency, order, low_cutoff_freq, high_cutoff_freq) =
     sum += data[i];
 
     if ((i + 1) % frequency == 0) {
-      sum = sum/frequency;
-      // TODO: Remove value caps
-      if (sum > 0.4)
-      downsampled.push(0.4);
-      else if (sum < -0.4)
-      downsampled.push(-0.4);
-      else
-      downsampled.push(sum);
+      average = sum/frequency;
+      downsampled.push(average);
       sum = 0;
     }
   }
-
   return downsampled;
 }
 
@@ -106,7 +99,6 @@ const calculateScore = (datas, duration, frequency) => {
   const temperature_decrease_scores = temperature_decrease(preProcessedTEMP, extrema);
 
   
-
   var scores = [];
   for (let i = 0; i < preProcessedEDA.length; i++)
     scores.push(amplitude_scores[i] + rising_scores[i] + response_scores[i] + 
@@ -126,14 +118,14 @@ const calculateScore = (datas, duration, frequency) => {
   
   if (DEBUG) {
     // Plotting
-    const daft = [
+    const plot_data = [
         {
           x: [...Array(preProcessedEDA.length).keys()],
           y: preProcessedEDA, // preProcessedEDA or scores
           type: 'line',
         },
       ];
-    Plot.plot(daft);
+    Plot.plot(plot_data);
   }
 
   return score;
@@ -249,29 +241,27 @@ const temperature_decrease = (y, extrema) => {
     }
   }
 
-  return scores
+  return scores;
 }
 
 const frequency_limiter = (scores) => {
   const n = scores.length;
-  scores = scores.map(n => n + 1); // Add 1 to all, then later we subtract where needed
   const max_score = Math.max(...scores) * 10;
 
-  for (let j = max_score; j > 5; j -= 5) {
-    j = j / 10;
+  for (let j = max_score; j >= THRESHOLD; j -= 5) {
+    current_max = j / 10;
     for (let i = 0; i < n; i++) {
-      if (scores[i] == j) {
+      if (scores[i] == current_max) {
         var pointer = i + 1;
 
         while (pointer - i <= 10 && pointer < n) {
-          if (scores[pointer] <= j) {
-            scores[pointer] =  Math.max(0, scores[pointer] - 1); // Prevents negative scores
+          if (scores[pointer] <= current_max) {
+            scores[pointer] =  0;
           }
           pointer += 1;
         }
       }
     }
-    j = j * 10;
   }
   return scores;
 }
