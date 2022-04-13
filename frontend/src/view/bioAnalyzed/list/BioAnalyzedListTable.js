@@ -34,7 +34,6 @@ class BioAnalyzedListTable extends Component {
     fields.timeStart.forTable(),
     fields.timeEnd.forTable(),
     fields.patientName.forTable(),
-    fields.patientId.forTable(),
     {
       title: '',
       dataIndex: '',

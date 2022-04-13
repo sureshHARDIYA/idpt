@@ -5,6 +5,7 @@ const Schema = database.Schema;
  * BioData database schema.
  * See https://mongoosejs.com/docs/models.html to learn how to customize it.
  */
+
 const BioDataSchema = new Schema(
   {
     dataType: {

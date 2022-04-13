@@ -134,7 +134,7 @@ class BioAnalyzedToolbar extends Component {
 
         {this.props.hasPermissionToImport && (
           <Link to="/bioAnalyzed/bioGraphForm">
-            <Button type="primary" icon="upload" size="large">
+            <Button type="primary" icon="line" size="large">
               {i18n('common.bioGraph')}
             </Button>
           </Link>

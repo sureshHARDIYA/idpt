@@ -19,8 +19,8 @@ const en = {
     view: 'View',
     destroy: 'Delete',
     mustSelectARow: 'Must select a row',
-    bioData: 'Import biodata',
-    bioGraph: 'BioGraph',
+    bioData: 'Upload data',
+    bioGraph: 'Graphs',
   },
 
   app: {
@@ -677,12 +677,12 @@ const en = {
     bioAnalyzed: {
       name: 'bioAnalyzed',
       label: 'BioAnalyzed',
-      menu: 'BioAnalyzed',
+      menu: 'Wearables',
       single: 'BioAnalyzed',
       exporterFileName: 'bioAnalyzed_export',
       list: {
         menu: 'BioAnalyzed',
-        title: 'BioAnalyzed',
+        title: 'Wearables',
       },
       create: {
         success: 'BioAnalyzed saved successfully',
@@ -733,10 +733,10 @@ const en = {
           'Files/Images columns must be the URLs of the files separated by space.',
       },
       bioGraph : {
-        title: 'BioGraph'
+        title: 'Graphs'
       },
       bioDataImporter: {
-        title: 'Import BioData',
+        title: 'Upload data',
         fileName: 'bioData_import_template',
         hint:
           'Drop CSV file or click to upload',
