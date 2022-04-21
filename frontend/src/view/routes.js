@@ -332,7 +332,7 @@ const privateRoutes = [
     loader: () => import('view/bioAnalyzed/list/BioAnalyzedListPage'),
     permissionRequired: permissions.bioAnalyzedRead,
     exact: true,
-    icon: 'upload',
+    icon: 'shake',
     label: i18n('entities.bioAnalyzed.menu'),
     menu: true,
   },
