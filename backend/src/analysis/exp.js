@@ -60,13 +60,14 @@ const preProcess = (data, frequency, order, low_cutoff_freq, high_cutoff_freq) =
 
     if ((i + 1) % frequency == 0) {
       average = sum/frequency;
-      if (average < -0.01) {
-        downsampled.push(-0.01);
-      } else if (average > 0.03) {
-        downsampled.push(0.03);
+      /* if (average < -0.1) {
+        downsampled.push(-0.1);
+      } else if (average > 0.1) {
+        downsampled.push(0.1);
       } else {
         downsampled.push(average);
-      }
+      } */
+      downsampled.push(average);
       sum = 0;
     }
   }
@@ -122,7 +123,7 @@ const calculateScore = (datas, duration, frequency) => {
     const plot_scores = 
         {
           x: [...Array(preProcessedEDA.length).keys()],
-          y: response_scores.map((i) => i * 0.001), // preProcessedEDA or scores
+          y: scores.map((i) => i * 0.001), // preProcessedEDA or scores
           type: 'line',
         };
 
@@ -237,7 +238,7 @@ const temperature_decrease = (y, extrema) => {
   scores = Array(n).fill(0);
 
   for (let i = 0; i < n; i++) {
-    if (extrema[i] == 1) {
+    if (extrema[i] == -1) {
       var pointer = i + 2;
 
       while (pointer - i <= 6 && pointer < n - 2) {
