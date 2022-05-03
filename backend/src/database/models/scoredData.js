@@ -25,9 +25,11 @@ const ScoredDataSchema = new Schema(
     },
     patientName: {
       type: String,
+      required: true,
     },
     patientId: {
       type: String,
+      required: true,
     },
     dataId: {
       type: String,

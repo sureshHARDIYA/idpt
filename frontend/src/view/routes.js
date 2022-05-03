@@ -332,7 +332,7 @@ const privateRoutes = [
     loader: () => import('view/scoredData/list/ScoredDataListPage'),
     permissionRequired: permissions.scoredDataRead,
     exact: true,
-    icon: 'carry-out',
+    icon: 'shake',
     label: i18n('entities.scoredData.menu'),
     menu: true,
   },

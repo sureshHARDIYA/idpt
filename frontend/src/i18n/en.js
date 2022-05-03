@@ -19,8 +19,8 @@ const en = {
     view: 'View',
     destroy: 'Delete',
     mustSelectARow: 'Must select a row',
-    wearableData: 'Import wearabledata',
-    graph: 'Graph',
+    wearableData: 'Upload data',
+    graph: 'Graphs',
   },
 
   app: {
@@ -677,12 +677,12 @@ const en = {
     scoredData: {
       name: 'scoredData',
       label: 'ScoredData',
-      menu: 'ScoredData',
+      menu: 'Wearables',
       single: 'ScoredData',
       exporterFileName: 'scoredData_export',
       list: {
         menu: 'ScoredData',
-        title: 'ScoredData',
+        title: 'Wearables',
       },
       create: {
         success: 'ScoredData saved successfully',
@@ -733,10 +733,10 @@ const en = {
           'Files/Images columns must be the URLs of the files separated by space.',
       },
       graph : {
-        title: 'Graph'
+        title: 'Graphs'
       },
       wearableDataImporter: {
-        title: 'Import WearableData',
+        title: 'Upload data',
         fileName: 'wearableData_import_template',
         hint:
           'Drop CSV file or click to upload',

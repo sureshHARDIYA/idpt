@@ -134,7 +134,7 @@ class ScoredDataToolbar extends Component {
 
         {this.props.hasPermissionToImport && (
           <Link to="/scoredData/graphForm">
-            <Button type="primary" icon="upload" size="large">
+            <Button type="primary" icon="line-chart" size="large">
               {i18n('common.graph')}
             </Button>
           </Link>
