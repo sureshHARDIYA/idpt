@@ -19,8 +19,8 @@ const no = {
     view: 'Se',
     destroy: 'Slett',
     mustSelectARow: 'Må velge en rad',
-    bioData: 'Importer biodata',
-    bioGraph: 'BioGraph',
+    wearableData: 'Importer wearable-data',
+    graph: 'Graph',
   },
 
   app: {
@@ -668,30 +668,30 @@ const no = {
       },
     },
 
-    bioAnalyzed: {
-      name: 'bioAnalyzed',
-      label: 'BioAnalyzed',
-      menu: 'BioAnalyzed',
-      single: 'BioAnalyzed',
-      exporterFileName: 'bioAnalyzed_export',
+    scoredData: {
+      name: 'scoredData',
+      label: 'ScoredData',
+      menu: 'ScoredData',
+      single: 'ScoredData',
+      exporterFileName: 'scoredData_export',
       list: {
-        menu: 'BioAnalyzed',
-        title: 'BioAnalyzed',
+        menu: 'ScoredData',
+        title: 'ScoredData',
       },
       create: {
-        success: 'Oppretting av BioAnalyzed vellykket',
+        success: 'Oppretting av ScoredData vellykket',
       },
       update: {
-        success: 'Lagring av BioAnalyzed vellykket',
+        success: 'Lagring av ScoredData vellykket',
       },
       destroy: {
-        success: 'Sletting av BioAnalyzed vellykket',
+        success: 'Sletting av ScoredData vellykket',
       },
       destroyAll: {
-        success: 'Sletting av BioAnalyzeder vellykket',
+        success: 'Sletting av ScoredDataer vellykket',
       },
       edit: {
-        title: 'Rediger BioAnalyzed',
+        title: 'Rediger ScoredData',
       },
       fields: {
         id: 'Id',
@@ -715,20 +715,20 @@ const no = {
         },
       },
       new: {
-        title: 'Ny BioAnalyzed',
+        title: 'Ny ScoredData',
       },
       view: {
-        title: 'Se BioAnalyzed',
+        title: 'Se ScoredData',
       },
       importer: {
-        title: 'Importer BioAnalyzeds',
-        fileName: 'bioAnalyzed_import_template',
+        title: 'Importer ScoredDatas',
+        fileName: 'scoredData_import_template',
         hint:
           'Fil/bildekolonner må være filenes URLer separert med mellomrom.',
       },
-      bioDataImporter: {
-        title: 'Importer BioData',
-        fileName: 'bioData_import_template',
+      wearableDataImporter: {
+        title: 'Importer WearableData',
+        fileName: 'wearableData_import_template',
         hint:
           'Dra CSV fil eller klikk for å laste opp',
       },

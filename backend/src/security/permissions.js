@@ -294,130 +294,130 @@ class Permissions {
           roles.moduleViewer
         ]
       },
-      bioDataImport: {
-        id: 'bioDataImport',
+      wearableDataImport: {
+        id: 'wearableDataImport',
         allowedRoles: [
           roles.owner,
           roles.editor,
           roles.entityEditor,
-          roles.bioDataEditor
+          roles.wearableDataEditor
         ]
       },
-      bioDataCreate: {
-        id: 'bioDataCreate',
+      wearableDataCreate: {
+        id: 'wearableDataCreate',
         allowedRoles: [
           roles.owner,
           roles.patient,
           roles.editor,
           roles.entityEditor,
-          roles.bioDataEditor
+          roles.wearableDataEditor
         ],
-        allowedStorageFolders: [ 'bioData' ]
+        allowedStorageFolders: [ 'wearableData' ]
       },
-      bioDataEdit: {
-        id: 'bioDataEdit',
+      wearableDataEdit: {
+        id: 'wearableDataEdit',
         allowedRoles: [
           roles.owner,
           roles.editor,
           roles.entityEditor,
-          roles.bioDataEditor
+          roles.wearableDataEditor
         ],
-        allowedStorageFolders: [ 'bioData' ]
+        allowedStorageFolders: [ 'wearableData' ]
       },
-      bioDataDestroy: {
-        id: 'bioDataDestroy',
+      wearableDataDestroy: {
+        id: 'wearableDataDestroy',
         allowedRoles: [
           roles.owner,
           roles.editor,
           roles.entityEditor,
-          roles.bioDataEditor
+          roles.wearableDataEditor
         ],
-        allowedStorageFolders: [ 'bioData' ]
+        allowedStorageFolders: [ 'wearableData' ]
       },
-      bioDataRead: {
-        id: 'bioDataRead',
+      wearableDataRead: {
+        id: 'wearableDataRead',
         allowedRoles: [
           roles.owner,
           roles.editor,
           roles.viewer,
           roles.entityEditor,
-          roles.bioDataEditor,
-          roles.bioDataViewer
+          roles.wearableDataEditor,
+          roles.wearableDataViewer
         ]
       },
-      bioDataAutocomplete: {
-        id: 'bioDataAutocomplete',
+      wearableDataAutocomplete: {
+        id: 'wearableDataAutocomplete',
         allowedRoles: [
           roles.owner,
           roles.editor,
           roles.viewer,
           roles.entityEditor,
-          roles.bioDataEditor,
-          roles.bioDataViewer,
+          roles.wearableDataEditor,
+          roles.wearableDataViewer,
           roles.moduleEditor,
           roles.moduleViewer
         ]
       },
-      bioAnalyzedImport: {
-        id: 'bioAnalyzedImport',
+      scoredDataImport: {
+        id: 'scoredDataImport',
         allowedRoles: [
           roles.owner,
           roles.editor,
           roles.entityEditor,
-          roles.bioAnalyzedEditor
+          roles.scoredDataEditor
         ]
       },
-      bioAnalyzedCreate: {
-        id: 'bioAnalyzedCreate',
+      scoredDataCreate: {
+        id: 'scoredDataCreate',
         allowedRoles: [
           roles.owner,
           roles.editor,
           roles.entityEditor,
-          roles.bioAnalyzedEditor
+          roles.scoredDataEditor
         ],
-        allowedStorageFolders: [ 'bioAnalyzed' ]
+        allowedStorageFolders: [ 'scoredData' ]
       },
-      bioAnalyzedEdit: {
-        id: 'bioAnalyzedEdit',
+      scoredDataEdit: {
+        id: 'scoredDataEdit',
         allowedRoles: [
           roles.owner,
           roles.editor,
           roles.entityEditor,
-          roles.bioAnalyzedEditor
+          roles.scoredDataEditor
         ],
-        allowedStorageFolders: [ 'bioAnalyzed' ]
+        allowedStorageFolders: [ 'scoredData' ]
       },
-      bioAnalyzedDestroy: {
-        id: 'bioAnalyzedDestroy',
+      scoredDataDestroy: {
+        id: 'scoredDataDestroy',
         allowedRoles: [
           roles.owner,
           roles.editor,
           roles.entityEditor,
-          roles.bioAnalyzedEditor
+          roles.scoredDataEditor
         ],
-        allowedStorageFolders: [ 'bioAnalyzed' ]
+        allowedStorageFolders: [ 'scoredData' ]
       },
-      bioAnalyzedRead: {
-        id: 'bioAnalyzedRead',
+      scoredDataRead: {
+        id: 'scoredDataRead',
         allowedRoles: [
           roles.patient,
           roles.owner,
           roles.editor,
           roles.viewer,
           roles.entityEditor,
-          roles.bioAnalyzedEditor,
-          roles.bioAnalyzedViewer
+          roles.scoredDataEditor,
+          roles.scoredDataViewer
         ]
       },
-      bioAnalyzedAutocomplete: {
-        id: 'bioAnalyzedAutocomplete',
+      scoredDataAutocomplete: {
+        id: 'scoredDataAutocomplete',
         allowedRoles: [
           roles.owner,
           roles.editor,
           roles.viewer,
           roles.entityEditor,
-          roles.bioAnalyzedEditor,
-          roles.bioAnalyzedViewer,
+          roles.scoredDataEditor,
+          roles.scoredDataViewer,
           roles.moduleEditor,
           roles.moduleViewer
         ]

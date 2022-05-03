@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import BioAnalyzedService from 'modules/bioAnalyzed/bioAnalyzedService';
+import ScoredDataService from 'modules/scoredData/scoredDataService';
 import { Line } from 'react-chartjs-2';
 
 export default (userId) => {
-    class BioGraph extends Component {
+    class Graph extends Component {
         
         constructor(props) {
             super(props);
@@ -43,7 +43,7 @@ export default (userId) => {
         
         async getDataFromPatient(id){
             const filter = {patientId: id}
-            var data = await BioAnalyzedService.list(filter);
+            var data = await ScoredDataService.list(filter);
             data = data.rows;
 
             data.sort((a, b) => {  
@@ -90,5 +90,5 @@ export default (userId) => {
     
     
     
-    return BioGraph;
+    return Graph;
 };

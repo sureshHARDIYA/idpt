@@ -5,17 +5,17 @@ const permissions = Permissions.values;
 const patientsRoutes = [
   /* TODO */
   {
-    path: '/bioGraph',
+    path: '/graph',
     loader: () =>
-      import('view/bioAnalyzed/bioGraph/BioGraphPage'),
+      import('view/scoredData/graph/GraphPage'),
     menu: false,
     permissionRequired: null,
     exact: true,
   },
   {
-    path: '/bioAnalyzed/bioDataImporter',
+    path: '/scoredData/wearableDataImporter',
     loader: () =>
-      import('view/bioAnalyzed/bioDataImporter/BioDataImporterPage'),
+      import('view/scoredData/wearableDataImporter/WearableDataImporterPage'),
     menu: false,
     permissionRequired: null,
     exact: true,
@@ -328,65 +328,65 @@ const privateRoutes = [
   },
 
   {
-    path: '/bioAnalyzed',
-    loader: () => import('view/bioAnalyzed/list/BioAnalyzedListPage'),
-    permissionRequired: permissions.bioAnalyzedRead,
+    path: '/scoredData',
+    loader: () => import('view/scoredData/list/ScoredDataListPage'),
+    permissionRequired: permissions.scoredDataRead,
     exact: true,
     icon: 'carry-out',
-    label: i18n('entities.bioAnalyzed.menu'),
+    label: i18n('entities.scoredData.menu'),
     menu: true,
   },
   {
-    path: '/bioAnalyzed/new',
-    loader: () => import('view/bioAnalyzed/form/BioAnalyzedFormPage'),
+    path: '/scoredData/new',
+    loader: () => import('view/scoredData/form/ScoredDataFormPage'),
     menu: false,
-    permissionRequired: permissions.bioAnalyzedCreate,
+    permissionRequired: permissions.scoredDataCreate,
     exact: true,
   },
   {
-    path: '/bioAnalyzed/importer',
+    path: '/scoredData/importer',
     loader: () =>
-      import('view/bioAnalyzed/importer/BioAnalyzedImporterPage'),
+      import('view/scoredData/importer/ScoredDataImporterPage'),
     menu: false,
-    permissionRequired: permissions.bioAnalyzedImport,
+    permissionRequired: permissions.scoredDataImport,
     exact: true,
   },
   {
-    path: '/bioAnalyzed/bioDataImporter',
+    path: '/scoredData/wearableDataImporter',
     loader: () =>
-      import('view/bioAnalyzed/bioDataImporter/BioDataImporterPage'),
+      import('view/scoredData/wearableDataImporter/WearableDataImporterPage'),
     menu: false,
-    permissionRequired: permissions.bioAnalyzedCreate,
+    permissionRequired: permissions.scoredDataCreate,
     exact: true,
   },
   {
-    path: '/bioAnalyzed/bioGraphForm',
+    path: '/scoredData/graphForm',
     loader: () =>
-      import('view/bioAnalyzed/bioGraphForm/BioGraphFormPage'),
+      import('view/scoredData/graphForm/GraphFormPage'),
     menu: false,
     permissionRequired: null,
     exact: true,
   },
   {
-    path: '/bioAnalyzed/bioGraph',
+    path: '/scoredData/graph',
     loader: () =>
-      import('view/bioAnalyzed/bioGraph/BioGraphPage'),
+      import('view/scoredData/graph/GraphPage'),
     menu: false,
-    permissionRequired: permissions.bioAnalyzedRead,
+    permissionRequired: permissions.scoredDataRead,
     exact: true,
   },
   {
-    path: '/bioAnalyzed/:id/edit',
-    loader: () => import('view/bioAnalyzed/form/BioAnalyzedFormPage'),
+    path: '/scoredData/:id/edit',
+    loader: () => import('view/scoredData/form/ScoredDataFormPage'),
     menu: false,
-    permissionRequired: permissions.bioAnalyzedEdit,
+    permissionRequired: permissions.scoredDataEdit,
     exact: true,
   },
   {
-    path: '/bioAnalyzed/:id',
-    loader: () => import('view/bioAnalyzed/view/BioAnalyzedViewPage'),
+    path: '/scoredData/:id',
+    loader: () => import('view/scoredData/view/ScoredDataViewPage'),
     menu: false,
-    permissionRequired: permissions.bioAnalyzedRead,
+    permissionRequired: permissions.scoredDataRead,
     exact: true,
   },
 

@@ -46,14 +46,14 @@ class PatientPage extends Component {
           </PageTitle>
           
           <Toolbar>
-          <Link to="/bioAnalyzed/bioDataImporter">
+          <Link to="/scoredData/wearableDataImporter">
           <Button type="primary" icon="upload" size="large">
-          {i18n('common.bioData')}
+          {i18n('common.wearableData')}
           </Button>
           </Link>
           
           <Link to={{
-            pathname: '/bioGraph',
+            pathname: '/graph',
             state: { 
               patient: {
                 id: this.props.currentUser['id'], 

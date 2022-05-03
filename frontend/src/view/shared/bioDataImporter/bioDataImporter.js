@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { CSVReader } from 'react-papaparse';
-import BioDataService from 'modules/bioData/bioDataService';
+import WearableDataService from 'modules/wearableData/wearableDataService';
 
 export default () => {
-    class BioDataImporter extends Component {
+    class WearableDataImporter extends Component {
         constructor(props) {
             super(props);
             this.state = {
@@ -81,7 +81,7 @@ export default () => {
                     datas.push(this.state.EDA_data);
                     datas.push(this.state.TEMP_data);
                     console.log(datas);
-                    BioDataService.create({datas: datas});
+                    WearableDataService.create({datas: datas});
                 }
             }
         }
@@ -96,5 +96,5 @@ export default () => {
             console.log('---------------------------');
         }
     }
-    return BioDataImporter;
+    return WearableDataImporter;
 };

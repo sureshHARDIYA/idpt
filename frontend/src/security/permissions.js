@@ -508,65 +508,65 @@ class Permissions {
         ],
       },
 
-      bioAnalyzedImport: {
-        id: 'bioAnalyzedImport',
+      scoredDataImport: {
+        id: 'scoredDataImport',
         allowedRoles: [
           roles.owner,
           roles.editor,
           roles.entityEditor,
-          roles.bioAnalyzedEditor,
+          roles.scoredDataEditor,
         ],
       },
-      bioAnalyzedCreate: {
-        id: 'bioAnalyzedCreate',
+      scoredDataCreate: {
+        id: 'scoredDataCreate',
         allowedRoles: [
           roles.owner,
           roles.editor,
           roles.entityEditor,
-          roles.bioAnalyzedEditor,
+          roles.scoredDataEditor,
         ],
-        allowedStorageFolders: ['bioAnalyzed'],
+        allowedStorageFolders: ['scoredData'],
       },
-      bioAnalyzedEdit: {
-        id: 'bioAnalyzedEdit',
+      scoredDataEdit: {
+        id: 'scoredDataEdit',
         allowedRoles: [
           roles.owner,
           roles.editor,
           roles.entityEditor,
-          roles.bioAnalyzedEditor,
+          roles.scoredDataEditor,
         ],
-        allowedStorageFolders: ['bioAnalyzed'],
+        allowedStorageFolders: ['scoredData'],
       },
-      bioAnalyzedDestroy: {
-        id: 'bioAnalyzedDestroy',
+      scoredDataDestroy: {
+        id: 'scoredDataDestroy',
         allowedRoles: [
           roles.owner,
           roles.editor,
           roles.entityEditor,
-          roles.bioAnalyzedEditor,
+          roles.scoredDataEditor,
         ],
-        allowedStorageFolders: ['bioAnalyzed'],
+        allowedStorageFolders: ['scoredData'],
       },
-      bioAnalyzedRead: {
-        id: 'bioAnalyzedRead',
+      scoredDataRead: {
+        id: 'scoredDataRead',
         allowedRoles: [
           roles.owner,
           roles.editor,
           roles.viewer,
           roles.entityEditor,
-          roles.bioAnalyzedEditor,
-          roles.bioAnalyzedViewer,
+          roles.scoredDataEditor,
+          roles.scoredDataViewer,
         ],
       },
-      bioAnalyzedAutocomplete: {
-        id: 'bioAnalyzedAutocomplete',
+      scoredDataAutocomplete: {
+        id: 'scoredDataAutocomplete',
         allowedRoles: [
           roles.owner,
           roles.editor,
           roles.viewer,
           roles.entityEditor,
-          roles.bioAnalyzedEditor,
-          roles.bioAnalyzedViewer,
+          roles.scoredDataEditor,
+          roles.scoredDataViewer,
           roles.moduleEditor,
           roles.moduleViewer,
         ],

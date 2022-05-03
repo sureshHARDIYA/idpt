@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 import iam from 'modules/iam/iamReducers'
 import task from 'modules/task/taskReducers'
-import bioAnalyzed from 'modules/bioAnalyzed/bioAnalyzedReducers'
+import scoredData from 'modules/scoredData/scoredDataReducers'
 import auth from 'modules/auth/authReducers'
 import epic from 'modules/epic/epicReducers'
 import audio from 'modules/audio/audioReducers'
@@ -33,7 +33,7 @@ export default history =>
     cased,
     module,
     task,
-    bioAnalyzed,
+    scoredData,
     audio,
     video,
     record,

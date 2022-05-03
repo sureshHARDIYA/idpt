@@ -25,8 +25,8 @@ class Roles {
       documentViewer: 'documentViewer',
       taxonomyEditor: 'taxonomyEditor',
       taxonomyViewer: 'taxonomyViewer',
-      bioAnalyzedEditor: 'bioAnalyzedEditor',
-      bioAnalyzedViewer: 'bioAnalyzedViewer',
+      scoredDataEditor: 'scoredDataEditor',
+      scoredDataViewer: 'scoredDataViewer',
     };
   }
 

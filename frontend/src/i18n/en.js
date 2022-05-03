@@ -19,8 +19,8 @@ const en = {
     view: 'View',
     destroy: 'Delete',
     mustSelectARow: 'Must select a row',
-    bioData: 'Import biodata',
-    bioGraph: 'BioGraph',
+    wearableData: 'Import wearabledata',
+    graph: 'Graph',
   },
 
   app: {
@@ -674,30 +674,30 @@ const en = {
       },
     },
 
-    bioAnalyzed: {
-      name: 'bioAnalyzed',
-      label: 'BioAnalyzed',
-      menu: 'BioAnalyzed',
-      single: 'BioAnalyzed',
-      exporterFileName: 'bioAnalyzed_export',
+    scoredData: {
+      name: 'scoredData',
+      label: 'ScoredData',
+      menu: 'ScoredData',
+      single: 'ScoredData',
+      exporterFileName: 'scoredData_export',
       list: {
-        menu: 'BioAnalyzed',
-        title: 'BioAnalyzed',
+        menu: 'ScoredData',
+        title: 'ScoredData',
       },
       create: {
-        success: 'BioAnalyzed saved successfully',
+        success: 'ScoredData saved successfully',
       },
       update: {
-        success: 'BioAnalyzed saved successfully',
+        success: 'ScoredData saved successfully',
       },
       destroy: {
-        success: 'BioAnalyzed deleted successfully',
+        success: 'ScoredData deleted successfully',
       },
       destroyAll: {
-        success: 'BioAnalyzeds deleted successfully',
+        success: 'ScoredDatas deleted successfully',
       },
       edit: {
-        title: 'Edit BioAnalyzed',
+        title: 'Edit ScoredData',
       },
       fields: {
         id: 'Id',
@@ -724,20 +724,20 @@ const en = {
         title: 'Find graph',
       },
       view: {
-        title: 'View BioAnalyzed',
+        title: 'View ScoredData',
       },
       importer: {
-        title: 'Import BioAnalyzeds',
-        fileName: 'bioAnalyzed_import_template',
+        title: 'Import ScoredDatas',
+        fileName: 'scoredData_import_template',
         hint:
           'Files/Images columns must be the URLs of the files separated by space.',
       },
-      bioGraph : {
-        title: 'BioGraph'
+      graph : {
+        title: 'Graph'
       },
-      bioDataImporter: {
-        title: 'Import BioData',
-        fileName: 'bioData_import_template',
+      wearableDataImporter: {
+        title: 'Import WearableData',
+        fileName: 'wearableData_import_template',
         hint:
           'Drop CSV file or click to upload',
       },
@@ -848,13 +848,13 @@ const en = {
       label: 'Task Viewer',
       description: 'View access to Tasks',
     },
-    bioAnalyzedEditor: {
-      label: 'BioAnalyzed Editor',
-      description: 'Edit access to BioAnalyzeds',
+    scoredDataEditor: {
+      label: 'ScoredData Editor',
+      description: 'Edit access to ScoredDatas',
     },
-    bioAnalyzedViewer: {
-      label: 'BioAnalyzed Viewer',
-      description: 'View access to BioAnalyzed',
+    scoredDataViewer: {
+      label: 'ScoredData Viewer',
+      description: 'View access to ScoredData',
     },
     audioEditor: {
       label: 'Audio Editor',

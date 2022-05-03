@@ -40,13 +40,13 @@ const taskTypes = require('./task/types')
 const taskQueries = require('./task/queries')
 const taskMutations = require('./task/mutations')
 
-const bioDataTypes = require('./bioData/types')
-const bioDataQueries = require('./bioData/queries')
-const bioDataMutations = require('./bioData/mutations')
+const wearableDataTypes = require('./wearableData/types')
+const wearableDataQueries = require('./wearableData/queries')
+const wearableDataMutations = require('./wearableData/mutations')
 
-const bioAnalyzedTypes = require('./bioAnalyzed/types')
-const bioAnalyzedQueries = require('./bioAnalyzed/queries')
-const bioAnalyzedMutations = require('./bioAnalyzed/mutations')
+const scoredDataTypes = require('./scoredData/types')
+const scoredDataQueries = require('./scoredData/queries')
+const scoredDataMutations = require('./scoredData/mutations')
 
 const recordTypes = require('./record/types')
 const recordQueries = require('./record/queries')
@@ -82,8 +82,8 @@ const types = [
   ...casedTypes,
   ...moduleTypes,
   ...taskTypes,
-  ...bioDataTypes,
-  ...bioAnalyzedTypes,
+  ...wearableDataTypes,
+  ...scoredDataTypes,
   ...recordTypes,
   ...roadmapTypes,
   ...epicTypes,
@@ -101,8 +101,8 @@ const mutations = [
   ...casedMutations,
   ...moduleMutations,
   ...taskMutations,
-  ...bioDataMutations,
-  ...bioAnalyzedMutations,
+  ...wearableDataMutations,
+  ...scoredDataMutations,
   ...recordMutations,
   ...roadmapMutations,
   ...epicMutations,
@@ -121,8 +121,8 @@ const queries = [
   ...casedQueries,
   ...moduleQueries,
   ...taskQueries,
-  ...bioDataQueries,
-  ...bioAnalyzedQueries,
+  ...wearableDataQueries,
+  ...scoredDataQueries,
   ...recordQueries,
   ...roadmapQueries,
   ...epicQueries,
