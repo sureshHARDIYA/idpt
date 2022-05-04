@@ -23,13 +23,17 @@ class ScoredDataRepository {
       options,
     );
 
+    //var dataWithPatient = data;
+    //dataWithPatient.fhir.subject.display = currentUser.fullName;
+
     const [record] = await ScoredData.create(
       [
         {
+          //...dataWithPatient,
           ...data,
           createdBy: currentUser.id,
           updatedBy: currentUser.id,
-          patient: currentUser.fullName
+          //patient: currentUser.fullName
         },
       ],
       MongooseRepository.getSessionOptionsIfExists(options),

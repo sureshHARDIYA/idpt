@@ -5,7 +5,7 @@ export default class WearableDataService {
   static async update(id, data) {
     const response = await graphqlClient.mutate({
       mutation: gql`
-        mutation BIODATA_UPDATE(
+        mutation WEARABLEDATA_UPDATE(
           $id: String!
           $data: WearableDataInput!
         ) {
@@ -27,7 +27,7 @@ export default class WearableDataService {
   static async destroyAll(ids) {
     const response = await graphqlClient.mutate({
       mutation: gql`
-        mutation BIODATA_DESTROY($ids: [String!]!) {
+        mutation WEARABLEDATA_DESTROY($ids: [String!]!) {
           wearableDataDestroy(ids: $ids)
         }
       `,
@@ -44,7 +44,7 @@ export default class WearableDataService {
   static async create(data) {
     const response = await graphqlClient.mutate({
       mutation: gql`
-        mutation BIODATA_CREATE($data: MultipleWearableDataInput!) {
+        mutation WEARABLEDATA_CREATE($data: MultipleWearableDataInput!) {
           wearableDataCreate(data: $data) {
             id
           }
@@ -62,7 +62,7 @@ export default class WearableDataService {
   static async import(values, importHash) {
     const response = await graphqlClient.mutate({
       mutation: gql`
-        mutation BIODATA_IMPORT(
+        mutation WEARABLEDATA_IMPORT(
           $data: WearableDataInput!
           $importHash: String!
         ) {
@@ -82,7 +82,7 @@ export default class WearableDataService {
   static async find(id) {
     const response = await graphqlClient.query({
       query: gql`
-        query BIODATA_FIND($id: String!) {
+        query WEARABLEDATA_FIND($id: String!) {
           wearableDataFind(id: $id) {
             id
             dataType
@@ -108,7 +108,7 @@ export default class WearableDataService {
   static async list(filter, orderBy, limit, offset) {
     const response = await graphqlClient.query({
       query: gql`
-        query BIODATA_LIST(
+        query WEARABLEDATA_LIST(
           $filter: WearableDataFilterInput
           $orderBy: WearableDataOrderByEnum
           $limit: Int
@@ -149,7 +149,7 @@ export default class WearableDataService {
   static async listAutocomplete(query, limit) {
     const response = await graphqlClient.query({
       query: gql`
-        query BIODATA_AUTOCOMPLETE(
+        query WEARABLEDATA_AUTOCOMPLETE(
           $query: String
           $limit: Int
         ) {

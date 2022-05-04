@@ -5,7 +5,7 @@ import fields from 'modules/scoredData/importer/scoredDataImporterFields';
 import { i18n } from 'i18n';
 
 export default importerActions(
-  'BIOANALYZED_IMPORTER',
+  'SCOREDDATA_IMPORTER',
   selectors,
   ScoredDataService.import,
   fields,

@@ -2,7 +2,7 @@ import ScoredDataService from 'modules/scoredData/scoredDataService';
 import Errors from 'modules/shared/error/errors';
 import { getHistory } from 'modules/store';
 
-const prefix = 'BIOANALYZED_VIEW';
+const prefix = 'SCOREDDATA_VIEW';
 
 const actions = {
   FIND_STARTED: `${prefix}_FIND_STARTED`,

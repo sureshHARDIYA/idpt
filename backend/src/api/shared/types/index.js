@@ -5,4 +5,5 @@ module.exports = [
   require('./file'),
   require('./fileInput'),
   require('./autocompleteOption'),
+  require('./fhir'),
 ];

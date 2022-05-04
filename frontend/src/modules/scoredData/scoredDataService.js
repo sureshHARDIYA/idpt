@@ -5,7 +5,7 @@ export default class ScoredDataService {
   static async update(id, data) {
     const response = await graphqlClient.mutate({
       mutation: gql`
-        mutation BIOANALYZED_UPDATE(
+        mutation SCOREDDATA_UPDATE(
           $id: String!
           $data: ScoredDataInput!
         ) {
@@ -27,7 +27,7 @@ export default class ScoredDataService {
   static async destroyAll(ids) {
     const response = await graphqlClient.mutate({
       mutation: gql`
-        mutation BIOANALYZED_DESTROY($ids: [String!]!) {
+        mutation SCOREDDATA_DESTROY($ids: [String!]!) {
           scoredDataDestroy(ids: $ids)
         }
       `,
@@ -43,7 +43,7 @@ export default class ScoredDataService {
   static async create(data) {
     const response = await graphqlClient.mutate({
       mutation: gql`
-        mutation BIOANALYZED_CREATE($data: ScoredDataInput!) {
+        mutation SCOREDDATA_CREATE($data: ScoredDataInput!) {
           scoredDataCreate(data: $data) {
             id
           }
@@ -61,7 +61,7 @@ export default class ScoredDataService {
   static async import(values, importHash) {
     const response = await graphqlClient.mutate({
       mutation: gql`
-        mutation BIOANALYZED_IMPORT(
+        mutation SCOREDDATA_IMPORT(
           $data: ScoredDataInput!
           $importHash: String!
         ) {
@@ -81,7 +81,7 @@ export default class ScoredDataService {
   static async find(id) {
     const response = await graphqlClient.query({
       query: gql`
-        query BIOANALYZED_FIND($id: String!) {
+        query SCOREDDATA_FIND($id: String!) {
           scoredDataFind(id: $id) {
             id
             dataType
@@ -107,7 +107,7 @@ export default class ScoredDataService {
   static async list(filter, orderBy, limit, offset) {
     const response = await graphqlClient.query({
       query: gql`
-        query BIOANALYZED_LIST(
+        query SCOREDDATA_LIST(
           $filter: ScoredDataFilterInput
           $orderBy: ScoredDataOrderByEnum
           $limit: Int
@@ -149,7 +149,7 @@ export default class ScoredDataService {
   static async listAutocomplete(query, limit) {
     const response = await graphqlClient.query({
       query: gql`
-        query BIOANALYZED_AUTOCOMPLETE(
+        query SCOREDDATA_AUTOCOMPLETE(
           $query: String
           $limit: Int
         ) {

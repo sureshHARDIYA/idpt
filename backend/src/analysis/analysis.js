@@ -15,17 +15,65 @@ const analyze = (datas) => {
   const frequency = EDAdata.frequency;
   const duration = parseInt(EDAdata.data.length / frequency);
   const timeEnd = parseInt(timeStart) + duration;
-  const dataType = "Stress";
 
   const score = calculateScore(datas, duration, frequency);
 
-  return {dataType: dataType,
-      timeStart: dateFormater(new Date(timeStart * 1000)),
-      timeEnd: dateFormater(new Date(timeEnd * 1000)),
-      patientName: EDAdata.patientName,
-      patientId: EDAdata.patientId,
-      score: parseFloat(score.toFixed(2)),
-      dataId: EDAdata._id}
+  /*return createJSON(dateFormater(new Date(timeStart * 1000)),
+  dateFormater(new Date(timeEnd * 1000)), EDAdata.patientName, EDAdata.patientId,
+  parseFloat(score.toFixed(2)), EDAdata._id + ", " + TEMPdata._id);*/
+  return createFhirJSON(dateFormater(new Date(timeStart * 1000)),
+  dateFormater(new Date(timeEnd * 1000)), EDAdata.patientName, EDAdata.patientId,
+  parseFloat(score.toFixed(2)), EDAdata._id, TEMPdata._id);
+};
+
+const createFhirJSON = (timeStart, timeEnd, patientName, patientId, score, EdaId, TempId) => {
+  return {resourceType: 'Observation',
+          status: 'final',
+          code : {
+            coding: {
+              system: null,
+              display: 'Stress',
+            },
+            text: 'A proprietary stress score derived from analysed wearable sensor data'
+          },
+          subject: {
+            reference: {
+              reference: patientId
+            },
+            type: 'Patient',
+            display: patientName
+          },
+          effectivePeriod: {
+            start: timeStart,
+            end: timeEnd
+          },
+          device : {
+            display: 'Empatica E4'
+          },
+          valueString: score,
+          derivedFrom: {
+            references: [
+              {
+                reference: EdaId,
+                text: 'Reference to EDA raw data ID in database'
+              },
+              {
+                reference: TempId,
+                text: 'Reference to ST raw data ID in database'
+              }
+            ]
+          }
+        };
+};
+
+const createJSON = (timeStart, timeEnd, patientName, patientId, score, dataId) => {
+  return {dataType: 'Stress',
+          timeStart: timeStart,
+          timeEnd: timeEnd,
+          patientName: patientName,
+          patientId: patientId,
+          score: score,
+          dataId: dataId};
 };
 
 if (DEBUG) {

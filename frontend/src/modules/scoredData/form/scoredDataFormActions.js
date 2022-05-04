@@ -4,7 +4,7 @@ import Message from 'view/shared/message';
 import { getHistory } from 'modules/store';
 import { i18n } from 'i18n';
 
-const prefix = 'BIOANALYZED_FORM';
+const prefix = 'SCOREDDATA_FORM';
 
 const actions = {
   RESET: `${prefix}_RESET`,

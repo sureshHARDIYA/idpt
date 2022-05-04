@@ -6,7 +6,7 @@ import { getHistory } from 'modules/store';
 import Message from 'view/shared/message';
 
 const prefix =
-  'BIOANALYZED_DESTROY';
+  'SCOREDDATA_DESTROY';
 
 const actions = {
   DESTROY_STARTED: `${prefix}_DESTROY_STARTED`,

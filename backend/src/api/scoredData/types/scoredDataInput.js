@@ -1,5 +1,12 @@
 const schema = `
   input ScoredDataInput {
+    id: String!
+    fhir: FhirObservation
+  }
+`;
+
+/*const schema = `
+  input ScoredDataInput {
     dataType: String!
     score: Float!
     timeStart: String
@@ -9,6 +16,8 @@ const schema = `
     dataId: String
   }
 `;
+*/
+
 
 const resolver = {};
 

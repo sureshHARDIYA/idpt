@@ -27,7 +27,7 @@ const resolver = {
     return storedWearableDatas;
 
     /*
-    TODO: Using a separate function for creating bot raw and analyzed data
+    TODO: Using a separate function for creating both raw and analyzed data
 
     // Analysis of the raw wearable data
     const analyzedData = Analysis.analyze(storedData);

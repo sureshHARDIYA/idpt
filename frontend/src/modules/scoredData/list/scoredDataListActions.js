@@ -5,7 +5,7 @@ import exporterFields from 'modules/scoredData/list/scoredDataListExporterFields
 import Errors from 'modules/shared/error/errors';
 import Exporter from 'modules/shared/exporter/exporter';
 
-const prefix = 'BIOANALYZED_LIST';
+const prefix = 'SCOREDDATA_LIST';
 
 const actions = {
   FETCH_STARTED: `${prefix}_FETCH_STARTED`,
