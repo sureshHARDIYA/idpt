@@ -108,6 +108,10 @@ const actions = {
         selectors.selectOffset(getState()),
       );
 
+      // TODO
+      console.log("^^^ doFetch ^^^");
+      console.log(response);
+
       dispatch({
         type: actions.FETCH_SUCCESS,
         payload: {

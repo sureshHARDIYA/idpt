@@ -29,8 +29,8 @@ class ScoredDataListTable extends Component {
   };
 
   columns = [
-    fields.dataType.forTable(),
     fields.score.forTable(),
+    fields.dataType.forTable(),
     fields.timeStart.forTable(),
     fields.timeEnd.forTable(),
     fields.patientName.forTable(),

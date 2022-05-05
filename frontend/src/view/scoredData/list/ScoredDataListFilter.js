@@ -17,8 +17,8 @@ import InputNumberFormItem from 'view/shared/form/items/InputNumberFormItem';
 const { fields } = model;
 
 const schema = new FormFilterSchema([
-  fields.dataType,
   fields.score,
+  fields.dataType,
   fields.timeStart,
   fields.timeEnd,
   fields.patientName,
@@ -63,19 +63,20 @@ class ScoredDataListFilter extends Component {
               <Form onSubmit={form.handleSubmit}>
                 <Row gutter={24}>
                   <Col md={24} lg={12}>
-                    <InputFormItem
-                      name={fields.dataType.name}
-                      label={fields.dataType.label}
-                      layout={formItemLayout}
-                    />
-                  </Col>
-                  <Col md={24} lg={12}>
                     <InputNumberFormItem
                       name={fields.score.name}
                       label={fields.score.label}
                       layout={formItemLayout}
                     />
                   </Col>
+                  <Col md={24} lg={12}>
+                    <InputFormItem
+                      name={fields.dataType.name}
+                      label={fields.dataType.label}
+                      layout={formItemLayout}
+                    />
+                  </Col>
+                  
                   <Col md={24} lg={12}>
                     <InputFormItem
                       name={fields.timeStart.name}

@@ -12,7 +12,6 @@ function label(name) {
 
 const fields = {
   id: new IdField('id', label('id')),
-
   dataType: new StringField('dataType', label('dataType'), {
     required: true,
   }),
@@ -32,7 +31,6 @@ const fields = {
     required: true,
   }), 
   dataId: new StringField('dataId', label('dataId')),
-  
   createdAt: new DateTimeField(
     'createdAt',
     label('createdAt'),

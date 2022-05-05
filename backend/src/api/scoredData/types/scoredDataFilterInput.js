@@ -1,10 +1,20 @@
 const schema = `
 input ScoredDataFilterInput {
   id: String
-  fhir: FhirObservation
   createdAtRange: [ DateTime ]
 }
 `;
+
+/*
+TODO
+const schema = `
+input ScoredDataFilterInput {
+  id: String
+  fhir: FhirObservationInput
+  createdAtRange: [ DateTime ]
+}
+`;
+*/
 
 /*const oldSchema = `
   input ScoredDataFilterInput {

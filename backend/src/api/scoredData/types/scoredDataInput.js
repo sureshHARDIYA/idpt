@@ -1,7 +1,8 @@
+
 const schema = `
   input ScoredDataInput {
     id: String!
-    fhir: FhirObservation
+    fhir: FhirObservationInput
   }
 `;
 

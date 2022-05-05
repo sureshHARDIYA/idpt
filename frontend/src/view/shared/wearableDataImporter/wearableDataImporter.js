@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { CSVReader } from 'react-papaparse';
 import WearableDataService from 'modules/wearableData/wearableDataService';
+import DataFhirConverter from 'modules/scoredData/dataFhirConverter'; 
 
 export default () => {
     class WearableDataImporter extends Component {
@@ -78,8 +79,8 @@ export default () => {
             if (this.state.EDA_uploaded && this.state.TEMP_uploaded){
                 if (this.state.EDA_data.timestamp == this.state.TEMP_data.timestamp){
                     var datas = [];
-                    datas.push(this.state.EDA_data);
-                    datas.push(this.state.TEMP_data);
+                    datas.push(DataFhirConverter.wearableDataToFhir(this.state.EDA_data));
+                    datas.push(DataFhirConverter.wearableDataToFhir(this.state.TEMP_data));
                     console.log(datas);
                     WearableDataService.create({datas: datas});
                 }

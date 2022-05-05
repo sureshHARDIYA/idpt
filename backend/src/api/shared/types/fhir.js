@@ -1,39 +1,49 @@
 
 // HL7 FHIR Release 4
 const schema = `
+type Coding {
+    system: String
+    display: String!
+}
+
+type Code {
+    coding: Coding
+    text: String
+}
+
+type Reference {
+    reference: String
+    text: String
+}
+
+type Subject {
+    reference: Reference
+    type: String
+    display: String
+}
+
+type EffectivePeriod {
+    start: String!
+    end: String!
+}
+
+type Device {
+    display: String
+}
+
+type DerivedFrom {
+    references: [Reference]
+}
+
 type FhirObservation {
     resourceType: String!
     status: String!
-    code: {
-        coding: {
-            system: String
-            display: String!
-        }
-        text: String
-    }
-    subject: {
-        reference: {
-            reference: String
-        }
-        type: String
-        display: String
-    }
-    effectivePeriod: {
-        start: String!
-        end: String!
-    }
-    device: {
-        display: String
-    }
+    code: Code
+    subject: Subject
+    effectivePeriod: EffectivePeriod
+    device: Device
     valueString: Float!
-    derivedFrom: {
-        references: [
-            {
-                reference : String
-                text : String
-            }
-        ]
-    }
+    derivedFrom: DerivedFrom
 }
 `;
 

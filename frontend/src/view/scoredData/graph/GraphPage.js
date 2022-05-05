@@ -12,7 +12,7 @@ class GraphPage extends Component {
   
   // TODO 
   render() {
-    const Graph = Graph(this.patient.id);
+    const PatientGraph = Graph(this.patient.id);
     
     if (this.userIsPatient){
       return (
@@ -32,7 +32,7 @@ class GraphPage extends Component {
           {this.getTitle()}
           </PageTitle>
           
-          <Graph />
+          <PatientGraph />
           </ContentWrapper>
           </React.Fragment>
           );
@@ -60,7 +60,7 @@ class GraphPage extends Component {
               {this.getTitle()}
               </PageTitle>
               
-              <Graph />
+              <PatientGraph />
               </ContentWrapper>
               </React.Fragment>
               );
