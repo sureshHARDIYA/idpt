@@ -1,5 +1,6 @@
 const database = require('../database');
 const Schema = database.Schema;
+const FHIR = require('./fhir');
 
 /**
  * WearableData database schema.
@@ -7,29 +8,10 @@ const Schema = database.Schema;
  */
 const WearableDataSchema = new Schema(
   {
-    dataType: {
-      type: String,
-      required: true,
+    fhir: {
+      type: FHIR.ObservationSchema,
+      required: false,
     },
-    frequency: {
-      type: String,
-      required: true,
-    },
-    timestamp: {
-      type: String,
-      required: true,
-    },
-    patientName: {
-      type: String,
-    },
-    patientId: {
-      type: String,
-    },
-    data: [
-      {
-        type: String,
-      },
-    ],
     createdBy: {
       type: Schema.Types.ObjectId,
       ref: 'user',

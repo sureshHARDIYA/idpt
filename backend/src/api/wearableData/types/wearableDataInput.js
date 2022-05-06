@@ -1,5 +1,12 @@
 const schema = `
   input WearableDataInput {
+    fhir: FhirObservationInput
+  }
+`;
+
+/*
+const schema = `
+  input WearableDataInput {
     dataType: String!
     frequency: String!
     timestamp: String!
@@ -8,6 +15,7 @@ const schema = `
     data: [String]
   }
 `;
+*/
 
 const resolver = {};
 

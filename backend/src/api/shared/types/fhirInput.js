@@ -35,6 +35,17 @@ input DerivedFromInput {
     references: [ReferenceInput]
 }
 
+input SimpleQuantityInput {
+    value: String
+}
+
+input ValueSampledDataInput {
+    origin: SimpleQuantityInput
+    period: Float
+    dimensions: Int
+    data: [String]
+}
+
 input FhirObservationInput {
     resourceType: String!
     status: String!
@@ -42,7 +53,8 @@ input FhirObservationInput {
     subject: SubjectInput
     effectivePeriod: EffectivePeriodInput
     device: DeviceInput
-    valueString: Float!
+    valueSampledData: ValueSampledDataInput
+    valueString: Float
     derivedFrom: DerivedFromInput
 }
 `;

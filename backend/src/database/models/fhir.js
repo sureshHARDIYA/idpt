@@ -18,7 +18,7 @@ const CodingSchema = new Schema(Coding, {
 
 const Code =
 {
-    system: {
+    coding: {
         type: CodingSchema,
         required: false,
     },
@@ -102,6 +102,40 @@ const DerivedFromSchema = new Schema(DerivedFrom, {
     _id: false
 });
 
+const SimpleQuantity =
+{
+    value: {
+        type: String,
+        required: false,
+    },
+};
+const SimpleQuantitySchema = new Schema(SimpleQuantity, {
+    _id: false
+});
+
+const ValueSampledData =
+{
+    origin: {
+        type: SimpleQuantitySchema,
+        required: false,
+    },
+    period: {
+        type: Number,
+        required: false,
+    },
+    dimensions: {
+        type: Number,
+        required: false,
+    },
+    data: [{
+        type: String,
+        required: false,
+    }],
+};
+const ValueSampledDataSchema = new Schema(ValueSampledData, {
+    _id: false
+});
+
 const Observation =
 {
     resourceType: {
@@ -128,9 +162,14 @@ const Observation =
         type: DeviceSchema,
         required: false,
     },
+    valueSampledData: {
+        type: ValueSampledDataSchema,
+        required: false,
+    },
     valueString: {
         type: Number,
-        min: 0
+        min: 0,
+        required: false,
     },
     derivedFrom: {
         type: DerivedFromSchema,
@@ -143,4 +182,5 @@ const ObservationSchema = new Schema(Observation, {
 
 module.exports = {CodingSchema, CodeSchema, ReferenceSchema, 
     SubjectSchema, EffectivePeriodSchema, DeviceSchema, 
-    DerivedFromSchema, ObservationSchema};
+    DerivedFromSchema, SimpleQuantitySchema, ValueSampledDataSchema, 
+    ObservationSchema};

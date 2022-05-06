@@ -11,59 +11,82 @@ const analyze = (datas) => {
   const EDAdata = datas[0];
   const TEMPdata = datas[1];
 
-  const timeStart = EDAdata.timestamp;
-  const frequency = EDAdata.frequency;
-  const duration = parseInt(EDAdata.data.length / frequency);
-  const timeEnd = parseInt(timeStart) + duration;
+  console.log(">>> We got data in analysis <<<");
+  console.log(JSON.stringify(EDAdata));
+
+  //const timeStart = EDAdata.timestamp;
+  const frequency = Math.round(1000 / EDAdata.fhir.valueSampledData.period);
+  console.log("LENGTH");
+  console.log(EDAdata.fhir.valueSampledData.data.length);
+
+  const duration = Math.round(EDAdata.fhir.valueSampledData.data.length / frequency);
+  //const timeEnd = parseInt(timeStart) + duration;
+  console.log("freq, dur");
+  console.log(frequency + ", " + duration);
 
   const score = calculateScore(datas, duration, frequency);
 
+  console.log("score");
+  console.log(score);
+
   /*return createJSON(dateFormater(new Date(timeStart * 1000)),
-  dateFormater(new Date(timeEnd * 1000)), EDAdata.patientName, EDAdata.patientId,
-  parseFloat(score.toFixed(2)), EDAdata._id + ", " + TEMPdata._id);*/
+    dateFormater(new Date(timeEnd * 1000)), EDAdata.patientName, EDAdata.patientId,
+    parseFloat(score.toFixed(2)), EDAdata._id + ", " + TEMPdata._id);
+
   return createFhirJSON(dateFormater(new Date(timeStart * 1000)),
-  dateFormater(new Date(timeEnd * 1000)), EDAdata.patientName, EDAdata.patientId,
-  parseFloat(score.toFixed(2)), EDAdata._id, TEMPdata._id);
+    dateFormater(new Date(timeEnd * 1000)), EDAdata.patientName, EDAdata.patientId,
+    parseFloat(score.toFixed(2)), EDAdata._id, TEMPdata._id);*/
+
+  const fhirJSON = createFhirJSON(EDAdata.fhir.effectivePeriod.start,
+    EDAdata.fhir.effectivePeriod.end, EDAdata.fhir.subject.display, EDAdata.fhir.subject.reference.reference,
+    parseFloat(score.toFixed(2)), EDAdata._id, TEMPdata._id);
+
+  console.log(JSON.stringify(fhirJSON));
+
+  return fhirJSON;
 };
 
 const createFhirJSON = (timeStart, timeEnd, patientName, patientId, score, EdaId, TempId) => {
-  return {resourceType: 'Observation',
-          status: 'final',
-          code : {
-            coding: {
-              system: null,
-              display: 'Stress',
-            },
-            text: 'A proprietary stress score derived from analysed wearable sensor data'
+  return {
+    fhir: {
+      resourceType: 'Observation',
+      status: 'final',
+      code: {
+        coding: {
+          system: null,
+          display: 'Stress',
+        },
+        text: 'A proprietary stress score derived from analysed wearable sensor data'
+      },
+      subject: {
+        reference: {
+          reference: patientId
+        },
+        type: 'Patient',
+        display: patientName
+      },
+      effectivePeriod: {
+        start: timeStart,
+        end: timeEnd
+      },
+      device : {
+        display: 'Empatica E4'
+      },
+      valueString: score,
+      derivedFrom: {
+        references: [
+          {
+            reference: EdaId,
+            text: 'Reference to EDA raw data ID in database'
           },
-          subject: {
-            reference: {
-              reference: patientId
-            },
-            type: 'Patient',
-            display: patientName
-          },
-          effectivePeriod: {
-            start: timeStart,
-            end: timeEnd
-          },
-          device : {
-            display: 'Empatica E4'
-          },
-          valueString: score,
-          derivedFrom: {
-            references: [
-              {
-                reference: EdaId,
-                text: 'Reference to EDA raw data ID in database'
-              },
-              {
-                reference: TempId,
-                text: 'Reference to ST raw data ID in database'
-              }
-            ]
+          {
+            reference: TempId,
+            text: 'Reference to ST raw data ID in database'
           }
-        };
+        ]
+      }
+    }
+  };
 };
 
 const createJSON = (timeStart, timeEnd, patientName, patientId, score, dataId) => {
@@ -131,10 +154,10 @@ const preProcess = (data, frequency, order, low_cutoff_freq, high_cutoff_freq) =
 }
 
 const calculateScore = (datas, duration, frequency) => {
-  const EDAdata = datas[0].data;
+  const EDAdata = datas[0].fhir.valueSampledData.data;
   const preProcessedEDA = preProcess(EDAdata, frequency, 1, 5, 0.05);
 
-  const TEMPdata = datas[1].data;
+  const TEMPdata = datas[1].fhir.valueSampledData.data;
   const preProcessedTEMP = preProcess(TEMPdata, frequency, 2, 1, 0.1);
 
   // Calculating scores per second for EDA
@@ -314,6 +337,7 @@ const frequency_limiter = (scores) => {
   return scores;
 }
 
+/*
 const dateFormater = (date) => {
   const year = date.getFullYear();
   const month = date.getMonth();
@@ -322,5 +346,6 @@ const dateFormater = (date) => {
   const minute = date.getMinutes();
   return year + '-' + month + '-' + day + ' ' + hour + ':' + minute;
 }
+*/
 
 exports.analyze = analyze;

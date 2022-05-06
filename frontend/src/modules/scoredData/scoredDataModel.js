@@ -26,10 +26,10 @@ const fields = {
   }),
   patientName: new StringField('patientName', label('patientName'), {
     required: true,
-  }), 
+  }),
   patientId: new StringField('patientId', label('patientId'), {
     required: true,
-  }), 
+  }),
   dataId: new StringField('dataId', label('dataId')),
   createdAt: new DateTimeField(
     'createdAt',

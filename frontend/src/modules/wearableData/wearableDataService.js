@@ -42,6 +42,10 @@ export default class WearableDataService {
 
   // Takes a list of WearableDatas
   static async create(data) {
+
+    console.log("/// wearableDataService   create()");
+    console.log(data);
+
     const response = await graphqlClient.mutate({
       mutation: gql`
         mutation WEARABLEDATA_CREATE($data: MultipleWearableDataInput!) {

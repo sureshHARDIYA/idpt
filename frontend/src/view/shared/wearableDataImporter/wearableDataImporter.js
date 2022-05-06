@@ -42,6 +42,15 @@ export default () => {
             );
         }
 
+        dateFormater = (date) => {
+            const year = date.getFullYear();
+            const month = date.getMonth();
+            const day = date.getDate();
+            const hour = date.getHours();
+            const minute = date.getMinutes();
+            return year + '-' + month + '-' + day + ' ' + hour + ':' + minute;
+        }
+
         handleOnDrop = (csv_data, file) => {
             const dataArray = [];
             
@@ -50,11 +59,17 @@ export default () => {
             }
 
             var data_type = file.name.substr(0, file.name.indexOf('.'));
+            var frequency = Math.round(dataArray[1]);
+            var timeStart = Math.round(dataArray[0]) * 1000;
+            var duration = parseInt(dataArray.length / frequency);
+            var timeEnd = this.dateFormater(new Date(parseInt(timeStart) + duration));
+            timeStart = this.dateFormater(new Date(timeStart));
             
             var data = { dataType: data_type,
-            frequency: Math.round(dataArray[1]).toString(),
-            timestamp: Math.round(dataArray[0]).toString(),
-            data: dataArray.slice(2)}
+                         frequency: frequency.toString(),
+                         timeStart: timeStart,
+                         timeEnd: timeEnd,
+                         data: dataArray.slice(2)}
 
             this.validCheck(data);
         }
@@ -79,8 +94,8 @@ export default () => {
             if (this.state.EDA_uploaded && this.state.TEMP_uploaded){
                 if (this.state.EDA_data.timestamp == this.state.TEMP_data.timestamp){
                     var datas = [];
-                    datas.push(DataFhirConverter.wearableDataToFhir(this.state.EDA_data));
-                    datas.push(DataFhirConverter.wearableDataToFhir(this.state.TEMP_data));
+                    datas.push(DataFhirConverter.wearableDataToFhir(this.state.EDA_data, "EDA data in microsiemens"));
+                    datas.push(DataFhirConverter.wearableDataToFhir(this.state.TEMP_data, "Skin temp. data in degrees celsius"));
                     console.log(datas);
                     WearableDataService.create({datas: datas});
                 }

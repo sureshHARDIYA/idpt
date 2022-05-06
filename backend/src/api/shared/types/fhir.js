@@ -35,6 +35,17 @@ type DerivedFrom {
     references: [Reference]
 }
 
+type SimpleQuantity {
+    value: String
+}
+
+type ValueSampledData {
+    origin: SimpleQuantity
+    period: Float
+    dimensions: Int
+    data: [String]
+}
+
 type FhirObservation {
     resourceType: String!
     status: String!
@@ -42,7 +53,8 @@ type FhirObservation {
     subject: Subject
     effectivePeriod: EffectivePeriod
     device: Device
-    valueString: Float!
+    valueSampledData: ValueSampledData
+    valueString: Float
     derivedFrom: DerivedFrom
 }
 `;

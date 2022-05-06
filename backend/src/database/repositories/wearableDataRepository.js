@@ -23,14 +23,25 @@ class WearableDataRepository {
       options,
     );
 
+    // console.log("YAAAAS wearableDataRepository YAAAAS");
+    // console.log(JSON.stringify(data));
+
+    var dataWithPatient = data;
+    dataWithPatient.fhir.subject.reference.reference = currentUser._id;
+    dataWithPatient.fhir.subject.display = currentUser.fullName;
+    // console.log("NEWNEWNEW wearableDataRepository NEWNEWNEW");
+    // var d = dataWithPatient;
+    // d.fhir.valueSampledData.data = undefined;
+    // console.log(JSON.stringify(d));
+
     const [record] = await WearableData.create(
       [
         {
-          ...data,
+          ...dataWithPatient,
           createdBy: currentUser.id,
           updatedBy: currentUser.id,
-          patientName: currentUser.fullName,
-          patientId: currentUser._id,
+          //patientName: currentUser.fullName,
+          //patientId: currentUser._id,
         },
       ],
       MongooseRepository.getSessionOptionsIfExists(options),
@@ -42,6 +53,8 @@ class WearableDataRepository {
       data,
       options,
     );
+
+    
 
     return this.findById(record.id, options);
   }

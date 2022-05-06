@@ -20,6 +20,11 @@ module.exports = class WearableDataService {
   async create(data) {
     const session = await MongooseRepository.createSession();
 
+    // console.log("BACK- yoooo in da wearableDataService -END");
+    // var d = data;
+    // d.fhir.valueSampledData.data = undefined;
+    // console.log(JSON.stringify(d));
+
     try {
       const record = await this.repository.create(data, {
         session: session,
@@ -27,6 +32,9 @@ module.exports = class WearableDataService {
       });
 
       await MongooseRepository.commitTransaction(session);
+
+      // console.log("DID WE GET A RECORD????");
+      // console.log(record);
 
       return record;
     } catch (error) {

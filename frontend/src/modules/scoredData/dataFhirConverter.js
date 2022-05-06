@@ -7,46 +7,43 @@ export default class DataFhirConverter {
      * 
      */
 
-     static wearableDataToFhir(wearableDataJSON) {
+     static wearableDataToFhir(wearableDataJSON, dataTypeText) {
         console.log("--- wearableDataJSON ---");
         console.log(wearableDataJSON);
 
-        const fhirJSON = { 
-            resourceType: 'Observation',
-            status: 'final',
-            code : {
-                coding: {
-                    system: null,
-                    display: wearableDataJSON.dataType,
-                },
-            text: 'A proprietary stress score derived from analysed wearable sensor data'
-            },
-            subject: {
-                reference: {
-                    reference: wearableDataJSON.patientId
-                },
-                type: 'Patient',
-                display: wearableDataJSON.patientName
-            },
-            effectivePeriod: {
-                start: wearableDataJSON.timeStart,
-                end: wearableDataJSON.timeEnd
-            },
-            device : {
-                display: 'Empatica E4'
-            },
-            valueString: wearableDataJSON.score,
-            derivedFrom: {
-                references: [
-                    {
-                        reference: wearableDataJSON.dataId,
-                        text: 'Reference to EDA raw data ID in database'
+        const fhirJSON = {
+            fhir: {
+                resourceType: 'Observation',
+                status: 'final',
+                code : {
+                    coding: {
+                        system: null,
+                        display: wearableDataJSON.dataType,
                     },
-                    {
-                        reference: wearableDataJSON.dataId,
-                        text: 'Reference to ST raw data ID in database'
-                    }
-                ]
+                    text: dataTypeText
+                },
+                subject: {
+                    reference: {
+                        reference: wearableDataJSON.patientId
+                    },
+                    type: 'Patient',
+                    display: wearableDataJSON.patientName
+                },
+                effectivePeriod: {
+                    start: wearableDataJSON.timeStart,
+                    end: wearableDataJSON.timeEnd
+                },
+                device: {
+                    display: 'Empatica E4'
+                },
+                valueSampledData: {
+                    origin: {
+                        value: wearableDataJSON.id
+                    },
+                    period: 1000 / wearableDataJSON.frequency,
+                    dimensions: 1,
+                    data: wearableDataJSON.data
+                }
             }
         };
         return fhirJSON;
@@ -57,41 +54,43 @@ export default class DataFhirConverter {
         console.log(scoredDataJSON);
 
         const fhirJSON = { 
-            resourceType: 'Observation',
-            status: 'final',
-            code : {
-                coding: {
-                    system: null,
-                    display: scoredDataJSON.dataType,
-                },
-            text: 'A proprietary stress score derived from analysed wearable sensor data'
-            },
-            subject: {
-                reference: {
-                    reference: scoredDataJSON.patientId
-                },
-                type: 'Patient',
-                display: scoredDataJSON.patientName
-            },
-            effectivePeriod: {
-                start: scoredDataJSON.timeStart,
-                end: scoredDataJSON.timeEnd
-            },
-            device : {
-                display: 'Empatica E4'
-            },
-            valueString: scoredDataJSON.score,
-            derivedFrom: {
-                references: [
-                    {
-                        reference: scoredDataJSON.dataId,
-                        text: 'Reference to EDA raw data ID in database'
+            fhir: { 
+                resourceType: 'Observation',
+                status: 'final',
+                code : {
+                    coding: {
+                        system: null,
+                        display: scoredDataJSON.dataType,
                     },
-                    {
-                        reference: scoredDataJSON.dataId,
-                        text: 'Reference to ST raw data ID in database'
-                    }
-                ]
+                    text: 'A proprietary stress score derived from analysed wearable sensor data'
+                },
+                subject: {
+                    reference: {
+                        reference: scoredDataJSON.patientId
+                    },
+                    type: 'Patient',
+                    display: scoredDataJSON.patientName
+                },
+                effectivePeriod: {
+                    start: scoredDataJSON.timeStart,
+                    end: scoredDataJSON.timeEnd
+                },
+                device: {
+                    display: 'Empatica E4'
+                },
+                valueString: scoredDataJSON.score,
+                derivedFrom: {
+                    references: [
+                        {
+                            reference: scoredDataJSON.dataId,
+                            text: 'Reference to EDA raw data ID in database'
+                        },
+                        {
+                            reference: scoredDataJSON.dataId,
+                            text: 'Reference to ST raw data ID in database'
+                        }
+                    ]
+                }
             }
         };
         return fhirJSON;
@@ -102,7 +101,12 @@ export default class DataFhirConverter {
         console.log(fhirDataJSON);
 
         const scoredDataJSON = {
-
+            id: fhirDataJSON.id,
+            score: fhirDataJSON.fhir.valueString,
+            dataType: fhirDataJSON.fhir.code.coding.display,
+            timeStart: fhirDataJSON.fhir.effectivePeriod.start,
+            timeEnd: fhirDataJSON.fhir.effectivePeriod.end,
+            patientName: fhirDataJSON.fhir.subject.display
         };
         return scoredDataJSON;
     }
