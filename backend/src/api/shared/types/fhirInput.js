@@ -3,7 +3,7 @@
 const schema = `
 input CodingInput {
     system: String
-    display: String!
+    display: String
 }
 
 input CodeInput {
@@ -23,8 +23,8 @@ input SubjectInput {
 }
 
 input EffectivePeriodInput {
-    start: String!
-    end: String!
+    start: String
+    end: String
 }
 
 input DeviceInput {
@@ -47,8 +47,8 @@ input ValueSampledDataInput {
 }
 
 input FhirObservationInput {
-    resourceType: String!
-    status: String!
+    resourceType: String
+    status: String
     code: CodeInput
     subject: SubjectInput
     effectivePeriod: EffectivePeriodInput

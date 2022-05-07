@@ -162,6 +162,8 @@ class ScoredDataRepository {
     },
     options,
   ) {
+    console.log("HALLAISIKEN 3 menhvor er")
+    console.log(filter)
     let criteria = {};
 
     if (filter) {
@@ -196,15 +198,12 @@ class ScoredDataRepository {
         };
       }
 
-      if (filter.patientId) {
+      if (filter.fhir.subject.reference.reference) {
         criteria = {
           ...criteria,
-          patientId: {
-            $regex: MongooseQueryUtils.escapeRegExp(
-              filter.patientId,
-            ),
-            $options: 'i',
-          },
+          fhir: { subject: { reference: { reference:
+            filter.fhir.subject.reference.reference
+          }}},
         };
       }
 
@@ -260,10 +259,16 @@ class ScoredDataRepository {
     const skip = Number(offset || 0) || undefined;
     const limitEscaped = Number(limit || 0) || undefined;
 
+    console.log("CRITERIER!");
+    console.log(JSON.stringify(criteria));
+
     const rows = await ScoredData.find(criteria)
       .skip(skip)
       .limit(limitEscaped)
       .sort(sort);
+
+    console.log("Her er radene!!!");
+    console.log(rows);
 
     const count = await ScoredData.countDocuments(criteria);
 

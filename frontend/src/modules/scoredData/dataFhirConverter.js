@@ -53,13 +53,14 @@ export default class DataFhirConverter {
         console.log("--- scoredDataToFhir ---");
         console.log(scoredDataJSON);
 
-        const fhirJSON = { 
+        const fhirJSON = {
+            id: scoredDataJSON.id,
             fhir: { 
                 resourceType: 'Observation',
                 status: 'final',
                 code : {
                     coding: {
-                        system: null,
+                        system: undefined,
                         display: scoredDataJSON.dataType,
                     },
                     text: 'A proprietary stress score derived from analysed wearable sensor data'
@@ -106,7 +107,9 @@ export default class DataFhirConverter {
             dataType: fhirDataJSON.fhir.code.coding.display,
             timeStart: fhirDataJSON.fhir.effectivePeriod.start,
             timeEnd: fhirDataJSON.fhir.effectivePeriod.end,
-            patientName: fhirDataJSON.fhir.subject.display
+            patientName: fhirDataJSON.fhir.subject.display,
+            patientId: fhirDataJSON.fhir.subject.reference.reference,
+            dataId: fhirDataJSON.fhir.derivedFrom.references
         };
         return scoredDataJSON;
     }

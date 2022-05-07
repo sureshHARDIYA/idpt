@@ -30,7 +30,7 @@ export default (userId) => {
             };
             this.createGraph(userId);
         }
-        
+
         render() {
 
             if (this.state.data){
@@ -40,7 +40,7 @@ export default (userId) => {
                 return <Line data={{}}/>
             }
         }
-        
+
         async getDataFromPatient(id){
             const filter = {patientId: id}
             var data = await ScoredDataService.list(filter);

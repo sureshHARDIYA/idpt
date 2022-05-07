@@ -13,6 +13,8 @@ const resolver = {
     new PermissionChecker(context)
       .validateHas(permissions.scoredDataRead);
 
+    console.log("args: \n" + JSON.stringify(args))
+
     return new ScoredDataService(context).findAndCountAll({
       ...args,
       requestedAttributes: graphqlSelectRequestedAttributes(

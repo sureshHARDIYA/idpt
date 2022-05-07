@@ -1,6 +1,7 @@
 const schema = `
 input ScoredDataFilterInput {
   id: String
+  fhir: FhirObservationInput
   createdAtRange: [ DateTime ]
 }
 `;

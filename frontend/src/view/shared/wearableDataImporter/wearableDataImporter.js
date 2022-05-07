@@ -38,7 +38,6 @@ export default () => {
                         <span>Drop TEMP.csv file here or click to upload.</span>
                     </CSVReader>
                 </React.Fragment>
-                
             );
         }
 
@@ -46,8 +45,16 @@ export default () => {
             const year = date.getFullYear();
             const month = date.getMonth();
             const day = date.getDate();
-            const hour = date.getHours();
-            const minute = date.getMinutes();
+
+            var hour = date.getHours();
+            if (hour.toString().length === 1) {
+                hour = '0' + hour.toString();
+            }
+
+            var minute = date.getMinutes();
+            if (minute.toString().length === 1) {
+                minute = '0' + minute.toString();
+            }
             return year + '-' + month + '-' + day + ' ' + hour + ':' + minute;
         }
 
@@ -64,7 +71,7 @@ export default () => {
             var duration = parseInt(dataArray.length / frequency);
             var timeEnd = this.dateFormater(new Date(parseInt(timeStart) + duration));
             timeStart = this.dateFormater(new Date(timeStart));
-            
+
             var data = { dataType: data_type,
                          frequency: frequency.toString(),
                          timeStart: timeStart,
@@ -77,14 +84,14 @@ export default () => {
         validCheck(data) {
             var data_type = data.dataType;
             
-            if (data_type == "EDA"){
+            if (data_type === "EDA"){
                 this.setState({
                     EDA_uploaded: true,
                     EDA_data: data
                 });
             }
-
-            if (data_type == "TEMP"){
+            
+            if (data_type === "TEMP"){
                 this.setState({
                     TEMP_uploaded: true,
                     TEMP_data: data
@@ -92,7 +99,7 @@ export default () => {
             }
 
             if (this.state.EDA_uploaded && this.state.TEMP_uploaded){
-                if (this.state.EDA_data.timestamp == this.state.TEMP_data.timestamp){
+                if (this.state.EDA_data.timestamp === this.state.TEMP_data.timestamp){
                     var datas = [];
                     datas.push(DataFhirConverter.wearableDataToFhir(this.state.EDA_data, "EDA data in microsiemens"));
                     datas.push(DataFhirConverter.wearableDataToFhir(this.state.TEMP_data, "Skin temp. data in degrees celsius"));

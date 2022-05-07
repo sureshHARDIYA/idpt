@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 import graphqlClient from 'modules/shared/graphql/graphqlClient';
-import FhirConverter from 'modules/scoredData/dataFhirConverter'; 
+import DataFhirConverter from 'modules/scoredData/dataFhirConverter';
 
 export default class ScoredDataService {
   static async update(id, data) {
@@ -132,41 +132,11 @@ export default class ScoredDataService {
     return response.data.scoredDataFind;
   }
 
-  /*
-  static async find(id) {
-    const response = await graphqlClient.query({
-      query: gql`
-        query SCOREDDATA_FIND($id: String!) {
-          scoredDataFind(id: $id) {
-            id
-            dataType
-            score
-            timeStart
-            timeEnd
-            patientName
-            patientId
-            createdAt
-            updatedAt
-          }
-        }
-      `,
+  static async list(oldFilter, orderBy, limit, offset) {
 
-      variables: {
-        id,
-      },
-    });
-
-    return response.data.scoredDataFind;
-  }
-  */
-
-  static async list(filter, orderBy, limit, offset) {
-
-    // TODO
-    console.log("*** scoredDataService ***");
+    var filter = DataFhirConverter.scoredDataToFhir(oldFilter);
+    console.log("fhirFilter");
     console.log(filter);
-    const fhirFilter = FhirConverter.scoredDataToFhir(filter);
-    console.log(fhirFilter);
 
     const response = await graphqlClient.query({
       query: gql`
@@ -182,89 +152,47 @@ export default class ScoredDataService {
             limit: $limit
             offset: $offset
           ) {
-            count
-            rows {
-              id
-              fhir {
-                resourceType
-                status
-                code {
-                  coding {
-                    system
+              count
+              rows {
+                id
+                fhir {
+                  resourceType
+                  status
+                  code {
+                    coding {
+                      system
+                      display
+                    }
+                    text
+                  }
+                  subject {
+                    reference {
+                      reference
+                      text
+                    }
+                    type
                     display
                   }
-                  text
-                }
-                subject {
-                  reference {
-                    reference
-                    text
+                  effectivePeriod {
+                    start
+                    end
                   }
-                  type
-                  display
-                }
-                effectivePeriod {
-                  start
-                  end
-                }
-                device {
-                  display
-                }
-                valueString
-                derivedFrom {
-                  references {
-                    reference
-                    text
+                  device {
+                    display
+                  }
+                  valueString
+                  derivedFrom {
+                    references {
+                      reference
+                      text
+                    }
                   }
                 }
+                updatedAt
+                createdAt
               }
-              updatedAt
-              createdAt
             }
           }
-        }
-      `,
-
-      variables: {
-        fhirFilter,
-        orderBy,
-        limit,
-        offset,
-      },
-    });
-
-    return response.data.scoredDataList;
-  }
-
-  /*static async list(filter, orderBy, limit, offset) {
-    const response = await graphqlClient.query({
-      query: gql`
-        query SCOREDDATA_LIST(
-          $filter: ScoredDataFilterInput
-          $orderBy: ScoredDataOrderByEnum
-          $limit: Int
-          $offset: Int
-        ) {
-          scoredDataList(
-            filter: $filter
-            orderBy: $orderBy
-            limit: $limit
-            offset: $offset
-          ) {
-            count
-            rows {
-              id
-              dataType
-              score
-              timeStart
-              timeEnd
-              patientName
-              patientId
-              updatedAt
-              createdAt
-            }
-          }
-        }
       `,
 
       variables: {
@@ -275,9 +203,14 @@ export default class ScoredDataService {
       },
     });
 
+    var newRows = [];
+    for (const row of response.data.scoredDataList.rows) {
+      newRows.push(DataFhirConverter.fhirToScoredData(row));
+    }
+    response.data.scoredDataList.rows = newRows;
+
     return response.data.scoredDataList;
   }
-  */
 
   static async listAutocomplete(query, limit) {
     const response = await graphqlClient.query({

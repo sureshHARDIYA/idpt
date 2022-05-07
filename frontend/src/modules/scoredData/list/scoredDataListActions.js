@@ -4,7 +4,6 @@ import { i18n } from 'i18n';
 import exporterFields from 'modules/scoredData/list/scoredDataListExporterFields';
 import Errors from 'modules/shared/error/errors';
 import Exporter from 'modules/shared/exporter/exporter';
-import DataFhirConverter from 'modules/scoredData/dataFhirConverter';
 
 const prefix = 'SCOREDDATA_LIST';
 
@@ -109,19 +108,16 @@ const actions = {
         selectors.selectOffset(getState()),
       );
 
-      // TODO
-      console.log("^^^ doFetch ^^^");
-      console.log(response);
-      var newRows = [];
-      for (const row of response.rows) {
-        newRows.push(DataFhirConverter.fhirToScoredData(row));
-      }
+      //var newRows = [];
+      //for (const row of response.rows) {
+      //  newRows.push(DataFhirConverter.fhirToScoredData(row));
+      //}
 
       dispatch({
         type: actions.FETCH_SUCCESS,
         payload: {
-          //rows: response.rows,
-          rows: newRows,
+          rows: response.rows,
+          //rows: newRows,
           count: response.count,
         },
       });
