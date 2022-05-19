@@ -7,7 +7,7 @@ input CodingInput {
 }
 
 input CodeInput {
-    coding: CodingInput
+    coding: [CodingInput]
     text: String
 }
 
@@ -17,7 +17,7 @@ input ReferenceInput {
 }
 
 input SubjectInput {
-    reference: ReferenceInput
+    reference: String
     type: String
     display: String
 }

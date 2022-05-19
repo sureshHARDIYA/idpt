@@ -7,20 +7,6 @@ const schema = `
   }
 `;
 
-/*const schema = `
-  type WearableData {
-    id: String!
-    dataType: String!
-    frequency: String!
-    timestamp: String!
-    patientName: String
-    patientId: String
-    data: [String]
-    createdAt: DateTime
-    updatedAt: DateTime
-  }
-`;*/
-
 const resolver = {};
 
 exports.schema = schema;

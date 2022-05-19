@@ -198,12 +198,12 @@ class ScoredDataRepository {
         };
       }
 
-      if (filter.fhir.subject.reference.reference) {
+      if (filter.fhir.subject.reference) {
         criteria = {
           ...criteria,
-          fhir: { subject: { reference: { reference:
-            filter.fhir.subject.reference.reference
-          }}},
+          fhir: { subject: { reference:
+            filter.fhir.subject.reference
+          }},
         };
       }
 

@@ -16,10 +16,10 @@ export default class DataFhirConverter {
                 resourceType: 'Observation',
                 status: 'final',
                 code : {
-                    coding: {
-                        system: null,
+                    coding: [{
+                        system: "n/a",
                         display: wearableDataJSON.dataType,
-                    },
+                    }],
                     text: dataTypeText
                 },
                 subject: {
@@ -59,16 +59,14 @@ export default class DataFhirConverter {
                 resourceType: 'Observation',
                 status: 'final',
                 code : {
-                    coding: {
-                        system: undefined,
+                    coding: [{
+                        system: "n/a",
                         display: scoredDataJSON.dataType,
-                    },
+                    }],
                     text: 'A proprietary stress score derived from analysed wearable sensor data'
                 },
                 subject: {
-                    reference: {
-                        reference: scoredDataJSON.patientId
-                    },
+                    reference: scoredDataJSON.patientId,
                     type: 'Patient',
                     display: scoredDataJSON.patientName
                 },
@@ -108,7 +106,7 @@ export default class DataFhirConverter {
             timeStart: fhirDataJSON.fhir.effectivePeriod.start,
             timeEnd: fhirDataJSON.fhir.effectivePeriod.end,
             patientName: fhirDataJSON.fhir.subject.display,
-            patientId: fhirDataJSON.fhir.subject.reference.reference,
+            patientId: fhirDataJSON.fhir.subject.reference,
             dataId: fhirDataJSON.fhir.derivedFrom.references
         };
         return scoredDataJSON;

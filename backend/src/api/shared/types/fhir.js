@@ -7,7 +7,7 @@ type Coding {
 }
 
 type Code {
-    coding: Coding
+    coding: [Coding]
     text: String
 }
 
@@ -17,7 +17,7 @@ type Reference {
 }
 
 type Subject {
-    reference: Reference
+    reference: String
     type: String
     display: String
 }

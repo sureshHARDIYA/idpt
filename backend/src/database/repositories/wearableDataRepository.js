@@ -27,7 +27,7 @@ class WearableDataRepository {
     // console.log(JSON.stringify(data));
 
     var dataWithPatient = data;
-    dataWithPatient.fhir.subject.reference.reference = currentUser._id;
+    dataWithPatient.fhir.subject.reference = currentUser._id;
     dataWithPatient.fhir.subject.display = currentUser.fullName;
     // console.log("NEWNEWNEW wearableDataRepository NEWNEWNEW");
     // var d = dataWithPatient;

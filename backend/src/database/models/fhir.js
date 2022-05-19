@@ -18,10 +18,10 @@ const CodingSchema = new Schema(Coding, {
 
 const Code =
 {
-    coding: {
+    coding: [{
         type: CodingSchema,
         required: false,
-    },
+    }],
     text: {
         type: String,
         required: true,
@@ -49,7 +49,7 @@ const ReferenceSchema = new Schema(Reference, {
 const Subject =
 {
     reference: {
-        type: ReferenceSchema,
+        type: String,
         required: false,
     },
     type: {
@@ -136,8 +136,8 @@ const ValueSampledDataSchema = new Schema(ValueSampledData, {
     _id: false
 });
 
-const Observation =
-{
+const ObservationSchema = new Schema(
+  {
     resourceType: {
         type: String,
         required: true,
@@ -175,10 +175,11 @@ const Observation =
         type: DerivedFromSchema,
         required: false,
     },
-};
-const ObservationSchema = new Schema(Observation, {
+  },
+  {
     _id: false
-});
+  }
+);
 
 module.exports = {CodingSchema, CodeSchema, ReferenceSchema, 
     SubjectSchema, EffectivePeriodSchema, DeviceSchema, 

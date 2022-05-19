@@ -38,7 +38,7 @@ const analyze = (datas) => {
     parseFloat(score.toFixed(2)), EDAdata._id, TEMPdata._id);*/
 
   const fhirJSON = createFhirJSON(EDAdata.fhir.effectivePeriod.start,
-    EDAdata.fhir.effectivePeriod.end, EDAdata.fhir.subject.display, EDAdata.fhir.subject.reference.reference,
+    EDAdata.fhir.effectivePeriod.end, EDAdata.fhir.subject.display, EDAdata.fhir.subject.reference,
     parseFloat(score.toFixed(2)), EDAdata._id, TEMPdata._id);
 
   console.log(JSON.stringify(fhirJSON));
@@ -52,16 +52,14 @@ const createFhirJSON = (timeStart, timeEnd, patientName, patientId, score, EdaId
       resourceType: 'Observation',
       status: 'final',
       code: {
-        coding: {
-          system: null,
+        coding: [{
+          system: "n/a",
           display: 'Stress',
-        },
+        }],
         text: 'A proprietary stress score derived from analysed wearable sensor data'
       },
       subject: {
-        reference: {
-          reference: patientId
-        },
+        reference: patientId,
         type: 'Patient',
         display: patientName
       },

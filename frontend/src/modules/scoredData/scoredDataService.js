@@ -96,10 +96,7 @@ export default class ScoredDataService {
                 text
               }
               subject {
-                reference {
-                  reference
-                  text
-                }
+                reference
                 type
                 display
               }
@@ -166,10 +163,7 @@ export default class ScoredDataService {
                     text
                   }
                   subject {
-                    reference {
-                      reference
-                      text
-                    }
+                    reference
                     type
                     display
                   }

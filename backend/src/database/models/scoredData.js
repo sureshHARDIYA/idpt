@@ -23,49 +23,6 @@ const FHIR = require('./fhir');
   }
 );
 
-
-/*const ScoredDataSchema = new Schema(
-  {
-    dataType: {
-      type: String,
-      required: true,
-    },
-    score: {
-      type: Number,
-      min: 0,
-    },
-    timeStart: {
-      type: String,
-      required: true,
-    },
-    timeEnd: {
-      type: String,
-      required: true,
-    },
-    patientName: {
-      type: String,
-      required: true,
-    },
-    patientId: {
-      type: String,
-      required: true,
-    },
-    dataId: {
-      type: String,
-      required: true,
-    },
-    createdBy: {
-      type: Schema.Types.ObjectId,
-      ref: 'user',
-    },
-    updatedBy: {
-      type: Schema.Types.ObjectId,
-      ref: 'user',
-    },
-  }
-);
-*/
-
 ScoredDataSchema.virtual('id').get(function() {
   return this._id.toHexString();
 });
