@@ -27,7 +27,7 @@
     "history": "4.7.2",
     "lodash": "4.17.21",
     "md5": "2.3.0",
-    "moment-timezone": "^0.5.34",
+    "moment-timezone": "^0.5.35",
     "nprogress": "0.2.0",
     "query-string": "7.0.1",
     "react": "16.8.3",
