@@ -23,7 +23,7 @@
     "graphql-tools": "4.0.6",
     "graphql-type-json": "0.3.0",
     "helmet": "3.21.2",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "lodash": "4.17.21",
     "moment": "2.24.0",
     "mongoose": "5.7.8",
