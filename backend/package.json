@@ -26,7 +26,7 @@
     "jsonwebtoken": "^8.5.1",
     "lodash": "4.17.21",
     "moment": "2.24.0",
-    "mongoose": "5.7.8",
+    "mongoose": "5.13.20",
     "nodemailer": "6.4.16",
     "yarn": "^1.22.5"
   },
