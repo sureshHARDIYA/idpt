@@ -22,9 +22,7 @@ Each case contains one to many modules that focus on any particular dimension of
 
 Each module, in turn, includes one to many tasks and have constraints as the prerequisites. Examples of such constraints include task dependencies, task availability, publication date, and others. Each task contributes to collecting passive (informative) or active (interactive) data in the system. Informative tasks provide learning materials about the mental health issue (case), symptoms, use cases, and several ways to manage them. The main objective of such educational materials is to provide psycho-education so that a) patients and their families can learn about symptoms, causes, and treatment concepts; b) patients can comprehend self-help program and steps required to manage their illness; c) patients can correlate their situations with similar others which helps to ventilate their frustrations. Such educational materials are in the form of reading tasks (text), listening (audio), and watching (video). In contrast to informative tasks, interactive tasks involve user interactions and often in the form of exercises. The exercises can be physical activities or computerized tasks. Examples of activities include physical workouts and mindfulness exercises such as breathing exercises, walking certain distances, stretching, or physically performing any other activities. Examples of the computerized exercises involve fill in the blanks, question answering (Q/A), multiple-choice questions (MCQ), and feedback. The feedback type of task consists of using free text, rating systems, or multiple-choice questions.
 
-# Demo
-
-[Check online Demo](https://idpt.herokuapp.com/)
+# Demo Account username and password
 
 ```
 username:  admin@idpt.no
