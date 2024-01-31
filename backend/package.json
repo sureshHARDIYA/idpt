@@ -27,7 +27,7 @@
     "lodash": "4.17.21",
     "moment": "2.24.0",
     "mongoose": "5.7.8",
-    "nodemailer": "6.4.16",
+    "nodemailer": "6.9.8",
     "yarn": "^1.22.5"
   },
   "engines": {
