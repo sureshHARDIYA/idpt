@@ -28,7 +28,7 @@
     "moment": "2.24.0",
     "mongoose": "5.7.8",
     "nodemailer": "6.4.16",
-    "yarn": "^1.22.5"
+    "yarn": "^1.22.13"
   },
   "engines": {
     "node": ">8"
